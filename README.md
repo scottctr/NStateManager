@@ -9,15 +9,17 @@ Easy to use and very flexible state manager for .Net.
 - Lots of options for defining what happens when triggers/events occur and entering, reentering, or exiting states
 
 # Background
-This project is influenced by [Stateless](https://github.com/dotnet-state-machine/stateless). Stateless is a great state manager that I've used successfully in a point-of-sale system, but is based on a foundationally different model than we need for our system. Each instance of Stateless' state machine is bound to a specific object, which is OK if your objects have a long lifespan and go through multiple actions and state changes. Our system is a cloud-based system and each instance only lives long enough to execute a single request (add item, add payment, etc.) so Stateless required constructing a new instance of the state machine each time we processed a request on the server. It's just more efficient to have a single state machine we can use for all objects on our server.
+This project is inspired by [Stateless](https://github.com/dotnet-state-machine/stateless). Stateless is a great state manager that I've used successfully in a point-of-sale system, but is based on a foundationally different model than we need for our system. Each instance of Stateless' state machine is bound to a specific object, which is OK if your objects have a long lifespan and go through multiple actions and state changes. Our system is a cloud-based system and each instance only lives long enough to execute a single request (add item, add payment, etc.) so Stateless required constructing a new instance of the state machine each time we processed a request on the server. It's just more efficient to have a single state machine we can use for all objects on our server.
 
 Given the foundational difference, I decided to start from scratch. So I started reviewing various state management products, related design patterns, academic papers, forums, academic papers, etc. and set the following goals:
 - Be simple and intuitive to use for simple use cases
 - Be flexible enough to adapt to complex use cases and changing requirements with minimal rework
 - Adhere to SOLID design principles
 
+I would appreciate feedback, questions, advice, and contributions. I'm a big believer that WE are smarter than ME and we can work together to create something that will add value to most any .Net application.
+
 # Getting Started
-Let's start walking through an example to see those features. Our example will be managing the Sale component of a point-of-sale (POS) system used by grocery stores, fuel stations, restaurants -- virtually any sales environment. We'll start simple and add in some complexity as we go.
+Let's start working through an example to see those features in action and see how well we're aligning to our goals. Our example will be managing the Sale component of a point-of-sale (POS) system used by grocery stores, fuel stations, restaurants -- virtually any sales environment. We'll start simple and add in some complexity as we go.
 
 In the first version of our POS, we're only going to be able to add items to our sale and pay for them. Sales will start in an Open state and then move to a Complete state once fully paid for. You can use any IComparable to represent your states, but we'll use an enum for this example:
 
