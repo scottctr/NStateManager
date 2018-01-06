@@ -4,7 +4,7 @@ Easy to use and very flexible state manager for .Net.
 # Features
 - Simple interface so it's easy to get started
 - State management and trigger/event processing are decoupled to simplify configuration
-- Stateless so it can be used as a shared resource or embedded as part of managed entity
+- Stateless so it can be used as a shared resource or embedded as part of a managed entity
 - Full async/await support, including cancellation and ConfigureAwait
 - Lots of options for defining what happens when triggers/events occur and entering, reentering, or exiting states
 
@@ -89,6 +89,44 @@ _stateMachine.ConfigureState(SaleState.Complete)
 ```
 
 `AddEntryAction` allows you to define an action to take whenever your object enters the state. Here we're just printing a message to confirm we're in the Complete state. There's an overload of this method where you can specify to only perform an action when coming from a specific previous state. You can also define actions when exiting or reentering a state.
+
+We're fully configured for our current requirements, so let's see how to put this thing to use
+
+```C#
+public static void AddItem(Sale sale, SaleItem saleItem)
+{
+  _stateMachine.FireTrigger(sale, SaleEvent.AddItem, saleItem);
+}
+
+public static void AddPayment(Sale sale, Payment payment)
+{
+  _stateMachine.FireTrigger(sale, SaleEvent.Pay, payment);
+}
+```
+
+The 'FireTrigger' method on the `StateMachine` is how it all comes together. The first parameter is the context (i.e. instance of the type being managed). The second parameter is the trigger (or event) that's occuring. And the third parameter is the details of the event that's occuring. Note that you will not use the third parameter if you didn't define a parameter type (`TRequest`) on the calls to `AddTriggerAction`. You'll also see that I've wrapped the FireTrigger calls in methods on a static class to expose them.
+
+Now let's see a simple test case and the output
+
+```C#
+static void Main(string[] args)
+{
+  var sale = new Sale();
+  SaleStateMachine.AddItem(sale, new SaleItem("SodaPop", 1.00));
+  SaleStateMachine.AddItem(sale, new SaleItem("Chips", 1.00));
+  SaleStateMachine.AddPayment(sale, new Payment(2.00));
+  //We should be in Complete state here, so the following actions should be ignored
+  SaleStateMachine.AddItem(sale, new SaleItem("Magazine", 3.00));
+  SaleStateMachine.AddItem(sale, new SaleItem("Fuel", 10.00));
+}
+```
+
+```
+SodaPop added for $1.00. Balance $1.00
+Chips added for $1.00. Balance $2.00
+Payment of $2.00 added. Balance $0.00
+Sale is complete
+```
 
 # Still lots to do to get this rolling, so here's the current to-do list in priority order
 - Finish Sale example
