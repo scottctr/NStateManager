@@ -1,14 +1,22 @@
 # NStateManager
 Easy to use and very flexible state manager for .Net.
 
-Features
+# Features
 - Simple interface so it's easy to get started
 - State management and trigger/event processing are decoupled to simplify configuration
 - Stateless so it can be used as a shared resource or embedded as part of managed entity
 - Full async/await support, including cancellation and ConfigureAwait
 - Lots of options for defining what happens when triggers/events occur and entering, reentering, or exiting states
 
-Getting Started
+# Background
+This project is influenced by [Stateless](https://github.com/dotnet-state-machine/stateless). Stateless is a great state manager that I've used successfully in a point-of-sale system, but is based on a foundationally different model than we need for our system. Each instance of Stateless' state machine is bound to a specific object, which is OK if your objects have a long lifespan and go through multiple actions and state changes. Our system is a cloud-based system and each instance only lives long enough to execute a single request (add item, add payment, etc.) so Stateless required constructing a new instance of the state machine each time we processed a request on the server. It's just more efficient to have a single state machine we can use for all objects on our server.
+
+Given the foundational difference, I decided to start from scratch. So I started reviewing various state management products, related design patterns, academic papers, forums, academic papers, etc. and set the following goals:
+- Be simple and intuitive to use for simple use cases
+- Be flexible enough to adapt to complex use cases and changing requirements with minimal rework
+- Adhere to SOLID design principles
+
+# Getting Started
 Let's start walking through an example to see those features. Our example will be managing the Sale component of a point-of-sale (POS) system used by grocery stores, fuel stations, restaurants -- virtually any sales environment. We'll start simple and add in some complexity as we go.
 
 In the first version of our POS, we're only going to be able to add items to our sale and pay for them. Sales will start in an Open state and then move to a Complete state once fully paid for. You can use any IComparable to represent your states, but we'll use an enum for this example:
@@ -39,14 +47,14 @@ _stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(
   ,stateMutator: (sale, state) => sale.State = state);
 ```
 
-Notice the 3 types defined by the type: Sale, SaleState, and SaleEvent. These define:
-1. Sale is the type of objects being managed
-2. SaleState is the type used for the possible states. (NOTE: Must be IComparable)
-3. SaleEvent is the type used for the triggers (i.e. events) that can change the state of the objects.
+Notice the 3 generic types defined with our `StateMachine`
+1. Sale (`T`) is the type of objects being managed
+2. SaleState (`TState`) is the type used for the possible states. (NOTE: Must be IComparable)
+3. SaleEvent (`TTrigger`) is the type used for the triggers (i.e. events) that can change the state of the objects.
 
 There are also 2 parameters required by the constructor:
-- stateAccessor is a function to get the current state of an object
-- stateMutator is an action to set the state when it's updated
+- `stateAccessor` is a function to get the current state of an object
+- `stateMutator` is an action to set the state when it's updated
 
 Now that we have a state machine, let's configure it -- starting with the Open state
 
@@ -65,11 +73,11 @@ _stateMachine.ConfigureState(SaleState.Open)
   .AddTransition(SaleEvent.Pay, SaleState.Complete, sale => sale.Balance == 0);
 ```
 
-AddTriggerAction tells the state machine how to process the events that may affect our state:
+`AddTriggerAction` tells the state machine how to process the events that may affect our state:
 1. When the clerk initiates adding an item to the sale, we process it by adding it to the sale and print a summary of the item and the current balance.
 2. When the clerk or customer initiates payment for the sale, we process it by adding it to the sale and print a message about the payment with the current balance
 
-AddTransition tells the state machine when to transition to a new state. In our case, we check to see if we can move from Open to Complete when a payment is made...but we only make the transition if the sale's balance is 0.
+`AddTransition` tells the state machine when to transition to a new state. In our case, we check to see if we can move from Open to Complete when a payment is made...but we only make the transition if the sale's balance is 0.
 
 That's all we currently need for the Open state, so let's consider the Complete state. Complete is the final state in this version, so there's really nothing to configure. Since we defined the AddItem and Pay actions on Open state, they are totally ignored if they occur while in the Complete state -- no items or payments will be added to the sale and no other transitions will occur.
 
@@ -80,9 +88,9 @@ _stateMachine.ConfigureState(SaleState.Complete)
   .AddEntryAction(_ => Output.WriteLine("Sale is complete"));
 ```
 
-AddEntryAction allows you to define an action to take whenever your object enters the state. Here we're just printing a message to confirm we're in the Complete state. There's an overload of this method where you can specify to only perform an action when coming from a specific previous state. You can also define actions when exiting or reentering a state.
+`AddEntryAction` allows you to define an action to take whenever your object enters the state. Here we're just printing a message to confirm we're in the Complete state. There's an overload of this method where you can specify to only perform an action when coming from a specific previous state. You can also define actions when exiting or reentering a state.
 
-Still lots to do to get this rolling, so here's the current to-do list in priority order
+# Still lots to do to get this rolling, so here's the current to-do list in priority order
 - Finish Sale example
 - Finish unit tests
 - Finish this readme
