@@ -96,7 +96,7 @@ public static void AddPayment(Sale sale, Payment payment)
 }
 ```
 
-`StateMachine.FireTrigger' is how it all comes together. The first parameter is the managed object. The second parameter is the trigger (or event) that's occuring. And the third parameter is the details of the event that's occuring. Note that you will not use the third parameter if you didn't define a parameter type (`TRequest`) on the associated call to `AddTriggerAction`. You'll also see that I've wrapped the FireTrigger calls in methods on a static class to expose the state machine to our application.
+`StateMachine.FireTrigger` is how it all comes together. The first parameter is the managed object. The second parameter is the trigger (or event) that's occuring. And the third parameter is the details of the event that's occuring. Note that you will not use the third parameter if you didn't define a parameter type (`TRequest`) on the associated call to `AddTriggerAction`. You'll also see that I've wrapped the FireTrigger calls in methods on a static class to expose the state machine to our application.
 
 Now let's create a simple test case and look at the output
 
