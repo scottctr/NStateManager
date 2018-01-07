@@ -41,6 +41,7 @@ public enum SaleEvent
 }
 ```
 
+## Create and configure a StateMachine 
 With the states and events defined, we can create and configure our state machine:
 
 ```C#
@@ -58,6 +59,7 @@ There are also 2 parameters required by the constructor:
 - `stateAccessor` is a function to get the current state of an object
 - `stateMutator` is an action to set the state when it's updated
 
+### Configure states
 Now that we have a state machine, let's configure it -- starting with the Open state
 
 ```C#
@@ -75,11 +77,13 @@ _stateMachine.ConfigureState(SaleState.Open)
   .AddTransition(SaleEvent.Pay, SaleState.Complete, sale => sale.Balance == 0);
 ```
 
-`AddTriggerAction` tells the state machine how to process the events that may affect our state:
+`AddTriggerAction` tells the state machine how to process the events that may affect the object's state:
 1. When the clerk initiates adding an item to the sale, we process it by adding it to the sale and print a summary of the item and the current balance.
 2. When the clerk or customer initiates payment for the sale, we process it by adding it to the sale and print a message about the payment with the current balance
 
 `AddTransition` tells the state machine when to transition to a new state. In our case, we check to see if we can move from Open to Complete when a payment is made...but we only make the transition if the sale's balance is 0.
+
+Couple of notes on `AddTriggerAction` to help paint the big picture. We've used `AddTriggerAction` on a specific state. If you need to execute the same or similar actions across most all of your states, you can use the same method on `StateManager` and handle any state differences in the action. Also note that the second parameter of the action is optional. It's only available because we included SaleItem and Payment for `TRequest` on our call to `AddTriggerAction`. In a latter version, we'll in have a trigger action for cancelling a sale, which will likely be on the `StateMachine` and not include a `TRequest`.
 
 That's all we currently need for the Open state, so let's consider the Complete state. Complete is the final state in this version, so there's really nothing to configure. Since we defined the AddItem and Pay actions on Open state, they are totally ignored if they occur while in the Complete state -- no items or payments will be added to the sale and no other transitions will occur.
 
@@ -92,6 +96,7 @@ _stateMachine.ConfigureState(SaleState.Complete)
 
 `AddEntryAction` allows you to define an action to take whenever your object enters the state. Here we're just printing a message to confirm we're in the Complete state. There's an overload of this method where you can specify to only perform an action when coming from a specific previous state. You can also define actions when exiting or reentering a state.
 
+## Use the configured StateMachine
 We're fully configured for our current requirements, so let's see how to put this thing to use
 
 ```C#
@@ -131,10 +136,12 @@ Sale is complete
 ```
 
 # Still lots to do to get this rolling, so here's the current to-do list in priority order
+- Remove AddFallbackTransition and make option for trigger options
 - Finish Sale example
 - Finish unit tests
 - Finish this readme
 - Create Nuget package
+- Create event to notify when transitions occur
 - Lots of documentation
 - More examples and docs...
 
