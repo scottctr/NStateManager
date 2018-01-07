@@ -3,42 +3,34 @@ Easy to use and very flexible state manager for .Net.
 
 # Features
 - Simple interface so it's easy to get started
-- State management and trigger/event processing are decoupled to simplify configuration
-- Stateless so it can be used as a shared resource or embedded as part of a managed entity
+- State management and processing are decoupled to make configuration intuitive and flexible
+- Stateless so it's thread safe and a single instance can be used for instance of the managed entity
 - Full async/await support, including cancellation and ConfigureAwait
-- Lots of options for defining what happens when triggers/events occur and entering, reentering, or exiting states
+- Lots of options for defining what happens when triggers occur and when entering, reentering, or exiting states
 
 # Background
-This project is inspired by [Stateless](https://github.com/dotnet-state-machine/stateless). Stateless is a great state manager that I've used successfully in a point-of-sale system, but is based on a foundationally different model than we need for our system. Each instance of Stateless' state machine is bound to a specific object, which is OK if your objects have a long lifespan and go through multiple actions and state changes. Our system is a cloud-based system and each instance only lives long enough to execute a single request (add item, add payment, etc.) so Stateless required constructing a new instance of the state machine each time we processed a request on the server. It's just more efficient to have a single state machine we can use for all objects on our server.
+This project is inspired by [Stateless](https://github.com/dotnet-state-machine/stateless). Stateless is a great state manager that many have used successfully. Unfortunately, it's foundational model doesn't meet all needs. Many of today's solutions are cloud-based where objects only live long enough to process a single request. Since Stateless' state machines are bound to a single object, it leads to extra overhead for high-transaction solutions with short-lived objects.
 
-Given the foundational difference, I decided to start from scratch. So I started reviewing various state management products, related design patterns, forums, academic papers, etc. and set the following goals:
+Given the foundational mismatch, it was time to consider a new solution. I started reviewing various state management products, related design patterns, forums, academic papers, etc. and set the following goals:
 - Be simple and intuitive to use for simple use cases
 - Be flexible enough to adapt to complex use cases and changing requirements with minimal rework
 - Adhere to SOLID design principles
 
-I would appreciate feedback, questions, advice, and contributions. I'm a big believer that WE are smarter than ME and we can work together to create something that will add value to most any .Net application.
+I would appreciate feedback, questions, advice, and contributions. I'm a big believer that WE are smarter than ME and we can work together to create something that will add value to virtually any .Net application.
 
 # Getting Started
-Let's start working through an example to see those features in action and see how well we're aligning to our goals. Our example will be managing the Sale component of a point-of-sale (POS) system used by grocery stores, fuel stations, restaurants -- virtually any sales environment. We'll start simple and add in some complexity as we go.
+Let's start working through an example and see how well we're aligning to our goals. Our example will be managing the Sale component of a point-of-sale (POS) system used by grocery stores, fuel stations, restaurants -- virtually any sales environment. We'll start simple and add in some complexity as we go. This process will be somewhat verbose to provide proper insight to how the library works, its flexibility, and ability to grow with your project, so you may want to look at the finalized  SaleStateManager in the Sale.Console example before drawing conclusions about simplicity from this overview.
 
-In the first version of our POS, we're only going to be able to add items to our sale and pay for them. Sales will start in an Open state and then move to a Complete state once fully paid for. You can use any IComparable to represent your states, but we'll use an enum for this example:
+In the first version of our POS, we'll only be able to add items to our sale and pay for them. Sales will start in an Open state and then move to a Complete state once fully paid for. You can use any IComparable to represent your states, but we'll use an enum for this example:
 
 ```C#
-public enum SaleState
-{
-  Open,
-  Complete
-}
+public enum SaleState { Open, Complete }
 ```
 
-The state machine also needs to be involved in the application behaviors that can affect the state of the object being managed. This may not make sense yet, but will become clear as we work through the example. At this point, our system only allows adding items to the sale and paying, so we'll use an enum to represent those actions:
+The state machine also needs to be involved in the actions that can affect the state of the object being managed. This may not make sense yet, but will become clear as we work through the example. At this point, our system only allows adding items to the sale and paying, so we'll use an enum to represent those events (i.e. triggers for state changes):
 
 ```C#
-public enum SaleEvent
-{
-  AddItem,
-  Pay
-}
+public enum SaleEvent { AddItem, Pay }
 ```
 
 ## Create and configure a StateMachine 
@@ -53,9 +45,9 @@ _stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(
 Notice the 3 generic types defined with our `StateMachine`
 1. Sale (`T`) is the type of objects being managed
 2. SaleState (`TState`) is the type used for the possible states. (NOTE: Must be IComparable)
-3. SaleEvent (`TTrigger`) is the type used for the triggers (i.e. events) that can change the state of the objects.
+3. SaleEvent (`TTrigger`) is the type used for the triggers (i.e. events) that can lead to a change in state.
 
-There are also 2 parameters required by the constructor:
+There are 2 parameters required by the constructor:
 - `stateAccessor` is a function to get the current state of an object
 - `stateMutator` is an action to set the state when it's updated
 
@@ -64,56 +56,49 @@ Now that we have a state machine, let's configure it -- starting with the Open s
 
 ```C#
 _stateMachine.ConfigureState(SaleState.Open)
-  .AddTriggerAction<SaleItem>(SaleEvent.AddItem, (sale, saleItem) =>
-    {
+  .AddTriggerAction<SaleItem>(SaleEvent.AddItem, (sale, saleItem) => {
       sale.AddItem(saleItem);
-      Output.WriteLine($"{saleItem.Name} added for {saleItem.Price:C}. Balance {sale.Balance:C}");
-    })
-  .AddTriggerAction<Payment>(SaleEvent.Pay, (sale, payment) =>
-    {
+      Output.WriteLine($"{saleItem.Name} added for {saleItem.Price:C}. Balance {sale.Balance:C}"); })
+  .AddTriggerAction<Payment>(SaleEvent.Pay, (sale, payment) => {
       sale.AddPayment(payment);
-      Output.WriteLine($"Payment of {payment.Amount:C} added. Balance {sale.Balance:C}");
-    })
+      Output.WriteLine($"Payment of {payment.Amount:C} added. Balance {sale.Balance:C}"); })
   .AddTransition(SaleEvent.Pay, SaleState.Complete, sale => sale.Balance == 0);
 ```
 
-`AddTriggerAction` tells the state machine how to process the events that may affect the object's state:
-1. When the clerk initiates adding an item to the sale, we process it by adding it to the sale and print a summary of the item and the current balance.
-2. When the clerk or customer initiates payment for the sale, we process it by adding it to the sale and print a message about the payment with the current balance
+`AddTriggerAction` tells the state machine what action to perform when an event occurs.
+1. When initiating the addition of an item to the sale, it's added to the sale and a summary is printed.
+2. When initiating a payment, it's added to the sale and a summary is printed.
 
-`AddTransition` tells the state machine when to transition to a new state. In our case, we check to see if we can move from Open to Complete when a payment is made...but we only make the transition if the sale's balance is 0.
+`AddTransition` defines when to transition to a new state. Our example transitions from Open to Complete if the payment causes the sale's balance to go to 0.
 
-Couple of notes on `AddTriggerAction` to help paint the big picture. We've used `AddTriggerAction` on a specific state. If you need to execute the same or similar actions across most all of your states, you can use the same method on `StateManager` and handle any state differences in the action. Also note that the second parameter of the action is optional. It's only available because we included SaleItem and Payment for `TRequest` on our call to `AddTriggerAction`. In a latter version, we'll in have a trigger action for cancelling a sale, which will likely be on the `StateMachine` and not include a `TRequest`.
+We used `StateConfiguration.AddTriggerAction` on the Open state so the 'action' will only occur for the AddItem and Pay events if the sale is in the Open state. Use `StateMachine.AddTriggerAction` to execute an actions across all states. Also note that the second parameter of the action is optional, but it's required here because we defined `TRequest` as SaleItem and Payment on `AddTriggerAction`. In a latter version, we'll have a trigger action to cancel a sale, which will be on the `StateMachine` and not include a `TRequest`.
 
-That's all we currently need for the Open state, so let's consider the Complete state. Complete is the final state in this version, so there's really nothing to configure. Since we defined the AddItem and Pay actions on Open state, they are totally ignored if they occur while in the Complete state -- no items or payments will be added to the sale and no other transitions will occur.
-
-For completeness of the example and to allow me to introduce another feature, let's print a message when a sale enters the Complete state
+That does it for the Open state, so let's consider the Complete state. Complete is the final state in this version, so there's nothing to configure. We don't want to take any further actions or transition to any other states. For completeness and to allow me to introduce another feature, let's print a message when a sale enters the Complete state
 
 ```C#
-_stateMachine.ConfigureState(SaleState.Complete)
-  .AddEntryAction(_ => Output.WriteLine("Sale is complete"));
+_stateMachine.ConfigureState(SaleState.Complete).AddEntryAction(_ => Output.WriteLine("Sale is complete"));
 ```
 
-`AddEntryAction` allows you to define an action to take whenever your object enters the state. Here we're just printing a message to confirm we're in the Complete state. There's an overload of this method where you can specify to only perform an action when coming from a specific previous state. You can also define actions when exiting or reentering a state.
+`AddEntryAction` allows you to define an action to take when an object enters a state. Here, we're just printing a message to confirm the sale made it to the Complete state. 
 
 ## Use the configured StateMachine
-We're fully configured for our current requirements, so let's see how to put this thing to use
+Our state machine is fully configured for our current requirements, so let's see how to use it
 
 ```C#
 public static void AddItem(Sale sale, SaleItem saleItem)
-{
-  _stateMachine.FireTrigger(sale, SaleEvent.AddItem, saleItem);
+{ 
+  _stateMachine.FireTrigger(sale, SaleEvent.AddItem, saleItem); 
 }
 
 public static void AddPayment(Sale sale, Payment payment)
-{
+{ 
   _stateMachine.FireTrigger(sale, SaleEvent.Pay, payment);
 }
 ```
 
-The 'FireTrigger' method on the `StateMachine` is how it all comes together. The first parameter is the context (i.e. instance of the type being managed). The second parameter is the trigger (or event) that's occuring. And the third parameter is the details of the event that's occuring. Note that you will not use the third parameter if you didn't define a parameter type (`TRequest`) on the calls to `AddTriggerAction`. You'll also see that I've wrapped the FireTrigger calls in methods on a static class to expose them.
+`StateMachine.FireTrigger' is how it all comes together. The first parameter is the managed object. The second parameter is the trigger (or event) that's occuring. And the third parameter is the details of the event that's occuring. Note that you will not use the third parameter if you didn't define a parameter type (`TRequest`) on the associated call to `AddTriggerAction`. You'll also see that I've wrapped the FireTrigger calls in methods on a static class to expose the state machine to our application.
 
-Now let's see a simple test case and the output
+Now let's create a simple test case and look at the output
 
 ```C#
 static void Main(string[] args)
@@ -135,6 +120,14 @@ Payment of $2.00 added. Balance $0.00
 Sale is complete
 ```
 
+The output confirms our configuration was correct:
+1. Added 2 items to give us a balance of $2.00
+2. Made a payment of $2.00 to bring the balance $0
+3. Sale state transitioned to the Complete state
+
+# NStateManager v2
+...
+
 ## Still lots to do to get this rolling, so here's the current to-do list in priority order
 - Create Nuget package
 - Finish this readme
@@ -146,6 +139,6 @@ Sale is complete
   -- Phone example
   -- Walk/Jump/Run example
   -- SOLID/Head First example
-  -- 
+  -- Async example
 
 Please take a look around and post questions, suggestions, and advice to Issues. Also let me know if you're interested in contributing.
