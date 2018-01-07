@@ -16,9 +16,11 @@ Given the foundational mismatch, it was time to consider a new solution. I start
 I would appreciate feedback, questions, advice, and contributions. I'm a big believer that WE are smarter than ME and we can work together to create something that will add value to virtually any .Net application.
 
 # Getting Started: POS v1
-Let's start working through an example and see how well we're aligning to our goals. Our example will be managing the Sale component of a point-of-sale (POS) system used by grocery stores, fuel stations, restaurants -- virtually any sales environment. We'll start simple and add in some complexity as we go. This process will be somewhat verbose to provide proper insight to how the library works, its flexibility, and ability to grow with your project, so you may want to look at the finalized  SaleStateManager in the Sale.Console example before drawing conclusions about simplicity from this overview.
+Let's start working through an example and see how well we're aligning to our goals. Our example will be managing the Sale component of a point-of-sale (POS) system used by grocery stores, fuel stations, restaurants -- virtually any sales environment. We'll start simple and add in some complexity as we go. Not all details will be included here, but you can get the complete solution in the [Sale.Console example](https://github.com/scottctr/NStateManager/blob/master/Examples/NStateManager.Example.Sale.Console).
 
-![POSv1](https://github.com/scottctr/NStateManager/blob/master/Examples/NStateManager.Example.Sale.Console/POSv1.png) In the first version of our POS, we'll only be able to add items to our sale and pay for them. Sales will start in an Open state and then move to a Complete state once fully paid for. You can use any IComparable to represent your states, but we'll use an enum for this example:
+![POSv1](https://github.com/scottctr/NStateManager/blob/master/Examples/NStateManager.Example.Sale.Console/POSv1.png)
+
+In the first version of our POS, we'll only be able to add items to our sale and pay for them. Sales will start in an Open state and then move to a Complete state once fully paid for. You can use any IComparable to represent your states, but we'll use an enum for this example:
 
 ```C#
 public enum SaleState { Open, Complete }
