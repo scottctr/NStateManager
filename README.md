@@ -46,7 +46,7 @@ _stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(
 ```
 
 Notice the 3 generic types defined with our `StateMachine`
-1. Sale (`T`) is the type of objects being managed
+1. [Sale](https://github.com/scottctr/NStateManager/blob/master/Examples/NStateManager.Example.Sale.Console/Sale.cs) (`T`) is the type of objects being managed
 2. SaleState (`TState`) is the type used for the possible states. (NOTE: Must be IComparable)
 3. SaleEvent (`TTrigger`) is the type used for the triggers (i.e. events) that can lead to a change in state.
 
