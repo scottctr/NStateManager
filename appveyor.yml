@@ -1,11 +1,11 @@
 version: 1.0.{build}
 image: Visual Studio 2017
 before_build:
-- ps: dotnet restore \Source\NStateManager.sln
+- ps: dotnet restore Source\NStateManager.sln
 pull_requests:
   do_not_increment_build_number: true
 build:
-  project: '\Source\NStateManager.sln'
+  project: 'Source\NStateManager.sln'
   publish_nuget: false
   verbosity: minimal
 artifacts:
