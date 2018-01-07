@@ -151,14 +151,10 @@ namespace NStateManager
             Func<T, bool> condition = null)
         {
             if (DefaultAutoTransition != null)
-            {
-                throw new InvalidOperationException("The default AutoTransition has already be set.");
-            }
+            { throw new InvalidOperationException("The default AutoTransition has already be set."); }
 
             if (condition == null)
-            {
-                condition = _ => true;
-            }
+            { condition = _ => true; }
 
             DefaultAutoTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
                 , StateMutator
@@ -173,14 +169,10 @@ namespace NStateManager
         public IStateConfiguration<T, TState, TTrigger> AddFallbackTransition(Func<T, bool> condition = null)
         {
             if (DefaultAutoTransition != null)
-            {
-                throw new InvalidOperationException("The default AutoTransition has already be set.");
-            }
+            { throw new InvalidOperationException("The default AutoTransition has already be set."); }
 
             if (condition == null)
-            {
-                condition = _ => true;
-            }
+            { condition = _ => true; }
 
             DefaultAutoTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
                 , StateMutator
@@ -204,14 +196,10 @@ namespace NStateManager
             where TRequest : class
         {
             if (DefaultAutoTransition != null)
-            {
-                throw new InvalidOperationException("The default AutoTransition has already be set.");
-            }
+            { throw new InvalidOperationException("The default AutoTransition has already be set."); }
 
             if (condition == null)
-            {
-                condition = (_, request) => true;
-            }
+            { condition = (_, request) => true; }
 
             DefaultAutoTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
                 , StateMutator
@@ -228,14 +216,10 @@ namespace NStateManager
             where TRequest : class
         {
             if (DefaultAutoTransition != null)
-            {
-                throw new InvalidOperationException("The default AutoTransition has already be set.");
-            }
+            { throw new InvalidOperationException("The default AutoTransition has already be set."); }
 
             if (condition == null)
-            {
-                condition = (_, request) => true;
-            }
+            { condition = (_, request) => true; }
 
             DefaultAutoTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
                 , StateMutator
@@ -466,9 +450,7 @@ namespace NStateManager
         public IStateConfiguration<T, TState, TTrigger> AddTriggerAction(TTrigger trigger, Action<T> action)
         {
             if (_triggerActions.ContainsKey(trigger))
-            {
-                throw new InvalidOperationException($"Only one action is allowed for {trigger} trigger.");
-            }
+            { throw new InvalidOperationException($"Only one action is allowed for the {trigger} trigger."); }
 
             _triggerActions.Add(trigger, TriggerActionFactory<T>.GetTriggerAction(action));
 
@@ -486,9 +468,7 @@ namespace NStateManager
             Action<T, TRequest> action)
         {
             if (_triggerActions.ContainsKey(trigger))
-            {
-                throw new InvalidOperationException($"Only one action is allowed for {trigger} trigger.");
-            }
+            { throw new InvalidOperationException($"Only one action is allowed for {trigger} trigger."); }
 
             _triggerActions.Add(trigger, TriggerActionFactory<T>.GetTriggerAction(action));
 
@@ -500,15 +480,11 @@ namespace NStateManager
         {
             //Is there an action based on the previous state?
             if (PreviousStateAutoTransitions.TryGetValue(currentResult.PreviousState, out var action))
-            {
-                return action.Execute(parameters);
-            }
+            { return action.Execute(parameters); }
 
             //Is there an action for any entry?
             if (DefaultAutoTransition != null)
-            {
-                return DefaultAutoTransition.Execute(parameters);
-            }
+            { return DefaultAutoTransition.Execute(parameters); }
 
             return _superState != null
                 ? _superState.ExecuteAutoTransition(parameters, currentResult)
