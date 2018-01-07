@@ -1,5 +1,4 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/byg4n228cinno4xt?svg=true)](https://ci.appveyor.com/project/ScottCarter/nstatemanager) [![NuGet Status](https://img.shields.io/nuget/v/NStateManager.svg)](https://www.nuget.org/packages/NStateManager)
-
 # Features
 - Simple interface so it's easy to use
 - State management and processing are decoupled to make configuration intuitive and flexible
@@ -24,8 +23,7 @@ In the first version of our POS, we'll only be able to add items to our sale and
 
 ![POSv1](https://github.com/scottctr/NStateManager/blob/master/Examples/NStateManager.Example.Sale.Console/POSv1.png)
 
-You can use any IComparable to represent your states, but we'll use an enum for this example:
-
+You can use any IComparable to represent your states, but we'll use an enum for this example.
 ```C#
 public enum SaleState { Open, Complete }
 ```
@@ -33,14 +31,12 @@ public enum SaleState { Open, Complete }
 The state machine needs to be involved in the actions that can affect the state of the object being managed. NStateManager calls the actions that may affect state *Triggers*. A *Trigger Action* is an action you configure so the state machine can execute it each time the trigger event occurs. You'll see how the triggers, trigger actions, and state changes tie together as we work through the example.
 
 Since the system only allows adding items to the sale and paying, we'll use an enum to represent those trigger events.
-
 ```C#
 public enum SaleEvent { AddItem, Pay }
 ```
 
 ## Create and configure a StateMachine 
-With the states and events defined, we can create and configure our state machine:
-
+With the states and events defined, we can create and configure our state machine.
 ```C#
 _stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(
   stateAccessor: (sale) => sale.State
@@ -57,8 +53,7 @@ There are 2 parameters required by the constructor:
 - `stateMutator` is an action to set the state when it's updated
 
 ### Configure states
-Now that we have a state machine, let's configure it -- starting with the Open state
-
+Now that we have a state machine, let's configure it -- starting with the Open state.
 ```C#
 _stateMachine.ConfigureState(SaleState.Open)
   .AddTriggerAction<SaleItem>(SaleEvent.AddItem, (sale, saleItem) => {
@@ -78,8 +73,7 @@ _stateMachine.ConfigureState(SaleState.Open)
 
 We used `StateConfiguration.AddTriggerAction` on the Open state so the `action` will only occur for the AddItem and Pay events if the sale is in the Open state. Use `StateMachine.AddTriggerAction` to execute an actions across all states. In a latter version, we'll have a trigger action to cancel a sale, which will be on the `StateMachine` and not include a `TRequest`.
 
-That does it for the Open state, so let's consider the Complete state. Complete is the final state in this version, so there's nothing to configure. We don't want to take any further actions or transition to any other states. For completeness and to see another feature, let's print a message when a sale enters the Complete state
-
+That does it for the Open state, so let's consider the Complete state. Complete is the final state in this version, so there's nothing to configure. We don't want to take any further actions or transition to any other states. For completeness and to see another feature, let's print a message when a sale enters the Complete state.
 ```C#
 _stateMachine.ConfigureState(SaleState.Complete).AddEntryAction(_ => Output.WriteLine("Sale is complete"));
 ```
@@ -87,8 +81,7 @@ _stateMachine.ConfigureState(SaleState.Complete).AddEntryAction(_ => Output.Writ
 `AddEntryAction` allows you to define an action to take when an object enters a state. Here, we're just printing a message to confirm the sale made it to the Complete state. 
 
 ## Use the configured StateMachine
-Our state machine is fully configured for our current requirements, so let's see how to use it
-
+Our state machine is fully configured for our current requirements, so let's see how to use it.
 ```C#
 public static void AddItem(Sale sale, SaleItem saleItem)
 { 
@@ -103,8 +96,7 @@ public static void AddPayment(Sale sale, Payment payment)
 
 `StateMachine.FireTrigger` is how it all comes together. The first parameter is the managed object. The second parameter is the trigger (or event) that's occuring. And the third parameter is the details of the event that's occuring. Note that you will not use the third parameter if you didn't define a parameter type (`TRequest`) on the associated call to `AddTriggerAction`. You'll also see that I've wrapped the FireTrigger calls in methods on a static class to expose the state machine to our application.
 
-Now let's create a simple test case and look at the output
-
+Now let's create a simple test case and look at the output.
 ```C#
 static void Main(string[] args)
 {
@@ -117,7 +109,6 @@ static void Main(string[] args)
   SaleStateMachine.AddItem(sale, new SaleItem("Fuel", 10.00));
 }
 ```
-
 ```
 SodaPop added for $1.00. Balance $1.00
 Chips added for $1.00. Balance $2.00
