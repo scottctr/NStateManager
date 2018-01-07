@@ -135,14 +135,17 @@ Payment of $2.00 added. Balance $0.00
 Sale is complete
 ```
 
-# Still lots to do to get this rolling, so here's the current to-do list in priority order
-- Remove AddFallbackTransition and make option for trigger options
-- Finish Sale example
-- Finish unit tests
-- Finish this readme
+## Still lots to do to get this rolling, so here's the current to-do list in priority order
 - Create Nuget package
+- Finish this readme
+- Publish Sale.Console example
+- Finish unit tests
 - Create event to notify when transitions occur
 - Lots of documentation
 - More examples and docs...
+  -- Phone example
+  -- Walk/Jump/Run example
+  -- SOLID/Head First example
+  -- 
 
 Please take a look around and post questions, suggestions, and advice to Issues. Also let me know if you're interested in contributing.
