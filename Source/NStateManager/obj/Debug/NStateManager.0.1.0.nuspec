@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>NStateManager</id>
+    <version>0.1.0</version>
+    <authors>Scott L Carter</authors>
+    <owners>Scott L Carter</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/scottctr/NStateManager/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/scottctr/NStateManager</projectUrl>
+    <description>Easy to use and very flexible state manager for .Net.</description>
+    <copyright>Copyright (c) 2018 Scott L. Carter</copyright>
+    <repository url="https://github.com/scottctr/NStateManager" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\Scott\Documents\Visual Studio 2017\Projects\NStateManager\Source\NStateManager\bin\Debug\netstandard2.0\NStateManager.dll" target="lib\netstandard2.0\NStateManager.dll" />
+  </files>
+</package>
