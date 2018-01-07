@@ -18,9 +18,11 @@ I would appreciate feedback, questions, advice, and contributions. I'm a big bel
 # Getting Started: POS v1
 Let's start working through an example and see how well we're aligning to our goals. Our example will be managing the Sale component of a point-of-sale (POS) system used by grocery stores, fuel stations, restaurants -- virtually any sales environment. We'll start simple and add in some complexity as we go. Not all details will be included here, but you can get the complete solution in the [Sale.Console example](https://github.com/scottctr/NStateManager/blob/master/Examples/NStateManager.Example.Sale.Console).
 
+In the first version of our POS, we'll only be able to add items to our sale and pay for them. Sales will start in an Open state and then move to a Complete state once fully paid for.
+
 ![POSv1](https://github.com/scottctr/NStateManager/blob/master/Examples/NStateManager.Example.Sale.Console/POSv1.png)
 
-In the first version of our POS, we'll only be able to add items to our sale and pay for them. Sales will start in an Open state and then move to a Complete state once fully paid for. You can use any IComparable to represent your states, but we'll use an enum for this example:
+You can use any IComparable to represent your states, but we'll use an enum for this example:
 
 ```C#
 public enum SaleState { Open, Complete }
