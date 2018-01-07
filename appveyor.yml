@@ -1,0 +1,19 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+pull_requests:
+  do_not_increment_build_number: true
+build:
+  project: '\Source\NStateManager.sln'
+  publish_nuget: false
+  verbosity: minimal
+artifacts:
+  - path: Package\**\*.nupkg
+skip_commits:
+  files:
+  - .gitattributes
+  - .gitignore
+  - README.md
+  - build.bat
+  - NStateManager.sln.licenseheader
+
+skip_tags: true
