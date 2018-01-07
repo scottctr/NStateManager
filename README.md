@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/byg4n228cinno4xt?svg=true)](https://ci.appveyor.com/project/ScottCarter/nstatemanager) [![NuGet Status](https://img.shields.io/nuget/v/NStateManager.svg)](https://www.nuget.org/packages/NStateManager)
+
 # Features
 - Simple interface so it's easy to use
 - State management and processing are decoupled to make configuration intuitive and flexible
@@ -133,12 +135,12 @@ Continuing with the POS example, it's time to define the next version.
 ...
 
 ## Still lots to do to get this rolling, so here's the current to-do list in priority order
-- Create Nuget package
+- ~~Create Nuget package
   -- badge
 - AppVeyor
-  -- badge
+  -- badge~~
 - Finish this readme
-- Publish Sale.Console example
+- ~~Publish Sale.Console example~~
 - Finish unit tests
 - Create event to notify when transitions occur
 - Lots of documentation
