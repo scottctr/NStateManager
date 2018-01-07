@@ -1,8 +1,5 @@
-# NStateManager
-Easy to use and very flexible state manager for .Net.
-
 # Features
-- Simple interface so it's easy to get started
+- Simple interface so it's easy to use
 - State management and processing are decoupled to make configuration intuitive and flexible
 - Stateless so it's thread safe and a single instance can be used for instance of the managed entity
 - Full async/await support, including cancellation and ConfigureAwait
@@ -18,7 +15,7 @@ Given the foundational mismatch, it was time to consider a new solution. I start
 
 I would appreciate feedback, questions, advice, and contributions. I'm a big believer that WE are smarter than ME and we can work together to create something that will add value to virtually any .Net application.
 
-# Getting Started
+# Getting Started: POS v1
 Let's start working through an example and see how well we're aligning to our goals. Our example will be managing the Sale component of a point-of-sale (POS) system used by grocery stores, fuel stations, restaurants -- virtually any sales environment. We'll start simple and add in some complexity as we go. This process will be somewhat verbose to provide proper insight to how the library works, its flexibility, and ability to grow with your project, so you may want to look at the finalized  SaleStateManager in the Sale.Console example before drawing conclusions about simplicity from this overview.
 
 In the first version of our POS, we'll only be able to add items to our sale and pay for them. Sales will start in an Open state and then move to a Complete state once fully paid for. You can use any IComparable to represent your states, but we'll use an enum for this example:
@@ -125,12 +122,15 @@ The output confirms our configuration was correct:
 2. Made a payment of $2.00 to bring the balance $0
 3. Sale state transitioned to the Complete state
 
-# NStateManager POS v2
+# POS v2
 Continuing with the POS example, it's time to define the next version.
 ...
 
 ## Still lots to do to get this rolling, so here's the current to-do list in priority order
 - Create Nuget package
+  -- badge
+- AppVeyor
+  -- badge
 - Finish this readme
 - Publish Sale.Console example
 - Finish unit tests
