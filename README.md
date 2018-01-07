@@ -125,7 +125,8 @@ The output confirms our configuration was correct:
 2. Made a payment of $2.00 to bring the balance $0
 3. Sale state transitioned to the Complete state
 
-# NStateManager v2
+# NStateManager POS v2
+Continuing with the POS example, it's time to define the next version.
 ...
 
 ## Still lots to do to get this rolling, so here's the current to-do list in priority order
