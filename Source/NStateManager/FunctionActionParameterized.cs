@@ -23,7 +23,7 @@ namespace NStateManager
             Action = action ?? throw new ArgumentNullException(nameof(action));
         }
 
-        internal override async Task ExecuteAsync(T context, object request, CancellationToken cancellationToken)
+        internal override async Task ExecuteAsync(T context, CancellationToken cancellationToken, object request)
         {
             if (!(request is TRequest typedRequestType))
             { throw new ArgumentException($"{nameof(request)} must be of type {typeof(TRequest).Name}.");}

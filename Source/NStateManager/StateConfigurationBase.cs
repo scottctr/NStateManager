@@ -10,6 +10,8 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NStateManager
 {
@@ -17,9 +19,9 @@ namespace NStateManager
     {
         public Func<T, TState> StateAccessor { get; }
         public Action<T, TState> StateMutator { get; }
-        protected Dictionary<TTrigger, StateTransitionBase<T, TState>> AllowedTransitions = new Dictionary<TTrigger, StateTransitionBase<T, TState>>();
-        protected Dictionary<TState, StateTransitionBase<T, TState>> PreviousStateAutoTransitions = new Dictionary<TState, StateTransitionBase<T, TState>>();
-        protected StateTransitionBase<T, TState> DefaultAutoTransition;
+        protected Dictionary<TTrigger, List<StateTransitionBase<T, TState, TTrigger>>> AllowedTransitions = new Dictionary<TTrigger, List<StateTransitionBase<T, TState, TTrigger>>>();
+        protected Dictionary<TState, StateTransitionBase<T, TState, TTrigger>> PreviousStateAutoTransitions = new Dictionary<TState, StateTransitionBase<T, TState, TTrigger>>();
+        protected StateTransitionBase<T, TState, TTrigger> DefaultAutoTransition;
 
         /// <summary>
         /// The state being configured.
@@ -39,12 +41,51 @@ namespace NStateManager
             StateMutator = stateMutator ?? throw new ArgumentNullException(nameof(stateMutator));
         }
 
-        public void AddTransition(TTrigger trigger, StateTransitionBase<T, TState> transition)
+        public void AddTransition(TTrigger trigger, StateTransitionBase<T, TState, TTrigger> transition)
         {
-            if (!AllowedTransitions.TryGetValue(trigger, out var _))
-            { AllowedTransitions.Add(trigger, transition); }
+            if (!AllowedTransitions.TryGetValue(trigger, out var existingTransitions))
+            { AllowedTransitions.Add(trigger, new List<StateTransitionBase<T, TState, TTrigger>> {transition}); }
             else
-            { throw new InvalidOperationException($"{trigger} trigger was previously added for {State} state."); }
+            {
+                if (existingTransitions.Any(t => t.Priority == transition.Priority))
+                { throw new InvalidOperationException($"{trigger} trigger was previously added for {State} state as priority {transition.Priority}."); }
+
+                existingTransitions.Add(transition);
+            }
+        }
+
+        protected StateTransitionResult<TState> FireTriggerPrim(ExecutionParameters<T, TTrigger> parameters)
+        {
+            StateTransitionResult<TState> result = null;
+
+            if (AllowedTransitions.TryGetValue(parameters.Trigger, out var transitions))
+            {
+                foreach (var transition in transitions.OrderBy(t => t.Priority))
+                {
+                    result = transition.Execute(parameters);
+                    if (result.WasSuccessful)
+                    { return result; }
+                }
+            }
+
+            return result;
+        }
+
+        public async Task<StateTransitionResult<TState>> FireTriggerPrimAsync(ExecutionParameters<T, TTrigger> parameters)
+        {
+            StateTransitionResult<TState> result = null;
+
+            if (AllowedTransitions.TryGetValue(parameters.Trigger, out var transitions))
+            {
+                foreach (var transition in transitions.OrderBy(t => t.Priority))
+                {
+                    result = await transition.ExecuteAsync(parameters).ConfigureAwait(continueOnCapturedContext: false);
+                    if (result.WasSuccessful)
+                    { return result; }
+                }
+            }
+
+            return result;
         }
     }
 }

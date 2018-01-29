@@ -16,6 +16,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Users\Scott\Documents\Visual Studio 2017\Projects\NStateManager\Source\NStateManager\bin\Debug\netstandard2.0\NStateManager.dll" target="lib\netstandard2.0\NStateManager.dll" />
+    <file src="C:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\bin\Debug\netstandard2.0\NStateManager.dll" target="lib\netstandard2.0\NStateManager.dll" />
   </files>
 </package>

@@ -12,27 +12,40 @@ using System;
 
 namespace NStateManager
 {
-    internal class StateTransition<T, TState> : StateTransitionBase<T, TState>
+    internal class StateTransition<T, TState, TTrigger> : StateTransitionBase<T, TState, TTrigger>
     {
         public Func<T, bool> Condition { get; }
 
-        public StateTransition(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState toState, Func<T, bool> condition)
-            : base(stateAccessor, stateMutator, toState)
+        public StateTransition(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState toState, Func<T, bool> condition, string name, uint priority)
+            : base(stateAccessor, stateMutator, toState, name, priority)
         {
             Condition = condition;
         }
 
-        public override StateTransitionResult<TState> Execute(ExecutionParameters<T> parameters)
+        public override StateTransitionResult<TState> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult)
         {
-            var startState = StateAccessor(parameters.Context);
+            var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
 
-            if (Condition(parameters.Context))
+            if (!Condition(parameters.Context))
             {
-                StateMutator(parameters.Context, ToState);
-                return new StateTransitionResult<TState>(startState, startState, ToState);
+                if (currentResult != null)
+                { return currentResult; }
+
+                return new StateTransitionResult<TState>(startState
+                , startState
+                , startState
+                , lastTransitionName: string.Empty
+                , conditionMet: false);
             }
 
-            return new StateTransitionResult<TState>(startState, startState, startState, conditionMet: false); 
+            StateMutator(parameters.Context, ToState);
+
+            var transitionResult = currentResult == null 
+                ? new StateTransitionResult<TState>(startState, startState, ToState, Name) 
+                : new StateTransitionResult<TState>(startState, currentResult.CurrentState, ToState, Name);
+            NotifyOfTransition(parameters.Context, transitionResult);
+
+            return transitionResult;
         }
     }
 }

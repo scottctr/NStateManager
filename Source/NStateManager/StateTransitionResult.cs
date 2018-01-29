@@ -27,6 +27,8 @@ namespace NStateManager
         /// </summary>
         public TState CurrentState { get; internal set; }
 
+        public string LastTransitionName { get; }
+
         /// <summary>
         /// State the context was in just before the current state.
         /// </summary>
@@ -57,15 +59,18 @@ namespace NStateManager
         /// Constructor.
         /// </summary>
         /// <param name="startingState">State when execution of the request or transition.</param>
+        /// <param name="previousState">State previous to the current state.</param>
         /// <param name="currentState"> Current state -- after all transitions and actions have been executed.</param>
+        /// <param name="lastTransitionName"></param>
         /// <param name="transitionDefined">True if there was a transition defined for the request or transition; otherwise False.</param>
         /// <param name="conditionMet">Boolean result of the condition, if any, for the transition.</param>
         /// <param name="wasCancelled">True if the action was cancelled; otherwise False.</param>
-        public StateTransitionResult(TState startingState, TState previousState, TState currentState, bool transitionDefined = true, bool conditionMet = true, bool wasCancelled = false)
+        public StateTransitionResult(TState startingState, TState previousState, TState currentState, string lastTransitionName, bool transitionDefined = true, bool conditionMet = true, bool wasCancelled = false)
         {
             StartingState = startingState;
             PreviousState = previousState;
             CurrentState = currentState;
+            LastTransitionName = lastTransitionName;
             WasSuccessful = transitionDefined && conditionMet && !wasCancelled;
             TransitionDefined = transitionDefined;
             ConditionMet = transitionDefined && conditionMet;

@@ -12,7 +12,7 @@ using System;
 
 namespace NStateManager
 {
-    internal class TriggerActionParameterized<T, TRequest> : TriggerActionBase<T>
+    internal class TriggerActionParameterized<T, TTrigger, TRequest> : TriggerActionBase<T, TTrigger>
     {
         internal Action<T, TRequest> Action { get; }
 
@@ -21,12 +21,14 @@ namespace NStateManager
             Action = action ?? throw new ArgumentNullException(nameof(action));
         }
 
-        internal override void Execute(T context, object request)
+        internal override void Execute(ExecutionParameters<T, TTrigger> parameters)
         {
-            if (!(request is TRequest typedRequestType))
-            { throw new ArgumentException($"{nameof(request)} must be of type {typeof(TRequest).Name}.");}
+            //TODO check for params.Request <> null
 
-            Action.Invoke(context, typedRequestType);
+            if (!(parameters.Request is TRequest typedRequestType))
+            { throw new ArgumentException($"{nameof(parameters.Request)} must be of type {typeof(TRequest).Name}.");}
+
+            Action.Invoke(parameters.Context, typedRequestType);
         }
     }
 }

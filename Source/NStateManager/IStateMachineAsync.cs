@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace NStateManager
 {
-    public interface IStateMachineAsync<T, TState, TTrigger>
+    public interface IStateMachineAsync<T, TState, in TTrigger>
         where TState : IComparable
     {
         /// <summary>
@@ -24,7 +24,7 @@ namespace NStateManager
         /// <param name="action">The action to execute.</param>
         /// <remarks><see cref="StateConfiguration{T,TState,TTrigger}"/> also has trigger actions that should only occur while T is in a specific state.</remarks>
         /// <returns></returns>
-        StateMachineAsync<T, TState, TTrigger> AddTriggerAction(TTrigger trigger, Func<T, CancellationToken, Task> action);
+        IStateMachineAsync<T, TState, TTrigger> AddTriggerAction(TTrigger trigger, Func<T, CancellationToken, Task> action);
 
         /// <summary>
         /// Defines an action to take any time <see cref="TTrigger"/> occurs.
@@ -34,7 +34,7 @@ namespace NStateManager
         /// <param name="action">The action to execute.</param>
         /// <remarks><see cref="StateConfiguration{T,TState,TTrigger}"/> also has trigger actions that should only occur while T is in a specific state.</remarks>
         /// <returns></returns>
-        StateMachineAsync<T, TState, TTrigger> AddTriggerAction<TRequest>(TTrigger trigger, Func<T, TRequest, CancellationToken, Task> action);
+        IStateMachineAsync<T, TState, TTrigger> AddTriggerAction<TRequest>(TTrigger trigger, Func<T, TRequest, CancellationToken, Task> action);
 
         /// <summary>
         /// Configures a specified <see cref="TState"/>.
@@ -64,5 +64,7 @@ namespace NStateManager
         Task<StateTransitionResult<TState>> FireTriggerAsync(T context, TTrigger trigger, CancellationToken cancellationToken);
 
         bool IsInState(T context, TState state);
+
+        IStateMachineAsync<T, TState, TTrigger> RegisterOnTransitionedEvent(Action<T, StateTransitionResult<TState>> onTransitionedEvent);
     }
 }

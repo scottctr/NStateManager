@@ -12,32 +12,43 @@ using System;
 
 namespace NStateManager
 {
-    internal class StateTransitionParameterized<T, TState, TEvent, TParam>
-        : StateTransitionBase<T, TState>
+    internal class StateTransitionParameterized<T, TState, TTrigger, TParam> : StateTransitionBase<T, TState, TTrigger>
         where TParam : class
     {
         public Func<T, TParam, bool> Condition { get; }
 
-        public StateTransitionParameterized(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState toState, Func<T, TParam, bool> condition)
-            : base(stateAccessor, stateMutator, toState)
-        {
-            Condition = condition ?? throw new ArgumentNullException(nameof(condition));
-        }
+        public StateTransitionParameterized(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState toState, Func<T, TParam, bool> condition, string name, uint priority)
+            : base(stateAccessor, stateMutator, toState, name, priority)
+        { Condition = condition ?? throw new ArgumentNullException(nameof(condition)); }
 
-        public override StateTransitionResult<TState> Execute(ExecutionParameters<T> parameters)
+        public override StateTransitionResult<TState> Execute(ExecutionParameters<T, TTrigger> parameters
+          , StateTransitionResult<TState> currentResult = null)
         {
+            //TODO should we allow null reqeust for parameterized classes?
             if (!(parameters.Request is TParam typeSafeParam))
-            { throw new InvalidOperationException($"Expected a {typeof(TParam).Name} parameter, but received a {parameters.Request.GetType().Name}."); }
+            { throw new ArgumentException($"Expected a {typeof(TParam).Name} parameter, but received a {parameters.Request.GetType().Name}."); }
 
-            var startState = StateAccessor(parameters.Context);
+            var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
 
-            if (Condition(parameters.Context, typeSafeParam))
+            if (!Condition(parameters.Context, typeSafeParam))
             {
-                StateMutator(parameters.Context, ToState);
-                return new StateTransitionResult<TState>(startState, startState, ToState);
+                if (currentResult != null)
+                { return currentResult; }
+
+                return new StateTransitionResult<TState>(startState
+                  , startState
+                  , startState
+                  , lastTransitionName: string.Empty
+                  , conditionMet: false);
             }
 
-            return new StateTransitionResult<TState>(startState, startState, startState, conditionMet: false); 
+            StateMutator(parameters.Context, ToState);
+            var transitionResult = currentResult == null
+                ? new StateTransitionResult<TState>(startState, startState, ToState, Name)
+                : new StateTransitionResult<TState>(startState, currentResult.CurrentState, ToState, Name);
+            NotifyOfTransition(parameters.Context, transitionResult);
+
+            return transitionResult; 
         }
     }
 }

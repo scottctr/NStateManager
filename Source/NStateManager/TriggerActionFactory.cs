@@ -14,16 +14,16 @@ using System.Threading.Tasks;
 
 namespace NStateManager
 {
-    internal static class TriggerActionFactory<T>
+    internal static class TriggerActionFactory<T, TTrigger>
     {
-        internal static TriggerActionBase<T> GetTriggerAction(Action<T> action)
+        internal static TriggerActionBase<T, TTrigger> GetTriggerAction(Action<T> action)
         {
-            return new TriggerAction<T>(action);
+            return new TriggerAction<T, TTrigger>(action);
         }
 
-        internal static TriggerActionBase<T> GetTriggerAction<TRequest>(Action<T, TRequest> action)
+        internal static TriggerActionBase<T, TTrigger> GetTriggerAction<TRequest>(Action<T, TRequest> action)
         {
-            return new TriggerActionParameterized<T, TRequest>(action);
+            return new TriggerActionParameterized<T, TTrigger, TRequest>(action);
         }
 
         internal static FunctionActionBase<T> GetTriggerAction(Func<T, CancellationToken, Task> action)

@@ -15,6 +15,6 @@ namespace NStateManager
 {
     public abstract class FunctionActionBase<T>
     {
-        internal abstract Task ExecuteAsync(T context, object request, CancellationToken cancellationToken);
+        internal abstract Task ExecuteAsync(T context, CancellationToken cancellationToken, object request);
     }
 }

@@ -20,7 +20,7 @@ namespace NStateManager
         /// <param name="trigger">The <see cref="TTrigger"/> to use this transition.</param>
         /// <param name="function">The function to determine the state.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddDynamicTransition(TTrigger trigger, Func<T, TState> function);
+        IStateConfiguration<T, TState, TTrigger> AddDynamicTransition(TTrigger trigger, Func<T, TState> function, string name = null, uint priority = 1);
 
         /// <summary>
         /// Defines a state transition where the end state is defined by a function.
@@ -29,7 +29,7 @@ namespace NStateManager
         /// <param name="trigger">The <see cref="TTrigger"/> to use this transition.</param>
         /// <param name="function">The function to determine the state.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddDynamicTransition<TRequest>(TTrigger trigger, Func<T, TRequest, TState> function)
+        IStateConfiguration<T, TState, TTrigger> AddDynamicTransition<TRequest>(TTrigger trigger, Func<T, TRequest, TState> function, string name = null, uint priority = 1)
             where TRequest : class;
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace NStateManager
         /// <param name="toState">The <see cref="TState"/> to transition to.</param>
         /// <param name="condition">StateFunction that must be met to complete the transition.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddTransition(TTrigger trigger, TState toState, Func<T, bool> condition = null);
+        IStateConfiguration<T, TState, TTrigger> AddTransition(TTrigger trigger, TState toState, Func<T, bool> condition = null, string name = null, uint priority = 1);
 
         /// <summary>
         /// Adds a conditional transition to be applied on the specified <see cref="TTrigger"/>.
@@ -49,7 +49,7 @@ namespace NStateManager
         /// <param name="toState">The <see cref="TState"/> to transition to.</param>
         /// <param name="condition">Asynchronous condition that must be met to complete the transition.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddTransition<TRequest>(TTrigger trigger, TState toState, Func<T, TRequest, bool> condition)
+        IStateConfiguration<T, TState, TTrigger> AddTransition<TRequest>(TTrigger trigger, TState toState, Func<T, TRequest, bool> condition, string name = null, uint priority = 1)
             where TRequest : class;
 
         /// <summary>
@@ -58,9 +58,9 @@ namespace NStateManager
         /// <param name="toState">The <see cref="TState"/> to transition to.</param>
         /// <param name="condition">The condition required to make the transition.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddAutoTransition(TState toState, Func<T, bool> condition = null);
+        IStateConfiguration<T, TState, TTrigger> AddAutoTransition(TState toState, Func<T, bool> condition = null, string name = null, uint priority = 1);
 
-        IStateConfiguration<T, TState, TTrigger> AddFallbackTransition(Func<T, bool> condition = null);
+        IStateConfiguration<T, TState, TTrigger> AddFallbackTransition(Func<T, bool> condition = null, string name = null, uint priority = 1);
 
 
         /// <summary>
@@ -70,10 +70,10 @@ namespace NStateManager
         /// <param name="toState">The <see cref="TState"/> to transition to.</param>
         /// <param name="condition">The condition required to make the transition.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddAutoTransition<TRequest>(TState toState, Func<T, TRequest, bool> condition = null)
+        IStateConfiguration<T, TState, TTrigger> AddAutoTransition<TRequest>(TState toState, Func<T, TRequest, bool> condition = null, string name = null, uint priority = 1)
             where TRequest : class;
 
-        IStateConfiguration<T, TState, TTrigger> AddFallbackTransition<TRequest>(Func<T, TRequest, bool> condition = null)
+        IStateConfiguration<T, TState, TTrigger> AddFallbackTransition<TRequest>(Func<T, TRequest, bool> condition = null, string name = null, uint priority = 1)
             where TRequest : class;
 
         /// <summary>
@@ -83,9 +83,9 @@ namespace NStateManager
         /// <param name="condition">The condition required to make the transition.</param>
         /// <param name="previousState">When used, this transition only applies when transitioning to this state from the specified state.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddAutoTransition(TState toState, Func<T, bool> condition, TState previousState);
+        IStateConfiguration<T, TState, TTrigger> AddAutoTransition(TState toState, Func<T, bool> condition, TState previousState, string name = null, uint priority = 1);
 
-        IStateConfiguration<T, TState, TTrigger> AddFallbackTransition(Func<T, bool> condition, TState previousState);
+        IStateConfiguration<T, TState, TTrigger> AddFallbackTransition(Func<T, bool> condition, TState previousState, string name = null, uint priority = 1);
 
         /// <summary>
         /// Defines an automatic, but conditional, transition from this state to a new state.
@@ -95,10 +95,10 @@ namespace NStateManager
         /// <param name="condition">The condition required to make the transition.</param>
         /// <param name="previousState">When used, this transition only applies when transitioning to this state from the specified state.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddAutoTransition<TRequest>(TState toState, Func<T, TRequest, bool> condition, TState previousState)
+        IStateConfiguration<T, TState, TTrigger> AddAutoTransition<TRequest>(TState toState, Func<T, TRequest, bool> condition, TState previousState, string name = null, uint priority = 1)
             where TRequest : class;
 
-        IStateConfiguration<T, TState, TTrigger> AddFallbackTransition<TRequest>(Func<T, TRequest, bool> condition, TState previousState)
+        IStateConfiguration<T, TState, TTrigger> AddFallbackTransition<TRequest>(Func<T, TRequest, bool> condition, TState previousState, string name = null, uint priority = 1)
             where TRequest : class;
 
         /// <summary>
@@ -129,6 +129,13 @@ namespace NStateManager
         /// <param name="action">The action to execute.</param>
         /// <returns></returns>
         IStateConfiguration<T, TState, TTrigger> AddExitAction(Action<T> action);
+
+        /// <summary>
+        /// Defines an action to execute when exiting this state.
+        /// </summary>
+        /// <param name="action">The action to execute.</param>
+        /// <returns></returns>
+        IStateConfiguration<T, TState, TTrigger> AddExitAction(Action<T> action, TState nextState);
 
         /// <summary>
         /// Defines an action to execute when a specified <see cref="TTrigger"/> occurs.

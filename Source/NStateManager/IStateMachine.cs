@@ -20,5 +20,6 @@ namespace NStateManager
         StateTransitionResult<TState> FireTrigger(T context, TTrigger trigger);
         StateTransitionResult<TState> FireTrigger<TRequest>(T context, TTrigger trigger, TRequest request) where TRequest : class;
         bool IsInState(T context, TState state);
+        IStateMachine<T, TState, TTrigger> RegisterOnTransitionedEvent(Action<T, StateTransitionResult<TState>> onTransitionedEvent);
     }
 }

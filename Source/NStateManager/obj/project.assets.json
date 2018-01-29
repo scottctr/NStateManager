@@ -187,11 +187,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Scott\\Documents\\Visual Studio 2017\\Projects\\NStateManager\\Source\\NStateManager\\NStateManager.csproj",
+      "projectUniqueName": "C:\\Users\\Scott\\Source\\Repos\\NStateManager\\Source\\NStateManager\\NStateManager.csproj",
       "projectName": "NStateManager",
-      "projectPath": "C:\\Users\\Scott\\Documents\\Visual Studio 2017\\Projects\\NStateManager\\Source\\NStateManager\\NStateManager.csproj",
+      "projectPath": "C:\\Users\\Scott\\Source\\Repos\\NStateManager\\Source\\NStateManager\\NStateManager.csproj",
       "packagesPath": "C:\\Users\\Scott\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Scott\\Documents\\Visual Studio 2017\\Projects\\NStateManager\\Source\\NStateManager\\obj\\",
+      "outputPath": "C:\\Users\\Scott\\Source\\Repos\\NStateManager\\Source\\NStateManager\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",

@@ -28,8 +28,8 @@ namespace NStateManager
         private readonly Dictionary<TState, IStateConfigurationInternal<T, TState, TTrigger>> _stateConfigurations =
             new Dictionary<TState, IStateConfigurationInternal<T, TState, TTrigger>>();
 
-        private readonly Dictionary<TTrigger, TriggerActionBase<T>> _triggerActions =
-            new Dictionary<TTrigger, TriggerActionBase<T>>();
+        private readonly Dictionary<TTrigger, TriggerActionBase<T, TTrigger>> _triggerActions =
+            new Dictionary<TTrigger, TriggerActionBase<T, TTrigger>>();
 
         /// <summary>
         /// Constructor.
@@ -52,11 +52,9 @@ namespace NStateManager
         public IStateMachine<T, TState, TTrigger> AddTriggerAction(TTrigger trigger, Action<T> action)
         {
             if (_triggerActions.ContainsKey(trigger))
-            {
-                throw new InvalidOperationException($"Only one action is allowed for {trigger} trigger.");
-            }
+            { throw new InvalidOperationException($"Only one action is allowed for {trigger} trigger."); }
 
-            _triggerActions.Add(trigger, TriggerActionFactory<T>.GetTriggerAction(action));
+            _triggerActions.Add(trigger, TriggerActionFactory<T, TTrigger>.GetTriggerAction(action));
 
             return this;
         }
@@ -73,11 +71,9 @@ namespace NStateManager
             Action<T, TRequest> action)
         {
             if (_triggerActions.ContainsKey(trigger))
-            {
-                throw new InvalidOperationException($"Only one action is allowed for {trigger} trigger.");
-            }
+            { throw new InvalidOperationException($"Only one action is allowed for {trigger} trigger."); }
 
-            _triggerActions.Add(trigger, TriggerActionFactory<T>.GetTriggerAction(action));
+            _triggerActions.Add(trigger, TriggerActionFactory<T, TTrigger>.GetTriggerAction(action));
 
             return this;
         }
@@ -90,9 +86,7 @@ namespace NStateManager
         public IStateConfiguration<T, TState, TTrigger> ConfigureState(TState state)
         {
             if (_stateConfigurations.TryGetValue(state, out var stateConfiguration))
-            {
-                return stateConfiguration;
-            }
+            { return stateConfiguration; }
 
             var newState = new StateConfiguration<T, TState, TTrigger>(state, _stateAccessor, _stateMutator);
             _stateConfigurations.Add(state, newState);
@@ -109,20 +103,21 @@ namespace NStateManager
         public StateTransitionResult<TState> FireTrigger<TRequest>(T context, TTrigger trigger, TRequest request)
             where TRequest : class
         {
+            var executionParameters = new ExecutionParameters<T, TTrigger>(trigger, context, request: request);
             var startState = _stateAccessor(context);
 
             if (_triggerActions.TryGetValue(trigger, out var triggerAction))
-            {
-                triggerAction.Execute(context, request);
-            }
+            { triggerAction.Execute(executionParameters); }
 
             var result = !_stateConfigurations.TryGetValue(startState, out var stateConfiguration)
-                ? new StateTransitionResult<TState>(startState, startState, startState, transitionDefined: false)
-                : stateConfiguration.FireTrigger(context, trigger, request);
+                ? new StateTransitionResult<TState>(startState
+                    , startState
+                    , startState
+                    , lastTransitionName: string.Empty
+                    , transitionDefined: false)
+                : stateConfiguration.FireTrigger(executionParameters);
 
-            executeExitAndEntryActions(context, result, request);
-
-            return result;
+            return executeExitAndEntryActions(executionParameters, result);
         }
 
         /// <summary>
@@ -134,19 +129,20 @@ namespace NStateManager
         public StateTransitionResult<TState> FireTrigger(T context, TTrigger trigger)
         {
             var startState = _stateAccessor(context);
+            var executionParameters = new ExecutionParameters<T, TTrigger>(trigger, context);
 
             if (_triggerActions.TryGetValue(trigger, out var triggerAction))
-            {
-                triggerAction.Execute(context, request: null);
-            }
+            { triggerAction.Execute(executionParameters); }
 
             var result = !_stateConfigurations.TryGetValue(startState, out var stateConfiguration)
-                ? new StateTransitionResult<TState>(startState, startState, startState, transitionDefined: false)
-                : stateConfiguration.FireTrigger(context, trigger);
+                ? new StateTransitionResult<TState>(startState
+                    , startState
+                    , startState
+                    ,lastTransitionName: String.Empty
+                    , transitionDefined: false)
+                : stateConfiguration.FireTrigger(executionParameters);
 
-            executeExitAndEntryActions(context, result, request: null);
-
-            return result;
+            return executeExitAndEntryActions(executionParameters, result);
         }
 
         public bool IsInState(T context, TState state)
@@ -160,30 +156,42 @@ namespace NStateManager
                    && objectStateConfiguration.IsInState(state);
         }
 
-        private void executeExitAndEntryActions(T context, StateTransitionResult<TState> result, object request)
+        public IStateMachine<T, TState, TTrigger> RegisterOnTransitionedEvent(Action<T, StateTransitionResult<TState>> onTransitionedEvent)
         {
-            if (result.WasSuccessful && 
-                !(result.StartingState.CompareTo(result.PreviousState) == 0 && result.PreviousState.CompareTo(result.CurrentState) == 0))
+            StateTransitionBase<T, TState, TTrigger>.OnTransitionedEvent += onTransitionedEvent;
+
+            return this;
+        }
+
+        private StateTransitionResult<TState> executeExitAndEntryActions(ExecutionParameters<T, TTrigger> parameters
+          , StateTransitionResult<TState> currentResult)
+        {
+            if (currentResult.WasSuccessful && 
+                !(currentResult.StartingState.CompareTo(currentResult.PreviousState) == 0 && currentResult.PreviousState.CompareTo(currentResult.CurrentState) == 0))
             {
                 //OnExit?
-                if (_stateConfigurations.TryGetValue(result.PreviousState, out var previousState))
-                {  previousState.ExecuteExitAction(context, result); }
+                if (_stateConfigurations.TryGetValue(currentResult.PreviousState, out var previousState))
+                {  previousState.ExecuteExitAction(parameters.Context, currentResult); }
 
-                //OnEntry?
-                if (_stateConfigurations.TryGetValue(result.CurrentState, out var newState))
-                { newState.ExecuteEntryAction(context, result); }
+                if (_stateConfigurations.TryGetValue(currentResult.CurrentState, out var newState))
+                {
+                    //OnEntry?
+                    newState.ExecuteEntryAction(parameters.Context, currentResult);
 
-                //AutoForward?
-                var parameters = request == null
-                    ? new ExecutionParameters<T>(context)
-                    : new ExecutionParameters<T>(context, request);
-                var autoForwardResult = newState.ExecuteAutoTransition(parameters, result);
-                //See if we have more actions from the auto transition
-                executeExitAndEntryActions(context, autoForwardResult, request);
+                    //AutoForward?
+                    var preAutoForwardState = currentResult.CurrentState;
+                    currentResult = newState.ExecuteAutoTransition(parameters, currentResult) ?? currentResult;
+
+                    //See if we have more actions from the auto transition
+                    if (currentResult.CurrentState.CompareTo(preAutoForwardState) != 0)
+                    { currentResult = executeExitAndEntryActions(parameters, currentResult); }
+                }
             }
             //Reentry?
-            else if (_stateConfigurations.TryGetValue(result.CurrentState, out var reenteredState))
-            { reenteredState.ExecuteReentryAction(context, result); }
+            else if (_stateConfigurations.TryGetValue(currentResult.CurrentState, out var reenteredState))
+            { reenteredState.ExecuteReentryAction(parameters.Context, currentResult); }
+
+            return currentResult;
         }
     }
 }

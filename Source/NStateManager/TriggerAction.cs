@@ -12,7 +12,7 @@ using System;
 
 namespace NStateManager
 {
-    internal class TriggerAction<T> : TriggerActionBase<T>
+    internal class TriggerAction<T, TTrigger> : TriggerActionBase<T, TTrigger>
     {
         internal Action<T> Action { get; }
 
@@ -21,9 +21,9 @@ namespace NStateManager
             Action = action ?? throw new ArgumentNullException(nameof(action));
         }
 
-        internal override void Execute(T context, object request)
+        internal override void Execute(ExecutionParameters<T, TTrigger> parameters)
         {
-            Action.Invoke(context);
+            Action.Invoke(parameters.Context);
         }
     }
 }

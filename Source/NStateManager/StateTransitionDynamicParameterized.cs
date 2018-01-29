@@ -12,29 +12,46 @@ using System;
 
 namespace NStateManager
 {
-    internal class StateTransitionDynamicParameterized<T, TState, TParam>
-        : StateTransitionDynamicBase<T, TState>
+    internal class StateTransitionDynamicParameterized<T, TState, TTrigger, TParam>
+        : StateTransitionDynamicBase<T, TState, TTrigger>
         where TParam : class
         where TState : IComparable
     {
         public Func<T, TParam, TState> Condition { get; }
 
-        public StateTransitionDynamicParameterized(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState fromState, Func<T, TParam, TState> condition)
-            : base(stateAccessor, stateMutator, fromState)
+        public StateTransitionDynamicParameterized(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState fromState, Func<T, TParam, TState> condition, string name, uint priority)
+            : base(stateAccessor, stateMutator, fromState, name, priority)
         {
             Condition = condition ?? throw new ArgumentNullException(nameof(condition));
         }
 
-        public override StateTransitionResult<TState> Execute(ExecutionParameters<T> parameters)
+        public override StateTransitionResult<TState> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult)
         {
-            var startState = StateAccessor(parameters.Context);
-            var toState = Condition(parameters.Context, parameters.Request as TParam);
-            StateMutator(parameters.Context, toState);
+            //TODO check for params.Request <> null -- ???not sure about this
+            //TODO ensure params.Request is right type -- check for null
 
-            return new StateTransitionResult<TState>(startState
-                ,startState
-                ,toState
-                ,conditionMet: toState.CompareTo(startState) == 0);
+            var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
+            var toState = Condition(parameters.Context, parameters.Request as TParam);
+
+            var transitioned = toState.CompareTo(startState) != 0;
+
+            if (transitioned)
+            { StateMutator(parameters.Context, toState); }
+
+            var transitionResult = (currentResult == null)
+                ? new StateTransitionResult<TState>(startState
+                  , startState
+                  , toState
+                  , lastTransitionName: transitioned ? Name : string.Empty
+                  , conditionMet: transitioned)
+                : new StateTransitionResult<TState>(startState
+                  , currentResult.CurrentState
+                  , toState
+                  , lastTransitionName: transitioned ? Name : string.Empty
+                  , conditionMet: transitioned);
+            NotifyOfTransition(parameters.Context, transitionResult);
+
+            return transitionResult;
         }
     }
 }

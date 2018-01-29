@@ -14,18 +14,17 @@ namespace NStateManager
     {
         void AddSuperState(IStateConfigurationInternal<T, TState, TTrigger> superStateConfiguration);
 
-        void AddTransition(TTrigger trigger, StateTransitionBase<T, TState> transition);
+        void AddTransition(TTrigger trigger, StateTransitionBase<T, TState, TTrigger> transition);
 
-        StateTransitionResult<TState> ExecuteAutoTransition(ExecutionParameters<T> parameters, StateTransitionResult<TState> currentResult);
+        StateTransitionResult<TState> ExecuteAutoTransition(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult);
         void ExecuteEntryAction(T context, StateTransitionResult<TState> currentResult);
         void ExecuteExitAction(T context, StateTransitionResult<TState> currentResult);
         void ExecuteReentryAction(T context, StateTransitionResult<TState> currentResult);
 
+        StateTransitionResult<TState> FireTrigger(ExecutionParameters<T, TTrigger> parameters);
 
-        StateTransitionResult<TState> FireTrigger(T context, TTrigger trigger);
-
-        StateTransitionResult<TState> FireTrigger<TRequest>(T context, TTrigger trigger, TRequest request)
-            where TRequest : class;
+        /*StateTransitionResult<TState> FireTrigger<TRequest>(ExecutionParameters<T, TTrigger> parameters)
+            where TRequest : class; */
 
         bool IsInState(TState state);
 

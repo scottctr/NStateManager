@@ -8,7 +8,7 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-using System.Threading;
+
 using System.Threading.Tasks;
 
 namespace NStateManager
@@ -17,16 +17,14 @@ namespace NStateManager
     {
         void AddSuperState(IStateConfigurationAsyncInternal<T, TState, TTrigger> superStateConfiguration);
 
-        void AddTransition(TTrigger trigger, StateTransitionBase<T, TState> transition);
+        void AddTransition(TTrigger trigger, StateTransitionBase<T, TState, TTrigger> transition);
 
-        Task<StateTransitionResult<TState>> ExecuteAutoTransitionAsync(ExecutionParameters<T> parameters, StateTransitionResult<TState> currentResult, CancellationToken cancellationToken);
-        Task ExecuteEntryActionAsync(T context, StateTransitionResult<TState> currentResult, CancellationToken cancellationToken);
-        Task ExecuteExitActionAsync(T context, StateTransitionResult<TState> currentResult, CancellationToken cancellationToken);
+        Task<StateTransitionResult<TState>> ExecuteAutoTransitionAsync(ExecutionParameters<T, TTrigger> parameters
+          , StateTransitionResult<TState> currentResult);
+        Task ExecuteEntryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult);
+        Task ExecuteExitActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult);
 
-        Task ExecuteReentryActionAsync(T context, StateTransitionResult<TState> currentResult, CancellationToken cancellationToken);
-        Task<StateTransitionResult<TState>> FireTriggerAsync(T context, TTrigger trigger, CancellationToken cancellationToken);
-
-        Task<StateTransitionResult<TState>> FireTriggerAsync<TRequest>(T context, TTrigger trigger, TRequest request, CancellationToken cancellationToken)
-            where TRequest : class;
+        Task ExecuteReentryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult);
+        Task<StateTransitionResult<TState>> FireTriggerAsync(ExecutionParameters<T, TTrigger> parameters);
     }
 }

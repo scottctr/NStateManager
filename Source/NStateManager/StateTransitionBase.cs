@@ -9,32 +9,49 @@
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace NStateManager
 {
-    public abstract class StateTransitionBase<T, TState>
+    public abstract class StateTransitionBase<T, TState, TTrigger>
     {
-        public TState ToState { get; protected set; }
+        public static event Action<T, StateTransitionResult<TState>> OnTransitionedEvent;
+
+        protected string Name;
+        protected internal uint Priority;
         protected Func<T, TState> StateAccessor { get; }
         protected Action<T, TState> StateMutator { get; }
 
-        protected StateTransitionBase(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState toState)
+        public TState ToState { get; protected set; }
+
+        protected StateTransitionBase(Func<T, TState> stateAccessor
+            , Action<T, TState> stateMutator
+            , TState toState
+            , string name
+            , uint priority)
         {
             StateAccessor = stateAccessor;
             StateMutator = stateMutator;
             ToState = toState;
+            Name = name ?? "<not set>";
+            Priority = priority;
         }
 
-        public virtual StateTransitionResult<TState> Execute(ExecutionParameters<T> parameters)
+        public virtual StateTransitionResult<TState> Execute(ExecutionParameters<T, TTrigger> parameters
+          , StateTransitionResult<TState> currentResult = null)
         {
             throw new NotImplementedException("Inheritted classes must override this method. Ensure you're calling the correct overloaded version.");
         }
 
-        public virtual Task<StateTransitionResult<TState>> ExecuteAsync(ExecutionParameters<T> parameters, CancellationToken cancellationToken)
+        public virtual Task<StateTransitionResult<TState>> ExecuteAsync(ExecutionParameters<T, TTrigger> parameters
+          , StateTransitionResult<TState> currentResult = null)
         {
             throw new NotImplementedException("Inheritted classes must override this method. Ensure you're calling the correct overloaded version.");
+        }
+
+        protected void NotifyOfTransition(T context, StateTransitionResult<TState> transitionResult)
+        {
+            OnTransitionedEvent?.Invoke(context, transitionResult);
         }
     }
 }

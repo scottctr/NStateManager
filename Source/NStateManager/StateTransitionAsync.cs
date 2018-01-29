@@ -14,30 +14,48 @@ using System.Threading.Tasks;
 
 namespace NStateManager
 {
-    internal class StateTransitionAsync<T, TState> : StateTransitionBase<T, TState>
+    internal class StateTransitionAsync<T, TState, TTrigger> : StateTransitionBase<T, TState, TTrigger>
     {
         public Func<T, CancellationToken, Task<bool>> ConditionAsync { get; }
 
-        public StateTransitionAsync(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState toState, Func<T, CancellationToken, Task<bool>> conditionAsync)
-            : base(stateAccessor, stateMutator, toState)
+        public StateTransitionAsync(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState toState, Func<T, CancellationToken, Task<bool>> conditionAsync, string name, uint priority)
+            : base(stateAccessor, stateMutator, toState, name, priority)
         {
             ConditionAsync = conditionAsync ?? throw new ArgumentNullException(nameof(conditionAsync));
         }
 
-        public override async Task<StateTransitionResult<TState>> ExecuteAsync(ExecutionParameters<T> parameters, CancellationToken cancellationToken)
+        public override async Task<StateTransitionResult<TState>> ExecuteAsync(ExecutionParameters<T, TTrigger> parameters
+          , StateTransitionResult<TState> currentResult = null)
         {
-            var startState = StateAccessor(parameters.Context);
+            var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
 
-            if (cancellationToken.IsCancellationRequested)
-            { return new StateTransitionResult<TState>(startState, startState, startState, wasCancelled: true); }
-
-            if (await ConditionAsync(parameters.Context, cancellationToken).ConfigureAwait(continueOnCapturedContext: false))
+            if (parameters.CancellationToken.IsCancellationRequested)
             {
-                StateMutator(parameters.Context, ToState);
-                return new StateTransitionResult<TState>(startState, startState, ToState);
+                return new StateTransitionResult<TState>(startState
+                  , currentResult == null ? startState : currentResult.PreviousState
+                  , currentResult == null ? startState : currentResult.CurrentState
+                  , currentResult == null ? string.Empty : currentResult.LastTransitionName
+                  , wasCancelled: true);
             }
 
-            return new StateTransitionResult<TState>(startState, startState, startState, conditionMet: false, wasCancelled: cancellationToken.IsCancellationRequested);
+            if (!await ConditionAsync(parameters.Context, parameters.CancellationToken)
+               .ConfigureAwait(continueOnCapturedContext: false))
+            {
+                return new StateTransitionResult<TState>(startState
+                  , currentResult == null ? startState : currentResult.PreviousState
+                  , currentResult == null ? startState : currentResult.CurrentState
+                  , currentResult == null ? string.Empty : currentResult.LastTransitionName
+                  , conditionMet: false
+                  , wasCancelled: parameters.CancellationToken.IsCancellationRequested);
+            }
+
+            StateMutator(parameters.Context, ToState);
+            var transitionResult = currentResult == null
+                ? new StateTransitionResult<TState>(startState, startState, ToState, Name)
+                : new StateTransitionResult<TState>(startState, currentResult.CurrentState, ToState, Name);
+            NotifyOfTransition(parameters.Context, transitionResult);
+
+            return transitionResult;
         }
     }
 }

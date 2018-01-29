@@ -12,10 +12,10 @@ using System;
 
 namespace NStateManager
 {
-    internal abstract class StateTransitionDynamicBase<T, TState> : StateTransitionBase<T, TState>
+    internal abstract class StateTransitionDynamicBase<T, TState, TTrigger> : StateTransitionBase<T, TState, TTrigger>
     {
-        protected StateTransitionDynamicBase(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState fromState)
-            : base(stateAccessor, stateMutator, fromState)
+        protected StateTransitionDynamicBase(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState fromState, string name, uint priority)
+            : base(stateAccessor, stateMutator, fromState, name, priority)
         {}
     }
 }

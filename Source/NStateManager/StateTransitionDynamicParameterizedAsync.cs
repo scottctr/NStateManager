@@ -14,30 +14,44 @@ using System.Threading.Tasks;
 
 namespace NStateManager
 {
-    internal class StateTransitionDynamicParameterizedAsync<T, TState, TParam>
-        : StateTransitionDynamicBase<T, TState>
+    internal class StateTransitionDynamicParameterizedAsync<T, TState, TTrigger, TParam> : StateTransitionDynamicBase<T, TState, TTrigger>
         where TParam : class
         where TState : IComparable
-
     {
-        public Func<T, TParam, CancellationToken, Task<TState>> StateFunctionAsync { get; }
+        public Func<T, TParam, CancellationToken, Task<TState>> StateFuncAsync { get; }
 
-        public StateTransitionDynamicParameterizedAsync(Func<T, TState> stateAccessor, Action<T, TState> stateMutator,
-            TState fromState, Func<T, TParam, CancellationToken, Task<TState>> stateFunctionAsync)
-            : base(stateAccessor, stateMutator, fromState)
+        public StateTransitionDynamicParameterizedAsync(Func<T, TState> stateAccessor
+            , Action<T, TState> stateMutator
+            , TState fromState
+            , Func<T, TParam, CancellationToken, Task<TState>> stateFuncAsync
+            , string name
+            , uint priority)
+            : base(stateAccessor, stateMutator, fromState, name, priority)
         {
-            StateFunctionAsync = stateFunctionAsync ?? throw new ArgumentNullException(nameof(stateFunctionAsync));
+            StateFuncAsync = stateFuncAsync ?? throw new ArgumentNullException(nameof(stateFuncAsync));
         }
 
-        public override async Task<StateTransitionResult<TState>> ExecuteAsync(ExecutionParameters<T> parameters,
-            CancellationToken cancellationToken)
+        public override async Task<StateTransitionResult<TState>> ExecuteAsync(ExecutionParameters<T, TTrigger> parameters
+          , StateTransitionResult<TState> currentResult = null)
         {
-            var startState = StateAccessor(parameters.Context);
+            //TODO check for params.Request <> null
+            //TODO ensure params.Request is right type
 
-            if (cancellationToken.IsCancellationRequested)
-            { return new StateTransitionResult<TState>(startState, startState, startState, wasCancelled: true); }
+            var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
 
-            var toState = await StateFunctionAsync(parameters.Context, parameters.Request as TParam, cancellationToken)
+            if (parameters.CancellationToken.IsCancellationRequested)
+            {
+                if (currentResult != null)
+                { return currentResult; }
+
+                return new StateTransitionResult<TState>(startState
+                  , startState
+                  , startState
+                  , lastTransitionName: string.Empty
+                  , wasCancelled: true);
+            }
+
+            var toState = await StateFuncAsync(parameters.Context, parameters.Request as TParam, parameters.CancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             var wasSuccessful = false;
@@ -47,10 +61,19 @@ namespace NStateManager
                 wasSuccessful = true;
             }
 
-            return new StateTransitionResult<TState>(startState
-                , startState
-                , toState
-                , wasCancelled: !wasSuccessful && cancellationToken.IsCancellationRequested);
+            var transitionResult = currentResult == null
+                ? new StateTransitionResult<TState>(startState
+                  , startState
+                  , toState
+                  , lastTransitionName: wasSuccessful ? Name : string.Empty
+                  , conditionMet: wasSuccessful
+                  , wasCancelled: !wasSuccessful && parameters.CancellationToken.IsCancellationRequested)
+                : new StateTransitionResult<TState>(startState, currentResult.CurrentState, toState, Name);
+
+            if (wasSuccessful)
+            { NotifyOfTransition(parameters.Context, transitionResult); }
+
+            return transitionResult;
         }
     }
 }

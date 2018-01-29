@@ -7,3 +7,10 @@ C:\Users\Scott\Documents\Visual Studio 2017\Projects\NStateManager\Source\NState
 C:\Users\Scott\Documents\Visual Studio 2017\Projects\NStateManager\Source\NStateManager\obj\Debug\netstandard2.0\NStateManager.dll
 C:\Users\Scott\Documents\Visual Studio 2017\Projects\NStateManager\Source\NStateManager\obj\Debug\netstandard2.0\NStateManager.pdb
 C:\Users\Scott\Documents\Visual Studio 2017\Projects\NStateManager\Source\NStateManager\obj\Debug\netstandard2.0\NStateManager.csprojResolveAssemblyReference.cache
+C:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\bin\Debug\netstandard2.0\NStateManager.deps.json
+C:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\bin\Debug\netstandard2.0\NStateManager.dll
+C:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\bin\Debug\netstandard2.0\NStateManager.pdb
+C:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\obj\Debug\netstandard2.0\NStateManager.csproj.CoreCompileInputs.cache
+C:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\obj\Debug\netstandard2.0\NStateManager.dll
+C:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\obj\Debug\netstandard2.0\NStateManager.pdb
+C:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\obj\Debug\netstandard2.0\NStateManager.csprojResolveAssemblyReference.cache

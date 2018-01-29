@@ -23,7 +23,7 @@ namespace NStateManager
             Action = action ?? throw new ArgumentNullException(nameof(action));
         }
 
-        internal override async Task ExecuteAsync(T context, object request, CancellationToken cancellationToken)
+        internal override async Task ExecuteAsync(T context, CancellationToken cancellationToken, object request)
         {
             await Action.Invoke(context, cancellationToken).ConfigureAwait(continueOnCapturedContext: false);
         }

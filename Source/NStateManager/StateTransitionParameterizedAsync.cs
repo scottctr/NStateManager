@@ -14,34 +14,61 @@ using System.Threading.Tasks;
 
 namespace NStateManager
 {
-    internal class StateTransitionParameterizedAsync<T, TState, TParam> : StateTransitionBase<T, TState>
+    internal class StateTransitionParameterizedAsync<T, TState, TTrigger, TParam> : StateTransitionBase<T, TState, TTrigger>
         where TParam : class
     {
         public Func<T, TParam, CancellationToken, Task<bool>> ConditionAsync { get; }
 
-        public StateTransitionParameterizedAsync(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState toState, Func<T, TParam, CancellationToken, Task<bool>> conditionAsync)
-            : base(stateAccessor, stateMutator, toState)
+        public StateTransitionParameterizedAsync(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState toState, Func<T, TParam, CancellationToken, Task<bool>> conditionAsync, string name, uint priority)
+            : base(stateAccessor, stateMutator, toState, name, priority)
         {
             ConditionAsync = conditionAsync ?? throw new ArgumentNullException(nameof(conditionAsync));
         }
 
-        public override async Task<StateTransitionResult<TState>> ExecuteAsync(ExecutionParameters<T> parameters, CancellationToken cancellationToken)
+        public override async Task<StateTransitionResult<TState>> ExecuteAsync(ExecutionParameters<T, TTrigger> parameters
+          , StateTransitionResult<TState> currentResult = null)
         {
+            //TODO do we really need to enforce this not being null??
+            if (parameters.Request == null)
+            { throw new ArgumentNullException(nameof(parameters.Request)); }
+
+            //TODO if we don't force to be non-null, must check for null
             if (!(parameters.Request is TParam typeSafeParam))
-            { throw new InvalidOperationException($"Expected a {typeof(TParam).Name} parameter, but received a {parameters.Request.GetType().Name}."); }
+            { throw new ArgumentException($"Expected a {typeof(TParam).Name} parameter, but received a {parameters.Request.GetType().Name}."); }
 
-            var startState = StateAccessor(parameters.Context);
+            var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
 
-            if (cancellationToken.IsCancellationRequested)
-            { return new StateTransitionResult<TState>(startState, startState, startState, wasCancelled: true); }
-
-            if (await ConditionAsync(parameters.Context, typeSafeParam, cancellationToken).ConfigureAwait(continueOnCapturedContext: false))
+            if (parameters.CancellationToken.IsCancellationRequested)
             {
-                StateMutator(parameters.Context, ToState);
-                return new StateTransitionResult<TState>(startState, startState, ToState);
+                if (currentResult != null)
+                { return currentResult; }
+
+                return new StateTransitionResult<TState>(startState
+                  , startState
+                  , startState
+                  , lastTransitionName: string.Empty
+                  , conditionMet: false
+                  , wasCancelled: true);
             }
 
-            return new StateTransitionResult<TState>(startState, startState, startState, conditionMet: false, wasCancelled: cancellationToken.IsCancellationRequested); 
+            if (!await ConditionAsync(parameters.Context, typeSafeParam, parameters.CancellationToken)
+               .ConfigureAwait(continueOnCapturedContext: false))
+            {
+                return new StateTransitionResult<TState>(startState
+                    , currentResult == null ? startState : currentResult.PreviousState
+                    , currentResult == null ? startState : currentResult.CurrentState
+                    , lastTransitionName: currentResult == null ? string.Empty : currentResult.LastTransitionName
+                    , conditionMet: currentResult != null //If there's a currentResult, something was successful
+                    , wasCancelled: parameters.CancellationToken.IsCancellationRequested);
+            }
+
+            StateMutator(parameters.Context, ToState);
+            var transitionResult = currentResult == null
+                ? new StateTransitionResult<TState>(startState, startState, ToState, Name)
+                : new StateTransitionResult<TState>(startState, currentResult.CurrentState, ToState, Name);
+            NotifyOfTransition(parameters.Context, transitionResult);
+
+            return transitionResult;
         }
     }
 }

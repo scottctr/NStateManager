@@ -8,17 +8,27 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
+
+using System.Threading;
+
 namespace NStateManager
 {
-    public class ExecutionParameters<T>
+    public class ExecutionParameters<T, TTrigger>
     {
+        public TTrigger Trigger { get; }
         public T Context { get; }
         public object Request { get; }
+        public CancellationToken CancellationToken { get; }
 
-        public ExecutionParameters(T context, object request = null)
+        public ExecutionParameters(TTrigger trigger
+          , T context
+          , CancellationToken cancellationToken = default(CancellationToken)
+          , object request = null)
         {
+            Trigger = trigger;
             Context = context;
             Request = request;
+            CancellationToken = cancellationToken;
         }
     }
 }

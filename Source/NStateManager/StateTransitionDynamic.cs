@@ -12,30 +12,46 @@ using System;
 
 namespace NStateManager
 {
-    internal class StateTransitionDynamic<T, TState> : StateTransitionDynamicBase<T, TState>
+    internal class StateTransitionDynamic<T, TState, TTrigger> : StateTransitionDynamicBase<T, TState, TTrigger>
         where TState : IComparable
     {
         public Func<T, TState> StateFunction { get; }
 
-        public StateTransitionDynamic(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState fromState, Func<T, TState> stateFunction)
-            : base(stateAccessor, stateMutator, fromState)
+        public StateTransitionDynamic(Func<T, TState> stateAccessor
+            , Action<T, TState> stateMutator
+            , TState fromState
+            , Func<T, TState> stateFunction
+            , string name
+            , uint priority)
+            : base(stateAccessor, stateMutator, fromState, name, priority)
         {
             StateFunction = stateFunction ?? throw new ArgumentNullException(nameof(stateFunction));
         }
 
-        public override StateTransitionResult<TState> Execute(ExecutionParameters<T> parameters)
+        public override StateTransitionResult<TState> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult)
         {
-            var startState = StateAccessor(parameters.Context);
+            var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
             var toState = StateFunction.Invoke(parameters.Context);
-            var wasSuccessfull = false;
 
-            if (toState.CompareTo(startState) != 0)
+            if (toState.CompareTo(startState) == 0)
             {
-                wasSuccessfull = true;
-                StateMutator.Invoke(parameters.Context, toState);
+                if (currentResult != null)
+                { return currentResult; }
+
+                return new StateTransitionResult<TState>(startState
+                , startState
+                , toState
+                , lastTransitionName: string.Empty
+                , conditionMet: false);
             }
 
-            return new StateTransitionResult<TState>(startState, startState, toState, conditionMet: wasSuccessfull);
+            StateMutator.Invoke(parameters.Context, toState);
+            var transitionResult = currentResult == null
+                ? new StateTransitionResult<TState>(startState, startState, ToState, Name)
+                : new StateTransitionResult<TState>(startState, currentResult.CurrentState, ToState, Name);
+            NotifyOfTransition(parameters.Context, transitionResult);
+
+            return transitionResult;
         }
     }
 }
