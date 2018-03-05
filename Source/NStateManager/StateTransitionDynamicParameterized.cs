@@ -17,21 +17,21 @@ namespace NStateManager
         where TParam : class
         where TState : IComparable
     {
-        public Func<T, TParam, TState> Condition { get; }
+        public Func<T, TParam, TState> StateFunc { get; }
 
-        public StateTransitionDynamicParameterized(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState fromState, Func<T, TParam, TState> condition, string name, uint priority)
+        public StateTransitionDynamicParameterized(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState fromState, Func<T, TParam, TState> stateFunc, string name, uint priority)
             : base(stateAccessor, stateMutator, fromState, name, priority)
         {
-            Condition = condition ?? throw new ArgumentNullException(nameof(condition));
+            StateFunc = stateFunc ?? throw new ArgumentNullException(nameof(stateFunc));
         }
 
-        public override StateTransitionResult<TState> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult)
+        public override StateTransitionResult<TState> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult = null)
         {
             //TODO check for params.Request <> null -- ???not sure about this
             //TODO ensure params.Request is right type -- check for null
 
             var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
-            var toState = Condition(parameters.Context, parameters.Request as TParam);
+            var toState = StateFunc(parameters.Context, parameters.Request as TParam);
 
             var transitioned = toState.CompareTo(startState) != 0;
 
@@ -49,7 +49,9 @@ namespace NStateManager
                   , toState
                   , lastTransitionName: transitioned ? Name : string.Empty
                   , conditionMet: transitioned);
-            NotifyOfTransition(parameters.Context, transitionResult);
+
+            if (transitioned)
+            { NotifyOfTransition(parameters.Context, transitionResult); }
 
             return transitionResult;
         }

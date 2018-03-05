@@ -23,10 +23,10 @@ namespace NStateManager
 
         internal override void Execute(ExecutionParameters<T, TTrigger> parameters)
         {
-            //TODO check for params.Request <> null
+            if (parameters == null) { throw new ArgumentNullException(nameof(parameters)); }
 
             if (!(parameters.Request is TRequest typedRequestType))
-            { throw new ArgumentException($"{nameof(parameters.Request)} must be of type {typeof(TRequest).Name}.");}
+            { throw new ArgumentException($"{nameof(parameters.Request)} must be of type {typeof(TRequest).Name}."); }
 
             Action.Invoke(parameters.Context, typedRequestType);
         }

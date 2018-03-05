@@ -23,6 +23,8 @@ namespace NStateManager
 
         internal override void Execute(ExecutionParameters<T, TTrigger> parameters)
         {
+            //TODO check taht params not null and params.Request correct type
+
             Action.Invoke(parameters.Context);
         }
     }

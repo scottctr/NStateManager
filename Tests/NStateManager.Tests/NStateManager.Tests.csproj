@@ -67,15 +67,22 @@
     <Compile Include="FunctionActionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sale.cs" />
+    <Compile Include="StateConfigurationBaseTests.cs" />
     <Compile Include="StateConfigurationTests.cs" />
     <Compile Include="StateConfigurationAsyncTests.cs" />
     <Compile Include="StateMachineTests.cs" />
     <Compile Include="StateMachineAsyncTests.cs" />
+    <Compile Include="StateTransitionBaseTests.cs" />
+    <Compile Include="StateTransitionTests.cs" />
+    <Compile Include="StateTransitionDynamicTests.cs" />
+    <Compile Include="StateTransitionDynamicParameterizedTests.cs" />
+    <Compile Include="StateTransitionFactoryTests.cs" />
     <Compile Include="StateTransitionParameterizedAsyncTests.cs" />
     <Compile Include="StateTransitionAsyncTests.cs" />
     <Compile Include="StateTransitionDynamicParameterizedAsyncTests.cs" />
     <Compile Include="StateTransitionDynamicAsyncTests.cs" />
     <Compile Include="StateTransitionParameterizedTests.cs" />
+    <Compile Include="TriggerActionParameterizedTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

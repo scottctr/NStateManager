@@ -15,23 +15,23 @@ namespace NStateManager
     internal class StateTransitionDynamic<T, TState, TTrigger> : StateTransitionDynamicBase<T, TState, TTrigger>
         where TState : IComparable
     {
-        public Func<T, TState> StateFunction { get; }
+        public Func<T, TState> StateFunc { get; }
 
         public StateTransitionDynamic(Func<T, TState> stateAccessor
             , Action<T, TState> stateMutator
             , TState fromState
-            , Func<T, TState> stateFunction
+            , Func<T, TState> stateFunc
             , string name
             , uint priority)
             : base(stateAccessor, stateMutator, fromState, name, priority)
         {
-            StateFunction = stateFunction ?? throw new ArgumentNullException(nameof(stateFunction));
+            StateFunc = stateFunc ?? throw new ArgumentNullException(nameof(stateFunc));
         }
 
-        public override StateTransitionResult<TState> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult)
+        public override StateTransitionResult<TState> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult = null)
         {
             var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
-            var toState = StateFunction.Invoke(parameters.Context);
+            var toState = StateFunc.Invoke(parameters.Context);
 
             if (toState.CompareTo(startState) == 0)
             {
@@ -47,8 +47,8 @@ namespace NStateManager
 
             StateMutator.Invoke(parameters.Context, toState);
             var transitionResult = currentResult == null
-                ? new StateTransitionResult<TState>(startState, startState, ToState, Name)
-                : new StateTransitionResult<TState>(startState, currentResult.CurrentState, ToState, Name);
+                ? new StateTransitionResult<TState>(startState, startState, toState, Name)
+                : new StateTransitionResult<TState>(startState, currentResult.CurrentState, toState, Name);
             NotifyOfTransition(parameters.Context, transitionResult);
 
             return transitionResult;

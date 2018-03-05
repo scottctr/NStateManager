@@ -30,15 +30,14 @@ namespace NStateManager
             , string name
             , uint priority)
         {
-            StateAccessor = stateAccessor;
-            StateMutator = stateMutator;
+            StateAccessor = stateAccessor ?? throw new ArgumentNullException(nameof(stateAccessor));
+            StateMutator = stateMutator ?? throw new ArgumentNullException(nameof(stateMutator));
             ToState = toState;
             Name = name ?? "<not set>";
             Priority = priority;
         }
 
-        public virtual StateTransitionResult<TState> Execute(ExecutionParameters<T, TTrigger> parameters
-          , StateTransitionResult<TState> currentResult = null)
+        public virtual StateTransitionResult<TState> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult = null)
         {
             throw new NotImplementedException("Inheritted classes must override this method. Ensure you're calling the correct overloaded version.");
         }

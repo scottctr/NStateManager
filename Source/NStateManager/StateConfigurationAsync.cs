@@ -71,7 +71,6 @@ namespace NStateManager
             DefaultAutoTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
               , StateMutator
               , State
-              , default(TTrigger)
               , toState
               , condition
               , name
@@ -139,7 +138,6 @@ namespace NStateManager
             var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
               , StateMutator
               , State
-              , default(TTrigger)
               , toState
               , condition
               , name
@@ -321,7 +319,6 @@ namespace NStateManager
             DefaultAutoTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
               , StateMutator
               , State
-              , default(TTrigger)
               , State
               , condition
               , name
@@ -366,7 +363,6 @@ namespace NStateManager
             var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
               , StateMutator
               , State
-              , default(TTrigger)
               , State
               , condition
               , name
@@ -448,7 +444,6 @@ namespace NStateManager
             var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
                 , StateMutator
                 , State
-                , trigger
                 , toState
                 , conditionAsync
                 , name

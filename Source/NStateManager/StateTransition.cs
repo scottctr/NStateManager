@@ -19,10 +19,10 @@ namespace NStateManager
         public StateTransition(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState toState, Func<T, bool> condition, string name, uint priority)
             : base(stateAccessor, stateMutator, toState, name, priority)
         {
-            Condition = condition;
+            Condition = condition ?? throw new ArgumentNullException(nameof(condition));
         }
 
-        public override StateTransitionResult<TState> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult)
+        public override StateTransitionResult<TState> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult = null)
         {
             var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
 
