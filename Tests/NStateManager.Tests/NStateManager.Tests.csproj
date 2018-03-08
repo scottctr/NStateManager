@@ -82,6 +82,7 @@
     <Compile Include="StateTransitionDynamicParameterizedAsyncTests.cs" />
     <Compile Include="StateTransitionDynamicAsyncTests.cs" />
     <Compile Include="StateTransitionParameterizedTests.cs" />
+    <Compile Include="SubStateTest.cs" />
     <Compile Include="TriggerActionParameterizedTests.cs" />
   </ItemGroup>
   <ItemGroup>

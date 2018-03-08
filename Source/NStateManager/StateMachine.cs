@@ -169,14 +169,17 @@ namespace NStateManager
             if (currentResult.WasSuccessful && 
                 !(currentResult.StartingState.CompareTo(currentResult.PreviousState) == 0 && currentResult.PreviousState.CompareTo(currentResult.CurrentState) == 0))
             {
-                //OnExit?
-                if (_stateConfigurations.TryGetValue(currentResult.PreviousState, out var previousState))
+                _stateConfigurations.TryGetValue(currentResult.PreviousState, out var previousState);
+
+                //OnExit? ...don't execute if moving to substate
+                if (!IsInState(parameters.Context, currentResult.PreviousState))
                 {  previousState.ExecuteExitAction(parameters.Context, currentResult); }
 
                 if (_stateConfigurations.TryGetValue(currentResult.CurrentState, out var newState))
                 {
-                    //OnEntry?
-                    newState.ExecuteEntryAction(parameters.Context, currentResult);
+                    //OnEntry? ...don't execute if moving to superstate
+                    if (!previousState.IsInState(currentResult.CurrentState))
+                    { newState.ExecuteEntryAction(parameters.Context, currentResult); }
 
                     //AutoForward?
                     var preAutoForwardState = currentResult.CurrentState;
