@@ -31,8 +31,8 @@ namespace NStateManager
             StateFuncAsync = stateFuncAsync ?? throw new ArgumentNullException(nameof(stateFuncAsync));
         }
 
-        public override async Task<StateTransitionResult<TState>> ExecuteAsync(ExecutionParameters<T, TTrigger> parameters
-          , StateTransitionResult<TState> currentResult = null)
+        public override async Task<StateTransitionResult<TState, TTrigger>> ExecuteAsync(ExecutionParameters<T, TTrigger> parameters
+          , StateTransitionResult<TState, TTrigger> currentResult = null)
         {
             //TODO check for params.Request <> null
             //TODO ensure params.Request is right type
@@ -44,11 +44,12 @@ namespace NStateManager
                 if (currentResult != null)
                 { return currentResult; }
 
-                return new StateTransitionResult<TState>(startState
-                  , startState
-                  , startState
-                  , lastTransitionName: string.Empty
-                  , wasCancelled: true);
+                return new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                    , startState
+                    , startState
+                    , startState
+                    , lastTransitionName: string.Empty
+                    , wasCancelled: true);
             }
 
             var toState = await StateFuncAsync(parameters.Context, parameters.Request as TParam, parameters.CancellationToken)
@@ -62,13 +63,14 @@ namespace NStateManager
             }
 
             var transitionResult = currentResult == null
-                ? new StateTransitionResult<TState>(startState
-                  , startState
-                  , toState
-                  , lastTransitionName: wasSuccessful ? Name : string.Empty
-                  , conditionMet: wasSuccessful
-                  , wasCancelled: !wasSuccessful && parameters.CancellationToken.IsCancellationRequested)
-                : new StateTransitionResult<TState>(startState, currentResult.CurrentState, toState, Name);
+                ? new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                    , startState
+                    , startState
+                    , toState
+                    , lastTransitionName: wasSuccessful ? Name : string.Empty
+                    , conditionMet: wasSuccessful
+                    , wasCancelled: !wasSuccessful && parameters.CancellationToken.IsCancellationRequested)
+                : new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, currentResult.CurrentState, toState, Name);
 
             if (wasSuccessful)
             { NotifyOfTransition(parameters.Context, transitionResult); }

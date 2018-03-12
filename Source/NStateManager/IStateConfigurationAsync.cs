@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace NStateManager
 {
-    public interface IStateConfigurationAsync<out T, TState, in TTrigger>
+    public interface IStateConfigurationAsync<T, TState, TTrigger>
     { 
         /* don't think this is needed -- missing cancellation and other version has it
         /// <summary>
@@ -169,9 +169,7 @@ namespace NStateManager
 
         bool IsInState(TState state);
 
-        /// <summary>
-        /// The state being configured.
-        /// </summary>
-        TState State { get; }
+
+        IStateConfigurationAsync<T, TState, TTrigger> IsSubStateOf(IStateConfigurationAsync<T, TState, TTrigger> superStateConfiguration);
     }
 }

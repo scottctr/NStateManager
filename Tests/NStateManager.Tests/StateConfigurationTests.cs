@@ -357,10 +357,11 @@ namespace NStateManager.Tests
         public void ExecuteAutoTransition_executes_AutoTransition_based_on_previous_state_if_exists()
         {
             var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
-            var transitionResult = new StateTransitionResult<SaleState>(SaleState.Open
-              , SaleState.Open
-              , SaleState.ChangeDue
-              , "lastTransitionName");
+            var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.ChangeGiven
+                , SaleState.Open
+                , SaleState.Open
+                , SaleState.ChangeDue
+                , "lastTransitionName");
             var sut = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale1 => sale.State
               , stateMutator: (sale1, newState) => sale.State = newState);
@@ -380,10 +381,11 @@ namespace NStateManager.Tests
         public void ExecuteAutoTransition_executes_AutoTransition_without_previous_state()
         {
             var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
-            var transitionResult = new StateTransitionResult<SaleState>(SaleState.Open
-              , SaleState.Open
-              , SaleState.ChangeDue
-              , "lastTransitionName");
+            var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.ChangeGiven
+                , SaleState.Open
+                , SaleState.Open
+                , SaleState.ChangeDue
+                , "lastTransitionName");
             var sut = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale1 => sale.State
               , stateMutator: (sale1, newState) => sale.State = newState);
@@ -403,10 +405,11 @@ namespace NStateManager.Tests
         public void ExecuteAutoTransition_executes_AutoTransition_for_superState()
         {
             var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
-            var transitionResult = new StateTransitionResult<SaleState>(SaleState.Open
-              , SaleState.Open
-              , SaleState.ChangeDue
-              , "lastTransitionName");
+            var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.AddItem
+                , SaleState.Open
+                , SaleState.Open
+                , SaleState.ChangeDue
+                , "lastTransitionName");
             var openState = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.Open
               , stateAccessor: sale1 => sale.State
               , stateMutator: (sale1, newState) => sale.State = newState);
@@ -430,10 +433,11 @@ namespace NStateManager.Tests
         public void ExecuteEntryAction_executes_EntryAction_based_on_previous_state()
         {
             var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
-            var transitionResult = new StateTransitionResult<SaleState>(SaleState.Open
-              , SaleState.Open
-              , SaleState.ChangeDue
-              , "lastTransitionName");
+            var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.AddItem
+                , SaleState.Open
+                , SaleState.Open
+                , SaleState.ChangeDue
+                , "lastTransitionName");
             var sut = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale1 => sale.State
               , stateMutator: (sale1, newState) => sale.State = newState);
@@ -449,10 +453,11 @@ namespace NStateManager.Tests
         public void ExecuteEntryAction_executes_EntryAction_without_previous_state()
         {
             var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
-            var transitionResult = new StateTransitionResult<SaleState>(SaleState.Open
-              , SaleState.Open
-              , SaleState.ChangeDue
-              , "lastTransitionName");
+            var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.AddItem
+                , SaleState.Open
+                , SaleState.Open
+                , SaleState.ChangeDue
+                , "lastTransitionName");
             var sut = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale1 => sale.State
               , stateMutator: (sale1, newState) => sale.State = newState);
@@ -468,10 +473,11 @@ namespace NStateManager.Tests
         public void ExecuteReentryAction_executes_superState_Action()
         {
             var sale = new Sale(saleID: 96) { State = SaleState.Open };
-            var transitionResult = new StateTransitionResult<SaleState>(SaleState.Open
-              , SaleState.Open
-              , SaleState.Open
-              , "lastTransitionName");
+            var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.AddItem
+                , SaleState.Open
+                , SaleState.Open
+                , SaleState.Open
+                , "lastTransitionName");
             var openState = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.Open
               , stateAccessor: sale1 => sale.State
               , stateMutator: (sale1, newState) => sale.State = newState);
@@ -491,10 +497,11 @@ namespace NStateManager.Tests
         public void ExecuteReentryAction_executes_ReentryAction()
         {
             var sale = new Sale(saleID: 96) { State = SaleState.Open };
-            var transitionResult = new StateTransitionResult<SaleState>(SaleState.Open
-              , SaleState.Open
-              , SaleState.Open
-              , "lastTransitionName");
+            var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.AddItem
+                , SaleState.Open
+                , SaleState.Open
+                , SaleState.Open
+                , "lastTransitionName");
             var openState = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.Open
               , stateAccessor: sale1 => sale.State
               , stateMutator: (sale1, newState) => sale.State = newState);
@@ -514,10 +521,11 @@ namespace NStateManager.Tests
         public void ExecuteExitAction_executes_based_on_next_state()
         {
             var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
-            var transitionResult = new StateTransitionResult<SaleState>(SaleState.Open
-              , SaleState.Open
-              , SaleState.ChangeDue
-              , "lastTransitionName");
+            var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.AddItem
+                , SaleState.Open
+                , SaleState.Open
+                , SaleState.ChangeDue
+                , "lastTransitionName");
             var openState = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.Open
               , stateAccessor: sale1 => sale.State
               , stateMutator: (sale1, newState) => sale.State = newState);
@@ -533,10 +541,11 @@ namespace NStateManager.Tests
         public void ExecuteExitAction_executes_without_next_state()
         {
             var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
-            var transitionResult = new StateTransitionResult<SaleState>(SaleState.Open
-              , SaleState.Open
-              , SaleState.ChangeDue
-              , "lastTransitionName");
+            var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
+                , SaleState.Open
+                , SaleState.Open
+                , SaleState.ChangeDue
+                , "lastTransitionName");
             var openState = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.Open
               , stateAccessor: sale1 => sale.State
               , stateMutator: (sale1, newState) => sale.State = newState);

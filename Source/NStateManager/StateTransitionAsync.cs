@@ -24,35 +24,37 @@ namespace NStateManager
             ConditionAsync = conditionAsync ?? throw new ArgumentNullException(nameof(conditionAsync));
         }
 
-        public override async Task<StateTransitionResult<TState>> ExecuteAsync(ExecutionParameters<T, TTrigger> parameters
-          , StateTransitionResult<TState> currentResult = null)
+        public override async Task<StateTransitionResult<TState, TTrigger>> ExecuteAsync(ExecutionParameters<T, TTrigger> parameters
+          , StateTransitionResult<TState, TTrigger> currentResult = null)
         {
             var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
 
             if (parameters.CancellationToken.IsCancellationRequested)
             {
-                return new StateTransitionResult<TState>(startState
-                  , currentResult == null ? startState : currentResult.PreviousState
-                  , currentResult == null ? startState : currentResult.CurrentState
-                  , currentResult == null ? string.Empty : currentResult.LastTransitionName
-                  , wasCancelled: true);
+                return new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                    , startState
+                    , currentResult == null ? startState : currentResult.PreviousState
+                    , currentResult == null ? startState : currentResult.CurrentState
+                    , currentResult == null ? string.Empty : currentResult.LastTransitionName
+                    , wasCancelled: true);
             }
 
             if (!await ConditionAsync(parameters.Context, parameters.CancellationToken)
                .ConfigureAwait(continueOnCapturedContext: false))
             {
-                return new StateTransitionResult<TState>(startState
-                  , currentResult == null ? startState : currentResult.PreviousState
-                  , currentResult == null ? startState : currentResult.CurrentState
-                  , currentResult == null ? string.Empty : currentResult.LastTransitionName
-                  , conditionMet: false
-                  , wasCancelled: parameters.CancellationToken.IsCancellationRequested);
+                return new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                    , startState
+                    , currentResult == null ? startState : currentResult.PreviousState
+                    , currentResult == null ? startState : currentResult.CurrentState
+                    , currentResult == null ? string.Empty : currentResult.LastTransitionName
+                    , conditionMet: false
+                    , wasCancelled: parameters.CancellationToken.IsCancellationRequested);
             }
 
             StateMutator(parameters.Context, ToState);
             var transitionResult = currentResult == null
-                ? new StateTransitionResult<TState>(startState, startState, ToState, Name)
-                : new StateTransitionResult<TState>(startState, currentResult.CurrentState, ToState, Name);
+                ? new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, startState, ToState, Name)
+                : new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, currentResult.CurrentState, ToState, Name);
             NotifyOfTransition(parameters.Context, transitionResult);
 
             return transitionResult;

@@ -92,7 +92,7 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void FireTriggerAsnync_sends_parameters_to_configured_state()
+        public void FireTrigger_sends_parameters_to_configured_state()
         {
             var sale = new Sale(saleID: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
@@ -111,7 +111,7 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void FireTriggerAsnync_doesnt_require_configured_state()
+        public void FireTrigger_doesnt_require_configured_state()
         {
             var sale = new Sale(saleID: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
@@ -125,7 +125,7 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void FireTriggerAsnync_executes_exitAction()
+        public void FireTrigger_executes_exitAction()
         {
             var sale = new Sale(saleID: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
@@ -143,7 +143,28 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void FireTriggerAsnync_executes_entryAction()
+        public void FireTrigger_doesnt_execute_exitAction_when_moving_to_substate()
+        {
+            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
+                stateAccessor: sale2 => sale2.State
+              , stateMutator: (sale3, newState) => sale3.State = newState);
+            var exitActionFired = false;
+
+            sut.ConfigureState(SaleState.Open)
+               .AddTransition(SaleEvent.Pay, SaleState.Complete)
+               .AddExitAction(sale1 => exitActionFired = true);
+            sut.ConfigureState(SaleState.Complete)
+               .IsSubStateOf(sut.ConfigureState(SaleState.Open))
+               .AddExitAction(sale1 => exitActionFired = true);
+
+            sut.FireTrigger(sale, SaleEvent.Pay);
+
+            Assert.False(exitActionFired);
+        }
+
+        [Fact]
+        public void FireTrigger_executes_entryAction()
         {
             var sale = new Sale(saleID: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
@@ -163,7 +184,27 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void FireTriggerAsnync_executes_autoTransition()
+        public void FireTrigger_doesnt_execute_entryAction_when_changing_to_superState()
+        {
+            var sale = new Sale(saleID: 45) { State = SaleState.ChangeDue };
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
+                stateAccessor: sale2 => sale2.State
+              , stateMutator: (sale3, newState) => sale3.State = newState);
+            var entryActionFired = false;
+
+            sut.ConfigureState(SaleState.Open)
+               .AddEntryAction(sale1 => entryActionFired = true);
+            sut.ConfigureState(SaleState.ChangeDue)
+               .IsSubStateOf(sut.ConfigureState(SaleState.Open))
+               .AddTransition(SaleEvent.Pay, SaleState.Open);
+
+            sut.FireTrigger(sale, SaleEvent.Pay);
+
+            Assert.False(entryActionFired);
+        }
+
+        [Fact]
+        public void FireTrigger_executes_autoTransition()
         {
             var sale = new Sale(saleID: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
@@ -187,7 +228,7 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void FireTriggerAsnync_executes_entryExitActions_for_autoTransition()
+        public void FireTrigger_executes_entryExitActions_for_autoTransition()
         {
             var sale = new Sale(saleID: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
@@ -216,7 +257,7 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void FireTriggerAsnync_executes_reentryActions_if_no_state_change()
+        public void FireTrigger_executes_reentryActions_if_no_state_change()
         {
             var sale = new Sale(saleID: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
@@ -248,7 +289,7 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void FireTriggerAsnyncWRequest_sends_parameters_to_configured_state()
+        public void FireTriggerWRequest_sends_parameters_to_configured_state()
         {
             var sale = new Sale(saleID: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(

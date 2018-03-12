@@ -25,8 +25,8 @@ namespace NStateManager
             ConditionAsync = conditionAsync ?? throw new ArgumentNullException(nameof(conditionAsync));
         }
 
-        public override async Task<StateTransitionResult<TState>> ExecuteAsync(ExecutionParameters<T, TTrigger> parameters
-          , StateTransitionResult<TState> currentResult = null)
+        public override async Task<StateTransitionResult<TState, TTrigger>> ExecuteAsync(ExecutionParameters<T, TTrigger> parameters
+          , StateTransitionResult<TState, TTrigger> currentResult = null)
         {
             //TODO do we really need to enforce this not being null??
             if (parameters.Request == null)
@@ -43,18 +43,20 @@ namespace NStateManager
                 if (currentResult != null)
                 { return currentResult; }
 
-                return new StateTransitionResult<TState>(startState
-                  , startState
-                  , startState
-                  , lastTransitionName: string.Empty
-                  , conditionMet: false
-                  , wasCancelled: true);
+                return new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                    , startState
+                    , startState
+                    , startState
+                    , lastTransitionName: string.Empty
+                    , conditionMet: false
+                    , wasCancelled: true);
             }
 
             if (!await ConditionAsync(parameters.Context, typeSafeParam, parameters.CancellationToken)
                .ConfigureAwait(continueOnCapturedContext: false))
             {
-                return new StateTransitionResult<TState>(startState
+                return new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                    , startState
                     , currentResult == null ? startState : currentResult.PreviousState
                     , currentResult == null ? startState : currentResult.CurrentState
                     , lastTransitionName: currentResult == null ? string.Empty : currentResult.LastTransitionName
@@ -64,8 +66,8 @@ namespace NStateManager
 
             StateMutator(parameters.Context, ToState);
             var transitionResult = currentResult == null
-                ? new StateTransitionResult<TState>(startState, startState, ToState, Name)
-                : new StateTransitionResult<TState>(startState, currentResult.CurrentState, ToState, Name);
+                ? new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, startState, ToState, Name)
+                : new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, currentResult.CurrentState, ToState, Name);
             NotifyOfTransition(parameters.Context, transitionResult);
 
             return transitionResult;

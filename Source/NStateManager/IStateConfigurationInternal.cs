@@ -13,24 +13,13 @@ namespace NStateManager
     public interface IStateConfigurationInternal<T, TState, TTrigger> : IStateConfiguration<T, TState, TTrigger>
     {
         void AddSuperState(IStateConfigurationInternal<T, TState, TTrigger> superStateConfiguration);
-
         void AddTransition(TTrigger trigger, StateTransitionBase<T, TState, TTrigger> transition);
-
-        StateTransitionResult<TState> ExecuteAutoTransition(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult);
-        void ExecuteEntryAction(T context, StateTransitionResult<TState> currentResult);
-        void ExecuteExitAction(T context, StateTransitionResult<TState> currentResult);
-        void ExecuteReentryAction(T context, StateTransitionResult<TState> currentResult);
-
-        StateTransitionResult<TState> FireTrigger(ExecutionParameters<T, TTrigger> parameters);
-
-        /*StateTransitionResult<TState> FireTrigger<TRequest>(ExecutionParameters<T, TTrigger> parameters)
-            where TRequest : class; */
-
+        StateTransitionResult<TState, TTrigger> ExecuteAutoTransition(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult);
+        void ExecuteEntryAction(T context, StateTransitionResult<TState, TTrigger> currentResult);
+        void ExecuteExitAction(T context, StateTransitionResult<TState, TTrigger> currentResult);
+        void ExecuteReentryAction(T context, StateTransitionResult<TState, TTrigger> currentResult);
+        StateTransitionResult<TState, TTrigger> FireTrigger(ExecutionParameters<T, TTrigger> parameters);
         bool IsInState(TState state);
-
-        /// <summary>
-        /// The state being configured.
-        /// </summary>
         TState State { get; }
     }
 }

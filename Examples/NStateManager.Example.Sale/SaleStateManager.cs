@@ -36,7 +36,7 @@ namespace NStateManager.Example.Sale
                 //Like adding items, we want to accept a payment if at all possible
                 //See Sale.AddPayment() to see how exceptions are handled.
                 .AddTriggerAction<Payment>(SaleEvent.AddPayment, action: (sale, payment) => sale.AddPayment(payment))
-            //   .AddTriggerAction<ChangeTransaction>(SaleEvent.ChangeGiven, (sale, ct) => sale.AddChangeTransaction(ct))
+                //.AddTriggerAction<ChangeTransaction>(SaleEvent.ChangeGiven, (sale, ct) => sale.AddChangeTransaction(ct))
                 //We can cancel most sales. See Sale.Cancel() to see how exceptions are handled
                 .AddTriggerAction(SaleEvent.Cancel, action: sale => sale.Cancel())
                 .AddTriggerAction<SaleItem>(SaleEvent.ItemDelivered, (sale, item) => sale.MarkItemDelivered(item));
@@ -126,22 +126,22 @@ namespace NStateManager.Example.Sale
             }
         }
 
-        public static StateTransitionResult<SaleState> Fire(Sale sale, SaleEvent saleEvent)
+        public static StateTransitionResult<SaleState, SaleEvent> Fire(Sale sale, SaleEvent saleEvent)
         {
             return _saleStateManager.FireTrigger(sale, saleEvent);
         }
 
-        public static StateTransitionResult<SaleState> Fire(Sale sale, SaleEvent saleEvent, ChangeTransaction change)
+        public static StateTransitionResult<SaleState, SaleEvent> Fire(Sale sale, SaleEvent saleEvent, ChangeTransaction change)
         {
             return _saleStateManager.FireTrigger(sale, saleEvent, change);
         }
 
-        public static StateTransitionResult<SaleState> Fire(Sale sale, SaleEvent saleEvent, Payment payment)
+        public static StateTransitionResult<SaleState, SaleEvent> Fire(Sale sale, SaleEvent saleEvent, Payment payment)
         {
             return _saleStateManager.FireTrigger(sale, saleEvent, payment);
         }
 
-        public static StateTransitionResult<SaleState> Fire(Sale sale, SaleEvent saleEvent, SaleItem saleItem)
+        public static StateTransitionResult<SaleState, SaleEvent> Fire(Sale sale, SaleEvent saleEvent, SaleItem saleItem)
         {
             return _saleStateManager.FireTrigger(sale, saleEvent, saleItem);
         }

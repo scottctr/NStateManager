@@ -10,6 +10,7 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -292,6 +293,7 @@ namespace NStateManager
         /// Defines an action to execute when exiting this state.
         /// </summary>
         /// <param name="action">The action to execute.</param>
+        /// <param name="nextState">The conditional next <see cref="TState"/> for this action. The action only executes when transitioning to nextState.</param>
         /// <returns></returns>
         public IStateConfigurationAsync<T, TState, TTrigger> AddExitAction(Func<T, CancellationToken, Task> action, TState nextState)
         {
@@ -485,38 +487,6 @@ namespace NStateManager
             return this;
         }
 
-        /* I don't thing this is needed -- missing cancellation support
-        /// <summary>
-        /// Adds a conditional transition to be applied on the specified <see cref="TTrigger"/>.
-        /// </summary>
-        /// <param name="trigger">The <see cref="TTrigger"/> to use this transition.</param>
-        /// <param name="toState">The <see cref="TState"/> to transition to.</param>
-        /// <param name="condition">StateFunction that must be met to complete the transition.</param>
-        /// <param name="name"></param>
-        /// <param name="priority"></param>
-        /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddTransition(TTrigger trigger
-            , TState toState
-            , Func<T, bool> condition = null
-            , string name = null
-            , uint priority = 1)
-        {
-            if (condition == null)
-            { condition = _ => true; }
-
-            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-                , StateMutator
-                , State
-                , trigger
-                , toState
-                , condition
-                , name
-                , priority);
-            AddTransition(trigger, transition);
-
-            return this;
-        } */
-
         /// <summary>
         /// Defines an action to execute when a specified <see cref="TTrigger"/> occurs.
         /// </summary>
@@ -551,8 +521,8 @@ namespace NStateManager
             return this;
         }
 
-        public async Task<StateTransitionResult<TState>> ExecuteAutoTransitionAsync(ExecutionParameters<T, TTrigger> parameters
-            , StateTransitionResult<TState> currentResult)
+        public async Task<StateTransitionResult<TState, TTrigger>> ExecuteAutoTransitionAsync(ExecutionParameters<T, TTrigger> parameters
+            , StateTransitionResult<TState, TTrigger> currentResult)
         {
             //Is there an action based on the previous state?
             if (PreviousStateAutoTransitions.TryGetValue(currentResult.PreviousState, out var action))
@@ -564,7 +534,8 @@ namespace NStateManager
 
             return _superState != null
                 ? await _superState.ExecuteAutoTransitionAsync(parameters, currentResult).ConfigureAwait(continueOnCapturedContext: false)
-                : new StateTransitionResult<TState>(currentResult.StartingState
+                : new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                    , currentResult.StartingState
                     , currentResult.PreviousState
                     , currentResult.CurrentState
                     , currentResult.LastTransitionName
@@ -572,7 +543,7 @@ namespace NStateManager
                     , wasCancelled: parameters.CancellationToken.IsCancellationRequested);
         }
 
-        public async Task ExecuteEntryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult)
+        public async Task ExecuteEntryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult)
         {
             //Is there an action based on the new state?
             if (_previousStateEntryActions.TryGetValue(currentResult.PreviousState, out var action))
@@ -594,7 +565,7 @@ namespace NStateManager
             }
         }
 
-        public async Task ExecuteReentryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult)
+        public async Task ExecuteReentryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult)
         {
             if (_superState != null)
             {
@@ -610,7 +581,7 @@ namespace NStateManager
         }
 
         public async Task ExecuteExitActionAsync(ExecutionParameters<T, TTrigger> parameters
-            , StateTransitionResult<TState> currentResult)
+            , StateTransitionResult<TState, TTrigger> currentResult)
         {
             //Is there an action based on the new state?
             if (_nextStateExitActions.TryGetValue(currentResult.CurrentState, out var action))
@@ -636,7 +607,7 @@ namespace NStateManager
             }
         }
 
-        public async Task<StateTransitionResult<TState>> FireTriggerAsync(ExecutionParameters<T, TTrigger> parameters)
+        public async Task<StateTransitionResult<TState, TTrigger>> FireTriggerAsync(ExecutionParameters<T, TTrigger> parameters)
         {
             if (_triggerActions.TryGetValue(parameters.Trigger, out var triggerAction))
             {
@@ -653,11 +624,29 @@ namespace NStateManager
             else
             {
                 var startState = StateAccessor(parameters.Context);
-                result = result ?? new StateTransitionResult<TState>(startState
-                             , startState
-                             , startState
-                             , lastTransitionName: string.Empty
-                             , transitionDefined: false);
+                result = result ?? new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                    , startState
+                    , startState
+                    , startState
+                    , lastTransitionName: string.Empty
+                    , transitionDefined: false);
+            }
+
+            return result;
+        }
+
+        private async Task<StateTransitionResult<TState, TTrigger>> FireTriggerPrimAsync(ExecutionParameters<T, TTrigger> parameters)
+        {
+            StateTransitionResult<TState, TTrigger> result = null;
+
+            if (AllowedTransitions.TryGetValue(parameters.Trigger, out var transitions))
+            {
+                foreach (var transition in transitions.OrderBy(t => t.Priority))
+                {
+                    result = await transition.ExecuteAsync(parameters).ConfigureAwait(continueOnCapturedContext: false);
+                    if (result.WasSuccessful)
+                    { return result; }
+                }
             }
 
             return result;
@@ -669,6 +658,13 @@ namespace NStateManager
             { return true; }
 
             return _superState?.IsInState(state) ?? false;
+        }
+
+        public IStateConfigurationAsync<T, TState, TTrigger> IsSubStateOf(IStateConfigurationAsync<T, TState, TTrigger> superStateConfiguration)
+        {
+            AddSuperState(superStateConfiguration as IStateConfigurationAsyncInternal<T, TState, TTrigger>);
+
+            return this;
         }
     }
 }

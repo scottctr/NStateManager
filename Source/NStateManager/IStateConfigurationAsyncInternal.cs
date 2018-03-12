@@ -15,15 +15,13 @@ namespace NStateManager
     public interface IStateConfigurationAsyncInternal<T, TState, TTrigger> : IStateConfigurationAsync<T, TState, TTrigger>
     {
         void AddSuperState(IStateConfigurationAsyncInternal<T, TState, TTrigger> superStateConfiguration);
-
         void AddTransition(TTrigger trigger, StateTransitionBase<T, TState, TTrigger> transition);
-
-        Task<StateTransitionResult<TState>> ExecuteAutoTransitionAsync(ExecutionParameters<T, TTrigger> parameters
-          , StateTransitionResult<TState> currentResult);
-        Task ExecuteEntryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult);
-        Task ExecuteExitActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult);
-
-        Task ExecuteReentryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult);
-        Task<StateTransitionResult<TState>> FireTriggerAsync(ExecutionParameters<T, TTrigger> parameters);
+        Task<StateTransitionResult<TState, TTrigger>> ExecuteAutoTransitionAsync(ExecutionParameters<T, TTrigger> parameters
+          , StateTransitionResult<TState, TTrigger> currentResult);
+        Task ExecuteEntryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult);
+        Task ExecuteExitActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult);
+        Task ExecuteReentryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult);
+        Task<StateTransitionResult<TState, TTrigger>> FireTriggerAsync(ExecutionParameters<T, TTrigger> parameters);
+        TState State { get; }
     }
 }

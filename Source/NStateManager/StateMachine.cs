@@ -100,7 +100,7 @@ namespace NStateManager
         /// <param name="trigger">The event that has occured that may affect the state.</param>
         /// <param name="request">The details of the event that's occurring.</param>
         /// <returns></returns>
-        public StateTransitionResult<TState> FireTrigger<TRequest>(T context, TTrigger trigger, TRequest request)
+        public StateTransitionResult<TState, TTrigger> FireTrigger<TRequest>(T context, TTrigger trigger, TRequest request)
             where TRequest : class
         {
             var executionParameters = new ExecutionParameters<T, TTrigger>(trigger, context, request: request);
@@ -110,7 +110,8 @@ namespace NStateManager
             { triggerAction.Execute(executionParameters); }
 
             var result = !_stateConfigurations.TryGetValue(startState, out var stateConfiguration)
-                ? new StateTransitionResult<TState>(startState
+                ? new StateTransitionResult<TState, TTrigger>(trigger
+                    , startState
                     , startState
                     , startState
                     , lastTransitionName: string.Empty
@@ -126,7 +127,7 @@ namespace NStateManager
         /// <param name="context">The items whose state is being managed.</param>
         /// <param name="trigger">The event that has occured that may affect the state.</param>
         /// <returns></returns>
-        public StateTransitionResult<TState> FireTrigger(T context, TTrigger trigger)
+        public StateTransitionResult<TState, TTrigger> FireTrigger(T context, TTrigger trigger)
         {
             var startState = _stateAccessor(context);
             var executionParameters = new ExecutionParameters<T, TTrigger>(trigger, context);
@@ -135,7 +136,8 @@ namespace NStateManager
             { triggerAction.Execute(executionParameters); }
 
             var result = !_stateConfigurations.TryGetValue(startState, out var stateConfiguration)
-                ? new StateTransitionResult<TState>(startState
+                ? new StateTransitionResult<TState, TTrigger>(trigger
+                    , startState
                     , startState
                     , startState
                     ,lastTransitionName: String.Empty
@@ -156,15 +158,15 @@ namespace NStateManager
                    && objectStateConfiguration.IsInState(state);
         }
 
-        public IStateMachine<T, TState, TTrigger> RegisterOnTransitionedEvent(Action<T, StateTransitionResult<TState>> onTransitionedEvent)
+        public IStateMachine<T, TState, TTrigger> RegisterOnTransitionedEvent(Action<T, StateTransitionResult<TState, TTrigger>> onTransitionedEvent)
         {
             StateTransitionBase<T, TState, TTrigger>.OnTransitionedEvent += onTransitionedEvent;
 
             return this;
         }
 
-        private StateTransitionResult<TState> executeExitAndEntryActions(ExecutionParameters<T, TTrigger> parameters
-          , StateTransitionResult<TState> currentResult)
+        private StateTransitionResult<TState, TTrigger> executeExitAndEntryActions(ExecutionParameters<T, TTrigger> parameters
+          , StateTransitionResult<TState, TTrigger> currentResult)
         {
             if (currentResult.WasSuccessful && 
                 !(currentResult.StartingState.CompareTo(currentResult.PreviousState) == 0 && currentResult.PreviousState.CompareTo(currentResult.CurrentState) == 0))
@@ -173,7 +175,7 @@ namespace NStateManager
 
                 //OnExit? ...don't execute if moving to substate
                 if (!IsInState(parameters.Context, currentResult.PreviousState))
-                {  previousState.ExecuteExitAction(parameters.Context, currentResult); }
+                { previousState.ExecuteExitAction(parameters.Context, currentResult); }
 
                 if (_stateConfigurations.TryGetValue(currentResult.CurrentState, out var newState))
                 {

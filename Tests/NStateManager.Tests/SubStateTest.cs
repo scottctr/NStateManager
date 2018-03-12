@@ -9,7 +9,7 @@ namespace NStateManager.Tests
         { public State State { get; set; } }
 
         private enum State { SuperState, SubState }
-        private enum Trigger { X, Y }
+        private enum Trigger { One, Two }
 
         [Fact]
         public void Test()
@@ -19,21 +19,21 @@ namespace NStateManager.Tests
               , stateMutator: (entity, newState) => entity.State = newState);
             
             stateMachine.ConfigureState(State.SuperState)
-                .AddTransition(Trigger.X, State.SubState)
+                .AddTransition(Trigger.One, State.SubState)
                 .AddEntryAction(_ => Console.WriteLine("SuperState OnEntry"))
                 .AddExitAction(_ => Console.WriteLine("SuperState OnExit"));
 
             stateMachine.ConfigureState(State.SubState)
                 .IsSubStateOf(stateMachine.ConfigureState(State.SuperState))
-                .AddTransition(Trigger.Y, State.SuperState)
+                .AddTransition(Trigger.Two, State.SuperState)
                 .AddEntryAction(_ => Console.WriteLine("SubState OnEntry"))
                 .AddExitAction(_ => Console.WriteLine("SubState OnExit"));
 
-            stateMachine.RegisterOnTransitionedEvent(((_, result) => Console.WriteLine($"{result.StartingState} --> {result.CurrentState}")));
+            stateMachine.RegisterOnTransitionedEvent(((_, result) => Console.WriteLine($"{result.StartingState} -[{result.Trigger}]-> {result.CurrentState}")));
 
             var testEntity = new TestEntity();
-            stateMachine.FireTrigger(testEntity, Trigger.X);
-            stateMachine.FireTrigger(testEntity, Trigger.Y);
+            stateMachine.FireTrigger(testEntity, Trigger.One);
+            stateMachine.FireTrigger(testEntity, Trigger.Two);
         }
     }
 }

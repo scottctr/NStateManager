@@ -11,7 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace NStateManager
 {
@@ -41,6 +40,11 @@ namespace NStateManager
             StateMutator = stateMutator ?? throw new ArgumentNullException(nameof(stateMutator));
         }
 
+        /// <summary>
+        /// Adds an allowable transition to the state configuration.
+        /// </summary>
+        /// <param name="trigger">Trigger to initiate the transition.</param>
+        /// <param name="transition">The transition to add.</param>
         public void AddTransition(TTrigger trigger, StateTransitionBase<T, TState, TTrigger> transition)
         {
             if (!AllowedTransitions.TryGetValue(trigger, out var existingTransitions))
@@ -54,32 +58,15 @@ namespace NStateManager
             }
         }
 
-        protected StateTransitionResult<TState> FireTriggerPrim(ExecutionParameters<T, TTrigger> parameters)
+        protected StateTransitionResult<TState, TTrigger> FireTriggerPrim(ExecutionParameters<T, TTrigger> parameters)
         {
-            StateTransitionResult<TState> result = null;
+            StateTransitionResult<TState, TTrigger> result = null;
 
             if (AllowedTransitions.TryGetValue(parameters.Trigger, out var transitions))
             {
                 foreach (var transition in transitions.OrderBy(t => t.Priority))
                 {
                     result = transition.Execute(parameters);
-                    if (result.WasSuccessful)
-                    { return result; }
-                }
-            }
-
-            return result;
-        }
-
-        public async Task<StateTransitionResult<TState>> FireTriggerPrimAsync(ExecutionParameters<T, TTrigger> parameters)
-        {
-            StateTransitionResult<TState> result = null;
-
-            if (AllowedTransitions.TryGetValue(parameters.Trigger, out var transitions))
-            {
-                foreach (var transition in transitions.OrderBy(t => t.Priority))
-                {
-                    result = await transition.ExecuteAsync(parameters).ConfigureAwait(continueOnCapturedContext: false);
                     if (result.WasSuccessful)
                     { return result; }
                 }

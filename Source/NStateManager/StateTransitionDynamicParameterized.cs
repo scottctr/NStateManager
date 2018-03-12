@@ -25,7 +25,7 @@ namespace NStateManager
             StateFunc = stateFunc ?? throw new ArgumentNullException(nameof(stateFunc));
         }
 
-        public override StateTransitionResult<TState> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult = null)
+        public override StateTransitionResult<TState, TTrigger> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult = null)
         {
             //TODO check for params.Request <> null -- ???not sure about this
             //TODO ensure params.Request is right type -- check for null
@@ -39,16 +39,18 @@ namespace NStateManager
             { StateMutator(parameters.Context, toState); }
 
             var transitionResult = (currentResult == null)
-                ? new StateTransitionResult<TState>(startState
-                  , startState
-                  , toState
-                  , lastTransitionName: transitioned ? Name : string.Empty
-                  , conditionMet: transitioned)
-                : new StateTransitionResult<TState>(startState
-                  , currentResult.CurrentState
-                  , toState
-                  , lastTransitionName: transitioned ? Name : string.Empty
-                  , conditionMet: transitioned);
+                ? new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                    , startState
+                    , startState
+                    , toState
+                    , lastTransitionName: transitioned ? Name : string.Empty
+                    , conditionMet: transitioned)
+                : new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                    , startState
+                    , currentResult.CurrentState
+                    , toState
+                    , lastTransitionName: transitioned ? Name : string.Empty
+                    , conditionMet: transitioned);
 
             if (transitioned)
             { NotifyOfTransition(parameters.Context, transitionResult); }

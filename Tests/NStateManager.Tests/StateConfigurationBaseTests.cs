@@ -9,6 +9,7 @@
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
 using System;
+using System.Linq;
 using Xunit;
 
 namespace NStateManager.Tests
@@ -17,9 +18,16 @@ namespace NStateManager.Tests
     {
         public class StateConfigurationBaseTester<T, TState, TTrigger> : StateConfigurationBase<T, TState, TTrigger> where TState : IComparable
         {
-            public StateConfigurationBaseTester(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState toState)
-                : base(toState, stateAccessor, stateMutator)
+            public StateConfigurationBaseTester(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState state)
+                : base(state, stateAccessor, stateMutator)
             {}
+
+            internal bool ContainsTransition(TTrigger trigger, StateTransitionBase<T, TState, TTrigger> transition)
+            {
+                var existingTransition = AllowedTransitions[trigger].Single();
+
+                return existingTransition == transition;
+            }
         }
 
         [Fact]
@@ -59,6 +67,44 @@ namespace NStateManager.Tests
             Assert.Throws<ArgumentNullException>(() => new StateConfigurationBaseTester<Sale, SaleState, SaleEvent>(StateAccessor
               , null
               , toState));
+        }
+
+        [Fact]
+        public void AddTransition_adds_transition()
+        {
+            var transition = new StateTransition<Sale, SaleState, SaleEvent>(stateAccessor: sale => sale.State
+              , stateMutator: (sale, newState) => sale.State = newState
+              , toState: SaleState.Complete
+              , name: "testTransition"
+              , priority: 1
+              , condition: _ => true);
+            var sut = new StateConfigurationBaseTester<Sale, SaleState, SaleEvent>(stateAccessor: sale => sale.State
+              , stateMutator: (sale, newState) => sale.State = newState 
+              , state: SaleState.Open);
+
+            sut.AddTransition(SaleEvent.AddItem, transition);
+
+            Assert.True(sut.ContainsTransition(SaleEvent.AddItem, transition));
+        }
+
+        [Fact]
+        public void AddTransition_throws_InvalidOperationException_if_transition_for_same_trigger_and_priority()
+        {
+            var transition = new StateTransition<Sale, SaleState, SaleEvent>(stateAccessor: sale => sale.State
+              , stateMutator: (sale, newState) => sale.State = newState
+              , toState: SaleState.Complete
+              , name: "testTransition"
+              , priority: 1
+              , condition: _ => true);
+            var sut = new StateConfigurationBaseTester<Sale, SaleState, SaleEvent>(stateAccessor: sale => sale.State
+              , stateMutator: (sale, newState) => sale.State = newState
+              , state: SaleState.Open);
+
+            //Succeeds first time
+            sut.AddTransition(SaleEvent.AddItem, transition);
+            Assert.True(sut.ContainsTransition(SaleEvent.AddItem, transition));
+
+            Assert.Throws<InvalidOperationException>(() => sut.AddTransition(SaleEvent.AddItem, transition));
         }
     }
 }

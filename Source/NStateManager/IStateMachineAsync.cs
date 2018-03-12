@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace NStateManager
 {
-    public interface IStateMachineAsync<T, TState, in TTrigger>
+    public interface IStateMachineAsync<T, TState, TTrigger>
         where TState : IComparable
     {
         /// <summary>
@@ -51,7 +51,7 @@ namespace NStateManager
         /// <param name="request">The details of the event that's occurring.</param>
         /// <param name="cancellationToken"><see cref="CancellationToken"/>Provides the ability to cancel an asynchronous operation.</param>
         /// <returns></returns>
-        Task<StateTransitionResult<TState>> FireTriggerAsync<TRequest>(T context, TTrigger trigger, TRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        Task<StateTransitionResult<TState, TTrigger>> FireTriggerAsync<TRequest>(T context, TTrigger trigger, TRequest request, CancellationToken cancellationToken = default(CancellationToken))
             where TRequest : class;
 
         /// <summary>
@@ -61,10 +61,10 @@ namespace NStateManager
         /// <param name="trigger">The event that has occured that may affect the state.</param>
         /// <param name="cancellationToken"><see cref="CancellationToken"/>Provides the ability to cancel an asynchronous operation.</param>
         /// <returns></returns>
-        Task<StateTransitionResult<TState>> FireTriggerAsync(T context, TTrigger trigger, CancellationToken cancellationToken);
+        Task<StateTransitionResult<TState, TTrigger>> FireTriggerAsync(T context, TTrigger trigger, CancellationToken cancellationToken);
 
         bool IsInState(T context, TState state);
 
-        IStateMachineAsync<T, TState, TTrigger> RegisterOnTransitionedEvent(Action<T, StateTransitionResult<TState>> onTransitionedEvent);
+        IStateMachineAsync<T, TState, TTrigger> RegisterOnTransitionedEvent(Action<T, StateTransitionResult<TState, TTrigger>> onTransitionedEvent);
     }
 }

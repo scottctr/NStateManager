@@ -189,27 +189,6 @@ namespace NStateManager
             return this;
         }
 
-        public IStateConfiguration<T, TState, TTrigger> AddFallbackTransition(Func<T, bool> condition = null
-            , string name = null
-            , uint priority = 1)
-        {
-            if (DefaultAutoTransition != null)
-            { throw new InvalidOperationException("The default AutoTransition has already be set."); }
-
-            if (condition == null)
-            { condition = _ => true; }
-
-            DefaultAutoTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-                , StateMutator
-                , State
-                , State
-                , condition
-                , name
-                , priority);
-
-            return this;
-        }
-
         /// <summary>
         /// Defines an automatic, but conditional, transition from this state to a new state.
         /// </summary>
@@ -235,28 +214,6 @@ namespace NStateManager
                 , StateMutator
                 , State
                 , toState
-                , condition
-                , name
-                , priority);
-
-            return this;
-        }
-
-        public IStateConfiguration<T, TState, TTrigger> AddFallbackTransition<TRequest>(Func<T, TRequest, bool> condition = null
-            , string name = null
-            , uint priority = 1)
-            where TRequest : class
-        {
-            if (DefaultAutoTransition != null)
-            { throw new InvalidOperationException("The default AutoTransition has already be set."); }
-
-            if (condition == null)
-            { condition = (_, request) => true; }
-
-            DefaultAutoTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-                , StateMutator
-                , State
-                , State
                 , condition
                 , name
                 , priority);
@@ -292,29 +249,6 @@ namespace NStateManager
                 , StateMutator
                 , State
                 , toState
-                , condition
-                , name
-                , priority);
-            PreviousStateAutoTransitions.Add(previousState, transition);
-
-            return this;
-        }
-
-        public IStateConfiguration<T, TState, TTrigger> AddFallbackTransition(Func<T, bool> condition
-            , TState previousState
-            , string name = null
-            , uint priority = 1)
-        {
-            if (condition == null)
-            { throw new ArgumentNullException(nameof(condition)); }
-
-            if (PreviousStateAutoTransitions.ContainsKey(previousState))
-            {throw new InvalidOperationException($"AutoTransition already defined for {previousState}. Only one auto transition allowed per toState"); }
-
-            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-                , StateMutator
-                , State
-                , State
                 , condition
                 , name
                 , priority);
@@ -403,6 +337,94 @@ namespace NStateManager
             return this;
         }
 
+        /// <summary>
+        /// Adds a temporary transition, that returns to the previous state after all actions have been executed.
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <param name="name"></param>
+        /// <param name="priority"></param>
+        /// <returns></returns>
+        public IStateConfiguration<T, TState, TTrigger> AddFallbackTransition(Func<T, bool> condition = null
+          , string name = null
+          , uint priority = 1)
+        {
+            if (DefaultAutoTransition != null)
+            { throw new InvalidOperationException("The default AutoTransition has already be set."); }
+
+            if (condition == null)
+            { condition = _ => true; }
+
+            DefaultAutoTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
+              , StateMutator
+              , State
+              , State
+              , condition
+              , name
+              , priority);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a temporary transition with a request parameter, that returns to the previous state after all actions have been executed.
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <param name="name"></param>
+        /// <param name="priority"></param>
+        /// <returns></returns>
+        public IStateConfiguration<T, TState, TTrigger> AddFallbackTransition<TRequest>(Func<T, TRequest, bool> condition = null
+          , string name = null
+          , uint priority = 1)
+            where TRequest : class
+        {
+            if (DefaultAutoTransition != null)
+            { throw new InvalidOperationException("The default AutoTransition has already be set."); }
+
+            if (condition == null)
+            { condition = (_, request) => true; }
+
+            DefaultAutoTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
+              , StateMutator
+              , State
+              , State
+              , condition
+              , name
+              , priority);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a temporary transition based on a previous state, that returns to the previous state after all actions have been executed.
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <param name="previousState"></param>
+        /// <param name="name"></param>
+        /// <param name="priority"></param>
+        /// <returns></returns>
+        public IStateConfiguration<T, TState, TTrigger> AddFallbackTransition(Func<T, bool> condition
+          , TState previousState
+          , string name = null
+          , uint priority = 1)
+        {
+            if (condition == null)
+            { throw new ArgumentNullException(nameof(condition)); }
+
+            if (PreviousStateAutoTransitions.ContainsKey(previousState))
+            { throw new InvalidOperationException($"AutoTransition already defined for {previousState}. Only one auto transition allowed per toState"); }
+
+            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
+              , StateMutator
+              , State
+              , State
+              , condition
+              , name
+              , priority);
+            PreviousStateAutoTransitions.Add(previousState, transition);
+
+            return this;
+        }
+
         //TODO Reentry w/TRequest, but not sure how to get ref to TRequest for private variable
         /// <summary>
         /// Defines an action to execute when reentering this state.
@@ -430,14 +452,10 @@ namespace NStateManager
         public IStateConfiguration<T, TState, TTrigger> AddEntryAction(Action<T> action, TState previousState)
         {
             if (action == null)
-            {
-                throw new ArgumentNullException(nameof(action));
-            }
+            { throw new ArgumentNullException(nameof(action)); }
 
             if (_previousStateEntryActions.ContainsKey(previousState))
-            {
-                throw new InvalidOperationException("Only one action is allowed for each previous state.");
-            }
+            { throw new InvalidOperationException("Only one action is allowed for each previous state."); }
 
             _previousStateEntryActions.Add(previousState, action);
 
@@ -463,6 +481,7 @@ namespace NStateManager
         /// Defines an action to execute when exiting this state.
         /// </summary>
         /// <param name="action">The action to execute.</param>
+        /// <param name="nextState">The conditional next <see cref="TState"/> for the exit action. The action is only executed when moving to this state.</param>
         /// <returns></returns>
         public IStateConfiguration<T, TState, TTrigger> AddExitAction(Action<T> action, TState nextState)
         {
@@ -480,16 +499,10 @@ namespace NStateManager
         public void AddSuperState(IStateConfigurationInternal<T, TState, TTrigger> superStateConfiguration)
         {
             if (IsInState(superStateConfiguration.State))
-            {
-                throw new ArgumentOutOfRangeException(
-                    $"{State} is already a sub-state of {superStateConfiguration.State}.");
-            }
+            { throw new ArgumentOutOfRangeException($"{State} is already a sub-state of {superStateConfiguration.State}."); }
 
             if (superStateConfiguration.IsInState(State))
-            {
-                throw new ArgumentOutOfRangeException(
-                    $"{superStateConfiguration.State} is already a sub-state of {State}.");
-            }
+            { throw new ArgumentOutOfRangeException($"{superStateConfiguration.State} is already a sub-state of {State}."); }
 
             _superState = superStateConfiguration;
         }
@@ -528,8 +541,8 @@ namespace NStateManager
             return this;
         }
 
-        public StateTransitionResult<TState> ExecuteAutoTransition(ExecutionParameters<T, TTrigger> parameters
-            , StateTransitionResult<TState> currentResult)
+        public StateTransitionResult<TState, TTrigger> ExecuteAutoTransition(ExecutionParameters<T, TTrigger> parameters
+            , StateTransitionResult<TState, TTrigger> currentResult)
         {
             //Is there an action based on the previous state?
             if (PreviousStateAutoTransitions.TryGetValue(currentResult.PreviousState, out var action))
@@ -541,32 +554,29 @@ namespace NStateManager
 
             return _superState != null
                 ? _superState.ExecuteAutoTransition(parameters, currentResult)
-                : new StateTransitionResult<TState>(currentResult.StartingState
+                : new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                    , currentResult.StartingState
                     , currentResult.PreviousState
                     , currentResult.CurrentState
                     , currentResult.LastTransitionName
                     , transitionDefined: true);
         }
 
-        public void ExecuteEntryAction(T context, StateTransitionResult<TState> currentResult)
+        public void ExecuteEntryAction(T context, StateTransitionResult<TState, TTrigger> currentResult)
         {
             //If there's an entry state for the super state, execute it first
             if (_superState != null && !IsInState(currentResult.CurrentState))
-            {
-                _superState.ExecuteEntryAction(context, currentResult);
-            }
+            { _superState.ExecuteEntryAction(context, currentResult); }
 
             //Is there an action based on the new state?
             if (_previousStateEntryActions.TryGetValue(currentResult.PreviousState, out var action))
-            {
-                action.Invoke(context);
-            }
+            { action.Invoke(context); }
 
             //Is there an action for any entry?
             _defaultEntryAction?.Invoke(context);
         }
 
-        public void ExecuteExitAction(T context, StateTransitionResult<TState> currentResult)
+        public void ExecuteExitAction(T context, StateTransitionResult<TState, TTrigger> currentResult)
         {
             //Is there an action based on the new state?
             if (_nextStateExitActions.TryGetValue(currentResult.CurrentState, out var action))
@@ -579,33 +589,14 @@ namespace NStateManager
             { _superState.ExecuteExitAction(context, currentResult); }
         }
 
-        public void ExecuteReentryAction(T context, StateTransitionResult<TState> currentResult)
+        public void ExecuteReentryAction(T context, StateTransitionResult<TState, TTrigger> currentResult)
         {
             _superState?.ExecuteReentryAction(context, currentResult);
 
             _reentryAction?.Invoke(context);
         }
 
-        /*public StateTransitionResult<TState> FireTrigger(ExecutionParameters<T, TState, TTrigger> parameters)
-            where TRequest : class
-        {
-            if (_triggerActions.TryGetValue(parameters.Trigger, out var triggerAction))
-            { triggerAction.Execute(parameters); }
-
-            var result = FireTrigger(parameters);
-
-            if (!(result?.WasSuccessful ?? false) && _superState != null)
-            { result = _superState.FireTrigger(parameters); }
-            else
-            {
-                var startState = StateAccessor(parameters.Context);
-                result = result ?? new StateTransitionResult<TState>(startState, startState, startState, string.Empty, transitionDefined: false);
-            }
-
-            return result;
-        } */
-
-        public StateTransitionResult<TState> FireTrigger(ExecutionParameters<T, TTrigger> parameters)
+        public StateTransitionResult<TState, TTrigger> FireTrigger(ExecutionParameters<T, TTrigger> parameters)
         {
             if (_triggerActions.TryGetValue(parameters.Trigger, out var triggerAction))
             { triggerAction.Execute(parameters); }
@@ -617,7 +608,13 @@ namespace NStateManager
             else
             {
                 var startState = StateAccessor(parameters.Context);
-                result = result ?? new StateTransitionResult<TState>(startState, startState, startState, string.Empty, transitionDefined: false);
+                result = result ?? 
+                    new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                        , startState
+                        , startState
+                        , startState
+                        , string.Empty
+                        , transitionDefined: false);
             }
 
             return result;
@@ -631,8 +628,7 @@ namespace NStateManager
             return _superState?.IsInState(state) ?? false;
         }
 
-        public IStateConfiguration<T, TState, TTrigger> IsSubStateOf(
-            IStateConfiguration<T, TState, TTrigger> superStateConfiguration)
+        public IStateConfiguration<T, TState, TTrigger> IsSubStateOf(IStateConfiguration<T, TState, TTrigger> superStateConfiguration)
         {
             AddSuperState(superStateConfiguration as IStateConfigurationInternal<T, TState, TTrigger>);
 

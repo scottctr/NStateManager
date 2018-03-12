@@ -182,10 +182,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.1.1.1",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
+    "version": "1.1.1.2",
     "restore": {
       "projectUniqueName": "C:\\Users\\Scott\\Source\\Repos\\NStateManager\\Source\\NStateManager\\NStateManager.csproj",
       "projectName": "NStateManager",

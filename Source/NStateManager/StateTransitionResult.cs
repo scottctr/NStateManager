@@ -13,8 +13,9 @@ namespace NStateManager
     /// <summary>
     /// The result of any state transition that occured from executing a request or transition on the <see cref="StateMachine{T,TState,TTrigger}"/>./>
     /// </summary>
-    /// <typeparam name="TState">Represents a state for the objecting being managed.</typeparam>
-    public sealed class StateTransitionResult<TState>
+    /// <typeparam name="TState">Represents the type of state used by the transition.</typeparam>
+    /// <typeparam name="TTrigger">Represents the type of trigger used by the transition.</typeparam>
+    public sealed class StateTransitionResult<TState, TTrigger>
     {
         /// <summary>
         /// Boolean result of the condition, if any, for the transition.
@@ -27,6 +28,9 @@ namespace NStateManager
         /// </summary>
         public TState CurrentState { get; internal set; }
 
+        /// <summary>
+        /// Name of the last transition executed.
+        /// </summary>
         public string LastTransitionName { get; }
 
         /// <summary>
@@ -45,6 +49,11 @@ namespace NStateManager
         public bool TransitionDefined { get; }
 
         /// <summary>
+        /// Trigger that initiated the results.
+        /// </summary>
+        public TTrigger Trigger { get; }
+
+        /// <summary>
         /// True if the action was cancelled; otherwise False.
         /// </summary>
         public bool WasCancelled { get; }
@@ -58,6 +67,7 @@ namespace NStateManager
         /// <summary>
         /// Constructor.
         /// </summary>
+        /// <param name="trigger">The trigger that initiated the results.</param>
         /// <param name="startingState">State when execution of the request or transition.</param>
         /// <param name="previousState">State previous to the current state.</param>
         /// <param name="currentState"> Current state -- after all transitions and actions have been executed.</param>
@@ -65,8 +75,16 @@ namespace NStateManager
         /// <param name="transitionDefined">True if there was a transition defined for the request or transition; otherwise False.</param>
         /// <param name="conditionMet">Boolean result of the condition, if any, for the transition.</param>
         /// <param name="wasCancelled">True if the action was cancelled; otherwise False.</param>
-        public StateTransitionResult(TState startingState, TState previousState, TState currentState, string lastTransitionName, bool transitionDefined = true, bool conditionMet = true, bool wasCancelled = false)
+        public StateTransitionResult(TTrigger trigger
+          , TState startingState
+          , TState previousState
+          , TState currentState
+          , string lastTransitionName
+          , bool transitionDefined = true
+          , bool conditionMet = true
+          , bool wasCancelled = false)
         {
+            Trigger = trigger;
             StartingState = startingState;
             PreviousState = previousState;
             CurrentState = currentState;

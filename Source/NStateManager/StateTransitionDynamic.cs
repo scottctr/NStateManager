@@ -28,7 +28,7 @@ namespace NStateManager
             StateFunc = stateFunc ?? throw new ArgumentNullException(nameof(stateFunc));
         }
 
-        public override StateTransitionResult<TState> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult = null)
+        public override StateTransitionResult<TState, TTrigger> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult = null)
         {
             var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
             var toState = StateFunc.Invoke(parameters.Context);
@@ -38,17 +38,18 @@ namespace NStateManager
                 if (currentResult != null)
                 { return currentResult; }
 
-                return new StateTransitionResult<TState>(startState
-                , startState
-                , toState
-                , lastTransitionName: string.Empty
-                , conditionMet: false);
+                return new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                    , startState
+                    , startState
+                    , toState
+                    , lastTransitionName: string.Empty
+                    , conditionMet: false);
             }
 
             StateMutator.Invoke(parameters.Context, toState);
             var transitionResult = currentResult == null
-                ? new StateTransitionResult<TState>(startState, startState, toState, Name)
-                : new StateTransitionResult<TState>(startState, currentResult.CurrentState, toState, Name);
+                ? new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, startState, toState, Name)
+                : new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, currentResult.CurrentState, toState, Name);
             NotifyOfTransition(parameters.Context, transitionResult);
 
             return transitionResult;

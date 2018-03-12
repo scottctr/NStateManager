@@ -22,7 +22,8 @@ namespace NStateManager
             Condition = condition ?? throw new ArgumentNullException(nameof(condition));
         }
 
-        public override StateTransitionResult<TState> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState> currentResult = null)
+        public override StateTransitionResult<TState, TTrigger> Execute(ExecutionParameters<T, TTrigger> parameters
+          , StateTransitionResult<TState, TTrigger> currentResult = null)
         {
             var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
 
@@ -31,18 +32,19 @@ namespace NStateManager
                 if (currentResult != null)
                 { return currentResult; }
 
-                return new StateTransitionResult<TState>(startState
-                , startState
-                , startState
-                , lastTransitionName: string.Empty
-                , conditionMet: false);
+                return new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                    , startState
+                    , startState
+                    , startState
+                    , lastTransitionName: string.Empty
+                    , conditionMet: false);
             }
 
             StateMutator(parameters.Context, ToState);
 
             var transitionResult = currentResult == null 
-                ? new StateTransitionResult<TState>(startState, startState, ToState, Name) 
-                : new StateTransitionResult<TState>(startState, currentResult.CurrentState, ToState, Name);
+                ? new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, startState, ToState, Name) 
+                : new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, currentResult.CurrentState, ToState, Name);
             NotifyOfTransition(parameters.Context, transitionResult);
 
             return transitionResult;
