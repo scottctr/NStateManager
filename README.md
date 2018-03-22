@@ -30,7 +30,7 @@ public enum SaleState { Open, Complete }
 
 The state machine needs to be involved in the actions that can affect the state of the object being managed. NStateManager calls the actions that may affect state *Triggers*. A *Trigger Action* is an action you configure so the state machine can execute it each time the trigger event occurs. You'll see how the triggers, trigger actions, and state changes tie together as we work through the example.
 
-Since the system only allows adding items to the sale and paying, we'll use an enum to represent those trigger events.
+Since the system only allows adding items to the sale and paying, we'll use an enum to represent those events.
 ```C#
 public enum SaleEvent { AddItem, Pay }
 ```
