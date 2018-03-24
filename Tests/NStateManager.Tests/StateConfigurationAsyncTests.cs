@@ -9,9 +9,11 @@
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace NStateManager.Tests
 {
@@ -485,7 +487,11 @@ namespace NStateManager.Tests
               , stateMutator: (sale1, newState) => sale.State = newState);
             sut.AddAutoTransition(SaleState.Complete, (sale1, cancelToken) =>
             {
-                Task.Delay(millisecondsDelay: 999999, cancellationToken: cancelToken).Wait();
+                do
+                {
+                    Task.Delay(millisecondsDelay: 123).Wait();
+                } while (!cancelToken.IsCancellationRequested);
+
                 return Task.FromResult(result: !cancelToken.IsCancellationRequested);
             });
 
@@ -494,21 +500,27 @@ namespace NStateManager.Tests
                 var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.ChangeGiven, sale, cancelSource.Token);
                 StateTransitionResult<SaleState, SaleEvent> autoTransitionResult = null;
 
-                var autoTransitionTask = Task.Run(async () => autoTransitionResult = await sut.ExecuteAutoTransitionAsync(parameters, transitionResult));
+                var watch = new Stopwatch();
+                watch.Start();
+                var mutex = new Mutex(initiallyOwned: false);
+                Task.Run(async () =>
+                {
+                    mutex.WaitOne();
+                    autoTransitionResult = await sut.ExecuteAutoTransitionAsync(parameters, transitionResult);
+                    mutex.ReleaseMutex();
+                });
 
                 try
                 {
-                    //Task.Delay(millisecondsDelay: 2345, cancellationToken: cancelSource.Token);
-                    Task.Run(() => new TaskCompletionSource<bool>().Task.Wait(2345, cancelSource.Token));
+                    Task.Delay(millisecondsDelay: 2345).Wait();
                     cancelSource.Cancel();
-                    autoTransitionTask.Wait(millisecondsTimeout: 2345);
+                    mutex.WaitOne();
                 }
                 catch
                 {
                     cancelSource.Cancel();
                 }
 
-                //TODO next line is frequently null -- TaskCompletionSource??
                 Assert.True(autoTransitionResult.WasCancelled);
                 Assert.Equal(SaleState.ChangeDue, sale.State);
                 Assert.Equal(SaleState.ChangeDue, autoTransitionResult.CurrentState);
