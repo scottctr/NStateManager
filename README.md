@@ -2,7 +2,7 @@
 # Features
 - Simple interface so it's easy to use
 - State management and processing are decoupled to make configuration intuitive and flexible
-- Stateless so it's thread safe and a single state machine can be used to manage state for all contexts
+- Stateless so it's thread safe and a single state machine can be used to manage state for all [contexts](https://github.com/scottctr/NStateManager/wiki/Terminology#context)
 - Full async/await support, including cancellation and ConfigureAwait
 - Lots of options for defining what happens when events occur and when entering, reentering, or exiting states
 
