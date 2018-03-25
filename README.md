@@ -17,6 +17,6 @@ Given the foundational mismatch, it was time to consider a new solution. I start
 I would appreciate feedback, questions, advice, and contributions. I'm a big believer that WE are smarter than ME and we can work together to create something that will add value to virtually any .Net application.
 
 ## Try it out
-If you're ready to jump right in, go to the Quick Start.
+If you're ready to jump in, go to the [Quick Start](https://github.com/scottctr/NStateManager/wiki/Quick-Start).
 
 Please take a look around and post questions, suggestions, and advice to [Issues](https://github.com/scottctr/NStateManager/issues). Also let me know if you're interested in contributing.
