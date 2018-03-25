@@ -1,7 +1,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/byg4n228cinno4xt?svg=true)](https://ci.appveyor.com/project/ScottCarter/nstatemanager) [![NuGet Status](https://img.shields.io/nuget/v/NStateManager.svg)](https://www.nuget.org/packages/NStateManager)
 # Features
 - Simple interface so it's easy to use
-- State management and processing are decoupled to make configuration intuitive and flexible
+- Configuration of state transitions and events makes it intuitive to maintain the proper relationship between state and behavior  
 - Stateless so it's thread safe and a single state machine can be used to manage state for all [contexts](https://github.com/scottctr/NStateManager/wiki/Terminology#context)
 - Full async/await support, including cancellation and ConfigureAwait
 - Lots of options for defining what happens when events occur and when entering, reentering, or exiting states
