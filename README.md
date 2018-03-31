@@ -1,17 +1,9 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/byg4n228cinno4xt?svg=true)](https://ci.appveyor.com/project/ScottCarter/nstatemanager) [![NuGet Status](https://img.shields.io/nuget/v/NStateManager.svg)](https://www.nuget.org/packages/NStateManager) ![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=NStateManager&metric=security_rating) ![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=NStateManager&metric=reliability_rating) ![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=NStateManager&metric=sqale_rating)
-# Features
-- Simple configuration of events, states, and actions makes it simple to align as needed  
-- Stateless so it's thread safe and a single state machine can be used to manage state for all [contexts](https://github.com/scottctr/NStateManager/wiki/Terminology#context)
-- Full [async/await support](https://github.com/scottctr/NStateManager/wiki/Async-Await-Support), including cancellation and ConfigureAwait
-- Lots of options for defining what happens [when events occur](https://github.com/scottctr/NStateManager/wiki/Event-Actions) and when [entering, reentering, or exiting states](https://github.com/scottctr/NStateManager/wiki/State-Change-Actions)
-
-# Background
-This project is inspired by [Stateless](https://github.com/dotnet-state-machine/stateless). Stateless is a great state manager that many have used successfully. Unfortunately, it's foundational model doesn't meet all needs. Many of today's solutions are cloud-based where objects only live long enough to process a single request. Since Stateless' state machines can only be bound to a single context, it leads to workarounds or extra overhead for high-transaction solutions with short-lived objects.
-
-Given the foundational mismatch, it was time to consider a new solution. I started reviewing various state management products, related design patterns, forums, academic papers, etc. and set the following goals:
-- Be simple and intuitive to use for simple use cases
-- Be flexible enough to adapt to complex use cases and changing requirements with minimal rework
-- Adhere to SOLID design principles
+# Background and Goals  
+This project was created while developing cloud-based solutions. We needed a state management solution made for our stateless services.  
+- **Stateless** so it's thread safe and a single state machine can be used to manage state for all managed instances  
+- **Intuitive configuration** of [state change conditions](https://github.com/scottctr/NStateManager/wiki/Changing-States), [behaviors based on current state](https://github.com/scottctr/NStateManager/wiki/Event-Actions), and [actions when changing states](https://github.com/scottctr/NStateManager/wiki/State-Change-Actions)  
+- **[async/await support](https://github.com/scottctr/NStateManager/wiki/Async-Await-Support)**, including cancellation and ConfigureAwaitthat was performant 
 
 I would appreciate feedback, questions, advice, and contributions. I'm a big believer that WE are smarter than ME and we can work together to create something that will add value to virtually any .Net application.
 
