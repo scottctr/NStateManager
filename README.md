@@ -2,8 +2,8 @@
 # Features
 - Simple configuration of events, states, and actions makes it simple to align as needed  
 - Stateless so it's thread safe and a single state machine can be used to manage state for all [contexts](https://github.com/scottctr/NStateManager/wiki/Terminology#context)
-- Full async/await support, including cancellation and ConfigureAwait
-- Lots of options for defining what happens when events occur and when entering, reentering, or exiting states
+- Full [async/await support](https://github.com/scottctr/NStateManager/wiki/Async-Await-Support), including cancellation and ConfigureAwait
+- Lots of options for defining what happens [when events occur](https://github.com/scottctr/NStateManager/wiki/Event-Actions) and when [entering, reentering, or exiting states](https://github.com/scottctr/NStateManager/wiki/State-Change-Actions)
 
 # Background
 This project is inspired by [Stateless](https://github.com/dotnet-state-machine/stateless). Stateless is a great state manager that many have used successfully. Unfortunately, it's foundational model doesn't meet all needs. Many of today's solutions are cloud-based where objects only live long enough to process a single request. Since Stateless' state machines can only be bound to a single context, it leads to workarounds or extra overhead for high-transaction solutions with short-lived objects.
