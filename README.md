@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/byg4n228cinno4xt?svg=true)](https://ci.appveyor.com/project/ScottCarter/nstatemanager) [![NuGet Status](https://img.shields.io/nuget/v/NStateManager.svg)](https://www.nuget.org/packages/NStateManager) [![Quality Gate](https://sonarcloud.io/api/badges/gate?key=NStateManager&metric=reliability_rating)](https://sonarcloud.io/dashboard/index/NStateManager)
+[![Build status](https://ci.appveyor.com/api/projects/status/byg4n228cinno4xt?svg=true)](https://ci.appveyor.com/project/ScottCarter/nstatemanager) [![NuGet Status](https://img.shields.io/nuget/v/NStateManager.svg)](https://www.nuget.org/packages/NStateManager) https://sonarcloud.io/api/project_badges/measure?project=NStateManager&metric=security_rating https://sonarcloud.io/api/project_badges/measure?project=NStateManager&metric=reliability_rating https://sonarcloud.io/api/project_badges/measure?project=NStateManager&metric=sqale_rating
 # Features
 - Simple interface so it's easy to use
 - Configuration of events, states, and actions makes it intuitive to integrate them appropriately  
