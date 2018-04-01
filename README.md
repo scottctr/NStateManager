@@ -5,6 +5,7 @@ This project was created while developing cloud-based solutions. We needed a sta
 - **Intuitive configuration** of [state change conditions](https://github.com/scottctr/NStateManager/wiki/Changing-States), [behaviors based on current state](https://github.com/scottctr/NStateManager/wiki/Event-Actions), and [actions when changing states](https://github.com/scottctr/NStateManager/wiki/State-Change-Actions)  
 - **[async/await support](https://github.com/scottctr/NStateManager/wiki/Async-Await-Support)**, including cancellation and ConfigureAwait       
 # Quick Example
+Managing sale state for a simple point-of-sale system.
 ![POSv1](https://github.com/scottctr/NStateManager/blob/master/Examples/NStateManager.Example.Sale.Console/POSv2.png)
 ### Configuring the state machine
 ```C#
@@ -49,6 +50,6 @@ stateMachine.FireTrigger(sale, SaleEvent.Pay, payment);
 //Give the customer their change
 stateMachine.FireTrigger(sale, SaleEvent.ChangeGiven, payment);
 ```
-For a walkthough of the above code, go to the [Quick Start](https://github.com/scottctr/NStateManager/wiki/Quick-Start). You can also look at the [wiki](https://github.com/scottctr/NStateManager/wiki) for additional details.
+For a walkthough of the above code, go to the [Quick Start](https://github.com/scottctr/NStateManager/wiki/Quick-Start). You can also look at the [Wiki](https://github.com/scottctr/NStateManager/wiki) for additional details.
   
 Feedback, questions, advice, and contributions are always welcomed so feel free to leave your thoughts in [Issues](https://github.com/scottctr/NStateManager/issues).
