@@ -12,8 +12,8 @@ Managing state of a Sale for a simple point-of-sale system.
 ```C#
 //State machine to manage sales for a point of sale system
 stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(
-  stateAccessor: (sale) => sale.State,
-  stateMutator: (sale, state) => sale.State = state);
+  stateAccessor: (sale) => sale.State,                //stateAccessor is used to retrieve the current state
+  stateMutator: (sale, state) => sale.State = state); //stateMutator updates state base on transition rule below
 
 //Log each time a sale changes state regardless of to/from state
 stateMachine.RegisterOnTransitionedAction((sale, transitionDetails) 
@@ -38,7 +38,7 @@ stateMachine.ConfigureState(SaleState.ChangeDue)
   .AddTransition(SaleEvent.ChangeGiven, SaleState.Complete);
 
 //No configuration required for Complete state since it's a final state and
-//transitions or actions are taken at this point
+//no state transitions or actions are allowed at this point
 ```
 ### Using the state machine
 ```C#
@@ -52,5 +52,5 @@ stateMachine.FireTrigger(sale, SaleEvent.Pay, payment);
 stateMachine.FireTrigger(sale, SaleEvent.ChangeGiven, payment);
 ```
 For a walkthough of the above code, go to the [Quick Start](https://github.com/scottctr/NStateManager/wiki/Quick-Start). You can also look at the [Wiki](https://github.com/scottctr/NStateManager/wiki) for additional details.
-  
+# Feedback
 Feedback, questions, advice, and contributions are always welcomed so feel free to leave your thoughts in [Issues](https://github.com/scottctr/NStateManager/issues).
