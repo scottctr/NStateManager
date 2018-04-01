@@ -5,7 +5,8 @@ This project was created while developing cloud-based solutions. We needed a sta
 - **Intuitive configuration** of [state change conditions](https://github.com/scottctr/NStateManager/wiki/Changing-States), [behaviors based on current state](https://github.com/scottctr/NStateManager/wiki/Event-Actions), and [actions when changing states](https://github.com/scottctr/NStateManager/wiki/State-Change-Actions)  
 - **[async/await support](https://github.com/scottctr/NStateManager/wiki/Async-Await-Support)**, including cancellation and ConfigureAwait       
 # Quick Example
-Managing sale state for a simple point-of-sale system.
+Managing sale state for a simple point-of-sale system.  
+
 ![POSv1](https://github.com/scottctr/NStateManager/blob/master/Examples/NStateManager.Example.Sale.Console/POSv2.png)
 ### Configuring the state machine
 ```C#
