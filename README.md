@@ -13,7 +13,7 @@ Managing state of a Sale for a simple point-of-sale system.
 //State machine to manage sales for a point of sale system
 stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(
   stateAccessor: (sale) => sale.State,                //stateAccessor is used to retrieve the current state
-  stateMutator: (sale, state) => sale.State = state); //stateMutator updates state base on transition rule below
+  stateMutator: (sale, state) => sale.State = state); //stateMutator updates state based on transition rule below
 
 //Log each time a sale changes state regardless of to/from state
 stateMachine.RegisterOnTransitionedAction((sale, transitionDetails) 
