@@ -2,6 +2,7 @@
 # Quick Example
 ![POSv1](https://github.com/scottctr/NStateManager/blob/master/Examples/NStateManager.Example.Sale.Console/POSv2.png)
 
+### Configuring the state machine
 ```C#
 //State machine to manage sales for a point of sale system
 stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(
@@ -33,6 +34,7 @@ stateMachine.ConfigureState(SaleState.ChangeDue)
 //No configuration required for Complete state since it's a final state and
 //transitions or actions are taken at this point
 ```
+### Using the state machine
 ```C#
 //Add an item to a sale
 stateMachine.FireTrigger(sale, SaleEvent.AddItem, saleItem); 
