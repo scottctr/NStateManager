@@ -33,6 +33,16 @@ stateMachine.ConfigureState(SaleState.ChangeDue)
 //No configuration required for Complete state since it's a final state and
 //transitions or actions are taken at this point
 ```
+```C#
+//Add an item to a sale
+stateMachine.FireTrigger(sale, SaleEvent.AddItem, saleItem); 
+
+//Add a payment to a sale
+stateMachine.FireTrigger(sale, SaleEvent.Pay, payment);
+
+//Give the customer their change
+stateMachine.FireTrigger(sale, SaleEvent.ChangeGiven, payment);
+```
 
 # Background and Goals  
 This project was created while developing cloud-based solutions. We needed a state management solution made for our stateless services.  
