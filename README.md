@@ -1,7 +1,11 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/byg4n228cinno4xt?svg=true)](https://ci.appveyor.com/project/ScottCarter/nstatemanager) [![NuGet Status](https://img.shields.io/nuget/v/NStateManager.svg)](https://www.nuget.org/packages/NStateManager) ![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=NStateManager&metric=security_rating) ![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=NStateManager&metric=reliability_rating) ![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=NStateManager&metric=sqale_rating)
+# Background and Goals  
+This project was created while developing cloud-based solutions. We needed a state management solution made for our stateless services.  
+- **Stateless** so it's thread safe and a single state machine can be used to manage state for all managed instances  
+- **Intuitive configuration** of [state change conditions](https://github.com/scottctr/NStateManager/wiki/Changing-States), [behaviors based on current state](https://github.com/scottctr/NStateManager/wiki/Event-Actions), and [actions when changing states](https://github.com/scottctr/NStateManager/wiki/State-Change-Actions)  
+- **[async/await support](https://github.com/scottctr/NStateManager/wiki/Async-Await-Support)**, including cancellation and ConfigureAwait       
 # Quick Example
 ![POSv1](https://github.com/scottctr/NStateManager/blob/master/Examples/NStateManager.Example.Sale.Console/POSv2.png)
-
 ### Configuring the state machine
 ```C#
 //State machine to manage sales for a point of sale system
@@ -45,16 +49,6 @@ stateMachine.FireTrigger(sale, SaleEvent.Pay, payment);
 //Give the customer their change
 stateMachine.FireTrigger(sale, SaleEvent.ChangeGiven, payment);
 ```
-
-# Background and Goals  
-This project was created while developing cloud-based solutions. We needed a state management solution made for our stateless services.  
-- **Stateless** so it's thread safe and a single state machine can be used to manage state for all managed instances  
-- **Intuitive configuration** of [state change conditions](https://github.com/scottctr/NStateManager/wiki/Changing-States), [behaviors based on current state](https://github.com/scottctr/NStateManager/wiki/Event-Actions), and [actions when changing states](https://github.com/scottctr/NStateManager/wiki/State-Change-Actions)  
-- **[async/await support](https://github.com/scottctr/NStateManager/wiki/Async-Await-Support)**, including cancellation and ConfigureAwait       
+For a walkthough of the above code, go to the [Quick Start](https://github.com/scottctr/NStateManager/wiki/Quick-Start). You can also look at the [wiki](https://github.com/scottctr/NStateManager/wiki) for additional details.
   
-I would appreciate feedback, questions, advice, and contributions. I'm a big believer that WE are smarter than ME and we can work together to create something that will add value to virtually any .Net application.
-
-## Try it out
-If you're ready to jump in, go to the [Quick Start](https://github.com/scottctr/NStateManager/wiki/Quick-Start).
-
-Please take a look around and post questions, suggestions, and advice to [Issues](https://github.com/scottctr/NStateManager/issues). Also let me know if you're interested in contributing.
+Feedback, questions, advice, and contributions are always welcomed so feel free to leave your thoughts in [Issues](https://github.com/scottctr/NStateManager/issues).
