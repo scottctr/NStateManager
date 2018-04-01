@@ -1,5 +1,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/byg4n228cinno4xt?svg=true)](https://ci.appveyor.com/project/ScottCarter/nstatemanager) [![NuGet Status](https://img.shields.io/nuget/v/NStateManager.svg)](https://www.nuget.org/packages/NStateManager) ![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=NStateManager&metric=security_rating) ![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=NStateManager&metric=reliability_rating) ![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=NStateManager&metric=sqale_rating)
 # Quick Example
+![POSv1](https://github.com/scottctr/NStateManager/blob/master/Examples/NStateManager.Example.Sale.Console/POSv2.png)
+
 ```C#
 //State machine to manage sales for a point of sale system
 stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(
