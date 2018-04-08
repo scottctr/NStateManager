@@ -34,22 +34,10 @@ namespace NStateManager
             var toState = StateFunc.Invoke(parameters.Context);
 
             if (toState.CompareTo(startState) == 0)
-            {
-                if (currentResult != null)
-                { return currentResult; }
-
-                return new StateTransitionResult<TState, TTrigger>(parameters.Trigger
-                    , startState
-                    , startState
-                    , toState
-                    , lastTransitionName: string.Empty
-                    , conditionMet: false);
-            }
+            { return GetResult(parameters, currentResult, startState, wasSuccessful: false, wasCancelled: false); }
 
             StateMutator.Invoke(parameters.Context, toState);
-            var transitionResult = currentResult == null
-                ? new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, startState, toState, Name)
-                : new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, currentResult.CurrentState, toState, Name);
+            var transitionResult = GetResult(parameters, currentResult, startState, wasSuccessful: true, wasCancelled: false); 
             NotifyOfTransition(parameters.Context, transitionResult);
 
             return transitionResult;

@@ -18,95 +18,79 @@ namespace NStateManager.Tests
     public class StateConfigurationAsyncTests
     {
         [Fact]
-        public void AddAutoTransition_throws_InvalidOperationException_if_AutoTransition_already_set()
+        public void AddAutoForwardTransition_throws_InvalidOperationException_if_AutoTransition_already_set()
         {
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
 
-            sut.AddAutoTransition(SaleState.Complete, (sale, _) => Task.FromResult(result: true));
+            sut.AddAutoForwardTransition(SaleState.Complete, (sale, _) => Task.FromResult(result: true));
 
-            Assert.Throws<InvalidOperationException>(() => sut.AddAutoTransition(SaleState.Complete, (sale, _) => Task.FromResult(result: true)));
+            Assert.Throws<InvalidOperationException>(() => sut.AddAutoForwardTransition(SaleState.Complete, (sale, _) => Task.FromResult(result: true)));
         }
 
         [Fact]
-        public void AddAutoTransition_throws_ArgumentNullException_if_Condition_null()
+        public void AddAutoForwardTransition_throws_ArgumentNullException_if_Condition_null()
         {
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
 
-            Assert.Throws<ArgumentNullException>(() => sut.AddAutoTransition(SaleState.Complete, condition: null));
+            Assert.Throws<ArgumentNullException>(() => sut.AddAutoForwardTransition(SaleState.Complete, condition: null));
         }
 
         [Fact]
-        public void AddAutoTransitionWRequest_throws_InvalidOperationException_if_AutoTransition_already_set()
+        public void AddAutoForwardTransitionWRequest_throws_InvalidOperationException_if_AutoTransition_already_set()
         {
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
 
-            sut.AddAutoTransition<string>(SaleState.Complete, (sale, stringParam, _) => Task.FromResult(result: true));
+            sut.AddAutoForwardTransition<string>(SaleState.Complete, (sale, stringParam, _) => Task.FromResult(result: true));
 
             Assert.Throws<InvalidOperationException>(() 
-                => sut.AddAutoTransition<string>(SaleState.Complete, (sale, stringParam, _) => Task.FromResult(result: true)));
+                => sut.AddAutoForwardTransition<string>(SaleState.Complete, (sale, stringParam, _) => Task.FromResult(result: true)));
         }
 
         [Fact]
-        public void AddAutoTransitionWRequest_throws_ArgumentNullException_if_Condition_null()
+        public void AddAutoForwardTransitionWRequest_throws_ArgumentNullException_if_Condition_null()
         {
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
 
-            Assert.Throws<ArgumentNullException>(() => sut.AddAutoTransition<string>(SaleState.Complete, condition: null));
+            Assert.Throws<ArgumentNullException>(() => sut.AddAutoForwardTransition<string>(SaleState.Complete, condition: null));
         }
 
         [Fact]
-        public void AddAutoTransitionWPreviousState_throws_InvalidOperationException_if_AutoTransition_already_set()
+        public void AddAutoForwardTransitionWPreviousState_throws_ArgumentNullException_if_Condition_null()
         {
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
 
-            sut.AddAutoTransition(SaleState.Complete, (sale, _) => Task.FromResult(result: true), SaleState.Open);
-
-            Assert.Throws<InvalidOperationException>(() 
-                => sut.AddAutoTransition(SaleState.Complete, (sale, _) => Task.FromResult(result: true), SaleState.Open));
+            Assert.Throws<ArgumentNullException>(() => sut.AddAutoForwardTransition(SaleState.Complete, condition: null, previousState: SaleState.Open));
         }
 
         [Fact]
-        public void AddAutoTransitionWPreviousState_throws_ArgumentNullException_if_Condition_null()
-        {
-            var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
-              , stateAccessor: sale => sale.State
-              , stateMutator: (sale, newState) => sale.State = newState);
-
-            Assert.Throws<ArgumentNullException>(() => sut.AddAutoTransition(SaleState.Complete, condition: null, previousState: SaleState.Open));
-        }
-
-        [Fact]
-        public void AddAutoTransitionWRequestPreviousState_throws_InvalidOperationException_if_AutoTransition_already_set()
-        {
-            var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
-              , stateAccessor: sale => sale.State
-              , stateMutator: (sale, newState) => sale.State = newState);
-
-            sut.AddAutoTransition<string>(SaleState.Complete, (sale, stringParam, _) => Task.FromResult(result: true), SaleState.Open);
-
-            Assert.Throws<InvalidOperationException>(()
-                => sut.AddAutoTransition<string>(SaleState.Complete, (sale, stringParam, _) => Task.FromResult(result: true), SaleState.Open));
-        }
-
-        [Fact]
-        public void AddAutoTransitionWRequestPreviousState_throws_ArgumentNullException_if_Condition_null()
+        public void AddAutoForwardTransitionWRequestPreviousState_throws_ArgumentNullException_if_Condition_null()
         {
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
 
             Assert.Throws<ArgumentNullException>(() 
-                => sut.AddAutoTransition<string>(SaleState.Complete, condition: null, previousState: SaleState.Open));
+                => sut.AddAutoForwardTransition<string>(SaleState.Complete, condition: (null as Func<Sale, string, CancellationToken, Task<bool>>), previousState: SaleState.Open));
+        }
+
+        [Fact]
+        public void AddAutoForwardTransitionWRequestPreviousState_adds_transition()
+        {
+            var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
+              , stateAccessor: sale => sale.State
+              , stateMutator: (sale, newState) => sale.State = newState);
+
+            sut.AddAutoForwardTransition<string>(SaleState.Complete, condition: (sale, s, _) => Task.FromResult(true), previousState: SaleState.Open);
         }
 
         [Fact]
@@ -196,93 +180,98 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void AddFallbackTransition_throws_InvalidOperationException_if_AutoTransition_already_set()
+        public void AddAutoFallbackTransition_throws_InvalidOperationException_if_AutoTransition_already_set()
         {
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
 
-            sut.AddFallbackTransition((sale, _) => Task.FromResult(result: true));
+            sut.AddAutoFallbackTransition((sale, _) => Task.FromResult(result: true));
 
-            Assert.Throws<InvalidOperationException>(() => sut.AddFallbackTransition((sale, _) => Task.FromResult(result: true)));
+            Assert.Throws<InvalidOperationException>(() => sut.AddAutoFallbackTransition((sale, _) => Task.FromResult(result: true)));
         }
 
         [Fact]
-        public void AddFallbackTransition_throws_ArgumentNullException_if_Condition_null()
+        public void AddAutoFallbackTransition_throws_ArgumentNullException_if_Condition_null()
         {
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
 
-            Assert.Throws<ArgumentNullException>(() => sut.AddFallbackTransition(condition: null));
+            Assert.Throws<ArgumentNullException>(() => sut.AddAutoFallbackTransition(condition: null));
         }
 
         [Fact]
-        public void AddFallbackTransitionWRequest_throws_InvalidOperationException_if_AutoTransition_already_set()
+        public void AddAutoFallbackTransitionWPreviousState_adds_transition()
         {
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
 
-            sut.AddFallbackTransition<string>((sale, stringParam, _) => Task.FromResult(result: true));
+            sut.AddAutoFallbackTransition(condition: (sale, _) => Task.FromResult(true), previousState: SaleState.Complete);
+        }
 
-            Assert.Throws<InvalidOperationException>(() => sut.AddFallbackTransition<string>((sale, stringParam, _) 
+        [Fact]
+        public void AddAutoFallbackTransitionWRequest_throws_InvalidOperationException_if_AutoTransition_already_set()
+        {
+            var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
+              , stateAccessor: sale => sale.State
+              , stateMutator: (sale, newState) => sale.State = newState);
+
+            sut.AddAutoFallbackTransition<string>((sale, stringParam, _) => Task.FromResult(result: true));
+
+            Assert.Throws<InvalidOperationException>(() => sut.AddAutoFallbackTransition<string>((sale, stringParam, _) 
                 => Task.FromResult(result: true)));
         }
 
         [Fact]
-        public void AddFallbackTransitionWRequest_throws_ArgumentNullException_if_Condition_null()
+        public void AddAutoFallbackTransitionWRequest_throws_ArgumentNullException_if_Condition_null()
         {
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
 
-            Assert.Throws<ArgumentNullException>(() => sut.AddFallbackTransition<string>(condition: null));
+            Assert.Throws<ArgumentNullException>(() => sut.AddAutoFallbackTransition<string>(condition: null));
         }
 
         [Fact]
-        public void AddFallbackTransitionWPreviousState_throws_InvalidOperationException_if_AutoTransition_already_set()
+        public void AddAutoFallbackTransitionWRequest_adds_transition()
         {
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
 
-            sut.AddFallbackTransition((sale, _) => Task.FromResult(result: true), SaleState.Open);
-
-            Assert.Throws<InvalidOperationException>(() => sut.AddFallbackTransition((sale, _) => Task.FromResult(result: true), SaleState.Open));
+            sut.AddAutoFallbackTransition<string>(condition: (sale, s, _) => Task.FromResult(true));
         }
 
         [Fact]
-        public void AddFallbackTransitionWPreviousState_throws_ArgumentNullException_if_Condition_null()
+        public void AddAutoFallbackTransitionWPreviousState_throws_ArgumentNullException_if_Condition_null()
         {
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
 
-            Assert.Throws<ArgumentNullException>(() => sut.AddFallbackTransition(condition: null, previousState: SaleState.Open));
+            Assert.Throws<ArgumentNullException>(() => sut.AddAutoFallbackTransition(condition: null, previousState: SaleState.Open));
         }
 
         [Fact]
-        public void AddFallbackTransitionWRequestPreviousState_throws_InvalidOperationException_if_AutoTransition_already_set()
+        public void AddAutoFallbackTransitionWRequestPreviousState_throws_ArgumentNullException_if_Condition_null()
         {
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
 
-            sut.AddFallbackTransition<string>((sale, stringParam, _) => Task.FromResult(result: true), SaleState.Open);
-
-            Assert.Throws<InvalidOperationException>(() => sut.AddFallbackTransition<string>((sale, stringParam, _) 
-                => Task.FromResult(result: true), SaleState.Open));
+            Assert.Throws<ArgumentNullException>(() => sut.AddAutoFallbackTransition<string>(condition: null, previousState: SaleState.Open));
         }
 
         [Fact]
-        public void AddFallbackTransitionWRequestPreviousState_throws_ArgumentNullException_if_Condition_null()
+        public void AddAutoFallbackTransitionWRequestPreviousState_adds_transition()
         {
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
 
-            Assert.Throws<ArgumentNullException>(() => sut.AddFallbackTransition<string>(condition: null, previousState: SaleState.Open));
+            sut.AddAutoFallbackTransition<string>(condition: (sale, s, _) => Task.FromResult(true), previousState: SaleState.Open);
         }
 
         [Fact]
@@ -407,7 +396,7 @@ namespace NStateManager.Tests
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale1 => sale.State
               , stateMutator: (sale1, newState) => sale.State = newState);
-            sut.AddAutoTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true), previousState: SaleState.Open);
+            sut.AddAutoForwardTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true), previousState: SaleState.Open);
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.ChangeGiven, sale);
 
             var autoTransitionResult = await sut.ExecuteAutoTransitionAsync(parameters, transitionResult);
@@ -431,7 +420,7 @@ namespace NStateManager.Tests
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale1 => sale.State
               , stateMutator: (sale1, newState) => sale.State = newState);
-            sut.AddAutoTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true));
+            sut.AddAutoForwardTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true));
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.ChangeGiven, sale);
 
             var autoTransitionResult = await sut.ExecuteAutoTransitionAsync(parameters, transitionResult);
@@ -459,7 +448,7 @@ namespace NStateManager.Tests
               , stateAccessor: sale1 => sale.State
               , stateMutator: (sale1, newState) => sale.State = newState);
             changeDueState.AddSuperState(openState);
-            openState.AddAutoTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true));
+            openState.AddAutoForwardTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true));
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.ChangeGiven, sale);
 
             var autoTransitionResult = await changeDueState.ExecuteAutoTransitionAsync(parameters, transitionResult);
@@ -483,9 +472,13 @@ namespace NStateManager.Tests
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue
               , stateAccessor: sale1 => sale.State
               , stateMutator: (sale1, newState) => sale.State = newState);
-            sut.AddAutoTransition(SaleState.Complete, (sale1, cancelToken) =>
+            sut.AddAutoForwardTransition(SaleState.Complete, (sale1, cancelToken) =>
             {
-                Task.Delay(millisecondsDelay: 999999, cancellationToken: cancelToken).Wait();
+                do
+                {
+                    Task.Delay(millisecondsDelay: 123).Wait();
+                } while (!cancelToken.IsCancellationRequested);
+
                 return Task.FromResult(result: !cancelToken.IsCancellationRequested);
             });
 
@@ -494,21 +487,25 @@ namespace NStateManager.Tests
                 var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.ChangeGiven, sale, cancelSource.Token);
                 StateTransitionResult<SaleState, SaleEvent> autoTransitionResult = null;
 
-                var autoTransitionTask = Task.Run(async () => autoTransitionResult = await sut.ExecuteAutoTransitionAsync(parameters, transitionResult));
+                var mutex = new Mutex(initiallyOwned: false);
+                Task.Run(async () =>
+                {
+                    mutex.WaitOne();
+                    autoTransitionResult = await sut.ExecuteAutoTransitionAsync(parameters, transitionResult);
+                    mutex.ReleaseMutex();
+                });
 
                 try
                 {
-                    //Task.Delay(millisecondsDelay: 2345, cancellationToken: cancelSource.Token);
-                    Task.Run(() => new TaskCompletionSource<bool>().Task.Wait(2345, cancelSource.Token));
+                    Task.Delay(millisecondsDelay: 2345).Wait();
                     cancelSource.Cancel();
-                    autoTransitionTask.Wait(millisecondsTimeout: 2345);
+                    mutex.WaitOne();
                 }
                 catch
                 {
                     cancelSource.Cancel();
                 }
 
-                //TODO next line is frequently null -- TaskCompletionSource??
                 Assert.True(autoTransitionResult.WasCancelled);
                 Assert.Equal(SaleState.ChangeDue, sale.State);
                 Assert.Equal(SaleState.ChangeDue, autoTransitionResult.CurrentState);
@@ -707,5 +704,13 @@ namespace NStateManager.Tests
             Assert.True(openState.IsInState(SaleState.Open));
             Assert.False(openState.IsInState(SaleState.ChangeDue));
         }
+    }
+
+    public class TestStateConfigurationAsync<T, TState, TTrigger> : StateConfigurationAsync<T, TState, TTrigger>
+        where TState : IComparable
+    {
+        public TestStateConfigurationAsync(TState state, Func<T, TState> stateAccessor, Action<T, TState> stateMutator)
+            : base(state, stateAccessor, stateMutator)
+        { }
     }
 }

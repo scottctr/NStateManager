@@ -39,7 +39,7 @@ namespace NStateManager.Tests
                 , priority: 1);
 
             var testSale = new Sale(saleID: 87) { State = SaleState.Open };
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale, request: "request");
 
             var result = sut.Execute(parameters); 
 
@@ -59,7 +59,7 @@ namespace NStateManager.Tests
                 , priority: 1);
 
             var testSale = new Sale(saleID: 87) { State = SaleState.Open };
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale, request: "request");
 
             var result = sut.Execute(parameters);
 
@@ -84,7 +84,7 @@ namespace NStateManager.Tests
             StateTransitionDynamic<Sale, SaleState, SaleEvent>.OnTransitionedEvent += (sale, _) => notificationReceived = true;
 
             var testSale = new Sale(saleID: 87) { State = SaleState.Open };
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale, request: "request");
 
             sut.Execute(parameters); 
 
@@ -105,7 +105,7 @@ namespace NStateManager.Tests
             StateTransitionDynamic<Sale, SaleState, SaleEvent>.OnTransitionedEvent += (sale, _) => notificationReceived = true;
 
             var testSale = new Sale(saleID: 87) { State = SaleState.Open };
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale, request: "request");
 
             sut.Execute(parameters); 
 

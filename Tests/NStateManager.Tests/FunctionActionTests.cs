@@ -9,6 +9,7 @@
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -38,17 +39,44 @@ namespace NStateManager.Tests
         [Fact]
         public void ExecuteAsync_can_be_cancelled()
         {
-            var cancellationSource = new CancellationTokenSource();
-            var sale = new Sale(saleID: 3);
-            var sut = new FunctionAction<Sale>((_, cancelToken) => 
-                Task.Delay(millisecondsDelay: 999999, cancellationToken: cancelToken));
-            
-            var funcTask = Task.Run(async () => await sut.ExecuteAsync(sale, cancellationSource.Token, request: null));
+            using (var cancellationSource = new CancellationTokenSource())
+            {
+                var sale = new Sale(saleID: 3);
+                var wasCancelled = false;
 
-            cancellationSource.Cancel();
-            Task.Delay(millisecondsDelay: 11).Wait();
+                var mutex = new Mutex(initiallyOwned: false);
+                var sut = new FunctionAction<Sale>((_, cancelToken) =>
+                {
+                    mutex.WaitOne();
+                    do
+                    {
+                        Task.Delay(millisecondsDelay: 123).Wait();
+                    } while (!cancelToken.IsCancellationRequested);
 
-            Assert.True(funcTask.IsCanceled);
+                    mutex.ReleaseMutex();
+                    wasCancelled = true;
+                    return Task.FromCanceled(cancelToken);
+                });
+
+                Task.Factory.StartNew(async () =>
+                {
+                    await sut.ExecuteAsync(sale, cancellationSource.Token, request: null);
+                }, TaskCreationOptions.LongRunning);
+
+                try
+                {
+                    Task.Delay(555).Wait();
+                    cancellationSource.Cancel();
+                }
+                catch (Exception ex)
+                {
+                    cancellationSource.Cancel();
+                }
+
+                mutex.WaitOne();
+
+                Assert.True(wasCancelled);
+            }
         }
     }
 }

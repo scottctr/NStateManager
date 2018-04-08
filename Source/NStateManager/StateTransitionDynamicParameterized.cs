@@ -12,8 +12,7 @@ using System;
 
 namespace NStateManager
 {
-    internal class StateTransitionDynamicParameterized<T, TState, TTrigger, TParam>
-        : StateTransitionDynamicBase<T, TState, TTrigger>
+    internal class StateTransitionDynamicParameterized<T, TState, TTrigger, TParam> : StateTransitionDynamicBase<T, TState, TTrigger>
         where TParam : class
         where TState : IComparable
     {
@@ -27,31 +26,18 @@ namespace NStateManager
 
         public override StateTransitionResult<TState, TTrigger> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult = null)
         {
-            //TODO check for params.Request <> null -- ???not sure about this
-            //TODO ensure params.Request is right type -- check for null
+            if (!(parameters.Request is TParam typeSafeParam))
+            { throw new ArgumentException($"Expected a {typeof(TParam).Name} parameter, but received a {parameters.Request?.GetType().Name ?? "null"}."); }
 
             var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
-            var toState = StateFunc(parameters.Context, parameters.Request as TParam);
+            var toState = StateFunc(parameters.Context, typeSafeParam);
 
             var transitioned = toState.CompareTo(startState) != 0;
 
             if (transitioned)
             { StateMutator(parameters.Context, toState); }
 
-            var transitionResult = (currentResult == null)
-                ? new StateTransitionResult<TState, TTrigger>(parameters.Trigger
-                    , startState
-                    , startState
-                    , toState
-                    , lastTransitionName: transitioned ? Name : string.Empty
-                    , conditionMet: transitioned)
-                : new StateTransitionResult<TState, TTrigger>(parameters.Trigger
-                    , startState
-                    , currentResult.CurrentState
-                    , toState
-                    , lastTransitionName: transitioned ? Name : string.Empty
-                    , conditionMet: transitioned);
-
+            var transitionResult = GetResult(parameters, currentResult, startState, transitioned, wasCancelled: false);
             if (transitioned)
             { NotifyOfTransition(parameters.Context, transitionResult); }
 

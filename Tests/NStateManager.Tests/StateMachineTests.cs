@@ -215,7 +215,7 @@ namespace NStateManager.Tests
                .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, name: "toChangeDue");
 
             sut.ConfigureState(SaleState.ChangeDue)
-               .AddAutoTransition(SaleState.Complete, sale1 => true, name: "toComplete");
+               .AddAutoForwardTransition(SaleState.Complete, sale1 => true, name: "toComplete");
 
             var result = sut.FireTrigger(sale, SaleEvent.Pay);
 
@@ -239,7 +239,7 @@ namespace NStateManager.Tests
                .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, name: "toChangeDue");
 
             sut.ConfigureState(SaleState.ChangeDue)
-               .AddAutoTransition(SaleState.Complete, sale1 => true, name: "toComplete");
+               .AddAutoForwardTransition(SaleState.Complete, sale1 => true, name: "toComplete");
 
             var completeEntryActionFired = false;
             sut.ConfigureState(SaleState.Complete)
@@ -371,7 +371,7 @@ namespace NStateManager.Tests
                .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, name: "toChangeDue");
 
             sut.ConfigureState(SaleState.ChangeDue)
-               .AddAutoTransition(SaleState.Complete, sale1 => true, name: "toComplete");
+               .AddAutoForwardTransition(SaleState.Complete, _=> true, name: "toComplete");
 
             var result = sut.FireTrigger(sale, SaleEvent.Pay, "stringParam");
 
@@ -395,7 +395,7 @@ namespace NStateManager.Tests
                .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, name: "toChangeDue");
 
             sut.ConfigureState(SaleState.ChangeDue)
-               .AddAutoTransition(SaleState.Complete, sale1 => true, name: "toComplete");
+               .AddAutoForwardTransition(SaleState.Complete, sale1 => true, name: "toComplete");
 
             var completeEntryActionFired = false;
             sut.ConfigureState(SaleState.Complete)
@@ -459,7 +459,7 @@ namespace NStateManager.Tests
               , stateMutator: (sale3, newState) => sale3.State = newState);
             sut.ConfigureState(SaleState.Open).AddTransition(SaleEvent.Pay, SaleState.Complete);
             var transitionEventFired = false;
-            sut.RegisterOnTransitionedEvent((sale1, result) => { transitionEventFired = true; });
+            sut.RegisterOnTransitionedAction((sale1, result) => { transitionEventFired = true; });
 
             sut.FireTrigger(sale, SaleEvent.Pay);
 

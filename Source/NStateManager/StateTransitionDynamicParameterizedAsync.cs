@@ -34,8 +34,8 @@ namespace NStateManager
         public override async Task<StateTransitionResult<TState, TTrigger>> ExecuteAsync(ExecutionParameters<T, TTrigger> parameters
           , StateTransitionResult<TState, TTrigger> currentResult = null)
         {
-            //TODO check for params.Request <> null
-            //TODO ensure params.Request is right type
+            if (!(parameters.Request is TParam typeSafeParam))
+            { throw new ArgumentException($"Expected a {typeof(TParam).Name} parameter, but received a {parameters.Request?.GetType().Name ?? "null"}."); }
 
             var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
 
@@ -52,30 +52,10 @@ namespace NStateManager
                     , wasCancelled: true);
             }
 
-            var toState = await StateFuncAsync(parameters.Context, parameters.Request as TParam, parameters.CancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            var toState = await StateFuncAsync(parameters.Context, typeSafeParam, parameters.CancellationToken)
+               .ConfigureAwait(continueOnCapturedContext: false);
 
-            var wasSuccessful = false;
-            if (toState.CompareTo(startState) != 0)
-            {
-                StateMutator(parameters.Context, toState);
-                wasSuccessful = true;
-            }
-
-            var transitionResult = currentResult == null
-                ? new StateTransitionResult<TState, TTrigger>(parameters.Trigger
-                    , startState
-                    , startState
-                    , toState
-                    , lastTransitionName: wasSuccessful ? Name : string.Empty
-                    , conditionMet: wasSuccessful
-                    , wasCancelled: !wasSuccessful && parameters.CancellationToken.IsCancellationRequested)
-                : new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, currentResult.CurrentState, toState, Name);
-
-            if (wasSuccessful)
-            { NotifyOfTransition(parameters.Context, transitionResult); }
-
-            return transitionResult;
+            return ExecuteFinalizeAsync(parameters, currentResult, startState, toState);
         }
     }
 }

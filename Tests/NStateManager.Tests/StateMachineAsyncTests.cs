@@ -248,7 +248,7 @@ namespace NStateManager.Tests
                .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, conditionAsync: null, name: "toChangeDue");
 
             sut.ConfigureState(SaleState.ChangeDue)
-               .AddAutoTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true), name: "toComplete");
+               .AddAutoForwardTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true), name: "toComplete");
 
             var result = await sut.FireTriggerAsync(sale, SaleEvent.Pay);
 
@@ -272,7 +272,7 @@ namespace NStateManager.Tests
                .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, conditionAsync: null, name: "toChangeDue");
 
             sut.ConfigureState(SaleState.ChangeDue)
-               .AddAutoTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true), name: "toComplete");
+               .AddAutoForwardTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true), name: "toComplete");
 
             var completeEntryActionFired = false;
             sut.ConfigureState(SaleState.Complete)
@@ -435,7 +435,7 @@ namespace NStateManager.Tests
                .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, conditionAsync: null, name: "toChangeDue");
 
             sut.ConfigureState(SaleState.ChangeDue)
-               .AddAutoTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true), name: "toComplete");
+               .AddAutoForwardTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true), name: "toComplete");
 
             var result = await sut.FireTriggerAsync(sale, SaleEvent.Pay, "stringParam");
 
@@ -459,7 +459,7 @@ namespace NStateManager.Tests
                .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, conditionAsync: null, name: "toChangeDue");
 
             sut.ConfigureState(SaleState.ChangeDue)
-               .AddAutoTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true), name: "toComplete");
+               .AddAutoForwardTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true), name: "toComplete");
 
             var completeEntryActionFired = false;
             sut.ConfigureState(SaleState.Complete)

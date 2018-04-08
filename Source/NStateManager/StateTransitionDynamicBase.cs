@@ -13,9 +13,32 @@ using System;
 namespace NStateManager
 {
     internal abstract class StateTransitionDynamicBase<T, TState, TTrigger> : StateTransitionBase<T, TState, TTrigger>
+        where TState : IComparable
     {
         protected StateTransitionDynamicBase(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState fromState, string name, uint priority)
             : base(stateAccessor, stateMutator, fromState, name, priority)
         {}
+
+        protected StateTransitionResult<TState, TTrigger> ExecuteFinalizeAsync(ExecutionParameters<T, TTrigger> parameters
+            , StateTransitionResult<TState, TTrigger> currentResult, TState startState, TState toState)
+        {
+            var wasSuccessful = false;
+            if (toState.CompareTo(startState) != 0)
+            {
+                StateMutator(parameters.Context, toState);
+                wasSuccessful = true;
+            }
+
+            var transitionResult = GetResult(parameters
+              , currentResult
+              , startState
+              , wasSuccessful
+              , parameters.CancellationToken.IsCancellationRequested);
+
+            if (wasSuccessful)
+            { NotifyOfTransition(parameters.Context, transitionResult); }
+
+            return transitionResult;
+        }
     }
 }

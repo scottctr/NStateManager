@@ -22,14 +22,13 @@ namespace NStateManager
     public sealed class StateMachine<T, TState, TTrigger> : IStateMachine<T, TState, TTrigger>
         where TState : IComparable
     {
-        private readonly Func<T, TState> _stateAccessor;
-        private readonly Action<T, TState> _stateMutator;
-
         private readonly Dictionary<TState, IStateConfigurationInternal<T, TState, TTrigger>> _stateConfigurations =
             new Dictionary<TState, IStateConfigurationInternal<T, TState, TTrigger>>();
-
         private readonly Dictionary<TTrigger, TriggerActionBase<T, TTrigger>> _triggerActions =
             new Dictionary<TTrigger, TriggerActionBase<T, TTrigger>>();
+
+        public Func<T, TState> StateAccessor { get; }
+        public Action<T, TState> StateMutator { get; }
 
         /// <summary>
         /// Constructor.
@@ -38,8 +37,8 @@ namespace NStateManager
         /// <param name="stateMutator">Action to set the state of a <see cref="T"/>.</param>
         public StateMachine(Func<T, TState> stateAccessor, Action<T, TState> stateMutator)
         {
-            _stateAccessor = stateAccessor ?? throw new ArgumentNullException(nameof(stateAccessor));
-            _stateMutator = stateMutator ?? throw new ArgumentNullException(nameof(stateMutator));
+            StateAccessor = stateAccessor ?? throw new ArgumentNullException(nameof(stateAccessor));
+            StateMutator = stateMutator ?? throw new ArgumentNullException(nameof(stateMutator));
         }
 
         /// <summary>
@@ -88,7 +87,7 @@ namespace NStateManager
             if (_stateConfigurations.TryGetValue(state, out var stateConfiguration))
             { return stateConfiguration; }
 
-            var newState = new StateConfiguration<T, TState, TTrigger>(state, _stateAccessor, _stateMutator);
+            var newState = new StateConfiguration<T, TState, TTrigger>(state, StateAccessor, StateMutator);
             _stateConfigurations.Add(state, newState);
             return newState;
         }
@@ -104,7 +103,7 @@ namespace NStateManager
             where TRequest : class
         {
             var executionParameters = new ExecutionParameters<T, TTrigger>(trigger, context, request: request);
-            var startState = _stateAccessor(context);
+            var startState = StateAccessor(context);
 
             if (_triggerActions.TryGetValue(trigger, out var triggerAction))
             { triggerAction.Execute(executionParameters); }
@@ -129,7 +128,7 @@ namespace NStateManager
         /// <returns></returns>
         public StateTransitionResult<TState, TTrigger> FireTrigger(T context, TTrigger trigger)
         {
-            var startState = _stateAccessor(context);
+            var startState = StateAccessor(context);
             var executionParameters = new ExecutionParameters<T, TTrigger>(trigger, context);
 
             if (_triggerActions.TryGetValue(trigger, out var triggerAction))
@@ -149,7 +148,7 @@ namespace NStateManager
 
         public bool IsInState(T context, TState state)
         {
-            var objectState = _stateAccessor(context);
+            var objectState = StateAccessor(context);
 
             if (state.CompareTo(objectState) == 0)
             { return true; }
@@ -158,9 +157,9 @@ namespace NStateManager
                    && objectStateConfiguration.IsInState(state);
         }
 
-        public IStateMachine<T, TState, TTrigger> RegisterOnTransitionedEvent(Action<T, StateTransitionResult<TState, TTrigger>> onTransitionedEvent)
+        public IStateMachine<T, TState, TTrigger> RegisterOnTransitionedAction(Action<T, StateTransitionResult<TState, TTrigger>> action)
         {
-            StateTransitionBase<T, TState, TTrigger>.OnTransitionedEvent += onTransitionedEvent;
+            StateTransitionBase<T, TState, TTrigger>.OnTransitionedEvent += action;
 
             return this;
         }

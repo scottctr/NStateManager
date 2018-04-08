@@ -30,7 +30,7 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public async Task ExecuteAsync_throws_ArgumentNullException_if_Request_not_provided()
+        public async Task ExecuteAsync_throws_ArgumentException_if_Request_not_provided()
         {
             const SaleState startState = SaleState.Open;
             var sale = new Sale(saleID: 66) { State = startState };
@@ -47,7 +47,7 @@ namespace NStateManager.Tests
                 var cancelToken = cancelSource.Token;
                 var executionParams = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, request: null, cancellationToken: cancelToken);
 
-                await Assert.ThrowsAsync<ArgumentNullException>(async () => await sut.ExecuteAsync(executionParams));
+                await Assert.ThrowsAsync<ArgumentException>(async () => await sut.ExecuteAsync(executionParams));
             }
         }
 

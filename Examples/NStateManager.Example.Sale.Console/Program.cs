@@ -20,6 +20,9 @@ namespace NStateManager.Example.Sale.Console
             SaleStateMachine.AddPayment(sale, new Payment(amount: 10.00));
             SaleStateMachine.AddPayment(sale, new Payment(amount: 10.00));
             SaleStateMachine.ReturnChange(sale, new Payment(amount: -7.00));
+            //We should be in Complete state here, so the following actions should be ignored
+            SaleStateMachine.AddItem(sale, new SaleItem("Magazine", 3.00));
+            SaleStateMachine.AddItem(sale, new SaleItem("Fuel", 10.00));
 
             System.Console.Read();
         }

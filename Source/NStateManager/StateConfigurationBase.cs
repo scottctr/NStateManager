@@ -16,16 +16,17 @@ namespace NStateManager
 {
     public abstract class StateConfigurationBase<T, TState, TTrigger> where TState : IComparable
     {
-        public Func<T, TState> StateAccessor { get; }
-        public Action<T, TState> StateMutator { get; }
-        protected Dictionary<TTrigger, List<StateTransitionBase<T, TState, TTrigger>>> AllowedTransitions = new Dictionary<TTrigger, List<StateTransitionBase<T, TState, TTrigger>>>();
-        protected Dictionary<TState, StateTransitionBase<T, TState, TTrigger>> PreviousStateAutoTransitions = new Dictionary<TState, StateTransitionBase<T, TState, TTrigger>>();
-        protected StateTransitionBase<T, TState, TTrigger> DefaultAutoTransition;
+        protected internal List<StateTransitionBase<T, TState, TTrigger>> AutoTransitions = new List<StateTransitionBase<T, TState, TTrigger>>();
+        protected internal Dictionary<TState, List<StateTransitionBase<T, TState, TTrigger>>> AutoPreviousStateTransitions = new Dictionary<TState, List<StateTransitionBase<T, TState, TTrigger>>>();
+        protected Dictionary<TTrigger, List<StateTransitionBase<T, TState, TTrigger>>> Transitions = new Dictionary<TTrigger, List<StateTransitionBase<T, TState, TTrigger>>>();
 
         /// <summary>
         /// The state being configured.
         /// </summary>
         public TState State { get; }
+
+        public Func<T, TState> StateAccessor { get; }
+        public Action<T, TState> StateMutator { get; }
 
         /// <summary>
         /// Constructor.
@@ -33,11 +34,23 @@ namespace NStateManager
         /// <param name="state">The state being configured.</param>
         /// <param name="stateAccessor">Function to retrieve the state of a <see cref="T"/>.</param>
         /// <param name="stateMutator">Action to set the state of a <see cref="T"/>.</param>
-        internal StateConfigurationBase(TState state, Func<T, TState> stateAccessor, Action<T, TState> stateMutator)
+        protected StateConfigurationBase(TState state, Func<T, TState> stateAccessor, Action<T, TState> stateMutator)
         {
             State = state;
             StateAccessor = stateAccessor ?? throw new ArgumentNullException(nameof(stateAccessor));
             StateMutator = stateMutator ?? throw new ArgumentNullException(nameof(stateMutator));
+        }
+
+        /// <summary>
+        /// Adds an automatic (forward or back) transition to the state configuration.
+        /// </summary>
+        /// <param name="transition">The transition to add.</param>
+        public void AddAutoTransition(StateTransitionBase<T, TState, TTrigger> transition)
+        {
+            if (AutoTransitions.Any(t => t.Priority == transition.Priority))
+            { throw new InvalidOperationException($"Auto transition for {State} state with priority {transition.Priority} already added."); }
+
+            AutoTransitions.Add(transition);
         }
 
         /// <summary>
@@ -47,8 +60,8 @@ namespace NStateManager
         /// <param name="transition">The transition to add.</param>
         public void AddTransition(TTrigger trigger, StateTransitionBase<T, TState, TTrigger> transition)
         {
-            if (!AllowedTransitions.TryGetValue(trigger, out var existingTransitions))
-            { AllowedTransitions.Add(trigger, new List<StateTransitionBase<T, TState, TTrigger>> {transition}); }
+            if (!Transitions.TryGetValue(trigger, out var existingTransitions))
+            { Transitions.Add(trigger, new List<StateTransitionBase<T, TState, TTrigger>> {transition}); }
             else
             {
                 if (existingTransitions.Any(t => t.Priority == transition.Priority))
@@ -62,7 +75,7 @@ namespace NStateManager
         {
             StateTransitionResult<TState, TTrigger> result = null;
 
-            if (AllowedTransitions.TryGetValue(parameters.Trigger, out var transitions))
+            if (Transitions.TryGetValue(parameters.Trigger, out var transitions))
             {
                 foreach (var transition in transitions.OrderBy(t => t.Priority))
                 {

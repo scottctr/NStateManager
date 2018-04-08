@@ -24,7 +24,8 @@ namespace NStateManager.Example.Sale.Console
     {
         AddItem,
         Pay,
-        ChangeGiven
+        ChangeGiven,
+        SaleCancelled
     }
 
     public class Sale

@@ -25,29 +25,7 @@ namespace NStateManager
         public override StateTransitionResult<TState, TTrigger> Execute(ExecutionParameters<T, TTrigger> parameters
           , StateTransitionResult<TState, TTrigger> currentResult = null)
         {
-            var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
-
-            if (!Condition(parameters.Context))
-            {
-                if (currentResult != null)
-                { return currentResult; }
-
-                return new StateTransitionResult<TState, TTrigger>(parameters.Trigger
-                    , startState
-                    , startState
-                    , startState
-                    , lastTransitionName: string.Empty
-                    , conditionMet: false);
-            }
-
-            StateMutator(parameters.Context, ToState);
-
-            var transitionResult = currentResult == null 
-                ? new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, startState, ToState, Name) 
-                : new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, currentResult.CurrentState, ToState, Name);
-            NotifyOfTransition(parameters.Context, transitionResult);
-
-            return transitionResult;
+            return ExecutePrim(parameters, currentResult, Condition(parameters.Context));
         }
     }
 }

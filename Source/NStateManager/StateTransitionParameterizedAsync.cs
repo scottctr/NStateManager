@@ -28,29 +28,13 @@ namespace NStateManager
         public override async Task<StateTransitionResult<TState, TTrigger>> ExecuteAsync(ExecutionParameters<T, TTrigger> parameters
           , StateTransitionResult<TState, TTrigger> currentResult = null)
         {
-            //TODO do we really need to enforce this not being null??
-            if (parameters.Request == null)
-            { throw new ArgumentNullException(nameof(parameters.Request)); }
-
-            //TODO if we don't force to be non-null, must check for null
             if (!(parameters.Request is TParam typeSafeParam))
-            { throw new ArgumentException($"Expected a {typeof(TParam).Name} parameter, but received a {parameters.Request.GetType().Name}."); }
+            { throw new ArgumentException($"Expected a {typeof(TParam).Name} parameter, but received a {parameters.Request?.GetType().Name ?? "null"}."); }
 
             var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
 
             if (parameters.CancellationToken.IsCancellationRequested)
-            {
-                if (currentResult != null)
-                { return currentResult; }
-
-                return new StateTransitionResult<TState, TTrigger>(parameters.Trigger
-                    , startState
-                    , startState
-                    , startState
-                    , lastTransitionName: string.Empty
-                    , conditionMet: false
-                    , wasCancelled: true);
-            }
+            { return GetResult(parameters, currentResult, startState, wasSuccessful: false, wasCancelled: true); }
 
             if (!await ConditionAsync(parameters.Context, typeSafeParam, parameters.CancellationToken)
                .ConfigureAwait(continueOnCapturedContext: false))

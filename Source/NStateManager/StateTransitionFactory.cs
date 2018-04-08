@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace NStateManager
 {
-    internal class StateTransitionFactory<T, TState, TTrigger>
+    internal static class StateTransitionFactory<T, TState, TTrigger>
         where TState : IComparable
     {
         public static StateTransitionBase<T, TState, TTrigger> GetStateTransition(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState fromState, TState toState, Func<T, bool> condition, string name, uint priority = 1)

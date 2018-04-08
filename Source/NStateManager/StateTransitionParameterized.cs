@@ -24,32 +24,10 @@ namespace NStateManager
         public override StateTransitionResult<TState, TTrigger> Execute(ExecutionParameters<T, TTrigger> parameters
           , StateTransitionResult<TState, TTrigger> currentResult = null)
         {
-            //TODO should we allow null reqeust for parameterized classes?
             if (!(parameters.Request is TParam typeSafeParam))
-            { throw new ArgumentException($"Expected a {typeof(TParam).Name} parameter, but received a {parameters.Request.GetType().Name}."); }
+            { throw new ArgumentException($"Expected a {typeof(TParam).Name} parameter, but received a {parameters.Request?.GetType().Name ?? "null"}."); }
 
-            var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
-
-            if (!Condition(parameters.Context, typeSafeParam))
-            {
-                if (currentResult != null)
-                { return currentResult; }
-
-                return new StateTransitionResult<TState, TTrigger>(parameters.Trigger
-                    , startState
-                    , startState
-                    , startState
-                    , lastTransitionName: string.Empty
-                    , conditionMet: false);
-            }
-
-            StateMutator(parameters.Context, ToState);
-            var transitionResult = currentResult == null
-                ? new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, startState, ToState, Name)
-                : new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, currentResult.CurrentState, ToState, Name);
-            NotifyOfTransition(parameters.Context, transitionResult);
-
-            return transitionResult; 
+            return ExecutePrim(parameters, currentResult, Condition(parameters.Context, typeSafeParam));
         }
     }
 }

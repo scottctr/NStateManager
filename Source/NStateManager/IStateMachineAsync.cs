@@ -61,7 +61,7 @@ namespace NStateManager
         /// <param name="trigger">The event that has occured that may affect the state.</param>
         /// <param name="cancellationToken"><see cref="CancellationToken"/>Provides the ability to cancel an asynchronous operation.</param>
         /// <returns></returns>
-        Task<StateTransitionResult<TState, TTrigger>> FireTriggerAsync(T context, TTrigger trigger, CancellationToken cancellationToken);
+        Task<StateTransitionResult<TState, TTrigger>> FireTriggerAsync(T context, TTrigger trigger, CancellationToken cancellationToken = default(CancellationToken));
 
         bool IsInState(T context, TState state);
 

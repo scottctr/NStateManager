@@ -58,24 +58,22 @@ namespace NStateManager
         /// <param name="name"></param>
         /// <param name="priority"></param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoTransition(TState toState
+        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardTransition(TState toState
           , Func<T, CancellationToken, Task<bool>> condition
           , string name = null
           , uint priority = 1)
         {
-            if (DefaultAutoTransition != null)
-            { throw new InvalidOperationException("The default AutoTransition has already been set."); }
-
             if (condition == null)
             { throw new ArgumentNullException(nameof(condition)); }
 
-            DefaultAutoTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
+            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
               , StateMutator
               , State
               , toState
               , condition
               , name
               , priority);
+            AddAutoTransition(transition);
 
             return this;
         }
@@ -89,25 +87,23 @@ namespace NStateManager
         /// <param name="name"></param>
         /// <param name="priority"></param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoTransition<TRequest>(TState toState
+        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardTransition<TRequest>(TState toState
           , Func<T, TRequest, CancellationToken, Task<bool>> condition
           , string name = null
           , uint priority = 1)
             where TRequest : class
         {
-            if (DefaultAutoTransition != null)
-            { throw new InvalidOperationException("The default AutoTransition has already be set."); }
-
             if (condition == null)
             { throw new ArgumentNullException(nameof(condition)); }
 
-            DefaultAutoTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
+            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
               , StateMutator
               , State
               , toState
               , condition
               , name
               , priority);
+            AddAutoTransition(transition);
 
             return this;
         }
@@ -121,7 +117,7 @@ namespace NStateManager
         /// <param name="name"></param>
         /// <param name="priority"></param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoTransition(TState toState
+        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardTransition(TState toState
           , Func<T, CancellationToken, Task<bool>> condition
           , TState previousState
           , string name = null
@@ -130,10 +126,10 @@ namespace NStateManager
             if (condition == null)
             { throw new ArgumentNullException(nameof(condition)); }
 
-            if (PreviousStateAutoTransitions.ContainsKey(previousState))
+            if (!AutoPreviousStateTransitions.TryGetValue(previousState, out var transitions))
             {
-                throw new InvalidOperationException(
-                    $"AutoTransition already defined for {previousState}. Only one auto transition allowed per toState");
+                transitions = new List<StateTransitionBase<T, TState, TTrigger>>();
+                AutoPreviousStateTransitions.Add(previousState, transitions);
             }
 
             var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
@@ -143,7 +139,7 @@ namespace NStateManager
               , condition
               , name
               , priority);
-            PreviousStateAutoTransitions.Add(previousState, transition);
+            transitions.Add(transition);
 
             return this;
         }
@@ -158,7 +154,7 @@ namespace NStateManager
         /// <param name="name"></param>
         /// <param name="priority"></param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoTransition<TRequest>(TState toState
+        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardTransition<TRequest>(TState toState
           , Func<T, TRequest, CancellationToken, Task<bool>> condition
           , TState previousState
           , string name = null
@@ -168,8 +164,11 @@ namespace NStateManager
             if (condition == null)
             { throw new ArgumentNullException(nameof(condition)); }
 
-            if (PreviousStateAutoTransitions.ContainsKey(previousState))
-            { throw new InvalidOperationException($"AutoTransition already defined for {previousState}. Only one auto transition allowed per toState"); }
+            if (!AutoPreviousStateTransitions.TryGetValue(previousState, out var transitions))
+            {
+                transitions = new List<StateTransitionBase<T, TState, TTrigger>>();
+                AutoPreviousStateTransitions.Add(previousState, transitions);
+            }
 
             var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
               , StateMutator
@@ -178,7 +177,7 @@ namespace NStateManager
               , condition
               , name
               , priority);
-            PreviousStateAutoTransitions.Add(previousState, transition);
+            transitions.Add(transition);
 
             return this;
         }
@@ -308,59 +307,12 @@ namespace NStateManager
             return this;
         }
 
-        public IStateConfigurationAsync<T, TState, TTrigger> AddFallbackTransition(Func<T, CancellationToken, Task<bool>> condition
-          , string name = null
-          , uint priority = 1)
-        {
-            if (DefaultAutoTransition != null)
-            { throw new InvalidOperationException("The default AutoTransition has already be set."); }
-
-            if (condition == null)
-            { throw new ArgumentNullException(nameof(condition)); }
-
-            DefaultAutoTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-              , StateMutator
-              , State
-              , State
-              , condition
-              , name
-              , priority);
-
-            return this;
-        }
-
-        public IStateConfigurationAsync<T, TState, TTrigger> AddFallbackTransition<TRequest>(Func<T, TRequest, CancellationToken, Task<bool>> condition
-          , string name = null
-          , uint priority = 1)
-            where TRequest : class
-        {
-            if (DefaultAutoTransition != null)
-            { throw new InvalidOperationException("The default AutoTransition has already be set."); }
-
-            if (condition == null)
-            { throw new ArgumentNullException(nameof(condition)); }
-
-            DefaultAutoTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-              , StateMutator
-              , State
-              , State
-              , condition
-              , name
-              , priority);
-
-            return this;
-        }
-
-        public IStateConfigurationAsync<T, TState, TTrigger> AddFallbackTransition(Func<T, CancellationToken, Task<bool>> condition
-          , TState previousState
+        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoFallbackTransition(Func<T, CancellationToken, Task<bool>> condition
           , string name = null
           , uint priority = 1)
         {
             if (condition == null)
             { throw new ArgumentNullException(nameof(condition)); }
-
-            if (PreviousStateAutoTransitions.ContainsKey(previousState))
-            { throw new InvalidOperationException($"AutoTransition already defined for {previousState}. Only one auto transition allowed per previousState"); }
 
             var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
               , StateMutator
@@ -369,22 +321,18 @@ namespace NStateManager
               , condition
               , name
               , priority);
-            PreviousStateAutoTransitions.Add(previousState, transition);
+            AddAutoTransition(transition);
 
             return this;
         }
 
-        public IStateConfigurationAsync<T, TState, TTrigger> AddFallbackTransition<TRequest>(Func<T, TRequest, CancellationToken, Task<bool>> condition
-          , TState previousState
+        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoFallbackTransition<TRequest>(Func<T, TRequest, CancellationToken, Task<bool>> condition
           , string name = null
           , uint priority = 1)
             where TRequest : class
         {
             if (condition == null)
             { throw new ArgumentNullException(nameof(condition)); }
-
-            if (PreviousStateAutoTransitions.ContainsKey(previousState))
-            { throw new InvalidOperationException($"AutoTransition already defined for {previousState}. Only one auto transition allowed per previousState"); }
 
             var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
               , StateMutator
@@ -393,7 +341,60 @@ namespace NStateManager
               , condition
               , name
               , priority);
-            PreviousStateAutoTransitions.Add(previousState, transition);
+            AddAutoTransition(transition);
+
+            return this;
+        }
+
+        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoFallbackTransition(Func<T, CancellationToken, Task<bool>> condition
+          , TState previousState
+          , string name = null
+          , uint priority = 1)
+        {
+            if (condition == null)
+            { throw new ArgumentNullException(nameof(condition)); }
+
+            if (!AutoPreviousStateTransitions.TryGetValue(previousState, out var transitions))
+            {
+                transitions = new List<StateTransitionBase<T, TState, TTrigger>>();
+                AutoPreviousStateTransitions.Add(previousState, transitions);
+            }
+
+            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
+              , StateMutator
+              , State
+              , State
+              , condition
+              , name
+              , priority);
+            transitions.Add(transition);
+
+            return this;
+        }
+
+        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoFallbackTransition<TRequest>(Func<T, TRequest, CancellationToken, Task<bool>> condition
+          , TState previousState
+          , string name = null
+          , uint priority = 1)
+            where TRequest : class
+        {
+            if (condition == null)
+            { throw new ArgumentNullException(nameof(condition)); }
+
+            if (!AutoPreviousStateTransitions.TryGetValue(previousState, out var transitions))
+            {
+                transitions = new List<StateTransitionBase<T, TState, TTrigger>>();
+                AutoPreviousStateTransitions.Add(previousState, transitions);
+            }
+
+            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
+              , StateMutator
+              , State
+              , State
+              , condition
+              , name
+              , priority);
+            transitions.Add(transition);
 
             return this;
         }
@@ -524,14 +525,28 @@ namespace NStateManager
         public async Task<StateTransitionResult<TState, TTrigger>> ExecuteAutoTransitionAsync(ExecutionParameters<T, TTrigger> parameters
             , StateTransitionResult<TState, TTrigger> currentResult)
         {
+            StateTransitionResult<TState, TTrigger> localResult;
+
             //Is there an action based on the previous state?
-            if (PreviousStateAutoTransitions.TryGetValue(currentResult.PreviousState, out var action))
-            { return await action.ExecuteAsync(parameters, currentResult).ConfigureAwait(continueOnCapturedContext: false); }
+            if (AutoPreviousStateTransitions.TryGetValue(currentResult.PreviousState, out var previousStateTransitions))
+            {
+                foreach (var transition in previousStateTransitions.OrderBy(t => t.Priority))
+                {
+                    localResult = await transition.ExecuteAsync(parameters, currentResult).ConfigureAwait(continueOnCapturedContext: false);
+                    if (localResult.WasSuccessful)
+                    { return localResult; }
+                }
+            }
 
             //Is there an action for any entry?
-            if (DefaultAutoTransition != null)
-            { return await DefaultAutoTransition.ExecuteAsync(parameters, currentResult).ConfigureAwait(continueOnCapturedContext: false); }
+            foreach (var transition in AutoTransitions.OrderBy(t => t.Priority))
+            {
+                localResult = await transition.ExecuteAsync(parameters, currentResult).ConfigureAwait(continueOnCapturedContext: false);
+                if (localResult.WasSuccessful)
+                { return localResult; }
+            }
 
+            //Check for a super state and just return the incoming currentResult if no successful auto transitions
             return _superState != null
                 ? await _superState.ExecuteAutoTransitionAsync(parameters, currentResult).ConfigureAwait(continueOnCapturedContext: false)
                 : new StateTransitionResult<TState, TTrigger>(parameters.Trigger
@@ -639,7 +654,7 @@ namespace NStateManager
         {
             StateTransitionResult<TState, TTrigger> result = null;
 
-            if (AllowedTransitions.TryGetValue(parameters.Trigger, out var transitions))
+            if (Transitions.TryGetValue(parameters.Trigger, out var transitions))
             {
                 foreach (var transition in transitions.OrderBy(t => t.Priority))
                 {

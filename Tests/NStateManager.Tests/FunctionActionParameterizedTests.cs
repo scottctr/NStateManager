@@ -38,17 +38,20 @@ namespace NStateManager.Tests
         [Fact]
         public void ExecuteAsync_can_be_cancelled()
         {
-            var cancellationSource = new CancellationTokenSource();
-            var sale = new Sale(saleID: 3);
-            var sut = new FunctionActionParameterized<Sale, Sale>((_, sale2, cancelToken) => 
-                Task.Delay(millisecondsDelay: 999999, cancellationToken: cancelToken));
-            
-            var funcTask = Task.Run(async () => await sut.ExecuteAsync(sale, cancellationSource.Token, request: sale), cancellationSource.Token);
+            using (var cancellationSource = new CancellationTokenSource())
+            {
+                var sale = new Sale(saleID: 3);
 
-            cancellationSource.Cancel();
-            Task.Delay(millisecondsDelay: 67).Wait();
+                var sut = new FunctionActionParameterized<Sale, Sale>((_, sale2, cancelToken) =>
+                    Task.Delay(millisecondsDelay: 999999, cancellationToken: cancelToken));
 
-            Assert.True(funcTask.IsCanceled);
+                var funcTask = Task.Run(async () => await sut.ExecuteAsync(sale, cancellationSource.Token, request: sale), cancellationSource.Token);
+
+                cancellationSource.Cancel();
+                Task.Delay(millisecondsDelay: 67).Wait();
+
+                Assert.True(funcTask.IsCanceled);
+            }
         }
 
         [Fact]

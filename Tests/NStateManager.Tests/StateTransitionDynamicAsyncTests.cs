@@ -135,17 +135,20 @@ namespace NStateManager.Tests
         {
             var sut = new StateTransitionDynamicAsync<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
-                , stateMutator: (sale, newState) => sale.State = newState
-                , fromState: SaleState.Open
-                , stateFuncAsync: (sale, cancelToken) => Task.FromResult(SaleState.Open)
-                , name: "test"
-                , priority: 1);
+              , stateMutator: (sale, newState) => sale.State = newState
+              , fromState: SaleState.Open
+              , stateFuncAsync: (sale, cancelToken) => Task.FromResult(SaleState.Open)
+              , name: "test"
+              , priority: 1);
+
             var notificationReceived = false;
+
             StateTransitionDynamicAsync<Sale, SaleState, SaleEvent>.OnTransitionedEvent += (sale, _) => notificationReceived = true;
 
             using (var cancellationSource = new CancellationTokenSource())
             {
                 var sale = new Sale(saleID: 87) { State = SaleState.Open };
+
                 var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationToken: cancellationSource.Token);
 
                 await sut.ExecuteAsync(parameters);

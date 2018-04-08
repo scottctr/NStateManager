@@ -19,38 +19,47 @@ namespace NStateManager.Example.Sale.Console
 
         static SaleStateMachine()
         {
+            //State machine to manage sales for a point of sale system
             _stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: (sale) => sale.State
                 ,stateMutator: (sale, state) => sale.State = state);
 
-            _stateMachine.RegisterOnTransitionedEvent((sale, transitionDetails) 
+            //Log each time a sale changes state regardless of to/from state
+            _stateMachine.RegisterOnTransitionedAction((sale, transitionDetails) 
                 => Output.WriteLine($"Sale {sale.SaleID} transitioned from {transitionDetails.PreviousState} to {transitionDetails.CurrentState}."));
 
+            //Configure the Open state
             _stateMachine.ConfigureState(SaleState.Open)
-                .AddTriggerAction<SaleItem>(SaleEvent.AddItem, (sale, saleItem) =>
+               //Process the new item on the AddItem event 
+               .AddTriggerAction<SaleItem>(SaleEvent.AddItem, (sale, saleItem) =>
                     {
                         sale.AddItem(saleItem);
                         Output.WriteLine($"Adding {saleItem.Name} for {saleItem.Price:C}. {getSaleStatus(sale)}");
                     })
+                //Process the payment on the Pay event
                 .AddTriggerAction<Payment>(SaleEvent.Pay, (sale, payment) =>
                     {
                         sale.AddPayment(payment);
                         Output.WriteLine($"Adding payment of {payment.Amount:C}. {getSaleStatus(sale)}");
                     })
-                .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, sale => sale.Balance < 0, "Open2ChangeDue", priority: 1)
-                .AddTransition(SaleEvent.Pay, SaleState.Complete, sale => Math.Abs(sale.Balance) < .005, "Open2Complete", priority: 2);
+                //Transition to the ChangeDue state if customer over pays
+                .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, condition: sale => sale.Balance < 0, name: "Open2ChangeDue", priority: 1)
+                //Transition to the Completed state  if customer pays exact amount
+                .AddTransition(SaleEvent.Pay, SaleState.Complete, condition: sale => Math.Abs(sale.Balance) < .005, name: "Open2Complete", priority: 2);
 
+            //Configure the ChangeDue state
             _stateMachine.ConfigureState(SaleState.ChangeDue)
-               // .AddEntryAction(sale => Output.WriteLine("Sale is waiting for change to be returned." + getSaleStatus(sale)))
+                //Process the returned change on the ChangeGiven event
                 .AddTriggerAction<Payment>(SaleEvent.ChangeGiven, (sale, payment) =>
                 {
                     sale.ReturnChange();
                     Output.WriteLine($"Returning change of {payment.Amount:C}. {getSaleStatus(sale)}");
                 })
+                //Transition to the Complete state on ChangeGiven -- no conditions
                 .AddTransition(SaleEvent.ChangeGiven, SaleState.Complete);
 
-          //  _stateMachine.ConfigureState(SaleState.Complete)
-          //      .AddEntryAction(sale => Output.WriteLine("Sale is complete" + getSaleStatus(sale)));
+            //No configuration required for Complete state since it's a final state and
+            //transitions or actions are taken at this point
         }
 
         private static string getSaleStatus(Sale sale)

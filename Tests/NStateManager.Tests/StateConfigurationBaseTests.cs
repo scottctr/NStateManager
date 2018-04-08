@@ -24,7 +24,7 @@ namespace NStateManager.Tests
 
             internal bool ContainsTransition(TTrigger trigger, StateTransitionBase<T, TState, TTrigger> transition)
             {
-                var existingTransition = AllowedTransitions[trigger].Single();
+                var existingTransition = Transitions[trigger].Single();
 
                 return existingTransition == transition;
             }

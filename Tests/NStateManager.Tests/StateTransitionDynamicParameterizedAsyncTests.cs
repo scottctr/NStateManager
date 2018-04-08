@@ -30,6 +30,23 @@ namespace NStateManager.Tests
         }
 
         [Fact]
+        public async Task ExecuteAsync_throws_ArgumentException_if_parameter_wrong_type()
+        {
+            var sut = new StateTransitionDynamicParameterizedAsync<Sale, SaleState, SaleEvent, string>(
+                stateAccessor: sale => sale.State
+              , stateMutator: (sale, newState) => sale.State = newState
+              , fromState: SaleState.Open
+              , stateFuncAsync: (sale, stringParam, cancelToken) => Task.FromResult(SaleState.Complete)
+              , name: "test"
+              , priority: 1);
+
+                var testSale = new Sale(saleID: 87) { State = SaleState.Open };
+                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale, request: 1);
+
+                await Assert.ThrowsAsync<ArgumentException>(async () => await sut.ExecuteAsync(parameters));
+        }
+
+        [Fact]
         public async Task ExecuteAsync_doesnt_execute_if_already_cancelled()
         {
             var sut = new StateTransitionDynamicParameterizedAsync<Sale, SaleState, SaleEvent, string>(
@@ -43,7 +60,7 @@ namespace NStateManager.Tests
             using (var cancellationSource = new CancellationTokenSource())
             {
                 var sale = new Sale(saleID: 87) { State = SaleState.Open };
-                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationSource.Token);
+                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationSource.Token, "request");
                 cancellationSource.Cancel();
 
                 var result = await sut.ExecuteAsync(parameters);
@@ -68,7 +85,7 @@ namespace NStateManager.Tests
             using (var cancellationSource = new CancellationTokenSource())
             {
                 var sale = new Sale(saleID: 87) { State = SaleState.Open };
-                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationSource.Token);
+                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationSource.Token, "request");
 
                 var result = await sut.ExecuteAsync(parameters); 
 
@@ -93,7 +110,7 @@ namespace NStateManager.Tests
             using (var cancellationSource = new CancellationTokenSource())
             {
                 var sale = new Sale(saleID: 87) { State = SaleState.Open };
-                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationSource.Token);
+                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationSource.Token, "request");
 
                 var result = await sut.ExecuteAsync(parameters);
 
@@ -122,7 +139,7 @@ namespace NStateManager.Tests
             using (var cancellationSource = new CancellationTokenSource())
             {
                 var sale = new Sale(saleID: 87) { State = SaleState.Open };
-                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationSource.Token);
+                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationSource.Token, "request");
 
                 await sut.ExecuteAsync(parameters); 
 
@@ -146,7 +163,7 @@ namespace NStateManager.Tests
             using (var cancellationSource = new CancellationTokenSource())
             {
                 var sale = new Sale(saleID: 87) { State = SaleState.Open };
-                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationSource.Token);
+                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationSource.Token, "request");
 
                 await sut.ExecuteAsync(parameters); 
 

@@ -49,6 +49,41 @@ namespace NStateManager
             throw new NotImplementedException("Inheritted classes must override this method. Ensure you're calling the correct overloaded version.");
         }
 
+        protected StateTransitionResult<TState, TTrigger> ExecutePrim(ExecutionParameters<T, TTrigger> parameters
+          , StateTransitionResult<TState, TTrigger> currentResult, bool conditionMet)
+        {
+            var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
+
+            if (!conditionMet)
+            { return GetResult(parameters, currentResult, startState, wasSuccessful: false, wasCancelled: false); }
+
+            StateMutator(parameters.Context, ToState);
+            var transitionResult = GetResult(parameters, currentResult, startState, wasSuccessful: true, wasCancelled: false);
+            NotifyOfTransition(parameters.Context, transitionResult); 
+
+            return transitionResult;
+        }
+
+        protected StateTransitionResult<TState, TTrigger> GetResult(ExecutionParameters<T, TTrigger> parameters
+            , StateTransitionResult<TState, TTrigger> currentResult
+            , TState startState
+            , bool wasSuccessful
+            , bool wasCancelled)
+        {
+            return new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+              , startState
+              , (!wasSuccessful || currentResult == null) ? startState : currentResult.CurrentState
+              , wasSuccessful ? StateAccessor(parameters.Context) : currentResult == null ? startState : currentResult.PreviousState
+              , wasSuccessful ? Name  : currentResult == null ? string.Empty : currentResult.LastTransitionName
+              , wasCancelled: wasCancelled
+              , conditionMet: wasSuccessful || (currentResult != null && currentResult.ConditionMet));
+        }
+
+        protected string GetTransitionNameIfTrue(bool isTrue)
+        {
+            return isTrue ? Name : string.Empty;
+        }
+
         protected void NotifyOfTransition(T context, StateTransitionResult<TState, TTrigger> transitionResult)
         {
             OnTransitionedEvent?.Invoke(context, transitionResult);

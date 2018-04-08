@@ -36,40 +36,12 @@ namespace NStateManager
             var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
 
             if (parameters.CancellationToken.IsCancellationRequested)
-            {
-                if (currentResult != null)
-                { return currentResult; }
-
-                return new StateTransitionResult<TState, TTrigger>(parameters.Trigger
-                    , startState
-                    , startState
-                    , startState
-                    , lastTransitionName: string.Empty
-                    , wasCancelled: true);
-            }
+            { return GetResult(parameters, currentResult, startState, wasSuccessful: false, wasCancelled: true); }
 
             var toState = await StateFunctionAsync(parameters.Context, parameters.CancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
-            //If the new state matches the starting states, we treat it as if the condition wasn't met
-            if (toState.CompareTo(startState) == 0)
-            {
-                return new StateTransitionResult<TState, TTrigger>(parameters.Trigger
-                    , startState
-                    , currentResult == null ? startState : currentResult.PreviousState
-                    , toState
-                    , currentResult == null ? string.Empty : currentResult.LastTransitionName
-                    , conditionMet: currentResult != null
-                    , wasCancelled: parameters.CancellationToken.IsCancellationRequested);
-            }
-
-            StateMutator(parameters.Context, toState);
-            var transitionResult = currentResult == null
-                ? new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, startState, toState, Name)
-                : new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, currentResult.CurrentState, toState, Name);
-            NotifyOfTransition(parameters.Context, transitionResult);
-
-            return transitionResult;
+            return ExecuteFinalizeAsync(parameters, currentResult, startState, toState);
         }
     }
 }
