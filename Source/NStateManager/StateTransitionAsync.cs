@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace NStateManager
 {
-    internal class StateTransitionAsync<T, TState, TTrigger> : StateTransitionBase<T, TState, TTrigger>
+    internal class StateTransitionAsync<T, TState, TTrigger> : StateTransitionNonDynamic<T, TState, TTrigger>
     {
         public Func<T, CancellationToken, Task<bool>> ConditionAsync { get; }
 
@@ -30,14 +30,14 @@ namespace NStateManager
             var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
 
             if (parameters.CancellationToken.IsCancellationRequested)
-            { return GetResult(parameters, currentResult, startState, wasSuccessful: false, wasCancelled: true); }
+            { return GetFreshResult(parameters, currentResult, startState, wasCancelled: true, transitionDefined: true, conditionMet: false); }
 
             if (!await ConditionAsync(parameters.Context, parameters.CancellationToken)
                .ConfigureAwait(continueOnCapturedContext: false))
-            { return GetResult(parameters, currentResult, startState, wasSuccessful: false, wasCancelled: parameters.CancellationToken.IsCancellationRequested); }
+            { return GetFreshResult(parameters, currentResult, startState, wasCancelled: parameters.CancellationToken.IsCancellationRequested, transitionDefined: true, conditionMet: false); }
 
             StateMutator(parameters.Context, ToState);
-            var transitionResult = GetResult(parameters, currentResult, startState, wasSuccessful: true, wasCancelled: false); 
+            var transitionResult = GetFreshResult(parameters, currentResult, startState, wasCancelled: false, conditionMet: true, transitionDefined: true); 
             NotifyOfTransition(parameters.Context, transitionResult);
 
             return transitionResult;

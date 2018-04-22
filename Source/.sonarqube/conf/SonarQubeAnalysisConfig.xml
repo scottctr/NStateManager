@@ -156,15 +156,15 @@ Select your &lt;a href="https://about.sonarcloud.io"&gt;plan&lt;/a&gt; and start
       <Language>vbnet</Language>
       <RuleSetFilePath>C:\Users\Scott\Source\Repos\NStateManager\Source\.sonarqube\conf\SonarQubeRoslyn-vbnet.ruleset</RuleSetFilePath>
       <AnalyzerAssemblyPaths>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\SonarAnalyzer.VisualBasic.nuspec</Path>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\[Content_Types].xml</Path>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\analyzers\Google.Protobuf.dll</Path>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\analyzers\SonarAnalyzer.dll</Path>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\analyzers\SonarAnalyzer.VisualBasic.dll</Path>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\package\services\metadata\core-properties\ed1dfc7efae24b85904767a6c3db02e3.psmdcp</Path>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\tools\install.ps1</Path>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\tools\uninstall.ps1</Path>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\_rels\.rels</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\SonarAnalyzer.VisualBasic.nuspec</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\[Content_Types].xml</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\analyzers\Google.Protobuf.dll</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\analyzers\SonarAnalyzer.dll</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\analyzers\SonarAnalyzer.VisualBasic.dll</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\package\services\metadata\core-properties\ed1dfc7efae24b85904767a6c3db02e3.psmdcp</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\tools\install.ps1</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\tools\uninstall.ps1</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\_rels\.rels</Path>
       </AnalyzerAssemblyPaths>
       <AdditionalFilePaths>
         <Path>C:\Users\Scott\Source\Repos\NStateManager\Source\.sonarqube\conf\vbnet\SonarLint.xml</Path>

@@ -18,8 +18,8 @@ namespace NStateManager
     {
         public Func<T, TParam, TState> StateFunc { get; }
 
-        public StateTransitionDynamicParameterized(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState fromState, Func<T, TParam, TState> stateFunc, string name, uint priority)
-            : base(stateAccessor, stateMutator, fromState, name, priority)
+        public StateTransitionDynamicParameterized(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, Func<T, TParam, TState> stateFunc, string name, uint priority)
+            : base(stateAccessor, stateMutator, name, priority)
         {
             StateFunc = stateFunc ?? throw new ArgumentNullException(nameof(stateFunc));
         }
@@ -32,12 +32,12 @@ namespace NStateManager
             var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
             var toState = StateFunc(parameters.Context, typeSafeParam);
 
-            var transitioned = toState.CompareTo(startState) != 0;
+            var transitioned = !toState.IsEqual(startState);
 
             if (transitioned)
             { StateMutator(parameters.Context, toState); }
 
-            var transitionResult = GetResult(parameters, currentResult, startState, transitioned, wasCancelled: false);
+            var transitionResult = GetFreshResult(parameters, currentResult, startState, transitionDefined: true, wasCancelled: false, conditionMet: transitioned);
             if (transitioned)
             { NotifyOfTransition(parameters.Context, transitionResult); }
 

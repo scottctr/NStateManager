@@ -16,9 +16,8 @@ namespace NStateManager
 {
     public abstract class StateConfigurationBase<T, TState, TTrigger> where TState : IComparable
     {
-        protected internal List<StateTransitionBase<T, TState, TTrigger>> AutoTransitions = new List<StateTransitionBase<T, TState, TTrigger>>();
-        protected internal Dictionary<TState, List<StateTransitionBase<T, TState, TTrigger>>> AutoPreviousStateTransitions = new Dictionary<TState, List<StateTransitionBase<T, TState, TTrigger>>>();
-        protected Dictionary<TTrigger, List<StateTransitionBase<T, TState, TTrigger>>> Transitions = new Dictionary<TTrigger, List<StateTransitionBase<T, TState, TTrigger>>>();
+        protected internal Dictionary<TTrigger, List<StateTransitionBase<T, TState, TTrigger>>> AutoTransitions = new Dictionary<TTrigger, List<StateTransitionBase<T, TState, TTrigger>>>();
+        protected internal Dictionary<TTrigger, List<StateTransitionBase<T, TState, TTrigger>>> Transitions = new Dictionary<TTrigger, List<StateTransitionBase<T, TState, TTrigger>>>();
 
         /// <summary>
         /// The state being configured.
@@ -44,13 +43,20 @@ namespace NStateManager
         /// <summary>
         /// Adds an automatic (forward or back) transition to the state configuration.
         /// </summary>
+        /// <param name="trigger">The <see cref="TTrigger"/> to initiate this transition.</param>
         /// <param name="transition">The transition to add.</param>
-        public void AddAutoTransition(StateTransitionBase<T, TState, TTrigger> transition)
+        public void AddAutoTransition(TTrigger trigger, StateTransitionBase<T, TState, TTrigger> transition)
         {
-            if (AutoTransitions.Any(t => t.Priority == transition.Priority))
+            if (!AutoTransitions.TryGetValue(trigger, out var triggerTransitions))
+            {
+                triggerTransitions = new List<StateTransitionBase<T, TState, TTrigger>>();
+                AutoTransitions.Add(trigger, triggerTransitions);
+            }
+
+            if (triggerTransitions.Any(t => t.Priority == transition.Priority))
             { throw new InvalidOperationException($"Auto transition for {State} state with priority {transition.Priority} already added."); }
 
-            AutoTransitions.Add(transition);
+            triggerTransitions.Add(transition);
         }
 
         /// <summary>
@@ -80,7 +86,7 @@ namespace NStateManager
                 foreach (var transition in transitions.OrderBy(t => t.Priority))
                 {
                     result = transition.Execute(parameters);
-                    if (result.WasSuccessful)
+                    if (result.WasTransitioned)
                     { return result; }
                 }
             }

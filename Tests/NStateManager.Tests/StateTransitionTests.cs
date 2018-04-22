@@ -28,7 +28,7 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void ExecuteAsync_changes_state_if_condition_met()
+        public void Execute_changes_state_if_condition_met()
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
@@ -44,12 +44,12 @@ namespace NStateManager.Tests
 
             var result = sut.Execute(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale));
 
-            Assert.True(result.WasSuccessful);
+            Assert.True(result.WasTransitioned);
             Assert.Equal(endState, sale.State);
         }
 
         [Fact]
-        public void ExecuteAsync_doesnt_change_state_if_condition_not_met()
+        public void Execute_doesnt_change_state_if_condition_not_met()
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
@@ -65,7 +65,7 @@ namespace NStateManager.Tests
 
             var result = sut.Execute(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale));
 
-            Assert.False(result.WasSuccessful);
+            Assert.False(result.WasTransitioned);
             Assert.Equal(startState, sale.State);
         }
     }

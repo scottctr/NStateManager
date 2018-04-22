@@ -18,9 +18,8 @@ namespace NStateManager.Tests
         [Fact]
         public void GetStateTransition_returns_StateTransition()
         {
-            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition(stateAccessor: sale => sale.State
-                , stateMutator: (sale, newState) => sale.State = newState
-                , fromState: SaleState.Open
+            var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition(stateMachine
                 , toState: SaleState.Complete
                 , condition: _ => true
                 , name: "test"
@@ -32,9 +31,8 @@ namespace NStateManager.Tests
         [Fact]
         public void GetStateTransitionWithTResult_returns_StateTransitionParameterized()
         {
-            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition<string>(stateAccessor: sale => sale.State
-              , stateMutator: (sale, newState) => sale.State = newState
-              , fromState: SaleState.Open
+            var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition<string>(stateMachine
               , toState: SaleState.Complete
               , condition: (sale, stringParam) => true
               , name: "test"
@@ -46,9 +44,8 @@ namespace NStateManager.Tests
         [Fact]
         public void GetStateTransitionWithTResultAndAsyncCondition_returns_StateTransitionParameterizedAsync()
         {
-            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition<string>(stateAccessor: sale => sale.State
-              , stateMutator: (sale, newState) => sale.State = newState
-              , fromState: SaleState.Open
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition<string>(stateMachine
               , toState: SaleState.Complete
               , conditionAsync: (sale, stringParam, cancelToken) => Task.FromResult(true)
               , name: "test"
@@ -60,9 +57,8 @@ namespace NStateManager.Tests
         [Fact]
         public void GetStateTransitionWithAsyncCondition_returns_StateTransitionAsync()
         {
-            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition(stateAccessor: sale => sale.State
-              , stateMutator: (sale, newState) => sale.State = newState
-              , fromState: SaleState.Open
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition(stateMachine
               , toState: SaleState.Complete
               , conditionAsync: (sale, cancelToken) => Task.FromResult(true)
               , name: "test"
@@ -74,9 +70,8 @@ namespace NStateManager.Tests
         [Fact]
         public void GetStateTransitionWithStateFunc_returns_StateTransitionDynamic()
         {
-            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition(stateAccessor: sale => sale.State
-              , stateMutator: (sale, newState) => sale.State = newState
-              , fromState: SaleState.Open
+            var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition(stateMachine
               , stateFunc: (sale) => SaleState.Complete  
               , name: "test"
               , priority: 1);
@@ -84,25 +79,23 @@ namespace NStateManager.Tests
             Assert.IsType<StateTransitionDynamic<Sale, SaleState, SaleEvent>>(result);
         }
 
-        [Fact]
-        public void GetStateTransitionWithAsyncStateFunc_returns_StateTransitionDynamic()
-        {
-            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition(stateAccessor: sale => sale.State
-              , stateMutator: (sale, newState) => sale.State = newState
-              , fromState: SaleState.Open
-              , stateFuncAsync: (sale, cancelToken) => Task.FromResult(SaleState.Complete)
-              , name: "test"
-              , priority: 1);
+        //[Fact]
+        //public void GetStateTransitionWithAsyncStateFunc_returns_StateTransitionDynamic()
+        //{
+        //    var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+        //    var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition(stateMachine
+        //      , stateFuncAsync: (sale, cancelToken) => Task.FromResult(SaleState.Complete)
+        //      , name: "test"
+        //      , priority: 1);
 
-            Assert.IsType<StateTransitionDynamicAsync<Sale, SaleState, SaleEvent>>(result);
-        }
+        //    Assert.IsType<StateTransitionDynamicAsync<Sale, SaleState, SaleEvent>>(result);
+        //}
 
         [Fact]
         public void GetStateTransitionWithTResultAndStateFunc_returns_StateTransitionDynamicParameterized()
         {
-            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition<string>(stateAccessor: sale => sale.State
-              , stateMutator: (sale, newState) => sale.State = newState
-              , fromState: SaleState.Open
+            var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition<string>(stateMachine
               , stateFunc: (sale, stringParam) => SaleState.Complete
               , name: "test"
               , priority: 1);
@@ -110,18 +103,84 @@ namespace NStateManager.Tests
             Assert.IsType<StateTransitionDynamicParameterized<Sale, SaleState, SaleEvent, string>>(result);
         }
 
+        //[Fact]
+        //public void GetStateTransitionWithTResultAndAsyncStateFunc_returns_StateTransitionDynamicParameterizedAsync()
+        //{
+        //    var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+        //    var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition<string>(stateMachine
+        //      , stateFuncAsync: (sale, stringParam, cancelToken) => Task.FromResult(SaleState.Complete)
+        //      , name: "test"
+        //      , priority: 1);
+
+        //    Assert.IsType<StateTransitionDynamicParameterizedAsync<Sale, SaleState, SaleEvent, string>>(result);
+        //}
+
         [Fact]
-        public void GetStateTransitionWithTResultAndAsyncStateFunc_returns_StateTransitionDynamicParameterizedAsync()
+        public void GetStateTransitionWithStateMachineAndStateFuction_returns_StateTransitionAutoDynamic()
         {
-            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition<string>(stateAccessor: sale => sale.State
-              , stateMutator: (sale, newState) => sale.State = newState
-              , fromState: SaleState.Open
-              , stateFuncAsync: (sale, stringParam, cancelToken) => Task.FromResult(SaleState.Complete)
+            var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition(stateMachine
+              , startState: SaleState.Open
+              , stateFunction: _=> SaleState.Complete
+              , triggerState: SaleState.ChangeDue
               , name: "test"
               , priority: 1);
 
-            Assert.IsType<StateTransitionDynamicParameterizedAsync<Sale, SaleState, SaleEvent, string>>(result);
+            Assert.IsType<StateTransitionAutoDynamic<Sale, SaleState, SaleEvent>>(result);
         }
+
+        [Fact]
+        public void GetStateTransitionWithStateMachineAndStateFuctionTRequest_returns_StateTransitionAutoDynamic()
+        {
+            var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition<string>(stateMachine
+              , startState: SaleState.Open
+              , stateFunction: (sale, stringParam) => SaleState.Complete
+              , triggerState: SaleState.ChangeDue
+              , name: "test"
+              , priority: 1);
+
+            Assert.IsType<StateTransitionAutoDynamicParameterized<Sale, SaleState, SaleEvent, string>>(result);
+        }
+
+        [Fact]
+        public void GetStateTransactionWAsyncStateMachineStartStateAndTriggerState_returns_StateTransitionAutoDynamicAsync()
+        {
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition(stateMachine
+              , startState: SaleState.Open
+              , stateFunction: (sale) => SaleState.Complete
+              , triggerState: SaleState.ChangeDue
+              , name: "test"
+              , priority: 1);
+
+            Assert.IsType<StateTransitionAutoDynamicAsync<Sale, SaleState, SaleEvent>>(result);
+        }
+
+        //public static StateTransitionBase<T, TState, TTrigger> GetStateTransition(IStateMachineAsync<T, TState, TTrigger> stateMachine, TState startState, Func<T, TState> stateFunction, TState triggerState, string name, uint priority = 1)
+        //{
+        //    return new StateTransitionAutoDynamicAsync<T, TState, TTrigger>(stateMachine, startState, stateFunction, triggerState, name, priority);
+        //}
+
+        [Fact]
+        public void GetStateTransactionWTRequestAsyncStateMachineStartStateAndTriggerState_returns_StateTransitionAutoDynamicAsync()
+        {
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition<string>(stateMachine
+              , startState: SaleState.Open
+              , stateFunction: (sale, stringParam) => SaleState.Complete
+              , triggerState: SaleState.ChangeDue
+              , name: "test"
+              , priority: 1);
+
+            Assert.IsType<StateTransitionAutoDynamicParameterizedAsync<Sale, SaleState, SaleEvent, string>>(result);
+        }
+
+        //public static StateTransitionBase<T, TState, TTrigger> GetStateTransition<TRequest>(IStateMachineAsync<T, TState, TTrigger> stateMachine, TState startState, Func<T, TRequest, TState> stateFunction, TState triggerState, string name, uint priority = 1)
+        //    where TRequest : class
+        //{
+        //    return new StateTransitionAutoDynamicParameterizedAsync<T, TState, TTrigger, TRequest>(stateMachine, startState, stateFunction, triggerState, name, priority);
+        //}
 
     }
 }

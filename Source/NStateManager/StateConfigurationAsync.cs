@@ -26,39 +26,75 @@ namespace NStateManager
         : StateConfigurationBase<T, TState, TTrigger>, IStateConfigurationAsyncInternal<T, TState, TTrigger>
         where TState : IComparable
     {
-        private readonly Dictionary<TState, Func<T, CancellationToken, Task>> _previousStateEntryActions =
-            new Dictionary<TState, Func<T, CancellationToken, Task>>();
-
-        private readonly Dictionary<TState, Func<T, CancellationToken, Task>> _nextStateExitActions =
-            new Dictionary<TState, Func<T, CancellationToken, Task>>();
-
+        private readonly Dictionary<TState, Func<T, CancellationToken, Task>> _previousStateEntryActions = new Dictionary<TState, Func<T, CancellationToken, Task>>();
+        private readonly Dictionary<TState, Func<T, CancellationToken, Task>> _nextStateExitActions = new Dictionary<TState, Func<T, CancellationToken, Task>>();
+        private readonly IStateMachineAsync<T, TState, TTrigger> _stateMachine;
+        private readonly Dictionary<TTrigger, FunctionActionBase<T>> _triggerActions = new Dictionary<TTrigger, FunctionActionBase<T>>();
         private Func<T, CancellationToken, Task> _defaultEntryAction;
         private Func<T, CancellationToken, Task> _defaultExitAction;
         private Func<T, CancellationToken, Task> _reentryAction;
-
-        private readonly Dictionary<TTrigger, FunctionActionBase<T>> _triggerActions = new Dictionary<TTrigger, FunctionActionBase<T>>();
-
         private IStateConfigurationAsyncInternal<T, TState, TTrigger> _superState;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="state">The state being configured.</param>
-        /// <param name="stateAccessor">Function to retrieve the state of a <see cref="T"/>.</param>
-        /// <param name="stateMutator">Action to set the state of a <see cref="T"/>.</param>
-        internal StateConfigurationAsync(TState state, Func<T, TState> stateAccessor, Action<T, TState> stateMutator)
-            : base(state, stateAccessor, stateMutator)
-        { }
+        /// <param name="stateMachine">The state machine this configuration is associated with.</param>
+        internal StateConfigurationAsync(TState state, IStateMachineAsync<T, TState, TTrigger> stateMachine)
+            : base(state, stateMachine.StateAccessor, stateMachine.StateMutator)
+        {
+            _stateMachine = stateMachine;
+        }
+
+        /// <summary>
+        /// Adds a transition that automatically forwards to a new state that's determined at runtime.
+        /// </summary>
+        /// <param name="trigger">The trigger this transition is used with.</param>
+        /// <param name="function">The function to determine the next state.</param>
+        /// <param name="name">The name of the transition.</param>
+        /// <param name="priority">The priority of the transition.</param>
+        /// <returns></returns>
+        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoDynamicTransition(TTrigger trigger, Func<T, TState> function, string name = null, uint priority = 1)
+        {
+            var initialTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
+              , State
+              , function
+              , State
+              , name
+              , priority);
+            AddAutoTransition(trigger, initialTransition);
+
+            return this;
+        }
+
+        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoDynamicTransition<TRequest>(TTrigger trigger
+          , Func<T, TRequest, TState> function
+          , string name = null
+          , uint priority = 1)
+            where TRequest : class
+        {
+            var initialTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
+              , State
+              , function
+              , State
+              , name
+              , priority);
+            AddAutoTransition(trigger, initialTransition);
+
+            return this;
+        }
 
         /// <summary>
         /// Defines an automatic, but conditional, transition from this state to a new state.
         /// </summary>
+        /// <param name="trigger">The <see cref="TTrigger"/> to initiate this transition.</param>
         /// <param name="toState">The <see cref="TState"/> to transition to.</param>
         /// <param name="condition">The condition required to make the transition.</param>
         /// <param name="name"></param>
         /// <param name="priority"></param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardTransition(TState toState
+        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardTransition(TTrigger trigger
+          , TState toState
           , Func<T, CancellationToken, Task<bool>> condition
           , string name = null
           , uint priority = 1)
@@ -66,14 +102,13 @@ namespace NStateManager
             if (condition == null)
             { throw new ArgumentNullException(nameof(condition)); }
 
-            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-              , StateMutator
-              , State
-              , toState
-              , condition
-              , name
-              , priority);
-            AddAutoTransition(transition);
+            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
+              , triggerState: State
+              , toState: toState
+              , conditionAsync: condition
+              , name: name
+              , priority: priority);
+            AddAutoTransition(trigger, transition);
 
             return this;
         }
@@ -82,12 +117,14 @@ namespace NStateManager
         /// Defines an automatic, but conditional, transition from this state to a new state.
         /// </summary>
         /// <typeparam name="TRequest">Parameter to be passed in from StateMachine.FireTrigger.</typeparam>
+        /// <param name="trigger">The <see cref="TTrigger"/> to initiate this transition.</param>
         /// <param name="toState">The <see cref="TState"/> to transition to.</param>
         /// <param name="condition">The condition required to make the transition.</param>
         /// <param name="name"></param>
         /// <param name="priority"></param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardTransition<TRequest>(TState toState
+        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardTransition<TRequest>(TTrigger trigger
+          , TState toState
           , Func<T, TRequest, CancellationToken, Task<bool>> condition
           , string name = null
           , uint priority = 1)
@@ -96,88 +133,14 @@ namespace NStateManager
             if (condition == null)
             { throw new ArgumentNullException(nameof(condition)); }
 
-            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-              , StateMutator
+            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
               , State
               , toState
               , condition
-              , name
-              , priority);
-            AddAutoTransition(transition);
-
-            return this;
-        }
-
-        /// <summary>
-        /// Defines an automatic, but conditional, transition from this state to a new state.
-        /// </summary>
-        /// <param name="toState">The <see cref="TState"/> to transition to.</param>
-        /// <param name="condition">The condition required to make the transition.</param>
-        /// <param name="previousState">When used, this transition only applies when transitioning to this state from the specified state.</param>
-        /// <param name="name"></param>
-        /// <param name="priority"></param>
-        /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardTransition(TState toState
-          , Func<T, CancellationToken, Task<bool>> condition
-          , TState previousState
-          , string name = null
-          , uint priority = 1)
-        {
-            if (condition == null)
-            { throw new ArgumentNullException(nameof(condition)); }
-
-            if (!AutoPreviousStateTransitions.TryGetValue(previousState, out var transitions))
-            {
-                transitions = new List<StateTransitionBase<T, TState, TTrigger>>();
-                AutoPreviousStateTransitions.Add(previousState, transitions);
-            }
-
-            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-              , StateMutator
               , State
-              , toState
-              , condition
               , name
               , priority);
-            transitions.Add(transition);
-
-            return this;
-        }
-
-        /// <summary>
-        /// Defines an automatic, but conditional, transition from this state to a new state.
-        /// </summary>
-        /// <typeparam name="TRequest">Parameter to be passed in from StateMachine.FireTrigger.</typeparam>
-        /// <param name="toState">The <see cref="TState"/> to transition to.</param>
-        /// <param name="condition">The condition required to make the transition.</param>
-        /// <param name="previousState">When used, this transition only applies when transitioning to this state from the specified state.</param>
-        /// <param name="name"></param>
-        /// <param name="priority"></param>
-        /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardTransition<TRequest>(TState toState
-          , Func<T, TRequest, CancellationToken, Task<bool>> condition
-          , TState previousState
-          , string name = null
-          , uint priority = 1)
-            where TRequest : class
-        {
-            if (condition == null)
-            { throw new ArgumentNullException(nameof(condition)); }
-
-            if (!AutoPreviousStateTransitions.TryGetValue(previousState, out var transitions))
-            {
-                transitions = new List<StateTransitionBase<T, TState, TTrigger>>();
-                AutoPreviousStateTransitions.Add(previousState, transitions);
-            }
-
-            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-              , StateMutator
-              , State
-              , toState
-              , condition
-              , name
-              , priority);
-            transitions.Add(transition);
+            AddAutoTransition(trigger, transition);
 
             return this;
         }
@@ -186,22 +149,20 @@ namespace NStateManager
         /// Defines a state transition where the end state is defined by a function.
         /// </summary>
         /// <param name="trigger">The <see cref="TTrigger"/> to use this transition.</param>
-        /// <param name="function">The function to determine the state.</param>
+        /// <param name="stateFunction">The function to determine the state.</param>
         /// <param name="name"></param>
         /// <param name="priority"></param>
         /// <returns></returns>
         public IStateConfigurationAsync<T, TState, TTrigger> AddDynamicTransition(TTrigger trigger
-            , Func<T, CancellationToken, Task<TState>> function
+            , Func<T, TState> stateFunction
             , string name = null
             , uint priority = 1)
         {
-            if (function == null)
-            { throw new ArgumentNullException(nameof(function)); }
+            if (stateFunction == null)
+            { throw new ArgumentNullException(nameof(stateFunction)); }
 
-            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-                , StateMutator
-                , State
-                , function
+            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
+                , stateFunction
                 , name
                 , priority);
             AddTransition(trigger, transition);
@@ -214,26 +175,23 @@ namespace NStateManager
         /// </summary>
         /// <typeparam name="TRequest">Parameter to be passed in from StateMachine.FireTrigger.</typeparam>
         /// <param name="trigger">The <see cref="TTrigger"/> to use this transition.</param>
-        /// <param name="function">The function to determine the state.</param>
+        /// <param name="stateFunction">The function to determine the state.</param>
         /// <param name="name"></param>
         /// <param name="priority"></param>
         /// <returns></returns>
         public IStateConfigurationAsync<T, TState, TTrigger> AddDynamicTransition<TRequest>(TTrigger trigger
-            , Func<T, TRequest, CancellationToken, Task<TState>> function
+            , Func<T, TRequest, TState> stateFunction
             , string name = null
             , uint priority = 1)
             where TRequest : class
         {
-            if (function == null)
-            { throw new ArgumentNullException(nameof(function)); }
+            if (stateFunction == null)
+            { throw new ArgumentNullException(nameof(stateFunction)); }
 
-            var transition = StateTransitionFactory<T, TState, TTrigger>
-               .GetStateTransition(StateAccessor
-                    , StateMutator
-                    , State
-                    , function
-                    , name
-                    , priority);
+            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
+              , stateFunction
+              , name
+              , priority);
             AddTransition(trigger, transition);
 
             return this;
@@ -307,26 +265,70 @@ namespace NStateManager
             return this;
         }
 
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoFallbackTransition(Func<T, CancellationToken, Task<bool>> condition
+        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardDynamicTransition(TTrigger trigger
+          , Func<T, TState> function
+          , string name = null
+          , uint priority = 1)
+        {
+            var initialTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
+              , State
+              , function
+              , State
+              , name
+              , priority);
+            AddAutoTransition(trigger, initialTransition);
+
+            return this;
+        }
+
+        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardDynamicTransition<TRequest>(TTrigger trigger
+          , Func<T, TRequest, TState> function
+          , string name = null
+          , uint priority = 1) 
+            where TRequest : class
+        {
+            var initialTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
+              , State
+              , function
+              , State
+              , name
+              , priority);
+            AddAutoTransition(trigger, initialTransition);
+
+            return this;
+        }
+
+        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoFallbackTransition(TTrigger trigger
+          , TState tempState
+          , Func<T, CancellationToken, Task<bool>> condition
           , string name = null
           , uint priority = 1)
         {
             if (condition == null)
             { throw new ArgumentNullException(nameof(condition)); }
 
-            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-              , StateMutator
-              , State
-              , State
+            var initialTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
+              , tempState
               , condition
               , name
               , priority);
-            AddAutoTransition(transition);
+            AddTransition(trigger, initialTransition);
+
+            var otherStateTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
+              , State
+              , tempState
+              , condition
+              , State
+              , name
+              , priority);
+            AddOtherStateAutoTransition(tempState, trigger, otherStateTransition);
 
             return this;
         }
 
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoFallbackTransition<TRequest>(Func<T, TRequest, CancellationToken, Task<bool>> condition
+        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoFallbackTransition<TRequest>(TTrigger trigger
+          , TState tempState
+          , Func<T, TRequest, CancellationToken, Task<bool>> condition
           , string name = null
           , uint priority = 1)
             where TRequest : class
@@ -334,67 +336,21 @@ namespace NStateManager
             if (condition == null)
             { throw new ArgumentNullException(nameof(condition)); }
 
-            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-              , StateMutator
-              , State
-              , State
+            var initialTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
+              , tempState
               , condition
               , name
               , priority);
-            AddAutoTransition(transition);
+            AddTransition(trigger, initialTransition);
 
-            return this;
-        }
-
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoFallbackTransition(Func<T, CancellationToken, Task<bool>> condition
-          , TState previousState
-          , string name = null
-          , uint priority = 1)
-        {
-            if (condition == null)
-            { throw new ArgumentNullException(nameof(condition)); }
-
-            if (!AutoPreviousStateTransitions.TryGetValue(previousState, out var transitions))
-            {
-                transitions = new List<StateTransitionBase<T, TState, TTrigger>>();
-                AutoPreviousStateTransitions.Add(previousState, transitions);
-            }
-
-            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-              , StateMutator
+            var otherStateTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
               , State
-              , State
+              , tempState
               , condition
+              , State
               , name
               , priority);
-            transitions.Add(transition);
-
-            return this;
-        }
-
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoFallbackTransition<TRequest>(Func<T, TRequest, CancellationToken, Task<bool>> condition
-          , TState previousState
-          , string name = null
-          , uint priority = 1)
-            where TRequest : class
-        {
-            if (condition == null)
-            { throw new ArgumentNullException(nameof(condition)); }
-
-            if (!AutoPreviousStateTransitions.TryGetValue(previousState, out var transitions))
-            {
-                transitions = new List<StateTransitionBase<T, TState, TTrigger>>();
-                AutoPreviousStateTransitions.Add(previousState, transitions);
-            }
-
-            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-              , StateMutator
-              , State
-              , State
-              , condition
-              , name
-              , priority);
-            transitions.Add(transition);
+            AddOtherStateAutoTransition(tempState, trigger, otherStateTransition);
 
             return this;
         }
@@ -444,9 +400,7 @@ namespace NStateManager
             if (conditionAsync == null)
             { conditionAsync = (_, ct) => Task.FromResult(result: true); }
 
-            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-                , StateMutator
-                , State
+            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
                 , toState
                 , conditionAsync
                 , name
@@ -476,11 +430,11 @@ namespace NStateManager
             if (conditionAsync == null)
             { throw new ArgumentNullException(nameof(conditionAsync)); }
 
-            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(StateAccessor
-                , StateMutator
+            var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
                 , State
                 , toState
                 , conditionAsync
+                , State
                 , name
                 , priority);
             AddTransition(trigger, transition);
@@ -525,25 +479,16 @@ namespace NStateManager
         public async Task<StateTransitionResult<TState, TTrigger>> ExecuteAutoTransitionAsync(ExecutionParameters<T, TTrigger> parameters
             , StateTransitionResult<TState, TTrigger> currentResult)
         {
-            StateTransitionResult<TState, TTrigger> localResult;
-
-            //Is there an action based on the previous state?
-            if (AutoPreviousStateTransitions.TryGetValue(currentResult.PreviousState, out var previousStateTransitions))
+            if (AutoTransitions.TryGetValue(parameters.Trigger, out var triggerTransitions))
             {
-                foreach (var transition in previousStateTransitions.OrderBy(t => t.Priority))
+                foreach (var transition in triggerTransitions.OrderBy(t => t.Priority))
                 {
-                    localResult = await transition.ExecuteAsync(parameters, currentResult).ConfigureAwait(continueOnCapturedContext: false);
-                    if (localResult.WasSuccessful)
+                    var localResult = await transition.ExecuteAsync(parameters, currentResult)
+                       .ConfigureAwait(continueOnCapturedContext: false);
+
+                    if (localResult.WasTransitioned)
                     { return localResult; }
                 }
-            }
-
-            //Is there an action for any entry?
-            foreach (var transition in AutoTransitions.OrderBy(t => t.Priority))
-            {
-                localResult = await transition.ExecuteAsync(parameters, currentResult).ConfigureAwait(continueOnCapturedContext: false);
-                if (localResult.WasSuccessful)
-                { return localResult; }
             }
 
             //Check for a super state and just return the incoming currentResult if no successful auto transitions
@@ -555,7 +500,8 @@ namespace NStateManager
                     , currentResult.CurrentState
                     , currentResult.LastTransitionName
                     , transitionDefined: true
-                    , wasCancelled: parameters.CancellationToken.IsCancellationRequested);
+                    , wasCancelled: parameters.CancellationToken.IsCancellationRequested
+                    , conditionMet: false);
         }
 
         public async Task ExecuteEntryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult)
@@ -632,7 +578,7 @@ namespace NStateManager
 
             var result = await FireTriggerPrimAsync(parameters).ConfigureAwait(continueOnCapturedContext: false);
 
-            if (!(result?.WasSuccessful ?? false) && _superState != null)
+            if (!(result?.WasTransitioned ?? false) && _superState != null)
             {
                 result = await _superState.FireTriggerAsync(parameters).ConfigureAwait(continueOnCapturedContext: false);
             }
@@ -659,7 +605,7 @@ namespace NStateManager
                 foreach (var transition in transitions.OrderBy(t => t.Priority))
                 {
                     result = await transition.ExecuteAsync(parameters).ConfigureAwait(continueOnCapturedContext: false);
-                    if (result.WasSuccessful)
+                    if (result.WasTransitioned)
                     { return result; }
                 }
             }
@@ -675,11 +621,25 @@ namespace NStateManager
             return _superState?.IsInState(state) ?? false;
         }
 
-        public IStateConfigurationAsync<T, TState, TTrigger> IsSubStateOf(IStateConfigurationAsync<T, TState, TTrigger> superStateConfiguration)
+        public IStateConfigurationAsync<T, TState, TTrigger> MakeSubStateOf(IStateConfigurationAsync<T, TState, TTrigger> superStateConfiguration)
         {
             AddSuperState(superStateConfiguration as IStateConfigurationAsyncInternal<T, TState, TTrigger>);
 
             return this;
+        }
+
+        public void AddOtherStateAutoTransition(TState otherState
+          , TTrigger trigger
+          , StateTransitionBase<T, TState, TTrigger> transition)
+        {
+            var otherStateConfig = GetTargetStateConfiguration(otherState);
+
+            otherStateConfig.AddAutoTransition(trigger, transition);
+        }
+
+        private IStateConfigurationAsyncInternal<T, TState, TTrigger> GetTargetStateConfiguration(TState targetState)
+        {
+            return _stateMachine.ConfigureState(targetState) as IStateConfigurationAsyncInternal<T, TState, TTrigger>;
         }
     }
 }

@@ -15,91 +15,73 @@ namespace NStateManager
     public interface IStateConfiguration<T, TState, TTrigger>
     {
         /// <summary>
+        /// Defines a state transition where the end state is defined by a function.
+        /// </summary>
+        /// <param name="trigger">The <see cref="TTrigger"/> to use this transition.</param>
+        /// <param name="function">The function to determine the state.</param>
+        /// <param name="name">Name of the transition.</param>
+        /// <param name="priority">Priority of this transition compared with the other transitions for this state.</param>
+        /// <returns></returns>
+        IStateConfiguration<T, TState, TTrigger> AddAutoDynamicTransition(TTrigger trigger, Func<T, TState> function, string name = null, uint priority = 1);
+
+        /// <summary>
+        /// Defines a state transition where the end state is defined by a function.
+        /// </summary>
+        /// <typeparam name="TRequest">Parameter to be passed in from StateMachine.FireTrigger.</typeparam>
+        /// <param name="trigger">The <see cref="TTrigger"/> to use this transition.</param>
+        /// <param name="function">The function to determine the state.</param>
+        /// <param name="name">Name of the transition.</param>
+        /// <param name="priority">Priority of this transition compared with the other transitions for this state.</param>
+        /// <returns></returns>
+        IStateConfiguration<T, TState, TTrigger> AddAutoDynamicTransition<TRequest>(TTrigger trigger, Func<T, TRequest, TState> function, string name = null, uint priority = 1)
+            where TRequest : class;
+
+        /// <summary>
         /// Adds a transition to a temporary state, executes any entry or exit actions defined for the temporary state, and then falls back to the current state. 
         /// </summary>
+        /// <param name="trigger">The event that triggers the transition.</param>
+        /// <param name="tempState">The temporary state to transition to before falling back to the current state.</param>
         /// <param name="condition">Condition that must be true before executing this transition.</param>
         /// <param name="name">Optional name for this transition.</param>
         /// <param name="priority">Optional priority of this transition.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddAutoFallbackTransition(Func<T, bool> condition, string name = null, uint priority = 1);
+        IStateConfiguration<T, TState, TTrigger> AddAutoFallbackTransition(TTrigger trigger, TState tempState, Func<T, bool> condition, string name = null, uint priority = 1);
 
         /// <summary>
         /// Adds a transition to a temporary state, executes any entry or exit actions defined for the temporary state, and then falls back to the current state. 
         /// </summary>
         /// <typeparam name="TRequest">Type to be passed as a parameter when executing this transition.</typeparam>
+        /// <param name="trigger">The event that triggers the transition.</param>
+        /// <param name="tempState">The temporary state to transition to before falling back to the current state.</param>
         /// <param name="condition">Condition that must be true before executing this transition.</param>
         /// <param name="name">Optional name for this transition.</param>
         /// <param name="priority">Optional priority of this transition.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddAutoFallbackTransition<TRequest>(Func<T, TRequest, bool> condition, string name = null, uint priority = 1)
-            where TRequest : class;
-
-        /// <summary>
-        /// Adds a transition that automatically falls back to the current state after executing an action. 
-        /// </summary>
-        /// <param name="previousState">Conditional previous state required to execute this transition.</param>
-        /// <param name="condition">Condition that must be true before executing this transition.</param>
-        /// <param name="name">Optional name for this transition.</param>
-        /// <param name="priority">Optional priority of this transition.</param>
-        /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddAutoFallbackTransition(TState previousState, Func<T, bool> condition, string name = null, uint priority = 1);
-
-        /// <summary>
-        /// Adds a transition that automatically falls back to the current state after executing an action. 
-        /// </summary>
-        /// <typeparam name="TRequest">Type to be passed as a parameter when executing this transition.</typeparam>
-        /// <param name="previousState">Conditional previous state required to execute this transition.</param>
-        /// <param name="condition">Condition that must be true before executing this transition.</param>
-        /// <param name="name">Optional name for this transition.</param>
-        /// <param name="priority">Optional priority of this transition.</param>
-        /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddAutoFallbackTransition<TRequest>(TState previousState, Func<T, TRequest, bool> condition, string name = null, uint priority = 1)
+        IStateConfiguration<T, TState, TTrigger> AddAutoFallbackTransition<TRequest>(TTrigger trigger, TState tempState, Func<T, TRequest, bool> condition, string name = null, uint priority = 1)
             where TRequest : class;
 
         /// <summary>
         /// Defines an automatic, but conditional, transition from this state to a new state.
         /// </summary>
+        /// <param name="trigger">The event that triggers the transition.</param>
         /// <param name="toState">The <see cref="TState"/> to transition to.</param>
         /// <param name="condition">The condition required to make the transition.</param>
         /// <param name="name">Optional name for this transition.</param>
         /// <param name="priority">Optional priority of this transition.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddAutoForwardTransition(TState toState, Func<T, bool> condition = null, string name = null, uint priority = 1);
+        IStateConfiguration<T, TState, TTrigger> AddAutoForwardTransition(TTrigger trigger, TState toState, Func<T, bool> condition = null, string name = null, uint priority = 1);
 
         /// <summary>
         /// Defines an automatic, but conditional, transition from this state to a new state.
         /// </summary>
         /// <typeparam name="TRequest">Parameter to be passed in from StateMachine.FireTrigger.</typeparam>
+        /// <param name="trigger">The event that triggers the transition.</param>
         /// <param name="toState">The <see cref="TState"/> to transition to.</param>
         /// <param name="condition">The condition required to make the transition.</param>
         /// <param name="name">Optional name for this transition.</param>
         /// <param name="priority">Optional priority of this transition.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddAutoForwardTransition<TRequest>(TState toState, Func<T, TRequest, bool> condition = null, string name = null, uint priority = 1)
-            where TRequest : class;
-
-        /// <summary>
-        /// Defines an automatic, but conditional, transition from this state to a new state.
-        /// </summary>
-        /// <param name="toState">The <see cref="TState"/> to transition to.</param>
-        /// <param name="condition">The condition required to make the transition.</param>
-        /// <param name="previousState">When used, this transition only applies when transitioning to this state from the specified state.</param>
-        /// <param name="name">Optional name for this transition.</param>
-        /// <param name="priority">Optional priority of this transition.</param>
-        /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddAutoForwardTransition(TState toState, Func<T, bool> condition, TState previousState, string name = null, uint priority = 1);
-
-        /// <summary>
-        /// Defines an automatic, but conditional, transition from this state to a new state.
-        /// </summary>
-        /// <typeparam name="TRequest">Parameter to be passed in from StateMachine.FireTrigger.</typeparam>
-        /// <param name="toState">The <see cref="TState"/> to transition to.</param>
-        /// <param name="condition">The condition required to make the transition.</param>
-        /// <param name="previousState">When used, this transition only applies when transitioning to this state from the specified state.</param>
-        /// <param name="name">Optional name for this transition.</param>
-        /// <param name="priority">Optional priority of this transition.</param>
-        /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddAutoForwardTransition<TRequest>(TState toState, Func<T, TRequest, bool> condition, TState previousState, string name = null, uint priority = 1)
+        IStateConfiguration<T, TState, TTrigger> AddAutoForwardTransition<TRequest>(TTrigger trigger, TState toState, Func<T, TRequest, bool> condition = null, string name = null, uint priority = 1)
             where TRequest : class;
 
         /// <summary>
@@ -207,6 +189,6 @@ namespace NStateManager
         /// </summary>
         /// <param name="superStateConfiguration">The configured super state.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> IsSubStateOf(IStateConfiguration<T, TState, TTrigger> superStateConfiguration);
+        IStateConfiguration<T, TState, TTrigger> MakeSubStateOf(IStateConfiguration<T, TState, TTrigger> superStateConfiguration);
     }
 }

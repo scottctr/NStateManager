@@ -42,11 +42,11 @@ namespace NStateManager.Tests
                 , stateMutator: (sale, newState) => sale.State = newState);
 
             //1st one works fine
-            sut.AddTriggerAction(SaleEvent.AddItem, (sale, _) => Task.Delay(millisecondsDelay: 1));
+            sut.AddTriggerAction(SaleEvent.AddItem, (sale, _) => Task.Delay(millisecondsDelay: 1, cancellationToken: _));
 
             //Adding the same thing 2nd time throws exception
             Assert.Throws<InvalidOperationException>(() =>
-                sut.AddTriggerAction(SaleEvent.AddItem, (sale, _) => Task.Delay(millisecondsDelay: 1)));
+                sut.AddTriggerAction(SaleEvent.AddItem, (sale, _) => Task.Delay(millisecondsDelay: 1, cancellationToken: _)));
         }
 
         [Fact]
@@ -57,12 +57,12 @@ namespace NStateManager.Tests
                 , stateMutator: (sale, newState) => sale.State = newState);
 
             //1st one works fine
-            sut.AddTriggerAction<string>(SaleEvent.AddItem, (sale, stringParam, _) => Task.Delay(millisecondsDelay: 1));
+            sut.AddTriggerAction<string>(SaleEvent.AddItem, (sale, stringParam, _) => Task.Delay(millisecondsDelay: 1, cancellationToken: _));
 
             //Adding the same thing 2nd time throws exception
             Assert.Throws<InvalidOperationException>(() =>
                 sut.AddTriggerAction<string>(SaleEvent.AddItem
-                    , (sale, stringParam, _) => Task.Delay(millisecondsDelay: 1)));
+                    , (sale, stringParam, _) => Task.Delay(millisecondsDelay: 1, cancellationToken: _)));
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace NStateManager.Tests
                 , stateMutator: (sale, newState) => sale.State = newState);
 
             var triggerActionExecuted = false;
-            sut.AddTriggerAction(SaleEvent.AddItem, (sale, _) => Task.Run(() => triggerActionExecuted = true));
+            sut.AddTriggerAction(SaleEvent.AddItem, (sale, _) => Task.Run(() => triggerActionExecuted = true, _));
 
             await sut.FireTriggerAsync(new Sale(saleID: 45), SaleEvent.AddItem, default(CancellationToken));
 
@@ -137,7 +137,7 @@ namespace NStateManager.Tests
             var result = await sut.FireTriggerAsync(sale, SaleEvent.Pay);
 
             Assert.Equal(SaleState.Complete, sale.State);
-            Assert.True(result.WasSuccessful);
+            Assert.True(result.WasTransitioned);
             Assert.Equal(SaleState.Complete, result.CurrentState);
             Assert.Equal(SaleState.Open, result.StartingState);
             Assert.Equal(SaleState.Open, result.PreviousState);
@@ -154,7 +154,7 @@ namespace NStateManager.Tests
             var result = await sut.FireTriggerAsync(sale, SaleEvent.Pay);
 
             Assert.Equal(SaleState.Open, sale.State);
-            Assert.False(result.WasSuccessful);
+            Assert.False(result.WasTransitioned);
         }
 
         [Fact]
@@ -188,7 +188,7 @@ namespace NStateManager.Tests
                .AddTransition(SaleEvent.Pay, SaleState.Complete)
                .AddExitAction((sale1, _) => { exitActionFired = true; return Task.CompletedTask; });
             sut.ConfigureState(SaleState.Complete)
-               .IsSubStateOf(sut.ConfigureState(SaleState.Open))
+               .MakeSubStateOf(sut.ConfigureState(SaleState.Open))
                .AddExitAction((sale1, _) => { exitActionFired = true; return Task.CompletedTask; });
 
             await sut.FireTriggerAsync(sale, SaleEvent.Pay);
@@ -228,7 +228,7 @@ namespace NStateManager.Tests
             sut.ConfigureState(SaleState.Open)
                .AddEntryAction((sale1, _) => { entryActionFired = true; return Task.CompletedTask; });
             sut.ConfigureState(SaleState.ChangeDue)
-               .IsSubStateOf(sut.ConfigureState(SaleState.Open))
+               .MakeSubStateOf(sut.ConfigureState(SaleState.Open))
                .AddTransition(SaleEvent.Pay, SaleState.Open);
 
             await sut.FireTriggerAsync(sale, SaleEvent.Pay);
@@ -248,12 +248,12 @@ namespace NStateManager.Tests
                .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, conditionAsync: null, name: "toChangeDue");
 
             sut.ConfigureState(SaleState.ChangeDue)
-               .AddAutoForwardTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true), name: "toComplete");
+               .AddAutoForwardTransition(SaleEvent.Pay, SaleState.Complete, (sale1, _) => Task.FromResult(result: true), name: "toComplete");
 
             var result = await sut.FireTriggerAsync(sale, SaleEvent.Pay);
 
             Assert.Equal(SaleState.Complete, sale.State);
-            Assert.True(result.WasSuccessful);
+            Assert.True(result.WasTransitioned);
             Assert.Equal(SaleState.Complete, result.CurrentState);
             Assert.Equal(SaleState.ChangeDue, result.PreviousState);
             Assert.Equal(SaleState.Open, result.StartingState);
@@ -272,7 +272,7 @@ namespace NStateManager.Tests
                .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, conditionAsync: null, name: "toChangeDue");
 
             sut.ConfigureState(SaleState.ChangeDue)
-               .AddAutoForwardTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true), name: "toComplete");
+               .AddAutoForwardTransition(SaleEvent.Pay, SaleState.Complete, (sale1, _) => Task.FromResult(result: true), name: "toComplete");
 
             var completeEntryActionFired = false;
             sut.ConfigureState(SaleState.Complete)
@@ -282,7 +282,7 @@ namespace NStateManager.Tests
 
             Assert.True(completeEntryActionFired);
             Assert.Equal(SaleState.Complete, sale.State);
-            Assert.True(result.WasSuccessful);
+            Assert.True(result.WasTransitioned);
             Assert.Equal(SaleState.Complete, result.CurrentState);
             Assert.Equal(SaleState.ChangeDue, result.PreviousState);
             Assert.Equal(SaleState.Open, result.StartingState);
@@ -304,6 +304,39 @@ namespace NStateManager.Tests
             await sut.FireTriggerAsync(sale, SaleEvent.Pay);
 
             Assert.True(reentryActionFired);
+        }
+
+        [Fact]
+        public async void FireTriggerAsync_fires_notification_when_no_trigger_defined()
+        {
+            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+                stateAccessor: sale => sale.State
+              , stateMutator: (sale, newState) => sale.State = newState);
+            var noTriggerEventFired = false;
+            sut.OnTriggerNotConfigured += (sender, args) => { noTriggerEventFired = true; };
+
+            sut.ConfigureState(SaleState.ChangeDue)
+               .AddTransition(SaleEvent.AddItem, SaleState.Complete, (sale, token) => Task.FromResult(false));
+
+            await sut.FireTriggerAsync(new Sale(55) { State = SaleState.Open }, SaleEvent.AddItem);
+
+            Assert.True(noTriggerEventFired);
+        }
+
+        [Fact]
+        public async void FireTriggerAsync_fires_notification_when_no_transition()
+        {
+            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+                stateAccessor: sale => sale.State
+              , stateMutator: (sale, newState) => sale.State = newState);
+            var noTransitionEventFired = false;
+            sut.OnNoTransition += (sender, args) => { noTransitionEventFired = true; };
+            sut.ConfigureState(SaleState.Open)
+               .AddTransition(SaleEvent.AddItem, SaleState.Complete, (sale, token) => Task.FromResult(false));
+
+            await sut.FireTriggerAsync(new Sale(55) { State = SaleState.Open }, SaleEvent.AddItem);
+
+            Assert.True(noTransitionEventFired);
         }
 
         [Fact]
@@ -365,7 +398,7 @@ namespace NStateManager.Tests
             var result = await sut.FireTriggerAsync(sale, SaleEvent.Pay, "stringParam");
 
             Assert.Equal(SaleState.Complete, sale.State);
-            Assert.True(result.WasSuccessful);
+            Assert.True(result.WasTransitioned);
             Assert.Equal(SaleState.Complete, result.CurrentState);
             Assert.Equal(SaleState.Open, result.StartingState);
             Assert.Equal(SaleState.Open, result.PreviousState);
@@ -382,7 +415,7 @@ namespace NStateManager.Tests
             var result = await sut.FireTriggerAsync(sale, SaleEvent.Pay, "stringParam");
 
             Assert.Equal(SaleState.Open, sale.State);
-            Assert.False(result.WasSuccessful);
+            Assert.False(result.WasTransitioned);
         }
 
         [Fact]
@@ -433,14 +466,13 @@ namespace NStateManager.Tests
 
             sut.ConfigureState(SaleState.Open)
                .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, conditionAsync: null, name: "toChangeDue");
-
             sut.ConfigureState(SaleState.ChangeDue)
-               .AddAutoForwardTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true), name: "toComplete");
+               .AddAutoForwardTransition(SaleEvent.Pay, SaleState.Complete, (sale1, _) => Task.FromResult(result: true), name: "toComplete");
 
             var result = await sut.FireTriggerAsync(sale, SaleEvent.Pay, "stringParam");
 
             Assert.Equal(SaleState.Complete, sale.State);
-            Assert.True(result.WasSuccessful);
+            Assert.True(result.WasTransitioned);
             Assert.Equal(SaleState.Complete, result.CurrentState);
             Assert.Equal(SaleState.ChangeDue, result.PreviousState);
             Assert.Equal(SaleState.Open, result.StartingState);
@@ -459,7 +491,7 @@ namespace NStateManager.Tests
                .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, conditionAsync: null, name: "toChangeDue");
 
             sut.ConfigureState(SaleState.ChangeDue)
-               .AddAutoForwardTransition(SaleState.Complete, (sale1, _) => Task.FromResult(result: true), name: "toComplete");
+               .AddAutoForwardTransition(SaleEvent.Pay, SaleState.Complete, (sale1, _) => Task.FromResult(result: true), name: "toComplete");
 
             var completeEntryActionFired = false;
             sut.ConfigureState(SaleState.Complete)
@@ -469,7 +501,7 @@ namespace NStateManager.Tests
 
             Assert.True(completeEntryActionFired);
             Assert.Equal(SaleState.Complete, sale.State);
-            Assert.True(result.WasSuccessful);
+            Assert.True(result.WasTransitioned);
             Assert.Equal(SaleState.Complete, result.CurrentState);
             Assert.Equal(SaleState.ChangeDue, result.PreviousState);
             Assert.Equal(SaleState.Open, result.StartingState);
@@ -523,7 +555,7 @@ namespace NStateManager.Tests
               , stateMutator: (sale3, newState) => sale3.State = newState);
             sut.ConfigureState(SaleState.Open).AddTransition(SaleEvent.Pay, SaleState.Complete, conditionAsync: null);
             var transitionEventFired = false;
-            sut.RegisterOnTransitionedEvent((sale1, result) => { transitionEventFired = true; });
+            sut.RegisterOnTransitionedAction((sale1, result) => { transitionEventFired = true; });
 
             await sut.FireTriggerAsync(sale, SaleEvent.Pay);
 

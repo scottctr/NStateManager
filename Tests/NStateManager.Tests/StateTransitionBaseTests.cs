@@ -16,7 +16,7 @@ namespace NStateManager.Tests
 {
     public class StateTransitionBaseTests
     {
-        public class StateTransitionTester<T, TState, TTrigger> : StateTransitionBase<T, TState, TTrigger>
+        public class StateTransitionTester<T, TState, TTrigger> : StateTransitionNonDynamic<T, TState, TTrigger>
         {
             public StateTransitionTester(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState toState, string name, uint priority)
                 : base(stateAccessor, stateMutator, toState, name, priority)

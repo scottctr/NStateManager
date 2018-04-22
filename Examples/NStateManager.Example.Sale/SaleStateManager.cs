@@ -69,13 +69,13 @@ namespace NStateManager.Example.Sale
             //the same as the amount they prepaid for.
             _saleStateManager.ConfigureState(SaleState.WaitingForDelivery)
                 //The following line establishes WaitingForDelivery as a substate of Authorized
-                .IsSubStateOf(_saleStateManager.ConfigureState(SaleState.Authorized))
+                .MakeSubStateOf(_saleStateManager.ConfigureState(SaleState.Authorized))
                 .AddDynamicTransition(SaleEvent.ItemDelivered, ProcessItemDelivered);
 
             //The ChangeDue substate indicates the customer has some money coming back before we can Complete the sale.
             _saleStateManager.ConfigureState(SaleState.ChangeDue)
                 //The following line establishes ChangeDue as a substate of Authorized
-                .IsSubStateOf(_saleStateManager.ConfigureState(SaleState.Authorized));
+                .MakeSubStateOf(_saleStateManager.ConfigureState(SaleState.Authorized));
                 //Unlike the WaitingForDelivery substate, uses the Authorized transitions it inherits and no further transition definitions required.
 
             _saleStateManager.ConfigureState(SaleState.PartiallyAuthorized)

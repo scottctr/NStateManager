@@ -21,11 +21,10 @@ namespace NStateManager
 
         public StateTransitionDynamicAsync(Func<T, TState> stateAccessor
             , Action<T, TState> stateMutator
-            , TState fromState
             , Func<T, CancellationToken, Task<TState>> stateFuncAsync
             , string name
             , uint priority)
-            : base(stateAccessor, stateMutator, fromState, name, priority)
+            : base(stateAccessor, stateMutator, name, priority)
         {
             StateFunctionAsync = stateFuncAsync ?? throw new ArgumentNullException(nameof(stateFuncAsync));
         }
@@ -36,7 +35,7 @@ namespace NStateManager
             var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
 
             if (parameters.CancellationToken.IsCancellationRequested)
-            { return GetResult(parameters, currentResult, startState, wasSuccessful: false, wasCancelled: true); }
+            { return GetFreshResult(parameters, currentResult, startState, wasCancelled: true, transitionDefined: true, conditionMet: false); }
 
             var toState = await StateFunctionAsync(parameters.Context, parameters.CancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);

@@ -16,7 +16,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-	<SonarQubeExclude>true</SonarQubeExclude>
+    <SonarQubeExclude>true</SonarQubeExclude>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -27,7 +27,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-	<SonarQubeExclude>true</SonarQubeExclude>
+    <SonarQubeExclude>true</SonarQubeExclude>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,11 +37,11 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-	<SonarQubeExclude>true</SonarQubeExclude>
+    <SonarQubeExclude>true</SonarQubeExclude>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
-	<SonarQubeExclude>true</SonarQubeExclude>
+    <SonarQubeExclude>true</SonarQubeExclude>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -70,6 +70,7 @@
     <Compile Include="ExecutionParametersTests.cs" />
     <Compile Include="FunctionActionParameterizedTests.cs" />
     <Compile Include="FunctionActionTests.cs" />
+    <Compile Include="PhoneCall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sale.cs" />
     <Compile Include="StateConfigurationBaseTests.cs" />
@@ -77,15 +78,25 @@
     <Compile Include="StateConfigurationAsyncTests.cs" />
     <Compile Include="StateMachineTests.cs" />
     <Compile Include="StateMachineAsyncTests.cs" />
+    <Compile Include="StateTransitionAutoDynamicParameterizedAsyncTests.cs" />
+    <Compile Include="StateTransitionAutoDynamicParameterizedTests.cs" />
+    <Compile Include="StateTransitionAutoDynamicTests.cs" />
+    <Compile Include="StateTransitionAutoDynamicAsyncTests.cs" />
+    <Compile Include="StateTransitionAutoFallbackAsyncTests.cs" />
+    <Compile Include="StateTransitionAutoForwardAsyncTests.cs" />
+    <Compile Include="StateTransitionAutoForwardTests.cs" />
+    <Compile Include="StateTransitionAutoForwardParameterizedTests.cs" />
+    <Compile Include="StateTransitionAutoForwardParameterizedAsyncTests.cs" />
     <Compile Include="StateTransitionBaseTests.cs" />
+    <Compile Include="StateTransitionAutoFallbackParameterizedAsyncTests.cs" />
+    <Compile Include="StateTransitionAutoFallbackParameterizedTests.cs" />
+    <Compile Include="StateTransitionAutoFallbackTests.cs" />
     <Compile Include="StateTransitionTests.cs" />
     <Compile Include="StateTransitionDynamicTests.cs" />
     <Compile Include="StateTransitionDynamicParameterizedTests.cs" />
     <Compile Include="StateTransitionFactoryTests.cs" />
     <Compile Include="StateTransitionParameterizedAsyncTests.cs" />
     <Compile Include="StateTransitionAsyncTests.cs" />
-    <Compile Include="StateTransitionDynamicParameterizedAsyncTests.cs" />
-    <Compile Include="StateTransitionDynamicAsyncTests.cs" />
     <Compile Include="StateTransitionParameterizedTests.cs" />
     <Compile Include="SubStateTest.cs" />
     <Compile Include="TriggerActionParameterizedTests.cs" />

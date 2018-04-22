@@ -24,10 +24,21 @@ namespace NStateManager
     public sealed class StateMachineAsync<T, TState, TTrigger> : IStateMachineAsync<T, TState, TTrigger>
         where TState : IComparable
     {
-        private readonly Func<T, TState> _stateAccessor;
-        private readonly Action<T, TState> _stateMutator;
         private readonly Dictionary<TState, IStateConfigurationAsyncInternal<T, TState, TTrigger>> _stateConfigurations = new Dictionary<TState, IStateConfigurationAsyncInternal<T, TState, TTrigger>>();
         private readonly Dictionary<TTrigger, FunctionActionBase<T>> _triggerActions = new Dictionary<TTrigger, FunctionActionBase<T>>();
+
+        public Func<T, TState> StateAccessor { get; }
+        public Action<T, TState> StateMutator { get; }
+
+        /// <summary>
+        /// Event raised when the context doesn't transition to a new state when FireTrigger is called.
+        /// </summary>
+        public event EventHandler<TransitionEventArgs<T, TState, TTrigger>> OnNoTransition;
+
+        /// <summary>
+        /// Event raised when the context's current state isn't configured for trigger passed to FireTrigger.
+        /// </summary>
+        public event EventHandler<TransitionEventArgs<T, TState, TTrigger>> OnTriggerNotConfigured;
 
         /// <summary>
         /// Constructor.
@@ -36,8 +47,8 @@ namespace NStateManager
         /// <param name="stateMutator">Action to set the state of a <see cref="T"/>.</param>
         public StateMachineAsync(Func<T, TState> stateAccessor, Action<T, TState> stateMutator)
         {
-            _stateAccessor = stateAccessor ?? throw new ArgumentNullException(nameof(stateAccessor));
-            _stateMutator = stateMutator ?? throw new ArgumentNullException(nameof(stateMutator));
+            StateAccessor = stateAccessor ?? throw new ArgumentNullException(nameof(stateAccessor));
+            StateMutator = stateMutator ?? throw new ArgumentNullException(nameof(stateMutator));
         }
 
         /// <summary>
@@ -85,7 +96,7 @@ namespace NStateManager
             if (_stateConfigurations.TryGetValue(state, out var stateConfiguration))
             { return stateConfiguration; }
 
-            var newState = new StateConfigurationAsync<T,TState, TTrigger>(state, _stateAccessor, _stateMutator);
+            var newState = new StateConfigurationAsync<T,TState, TTrigger>(state, this);
             _stateConfigurations.Add(state, newState);
 
             return newState;
@@ -100,7 +111,7 @@ namespace NStateManager
         /// <returns></returns>
         public async Task<StateTransitionResult<TState, TTrigger>> FireTriggerAsync(T context, TTrigger trigger, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var startState = _stateAccessor(context);
+            var startState = StateAccessor(context);
 
             if (_triggerActions.TryGetValue(trigger, out var triggerAction))
             {
@@ -136,13 +147,10 @@ namespace NStateManager
           , CancellationToken cancellationToken = default(CancellationToken))
             where TRequest : class
         {
-            var startState = _stateAccessor(context);
+            var startState = StateAccessor(context);
 
             if (_triggerActions.TryGetValue(trigger, out var triggerAction))
-            {
-                await triggerAction.ExecuteAsync(context, cancellationToken, request)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-            }
+            { await triggerAction.ExecuteAsync(context, cancellationToken, request).ConfigureAwait(continueOnCapturedContext: false); }
 
             var executionParameters = new ExecutionParameters<T, TTrigger>(trigger, context, cancellationToken, request);
 
@@ -156,18 +164,16 @@ namespace NStateManager
                 , transitionDefined: false); }
             else
             {
-                result = await stateConfiguration.FireTriggerAsync(executionParameters)
-                    .ConfigureAwait(continueOnCapturedContext: false);
+                result = await stateConfiguration.FireTriggerAsync(executionParameters).ConfigureAwait(continueOnCapturedContext: false);
             }
 
-            return await executeExitAndEntryActionsAsync(executionParameters, result)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            return await executeExitAndEntryActionsAsync(executionParameters, result).ConfigureAwait(continueOnCapturedContext: false);
         }
 
         private async Task<StateTransitionResult<TState, TTrigger>> executeExitAndEntryActionsAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult)
         {
-            var currentState = _stateAccessor(parameters.Context);
-            if (currentResult.WasSuccessful && !currentState.Equals(currentResult.StartingState))
+            var currentState = StateAccessor(parameters.Context);
+            if (currentResult.WasTransitioned && !currentState.Equals(currentResult.StartingState))
             {
                 _stateConfigurations.TryGetValue(currentResult.PreviousState, out var previousState);
 
@@ -189,13 +195,20 @@ namespace NStateManager
 
                     //AutoForward?
                     var preAutoForwardState = currentResult.CurrentState;
-                    currentResult = await newState.ExecuteAutoTransitionAsync(parameters, currentResult)
+                    var autoTransitionResult = await newState.ExecuteAutoTransitionAsync(parameters, currentResult)
                        .ConfigureAwait(continueOnCapturedContext: false);
+                    if (autoTransitionResult.WasTransitioned)
+                    {
+                        //Merge the results
+                        currentResult.PreviousState = currentResult.CurrentState;
+                        currentResult.CurrentState = autoTransitionResult.CurrentState;
+                        currentResult.LastTransitionName = autoTransitionResult.LastTransitionName;
+                    }
 
                     //See if we have more actions from the auto transition
                     if (preAutoForwardState.CompareTo(currentResult.CurrentState) != 0)
                     {
-                        currentResult = await executeExitAndEntryActionsAsync(parameters, currentResult)
+                        await executeExitAndEntryActionsAsync(parameters, currentResult)
                            .ConfigureAwait(continueOnCapturedContext: false);
                     }
                 }
@@ -207,12 +220,22 @@ namespace NStateManager
                    .ConfigureAwait(continueOnCapturedContext: false);
             }
 
+            //Send notifications
+            var transitionEventArgs = new TransitionEventArgs<T, TState, TTrigger>(parameters, currentResult);
+            if (!currentResult.WasTransitioned)
+            {
+                if (!currentResult.TransitionDefined)
+                { OnTriggerNotConfigured?.Invoke(this, transitionEventArgs); }
+
+                OnNoTransition?.Invoke(this, transitionEventArgs);
+            }
+
             return currentResult;
         }
 
         public bool IsInState(T context, TState state)
         {
-            var objectState = _stateAccessor(context);
+            var objectState = StateAccessor(context);
 
             if (state.CompareTo(objectState) == 0)
             { return true; }
@@ -221,7 +244,12 @@ namespace NStateManager
                    && objectStateConfiguration.IsInState(state);
         }
 
-        public IStateMachineAsync<T, TState, TTrigger> RegisterOnTransitionedEvent(Action<T, StateTransitionResult<TState, TTrigger>> onTransitionedEvent)
+        /// <summary>
+        /// Register's an action to take any time a context changes state.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public IStateMachineAsync<T, TState, TTrigger> RegisterOnTransitionedAction(Action<T, StateTransitionResult<TState, TTrigger>> onTransitionedEvent)
         {
             StateTransitionBase<T, TState, TTrigger>.OnTransitionedEvent += onTransitionedEvent;
 

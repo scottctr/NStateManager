@@ -12,6 +12,7 @@ namespace NStateManager
 {
     public interface IStateConfigurationInternal<T, TState, TTrigger> : IStateConfiguration<T, TState, TTrigger>
     {
+        void AddAutoTransition(TTrigger trigger, StateTransitionBase<T, TState, TTrigger> transition);
         void AddSuperState(IStateConfigurationInternal<T, TState, TTrigger> superStateConfiguration);
         void AddTransition(TTrigger trigger, StateTransitionBase<T, TState, TTrigger> transition);
         StateTransitionResult<TState, TTrigger> ExecuteAutoTransition(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult);

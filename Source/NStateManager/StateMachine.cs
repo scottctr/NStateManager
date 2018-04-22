@@ -31,6 +31,16 @@ namespace NStateManager
         public Action<T, TState> StateMutator { get; }
 
         /// <summary>
+        /// Event raised when the context doesn't transition to a new state when FireTrigger is called.
+        /// </summary>
+        public event EventHandler<TransitionEventArgs<T, TState, TTrigger>> OnNoTransition;
+
+        /// <summary>
+        /// Event raised when the context's current state isn't configured for trigger passed to FireTrigger.
+        /// </summary>
+        public event EventHandler<TransitionEventArgs<T, TState, TTrigger>> OnTriggerNotConfigured;
+
+        /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="stateAccessor">Function to retrieve the state of a <see cref="T"/>.</param>
@@ -66,8 +76,7 @@ namespace NStateManager
         /// <param name="action">The action to execute.</param>
         /// <remarks><see cref="StateConfiguration{T,TState,TTrigger}"/> also has trigger actions that should only occur while T is in a specific state.</remarks>
         /// <returns></returns>
-        public IStateMachine<T, TState, TTrigger> AddTriggerAction<TRequest>(TTrigger trigger,
-            Action<T, TRequest> action)
+        public IStateMachine<T, TState, TTrigger> AddTriggerAction<TRequest>(TTrigger trigger, Action<T, TRequest> action)
         {
             if (_triggerActions.ContainsKey(trigger))
             { throw new InvalidOperationException($"Only one action is allowed for {trigger} trigger."); }
@@ -87,8 +96,9 @@ namespace NStateManager
             if (_stateConfigurations.TryGetValue(state, out var stateConfiguration))
             { return stateConfiguration; }
 
-            var newState = new StateConfiguration<T, TState, TTrigger>(state, StateAccessor, StateMutator);
+            var newState = new StateConfiguration<T, TState, TTrigger>(state, this);
             _stateConfigurations.Add(state, newState);
+
             return newState;
         }
 
@@ -150,13 +160,18 @@ namespace NStateManager
         {
             var objectState = StateAccessor(context);
 
-            if (state.CompareTo(objectState) == 0)
+            if (state.IsEqual(objectState))
             { return true; }
 
             return _stateConfigurations.TryGetValue(objectState, out var objectStateConfiguration) 
                    && objectStateConfiguration.IsInState(state);
         }
 
+        /// <summary>
+        /// Register's an action to take any time a context changes state.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public IStateMachine<T, TState, TTrigger> RegisterOnTransitionedAction(Action<T, StateTransitionResult<TState, TTrigger>> action)
         {
             StateTransitionBase<T, TState, TTrigger>.OnTransitionedEvent += action;
@@ -167,8 +182,9 @@ namespace NStateManager
         private StateTransitionResult<TState, TTrigger> executeExitAndEntryActions(ExecutionParameters<T, TTrigger> parameters
           , StateTransitionResult<TState, TTrigger> currentResult)
         {
-            if (currentResult.WasSuccessful && 
-                !(currentResult.StartingState.CompareTo(currentResult.PreviousState) == 0 && currentResult.PreviousState.CompareTo(currentResult.CurrentState) == 0))
+            if (currentResult.WasTransitioned && 
+                !(currentResult.StartingState.CompareTo(currentResult.PreviousState) == 0 
+                  && currentResult.PreviousState.CompareTo(currentResult.CurrentState) == 0))
             {
                 _stateConfigurations.TryGetValue(currentResult.PreviousState, out var previousState);
 
@@ -182,9 +198,16 @@ namespace NStateManager
                     if (!previousState.IsInState(currentResult.CurrentState))
                     { newState.ExecuteEntryAction(parameters.Context, currentResult); }
 
-                    //AutoForward?
+                    //Auto transitions?
                     var preAutoForwardState = currentResult.CurrentState;
-                    currentResult = newState.ExecuteAutoTransition(parameters, currentResult) ?? currentResult;
+                    var autoTransitionResult = newState.ExecuteAutoTransition(parameters, currentResult);
+                    if (autoTransitionResult.WasTransitioned)
+                    {
+                        //Merge the results
+                        currentResult.PreviousState = currentResult.CurrentState;
+                        currentResult.CurrentState = autoTransitionResult.CurrentState;
+                        currentResult.LastTransitionName = autoTransitionResult.LastTransitionName;
+                    }
 
                     //See if we have more actions from the auto transition
                     if (currentResult.CurrentState.CompareTo(preAutoForwardState) != 0)
@@ -194,6 +217,16 @@ namespace NStateManager
             //Reentry?
             else if (_stateConfigurations.TryGetValue(currentResult.CurrentState, out var reenteredState))
             { reenteredState.ExecuteReentryAction(parameters.Context, currentResult); }
+
+            //Send notifications
+            var transitionEventArgs = new TransitionEventArgs<T, TState, TTrigger>(parameters, currentResult);
+            if (!currentResult.WasTransitioned)
+            {
+                if (!currentResult.TransitionDefined)
+                { OnTriggerNotConfigured?.Invoke(this, transitionEventArgs); }
+
+                OnNoTransition?.Invoke(this, transitionEventArgs);
+            }
 
             return currentResult;
         }

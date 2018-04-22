@@ -14,7 +14,8 @@ using System.Threading.Tasks;
 
 namespace NStateManager
 {
-    internal class StateTransitionDynamicParameterizedAsync<T, TState, TTrigger, TParam> : StateTransitionDynamicBase<T, TState, TTrigger>
+    internal class StateTransitionDynamicParameterizedAsync<T, TState, TTrigger, TParam> 
+        : StateTransitionDynamicBase<T, TState, TTrigger>
         where TParam : class
         where TState : IComparable
     {
@@ -22,11 +23,10 @@ namespace NStateManager
 
         public StateTransitionDynamicParameterizedAsync(Func<T, TState> stateAccessor
             , Action<T, TState> stateMutator
-            , TState fromState
             , Func<T, TParam, CancellationToken, Task<TState>> stateFuncAsync
             , string name
             , uint priority)
-            : base(stateAccessor, stateMutator, fromState, name, priority)
+            : base(stateAccessor, stateMutator, name, priority)
         {
             StateFuncAsync = stateFuncAsync ?? throw new ArgumentNullException(nameof(stateFuncAsync));
         }

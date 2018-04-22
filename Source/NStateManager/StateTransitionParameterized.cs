@@ -12,7 +12,7 @@ using System;
 
 namespace NStateManager
 {
-    internal class StateTransitionParameterized<T, TState, TTrigger, TParam> : StateTransitionBase<T, TState, TTrigger>
+    internal class StateTransitionParameterized<T, TState, TTrigger, TParam> : StateTransitionNonDynamic<T, TState, TTrigger>
         where TParam : class
     {
         public Func<T, TParam, bool> Condition { get; }

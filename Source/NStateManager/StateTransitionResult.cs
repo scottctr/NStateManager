@@ -31,7 +31,7 @@ namespace NStateManager
         /// <summary>
         /// Name of the last transition executed.
         /// </summary>
-        public string LastTransitionName { get; }
+        public string LastTransitionName { get; internal set; }
 
         /// <summary>
         /// State the context was in just before the current state.
@@ -62,7 +62,7 @@ namespace NStateManager
         /// True if the transition was successful; otherwise false.
         /// </summary>
         /// <remarks>Will only be True if there was a transition defined (i.e. TransitionDefined is True) and any conditions were met.</remarks>
-        public bool WasSuccessful { get; }
+        public bool WasTransitioned { get; }
 
         /// <summary>
         /// Constructor.
@@ -89,7 +89,7 @@ namespace NStateManager
             PreviousState = previousState;
             CurrentState = currentState;
             LastTransitionName = lastTransitionName;
-            WasSuccessful = transitionDefined && conditionMet && !wasCancelled;
+            WasTransitioned = transitionDefined && conditionMet && !wasCancelled;
             TransitionDefined = transitionDefined;
             ConditionMet = transitionDefined && conditionMet;
             WasCancelled = wasCancelled;

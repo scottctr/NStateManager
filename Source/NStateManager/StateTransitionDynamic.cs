@@ -19,11 +19,10 @@ namespace NStateManager
 
         public StateTransitionDynamic(Func<T, TState> stateAccessor
             , Action<T, TState> stateMutator
-            , TState fromState
             , Func<T, TState> stateFunc
             , string name
             , uint priority)
-            : base(stateAccessor, stateMutator, fromState, name, priority)
+            : base(stateAccessor, stateMutator, name, priority)
         {
             StateFunc = stateFunc ?? throw new ArgumentNullException(nameof(stateFunc));
         }
@@ -31,14 +30,14 @@ namespace NStateManager
         public override StateTransitionResult<TState, TTrigger> Execute(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult = null)
         {
             var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
-            var toState = StateFunc.Invoke(parameters.Context);
+            var toState = StateFunc(parameters.Context);
 
-            if (toState.CompareTo(startState) == 0)
-            { return GetResult(parameters, currentResult, startState, wasSuccessful: false, wasCancelled: false); }
+            StateMutator(parameters.Context, toState);
 
-            StateMutator.Invoke(parameters.Context, toState);
-            var transitionResult = GetResult(parameters, currentResult, startState, wasSuccessful: true, wasCancelled: false); 
-            NotifyOfTransition(parameters.Context, transitionResult);
+            var transitioned = !StateAccessor(parameters.Context).IsEqual(startState);
+            var transitionResult = GetFreshResult(parameters, currentResult, startState, wasCancelled: false, transitionDefined: true, conditionMet: transitioned);
+            if (transitioned)
+            { NotifyOfTransition(parameters.Context, transitionResult); }
 
             return transitionResult;
         }

@@ -51,7 +51,7 @@ namespace NStateManager.Tests
                 var result = await sut.ExecuteAsync(parameters);
 
                 Assert.True(result.WasCancelled);
-                Assert.False(result.WasSuccessful);
+                Assert.False(result.WasTransitioned);
                 Assert.Equal(startState, sale.State);
             }
         }
@@ -73,7 +73,7 @@ namespace NStateManager.Tests
 
             var result = await sut.ExecuteAsync(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale));
 
-            Assert.True(result.WasSuccessful);
+            Assert.True(result.WasTransitioned);
             Assert.Equal(endState, sale.State);
         }
 
@@ -94,7 +94,7 @@ namespace NStateManager.Tests
 
             var result = await sut.ExecuteAsync(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale));
 
-            Assert.False(result.WasSuccessful);
+            Assert.False(result.WasTransitioned);
             Assert.Equal(startState, sale.State);
         }
 

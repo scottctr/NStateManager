@@ -23,7 +23,6 @@ namespace NStateManager.Tests
             Assert.Throws<ArgumentNullException>(() => new StateTransitionDynamicAsync<Sale, SaleState, SaleEvent>(
                     stateAccessor: sale => sale.State
                     , stateMutator: (sale, newState) => sale.State = newState
-                    , fromState: SaleState.ChangeDue
                     , stateFuncAsync: null
                     , name: "test"
                     , priority: 1));
@@ -35,7 +34,6 @@ namespace NStateManager.Tests
             var sut = new StateTransitionDynamicAsync<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState
-                , fromState: SaleState.Open
                 , stateFuncAsync: (sale, cancelToken) => Task.FromResult(SaleState.Complete)
                 , name: "test"
                 , priority: 1);
@@ -60,7 +58,6 @@ namespace NStateManager.Tests
             var sut = new StateTransitionDynamicAsync<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState
-                , fromState: SaleState.Open
                 , stateFuncAsync: (sale, cancelToken) => Task.FromResult(SaleState.Complete)
                 , name: "test"
                 , priority: 1);
@@ -85,7 +82,6 @@ namespace NStateManager.Tests
             var sut = new StateTransitionDynamicAsync<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState
-                , fromState: SaleState.Open
                 , stateFuncAsync: (sale, cancelToken) => Task.FromResult(SaleState.Open)
                 , name: "test"
                 , priority: 1);
@@ -98,7 +94,7 @@ namespace NStateManager.Tests
                 var result = await sut.ExecuteAsync(parameters);
 
                 Assert.False(result.ConditionMet);
-                Assert.False(result.WasSuccessful);
+                Assert.False(result.WasTransitioned);
                 Assert.False(result.WasCancelled);
                 Assert.Equal(SaleState.Open, sale.State);
                 Assert.Equal(SaleState.Open, result.CurrentState);
@@ -112,7 +108,6 @@ namespace NStateManager.Tests
             var sut = new StateTransitionDynamicAsync<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState
-                , fromState: SaleState.Open
                 , stateFuncAsync: (sale, cancelToken) => Task.FromResult(SaleState.Complete)
                 , name: "test"
                 , priority: 1);
@@ -136,7 +131,6 @@ namespace NStateManager.Tests
             var sut = new StateTransitionDynamicAsync<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState
-              , fromState: SaleState.Open
               , stateFuncAsync: (sale, cancelToken) => Task.FromResult(SaleState.Open)
               , name: "test"
               , priority: 1);

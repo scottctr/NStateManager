@@ -21,7 +21,6 @@ namespace NStateManager.Tests
             Assert.Throws<ArgumentNullException>(() => new StateTransitionDynamicParameterized<Sale, SaleState, SaleEvent, string>(
                     stateAccessor: sale => sale.State
                     , stateMutator: (sale, newState) => sale.State = newState
-                    , fromState: SaleState.ChangeDue
                     , stateFunc: null
                     , name: "test"
                     , priority: 1));
@@ -33,7 +32,6 @@ namespace NStateManager.Tests
             var sut = new StateTransitionDynamicParameterized<Sale, SaleState, SaleEvent, string>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState
-                , fromState: SaleState.Open
                 , stateFunc: (sale, stringParam) => SaleState.Complete
                 , name: "test"
                 , priority: 1);
@@ -53,7 +51,6 @@ namespace NStateManager.Tests
             var sut = new StateTransitionDynamicParameterized<Sale, SaleState, SaleEvent, string>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState
-                , fromState: SaleState.Open
                 , stateFunc: (sale, stringParam) => SaleState.Open
                 , name: "test"
                 , priority: 1);
@@ -64,7 +61,7 @@ namespace NStateManager.Tests
             var result = sut.Execute(parameters);
 
             Assert.False(result.ConditionMet);
-            Assert.False(result.WasSuccessful);
+            Assert.False(result.WasTransitioned);
             Assert.Equal(SaleState.Open, testSale.State);
             Assert.Equal(SaleState.Open, result.CurrentState);
             Assert.Equal(SaleState.Open, result.PreviousState);
@@ -76,7 +73,6 @@ namespace NStateManager.Tests
             var sut = new StateTransitionDynamicParameterized<Sale, SaleState, SaleEvent, string>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState
-                , fromState: SaleState.Open
                 , stateFunc: (sale, stringParam) => SaleState.Complete
                 , name: "test"
                 , priority: 1);
@@ -97,7 +93,6 @@ namespace NStateManager.Tests
             var sut = new StateTransitionDynamicParameterized<Sale, SaleState, SaleEvent, string>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState
-                , fromState: SaleState.Open
                 , stateFunc: (sale, stringParam) => SaleState.Open
                 , name: "test"
                 , priority: 1);

@@ -68,7 +68,7 @@ namespace NStateManager.Tests
                     Task.Delay(555).Wait();
                     cancellationSource.Cancel();
                 }
-                catch (Exception ex)
+                catch
                 {
                     cancellationSource.Cancel();
                 }

@@ -23,7 +23,6 @@ namespace NStateManager.Tests
             Assert.Throws<ArgumentNullException>(() => new StateTransitionDynamicParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                     stateAccessor: sale => sale.State
                     , stateMutator: (sale, newState) => sale.State = newState
-                    , fromState: SaleState.ChangeDue
                     , stateFuncAsync: null
                     , name: "test"
                     , priority: 1));
@@ -35,15 +34,14 @@ namespace NStateManager.Tests
             var sut = new StateTransitionDynamicParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState
-              , fromState: SaleState.Open
               , stateFuncAsync: (sale, stringParam, cancelToken) => Task.FromResult(SaleState.Complete)
               , name: "test"
               , priority: 1);
 
-                var testSale = new Sale(saleID: 87) { State = SaleState.Open };
-                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale, request: 1);
+            var testSale = new Sale(saleID: 87) { State = SaleState.Open };
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale, request: 1);
 
-                await Assert.ThrowsAsync<ArgumentException>(async () => await sut.ExecuteAsync(parameters));
+            await Assert.ThrowsAsync<ArgumentException>(async () => await sut.ExecuteAsync(parameters));
         }
 
         [Fact]
@@ -52,7 +50,6 @@ namespace NStateManager.Tests
             var sut = new StateTransitionDynamicParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState
-                , fromState: SaleState.Open
                 , stateFuncAsync: (sale, stringParam, cancelToken) => Task.FromResult(SaleState.Complete)
                 , name: "test"
                 , priority: 1);
@@ -77,7 +74,6 @@ namespace NStateManager.Tests
             var sut = new StateTransitionDynamicParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState
-                , fromState: SaleState.Open
                 , stateFuncAsync: (sale, stringParam, cancelToken) => Task.FromResult(SaleState.Complete)
                 , name: "test"
                 , priority: 1);
@@ -102,7 +98,6 @@ namespace NStateManager.Tests
             var sut = new StateTransitionDynamicParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState
-                , fromState: SaleState.Open
                 , stateFuncAsync: (sale, stringParam, cancelToken) => Task.FromResult(SaleState.Open)
                 , name: "test"
                 , priority: 1);
@@ -115,7 +110,7 @@ namespace NStateManager.Tests
                 var result = await sut.ExecuteAsync(parameters);
 
                 Assert.False(result.ConditionMet);
-                Assert.False(result.WasSuccessful);
+                Assert.False(result.WasTransitioned);
                 Assert.False(result.WasCancelled);
                 Assert.Equal(SaleState.Open, sale.State);
                 Assert.Equal(SaleState.Open, result.CurrentState);
@@ -129,7 +124,6 @@ namespace NStateManager.Tests
             var sut = new StateTransitionDynamicParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState
-                , fromState: SaleState.Open
                 , stateFuncAsync: (sale, stringParam, cancelToken) => Task.FromResult(SaleState.Complete)
                 , name: "test"
                 , priority: 1);
@@ -153,7 +147,6 @@ namespace NStateManager.Tests
             var sut = new StateTransitionDynamicParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState
-                , fromState: SaleState.Open
                 , stateFuncAsync: (sale, stringParam, cancelToken) => Task.FromResult(SaleState.Open)
                 , name: "test"
                 , priority: 1);

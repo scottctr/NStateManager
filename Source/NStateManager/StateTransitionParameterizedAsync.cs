@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace NStateManager
 {
-    internal class StateTransitionParameterizedAsync<T, TState, TTrigger, TParam> : StateTransitionBase<T, TState, TTrigger>
+    internal class StateTransitionParameterizedAsync<T, TState, TTrigger, TParam> : StateTransitionNonDynamic<T, TState, TTrigger>
         where TParam : class
     {
         public Func<T, TParam, CancellationToken, Task<bool>> ConditionAsync { get; }
@@ -34,18 +34,18 @@ namespace NStateManager
             var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
 
             if (parameters.CancellationToken.IsCancellationRequested)
-            { return GetResult(parameters, currentResult, startState, wasSuccessful: false, wasCancelled: true); }
+            {
+                return GetFreshResult(parameters
+                  , currentResult
+                  , startState
+                  , transitionDefined: true
+                  , conditionMet: false
+                  , wasCancelled: true); }
 
             if (!await ConditionAsync(parameters.Context, typeSafeParam, parameters.CancellationToken)
                .ConfigureAwait(continueOnCapturedContext: false))
             {
-                return new StateTransitionResult<TState, TTrigger>(parameters.Trigger
-                    , startState
-                    , currentResult == null ? startState : currentResult.PreviousState
-                    , currentResult == null ? startState : currentResult.CurrentState
-                    , lastTransitionName: currentResult == null ? string.Empty : currentResult.LastTransitionName
-                    , conditionMet: currentResult != null //If there's a currentResult, something was successful
-                    , wasCancelled: parameters.CancellationToken.IsCancellationRequested);
+                return GetFreshResult(parameters, currentResult, startState, transitionDefined: true, conditionMet: false, wasCancelled: parameters.CancellationToken.IsCancellationRequested);
             }
 
             StateMutator(parameters.Context, ToState);

@@ -65,6 +65,9 @@ namespace NStateManager
 
         bool IsInState(T context, TState state);
 
-        IStateMachineAsync<T, TState, TTrigger> RegisterOnTransitionedEvent(Action<T, StateTransitionResult<TState, TTrigger>> onTransitionedEvent);
+        IStateMachineAsync<T, TState, TTrigger> RegisterOnTransitionedAction(Action<T, StateTransitionResult<TState, TTrigger>> onTransitionedEvent);
+
+        Func<T, TState> StateAccessor { get; }
+        Action<T, TState> StateMutator { get; }
     }
 }

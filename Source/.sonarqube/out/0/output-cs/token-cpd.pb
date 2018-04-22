@@ -106,18 +106,18 @@ ComVisible 
 
 AssemblyVersion++ 
 (++ 
-$str++ $
-)++$ %
-]++% &
+$str++  
+)++  !
+]++! "
 [,, 
 assembly,, 	
 :,,	 
 
 AssemblyFileVersion,, 
 (,, 
-$str,, (
-),,( )
-],,) *แ
+$str,, $
+),,$ %
+],,% &แ
 UC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\ExecutionParameters.cs
 	namespace 	
 NStateManager
@@ -472,7 +472,7 @@ TC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\FunctionActionBa
 ;~ 
 }   	
 }!! 
-}"" ฎ]
+}"" ฒ_
 UC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\IStateConfiguration.cs
 	namespace 	
 NStateManager
@@ -490,616 +490,426 @@ UC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\IStateConfigurat
 TTrigger4 <
 >< =
 { 
-IStateConfiguration 
-< 
-T 
-, 
-TState %
-,% &
-TTrigger' /
->/ 0 
-AddDynamicTransition1 E
-(E F
-TTriggerF N
-triggerO V
-,V W
-FuncX \
-<\ ]
-T] ^
-,^ _
-TState` f
->f g
-functionh p
-,p q
-stringr x
-namey }
-=~ 
-null
-€ 
-,
- …
-uint
- 
-priority
- “
+IStateConfiguration 
+< 
+T 
+, 
+TState %
+,% &
+TTrigger' /
+>/ 0%
+AddAutoFallbackTransition1 J
+(J K
+FuncK O
+<O P
+TP Q
+,Q R
+boolS W
+>W X
+	conditionY b
+,b c
+stringd j
+namek o
+=p q
+nullr v
+,v w
+uintx |
+priority	} …
 =
-” •
+ 
 $num
-– —
+ 
 )
-— 
+ 
 ;
- 
-IStateConfiguration   
-<   
-T   
-,   
-TState   %
-,  % &
-TTrigger  ' /
->  / 0 
-AddDynamicTransition  1 E
-<  E F
-TRequest  F N
->  N O
-(  O P
-TTrigger  P X
-trigger  Y `
-,  ` a
-Func  b f
-<  f g
-T  g h
-,  h i
-TRequest  j r
-,  r s
-TState  t z
->  z {
-function	  | 
-,
-   …
-string
-   
-name
-   ‘
+ 
+IStateConfiguration"" 
+<"" 
+T"" 
+,"" 
+TState"" %
+,""% &
+TTrigger""' /
+>""/ 0%
+AddAutoFallbackTransition""1 J
+<""J K
+TRequest""K S
+>""S T
+(""T U
+Func""U Y
+<""Y Z
+T""Z [
+,""[ \
+TRequest""] e
+,""e f
+bool""g k
+>""k l
+	condition""m v
+,""v w
+string""x ~
+name	"" 
 =
-  ’ “
+"" …
 null
-  ” 
+"" 
 ,
-   
+"" 
 uint
-   
+"" 
 priority
-   ง
+""‘ 
 =
-  จ ฉ
+"" 
 $num
-  ช ซ
+"" 
 )
-  ซ ฌ
-where!! 
-TRequest!! 
-:!! 
-class!! "
-;!!" #
-IStateConfiguration** 
-<** 
-T** 
-,** 
-TState** %
-,**% &
-TTrigger**' /
->**/ 0
-AddTransition**1 >
-(**> ?
-TTrigger**? G
-trigger**H O
-,**O P
-TState**Q W
-toState**X _
-,**_ `
-Func**a e
-<**e f
-T**f g
-,**g h
-bool**i m
->**m n
-	condition**o x
-=**y z
-null**{ 
-,	** €
-string
-** 
+"" 
+where## 
+TRequest## 
+:## 
+class## "
+;##" #
+IStateConfiguration-- 
+<-- 
+T-- 
+,-- 
+TState-- %
+,--% &
+TTrigger--' /
+>--/ 0%
+AddAutoFallbackTransition--1 J
+(--J K
+TState--K Q
+previousState--R _
+,--_ `
+Func--a e
+<--e f
+T--f g
+,--g h
+bool--i m
+>--m n
+	condition--o x
+,--x y
+string	--z €
 name
-** 
+-- …
 =
-** 
+-- 
 null
-** “
+-- 
 ,
-**“ ”
+-- 
 uint
-**• 
+-- ’
 priority
-** ข
+--“ 
 =
-**ฃ ค
+-- 
 $num
-**ฅ ฆ
+-- 
 )
-**ฆ ง
+--  
 ;
-**ง จ
-IStateConfiguration44 
-<44 
-T44 
-,44 
-TState44 %
-,44% &
-TTrigger44' /
->44/ 0
-AddTransition441 >
-<44> ?
-TRequest44? G
->44G H
-(44H I
-TTrigger44I Q
-trigger44R Y
-,44Y Z
-TState44[ a
-toState44b i
-,44i j
-Func44k o
-<44o p
-T44p q
-,44q r
-TRequest44s {
-,44{ |
-bool	44} 
+--  ก
+IStateConfiguration88 
+<88 
+T88 
+,88 
+TState88 %
+,88% &
+TTrigger88' /
+>88/ 0%
+AddAutoFallbackTransition881 J
+<88J K
+TRequest88K S
+>88S T
+(88T U
+TState88U [
+previousState88\ i
+,88i j
+Func88k o
+<88o p
+T88p q
+,88q r
+TRequest88s {
+,88{ |
+bool	88} 
 >
-44 
+88 
 	condition
-44 
+88 
 ,
-44 
+88 
 string
-44 ”
+88 ”
 name
-44• 
+88• 
 =
-44 
+88 
 null
-44  
+88  
 ,
-44  ก
+88  ก
 uint
-44ข ฆ
+88ข ฆ
 priority
-44ง ฏ
+88ง ฏ
 =
-44ฐ ฑ
+88ฐ ฑ
 $num
-44ฒ ณ
+88ฒ ณ
 )
-44ณ ด
-where55 
-TRequest55 
-:55 
-class55 "
-;55" #
-IStateConfiguration== 
-<== 
-T== 
-,== 
-TState== %
-,==% &
-TTrigger==' /
->==/ 0
-AddAutoTransition==1 B
-(==B C
-TState==C I
-toState==J Q
-,==Q R
-Func==S W
-<==W X
-T==X Y
-,==Y Z
-bool==[ _
->==_ `
-	condition==a j
-===k l
-null==m q
-,==q r
-string==s y
-name==z ~
-=	== €
+88ณ ด
+where99 
+TRequest99 
+:99 
+class99 "
+;99" #
+IStateConfigurationCC 
+<CC 
+TCC 
+,CC 
+TStateCC %
+,CC% &
+TTriggerCC' /
+>CC/ 0$
+AddAutoForwardTransitionCC1 I
+(CCI J
+TStateCCJ P
+toStateCCQ X
+,CCX Y
+FuncCCZ ^
+<CC^ _
+TCC_ `
+,CC` a
+boolCCb f
+>CCf g
+	conditionCCh q
+=CCr s
+nullCCt x
+,CCx y
+string	CCz €
+name
+CC …
+=
+CC 
 null
-== …
+CC 
 ,
-==… 
+CC 
 uint
-== 
+CC ’
 priority
-== ”
+CC“ 
 =
-==• –
+CC 
 $num
-==— 
+CC 
 )
-== 
+CC  
 ;
-== 
-IStateConfiguration?? 
-<?? 
-T?? 
-,?? 
-TState?? %
-,??% &
-TTrigger??' /
->??/ 0!
-AddFallbackTransition??1 F
-(??F G
-Func??G K
-<??K L
-T??L M
-,??M N
-bool??O S
->??S T
-	condition??U ^
-=??_ `
-null??a e
-,??e f
-string??g m
-name??n r
-=??s t
-null??u y
-,??y z
-uint??{ 
-priority
-??€ 
+CC  ก
+IStateConfigurationNN 
+<NN 
+TNN 
+,NN 
+TStateNN %
+,NN% &
+TTriggerNN' /
+>NN/ 0$
+AddAutoForwardTransitionNN1 I
+<NNI J
+TRequestNNJ R
+>NNR S
+(NNS T
+TStateNNT Z
+toStateNN[ b
+,NNb c
+FuncNNd h
+<NNh i
+TNNi j
+,NNj k
+TRequestNNl t
+,NNt u
+boolNNv z
+>NNz {
+	condition	NN| …
 =
-?? 
-$num
-?? 
-)
-?? 
-;
-?? 
-IStateConfigurationII 
-<II 
-TII 
-,II 
-TStateII %
-,II% &
-TTriggerII' /
->II/ 0
-AddAutoTransitionII1 B
-<IIB C
-TRequestIIC K
->IIK L
-(IIL M
-TStateIIM S
-toStateIIT [
-,II[ \
-FuncII] a
-<IIa b
-TIIb c
-,IIc d
-TRequestIIe m
-,IIm n
-boolIIo s
->IIs t
-	conditionIIu ~
-=	II €
+NN 
 null
-II …
+NN 
 ,
-II… 
+NN 
 string
-II 
+NN ”
 name
-II ’
+NN• 
 =
-II“ ”
+NN 
 null
-II• 
+NN  
 ,
-II 
+NN  ก
 uint
-II 
+NNข ฆ
 priority
-II  จ
+NNง ฏ
 =
-IIฉ ช
+NNฐ ฑ
 $num
-IIซ ฌ
+NNฒ ณ
 )
-IIฌ ญ
-whereJJ 
-TRequestJJ 
-:JJ 
-classJJ "
-;JJ" #
-IStateConfigurationLL 
-<LL 
-TLL 
-,LL 
-TStateLL %
-,LL% &
-TTriggerLL' /
->LL/ 0!
-AddFallbackTransitionLL1 F
-<LLF G
-TRequestLLG O
->LLO P
-(LLP Q
-FuncLLQ U
-<LLU V
-TLLV W
-,LLW X
-TRequestLLY a
-,LLa b
-boolLLc g
->LLg h
-	conditionLLi r
-=LLs t
-nullLLu y
-,LLy z
-string	LL{ 
-name
-LL 
-=
-LL 
-null
-LL 
+NNณ ด
+whereOO 
+TRequestOO 
+:OO 
+classOO "
+;OO" #
+IStateConfigurationZZ 
+<ZZ 
+TZZ 
+,ZZ 
+TStateZZ %
+,ZZ% &
+TTriggerZZ' /
+>ZZ/ 0$
+AddAutoForwardTransitionZZ1 I
+(ZZI J
+TStateZZJ P
+toStateZZQ X
+,ZZX Y
+FuncZZZ ^
+<ZZ^ _
+TZZ_ `
+,ZZ` a
+boolZZb f
+>ZZf g
+	conditionZZh q
+,ZZq r
+TStateZZs y
+previousState	ZZz 
 ,
-LL 
-uint
-LL “
-priority
-LL” 
-=
-LL 
-$num
-LL  
-)
-LL  ก
-whereMM 
-TRequestMM 
-:MM 
-classMM "
-;MM" #
-IStateConfigurationVV 
-<VV 
-TVV 
-,VV 
-TStateVV %
-,VV% &
-TTriggerVV' /
->VV/ 0
-AddAutoTransitionVV1 B
-(VVB C
-TStateVVC I
-toStateVVJ Q
-,VVQ R
-FuncVVS W
-<VVW X
-TVVX Y
-,VVY Z
-boolVV[ _
->VV_ `
-	conditionVVa j
-,VVj k
-TStateVVl r
-previousState	VVs €
-,
-VV€ 
+ZZ 
 string
-VV 
+ZZ 
 name
-VV 
+ZZ ”
 =
-VV 
+ZZ• –
 null
-VV ”
+ZZ— 
 ,
-VV” •
+ZZ 
 uint
-VV– 
+ZZ ก
 priority
-VV ฃ
+ZZข ช
 =
-VVค ฅ
+ZZซ ฌ
 $num
-VVฆ ง
+ZZญ ฎ
 )
-VVง จ
+ZZฎ ฏ
 ;
-VVจ ฉ
-IStateConfigurationXX 
-<XX 
-TXX 
-,XX 
-TStateXX %
-,XX% &
-TTriggerXX' /
->XX/ 0!
-AddFallbackTransitionXX1 F
-(XXF G
-FuncXXG K
-<XXK L
-TXXL M
-,XXM N
-boolXXO S
->XXS T
-	conditionXXU ^
-,XX^ _
-TStateXX` f
-previousStateXXg t
-,XXt u
-stringXXv |
-name	XX} 
-=
-XX 
-null
-XX 
+ZZฏ ฐ
+IStateConfigurationff 
+<ff 
+Tff 
+,ff 
+TStateff %
+,ff% &
+TTriggerff' /
+>ff/ 0$
+AddAutoForwardTransitionff1 I
+<ffI J
+TRequestffJ R
+>ffR S
+(ffS T
+TStateffT Z
+toStateff[ b
+,ffb c
+Funcffd h
+<ffh i
+Tffi j
+,ffj k
+TRequestffl t
+,fft u
+boolffv z
+>ffz {
+	condition	ff| …
 ,
-XX 
-uint
-XX 
-priority
-XX —
-=
-XX 
-$num
-XX 
-)
-XX 
-;
-XX 
-IStateConfigurationbb 
-<bb 
-Tbb 
-,bb 
-TStatebb %
-,bb% &
-TTriggerbb' /
->bb/ 0
-AddAutoTransitionbb1 B
-<bbB C
-TRequestbbC K
->bbK L
-(bbL M
-TStatebbM S
-toStatebbT [
-,bb[ \
-Funcbb] a
-<bba b
-Tbbb c
-,bbc d
-TRequestbbe m
-,bbm n
-boolbbo s
->bbs t
-	conditionbbu ~
-,bb~ 
+ff… 
 TState
-bb€ 
+ff 
 previousState
-bb ”
+ff 
 ,
-bb” •
+ff 
 string
-bb– 
+ff ฃ
 name
-bb ก
+ffค จ
 =
-bbข ฃ
+ffฉ ช
 null
-bbค จ
+ffซ ฏ
 ,
-bbจ ฉ
+ffฏ ฐ
 uint
-bbช ฎ
+ffฑ ต
 priority
-bbฏ ท
+ffถ พ
 =
-bbธ น
+ffฟ ภ
 $num
-bbบ ป
+ffม ย
 )
-bbป ผ
-wherecc 
-TRequestcc 
-:cc 
-classcc "
-;cc" #
-IStateConfigurationee 
-<ee 
-Tee 
-,ee 
-TStateee %
-,ee% &
-TTriggeree' /
->ee/ 0!
-AddFallbackTransitionee1 F
-<eeF G
-TRequesteeG O
->eeO P
-(eeP Q
-FunceeQ U
-<eeU V
-TeeV W
-,eeW X
-TRequesteeY a
-,eea b
-booleec g
->eeg h
-	conditioneei r
-,eer s
-TStateeet z
-previousState	ee{ 
-,
-ee 
-string
-ee 
-name
-ee‘ •
-=
-ee– —
+ffย ร
+wheregg 
+TRequestgg 
+:gg 
+classgg "
+;gg" #
+IStateConfigurationqq 
+<qq 
+Tqq 
+,qq 
+TStateqq %
+,qq% &
+TTriggerqq' /
+>qq/ 0 
+AddDynamicTransitionqq1 E
+(qqE F
+TTriggerqqF N
+triggerqqO V
+,qqV W
+FuncqqX \
+<qq\ ]
+Tqq] ^
+,qq^ _
+TStateqq` f
+>qqf g
+functionqqh p
+,qqp q
+stringqqr x
+nameqqy }
+=qq~ 
 null
-ee 
+qq€ 
 ,
-ee 
+qq …
 uint
-ee ข
+qq 
 priority
-eeฃ ซ
+qq “
 =
-eeฌ ญ
+qq” •
 $num
-eeฎ ฏ
+qq– —
 )
-eeฏ ฐ
-whereff 
-TRequestff 
-:ff 
-classff "
-;ff" #
-IStateConfigurationmm 
-<mm 
-Tmm 
-,mm 
-TStatemm %
-,mm% &
-TTriggermm' /
->mm/ 0
-AddEntryActionmm1 ?
-(mm? @
-Actionmm@ F
-<mmF G
-TmmG H
->mmH I
-actionmmJ P
-)mmP Q
-;mmQ R
-IStateConfigurationtt 
-<tt 
-Ttt 
-,tt 
-TStatett %
-,tt% &
-TTriggertt' /
->tt/ 0
-AddReentryActiontt1 A
-(ttA B
-ActionttB H
-<ttH I
-TttI J
->ttJ K
-actionttL R
-)ttR S
-;ttS T
+qq— 
+;
+qq 
 IStateConfiguration|| 
 <|| 
 T|| 
@@ -1107,133 +917,159 @@ UC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\IStateConfigurat
 TState|| %
 ,||% &
 TTrigger||' /
->||/ 0
-AddEntryAction||1 ?
-(||? @
-Action||@ F
-<||F G
-T||G H
->||H I
-action||J P
-,||P Q
-TState||R X
-previousState||Y f
-)||f g
-;||g h!
+>||/ 0 
+AddDynamicTransition||1 E
+<||E F
+TRequest||F N
+>||N O
+(||O P
+TTrigger||P X
+trigger||Y `
+,||` a
+Func||b f
+<||f g
+T||g h
+,||h i
+TRequest||j r
+,||r s
+TState||t z
+>||z {
+function	||| 
+,
+|| …
+string
+|| 
+name
+|| ‘
+=
+||’ “
+null
+||” 
+,
+|| 
+uint
+|| 
+priority
+|| ง
+=
+||จ ฉ
+$num
+||ช ซ
+)
+||ซ ฌ
+where}} 
+TRequest}} 
+:}} 
+class}} "
+;}}" #!
 IStateConfiguration
- 
+ 
 <
- 
+ 
 T
- 
+ 
 ,
- 
+ 
 TState
- %
+ %
 ,
-% &
+% &
 TTrigger
-' /
+' /
 >
-/ 0
+/ 0
+AddEntryAction
+1 ?
+(
+? @
+Action
+@ F
+<
+F G
+T
+G H
+>
+H I
+action
+J P
+)
+P Q
+;
+Q R!
+IStateConfiguration
+ 
+<
+ 
+T
+ 
+,
+ 
+TState
+ %
+,
+% &
+TTrigger
+' /
+>
+/ 0
+AddEntryAction
+1 ?
+(
+? @
+Action
+@ F
+<
+F G
+T
+G H
+>
+H I
+action
+J P
+,
+P Q
+TState
+R X
+previousState
+Y f
+)
+f g
+;
+g h!
+IStateConfiguration
+““ 
+<
+““ 
+T
+““ 
+,
+““ 
+TState
+““ %
+,
+““% &
+TTrigger
+““' /
+>
+““/ 0
 AddExitAction
-1 >
+““1 >
 (
-> ?
+““> ?
 Action
-? E
+““? E
 <
-E F
+““E F
 T
-F G
+““F G
 >
-G H
+““G H
 action
-I O
+““I O
 )
-O P
+““O P
 ;
-P Q!
-IStateConfiguration
- 
-<
- 
-T
- 
-,
- 
-TState
- %
-,
-% &
-TTrigger
-' /
->
-/ 0
-AddExitAction
-1 >
-(
-> ?
-Action
-? E
-<
-E F
-T
-F G
->
-G H
-action
-I O
-,
-O P
-TState
-Q W
-	nextState
-X a
-)
-a b
-;
-b c!
-IStateConfiguration
-’’ 
-<
-’’ 
-T
-’’ 
-,
-’’ 
-TState
-’’ %
-,
-’’% &
-TTrigger
-’’' /
->
-’’/ 0
-AddTriggerAction
-’’1 A
-(
-’’A B
-TTrigger
-’’B J
-trigger
-’’K R
-,
-’’R S
-Action
-’’T Z
-<
-’’Z [
-T
-’’[ \
->
-’’\ ]
-action
-’’^ d
-)
-’’d e
-;
-’’e f!
+““P Q!
 IStateConfiguration
  
 <
@@ -1249,85 +1085,335 @@ UC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\IStateConfigurat
 TTrigger
 ' /
 >
-/ 0
-AddTriggerAction
-1 A
-<
-A B
-TRequest
-B J
->
-J K
+/ 0
+AddExitAction
+1 >
 (
-K L
-TTrigger
-L T
-trigger
-U \
-,
-\ ]
+> ?
 Action
-^ d
+? E
 <
-d e
+E F
 T
-e f
-,
-f g
-TRequest
-h p
+F G
 >
-p q
+G H
 action
-r x
+I O
+,
+O P
+TState
+Q W
+	nextState
+X a
 )
-x y
+a b
 ;
-y z!
+b c!
 IStateConfiguration
- 
+ขข 
 <
- 
+ขข 
 T
- 
+ขข 
 ,
- 
+ขข 
 TState
- %
+ขข %
 ,
-% &
+ขข% &
 TTrigger
-' /
+ขข' /
 >
-/ 0
-IsSubStateOf
-1 =
+ขข/ 0
+AddReentryAction
+ขข1 A
 (
-= >!
-IStateConfiguration
-> Q
+ขขA B
+Action
+ขขB H
 <
-Q R
+ขขH I
 T
-R S
-,
-S T
-TState
-U [
-,
-[ \
-TTrigger
-] e
+ขขI J
 >
-e f%
-superStateConfiguration
-g ~
+ขขJ K
+action
+ขขL R
 )
-~ 
-; €
+ขขR S
+;
+ขขS T!
+IStateConfiguration
+ญญ 
+<
+ญญ 
+T
+ญญ 
+,
+ญญ 
+TState
+ญญ %
+,
+ญญ% &
+TTrigger
+ญญ' /
+>
+ญญ/ 0
+AddTransition
+ญญ1 >
+(
+ญญ> ?
+TTrigger
+ญญ? G
+trigger
+ญญH O
+,
+ญญO P
+TState
+ญญQ W
+toState
+ญญX _
+,
+ญญ_ `
+Func
+ญญa e
+<
+ญญe f
+T
+ญญf g
+,
+ญญg h
+bool
+ญญi m
+>
+ญญm n
+	condition
+ญญo x
+=
+ญญy z
+null
+ญญ{ 
+,ญญ €
+stringญญ 
+nameญญ 
+=ญญ 
+nullญญ “
+,ญญ“ ”
+uintญญ• 
+priorityญญ ข
+=ญญฃ ค
+$numญญฅ ฆ
+)ญญฆ ง
+;ญญง จ!
+IStateConfiguration
+นน 
+<
+นน 
+T
+นน 
+,
+นน 
+TState
+นน %
+,
+นน% &
+TTrigger
+นน' /
+>
+นน/ 0
+AddTransition
+นน1 >
+<
+นน> ?
+TRequest
+นน? G
+>
+นนG H
+(
+นนH I
+TTrigger
+นนI Q
+trigger
+นนR Y
+,
+นนY Z
+TState
+นน[ a
+toState
+นนb i
+,
+นนi j
+Func
+นนk o
+<
+นนo p
+T
+นนp q
+,
+นนq r
+TRequest
+นนs {
+,
+นน{ |
+boolนน} 
+>นน 
+	conditionนน 
+,นน 
+stringนน ”
+nameนน• 
+=นน 
+nullนน  
+,นน  ก
+uintนนข ฆ
+priorityนนง ฏ
+=นนฐ ฑ
+$numนนฒ ณ
+)นนณ ด
+where
+บบ 
+TRequest
+บบ 
+:
+บบ 
+class
+บบ "
+;
+บบ" #!
+IStateConfiguration
+ยย 
+<
+ยย 
+T
+ยย 
+,
+ยย 
+TState
+ยย %
+,
+ยย% &
+TTrigger
+ยย' /
+>
+ยย/ 0
+AddTriggerAction
+ยย1 A
+(
+ยยA B
+TTrigger
+ยยB J
+trigger
+ยยK R
+,
+ยยR S
+Action
+ยยT Z
+<
+ยยZ [
+T
+ยย[ \
+>
+ยย\ ]
+action
+ยย^ d
+)
+ยยd e
+;
+ยยe f!
+IStateConfiguration
+หห 
+<
+หห 
+T
+หห 
+,
+หห 
+TState
+หห %
+,
+หห% &
+TTrigger
+หห' /
+>
+หห/ 0
+AddTriggerAction
+หห1 A
+<
+หหA B
+TRequest
+หหB J
+>
+หหJ K
+(
+หหK L
+TTrigger
+หหL T
+trigger
+หหU \
+,
+หห\ ]
+Action
+หห^ d
+<
+หหd e
+T
+หหe f
+,
+หหf g
+TRequest
+หหh p
+>
+หหp q
+action
+หหr x
+)
+หหx y
+;
+หหy z!
+IStateConfiguration
+าา 
+<
+าา 
+T
+าา 
+,
+าา 
+TState
+าา %
+,
+าา% &
+TTrigger
+าา' /
+>
+าา/ 0
+IsSubStateOf
+าา1 =
+(
+าา= >!
+IStateConfiguration
+าา> Q
+<
+าาQ R
+T
+าาR S
+,
+าาS T
+TState
+าาU [
+,
+าา[ \
+TTrigger
+าา] e
+>
+าาe f%
+superStateConfiguration
+าาg ~
+)
+าา~ 
+;าา €
 }
- 
-} ฿m
+ำำ 
+}ิิ p
 ZC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\IStateConfigurationAsync.cs
 	namespace 	
 NStateManager
@@ -1345,1057 +1431,1099 @@ ZC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\IStateConfigurat
 TTrigger9 A
 >A B
 { $
-IStateConfigurationAsync&&  
-<&&  !
-T&&! "
-,&&" #
-TState&&$ *
-,&&* +
-TTrigger&&, 4
->&&4 5
-AddTransition&&6 C
-(&&C D
-TTrigger&&D L
-trigger&&M T
-,&&T U
-TState&&V \
-toState&&] d
-,&&d e
-Func&&f j
-<&&j k
-T&&k l
-,&&l m
-CancellationToken&&n 
-,	&& €
-Task
-&& …
-<
-&&… 
-bool
-&& 
->
-&& 
->
-&& 
-conditionAsync
-&& 
-=
-&& 
-null
-&& ข
+IStateConfigurationAsync  
+<  !
+T! "
+," #
+TState$ *
+,* +
+TTrigger, 4
+>4 5%
+AddAutoFallbackTransition6 O
+(O P
+FuncP T
+<T U
+TU V
+,V W
+CancellationTokenX i
+,i j
+Taskk o
+<o p
+boolp t
+>t u
+>u v
+	condition	w €
 ,
-&&ข ฃ
+€ 
 string
-&&ค ช
+ 
 name
-&&ซ ฏ
+ 
 =
-&&ฐ ฑ
+ 
 null
-&&ฒ ถ
+ ”
 ,
-&&ถ ท
+” •
 uint
-&&ธ ผ
+– 
 priority
-&&ฝ ล
+ ฃ
 =
-&&ฦ ว
+ค ฅ
 $num
-&&ศ ษ
+ฆ ง
 )
-&&ษ ส
+ง จ
 ;
-&&ส ห$
-IStateConfigurationAsync00  
-<00  !
-T00! "
-,00" #
-TState00$ *
-,00* +
-TTrigger00, 4
->004 5
-AddTransition006 C
-<00C D
-TRequest00D L
->00L M
-(00M N
-TTrigger00N V
-trigger00W ^
-,00^ _
-TState00` f
-toState00g n
-,00n o
-Func00p t
-<00t u
-T00u v
-,00v w
-TRequest	00x €
-,
-00€ 
-CancellationToken
-00 “
-,
-00“ ”
-Task
-00• 
+จ ฉ$
+IStateConfigurationAsync$$  
+<$$  !
+T$$! "
+,$$" #
+TState$$$ *
+,$$* +
+TTrigger$$, 4
+>$$4 5%
+AddAutoFallbackTransition$$6 O
+<$$O P
+TRequest$$P X
+>$$X Y
+($$Y Z
+Func$$Z ^
+<$$^ _
+T$$_ `
+,$$` a
+TRequest$$b j
+,$$j k
+CancellationToken$$l }
+,$$} ~
+Task	$$ 
 <
-00 
+$$ 
 bool
-00 
+$$ 
 >
-00 
+$$ 
 >
-00  
-conditionAsync
-00ก ฏ
+$$ 
+	condition
+$$ ”
 ,
-00ฏ ฐ
+$$” •
 string
-00ฑ ท
+$$– 
 name
-00ธ ผ
+$$ ก
 =
-00ฝ พ
+$$ข ฃ
 null
-00ฟ ร
+$$ค จ
 ,
-00ร ฤ
+$$จ ฉ
 uint
-00ล ษ
+$$ช ฎ
 priority
-00ส า
+$$ฏ ท
 =
-00ำ ิ
+$$ธ น
 $num
-00ี ึ
+$$บ ป
 )
-00ึ ื
-where11 
-TRequest11 
-:11 
-class11 "
-;11" #$
-IStateConfigurationAsync99  
-<99  !
-T99! "
-,99" #
-TState99$ *
-,99* +
-TTrigger99, 4
->994 5 
-AddDynamicTransition996 J
-(99J K
-TTrigger99K S
-trigger99T [
-,99[ \
-Func99] a
-<99a b
-T99b c
-,99c d
-CancellationToken99e v
-,99v w
-Task99x |
-<99| }
-TState	99} 
+$$ป ผ
+where%% 
+TRequest%% 
+:%% 
+class%% "
+;%%" #$
+IStateConfigurationAsync//  
+<//  !
+T//! "
+,//" #
+TState//$ *
+,//* +
+TTrigger//, 4
+>//4 5%
+AddAutoFallbackTransition//6 O
+(//O P
+Func//P T
+<//T U
+T//U V
+,//V W
+CancellationToken//X i
+,//i j
+Task//k o
+<//o p
+bool//p t
+>//t u
+>//u v
+	condition	//w €
+,
+//€ 
+TState
+// 
+previousState
+// –
+,
+//– —
+string
+// 
+name
+// ฃ
+=
+//ค ฅ
+null
+//ฆ ช
+,
+//ช ซ
+uint
+//ฌ ฐ
+priority
+//ฑ น
+=
+//บ ป
+$num
+//ผ ฝ
+)
+//ฝ พ
+;
+//พ ฟ$
+IStateConfigurationAsync::  
+<::  !
+T::! "
+,::" #
+TState::$ *
+,::* +
+TTrigger::, 4
+>::4 5%
+AddAutoFallbackTransition::6 O
+<::O P
+TRequest::P X
+>::X Y
+(::Y Z
+Func::Z ^
+<::^ _
+T::_ `
+,::` a
+TRequest::b j
+,::j k
+CancellationToken::l }
+,::} ~
+Task	:: 
+<
+:: 
+bool
+:: 
 >
-99 
+:: 
 >
-99 …
+:: 
+	condition
+:: ”
+,
+::” •
+TState
+::– 
+previousState
+:: ช
+,
+::ช ซ
+string
+::ฌ ฒ
+name
+::ณ ท
+=
+::ธ น
+null
+::บ พ
+,
+::พ ฟ
+uint
+::ภ ฤ
+priority
+::ล อ
+=
+::ฮ ฯ
+$num
+::ะ ั
+)
+::ั า
+where;; 
+TRequest;; 
+:;; 
+class;; "
+;;;" #$
+IStateConfigurationAsyncFF  
+<FF  !
+TFF! "
+,FF" #
+TStateFF$ *
+,FF* +
+TTriggerFF, 4
+>FF4 5$
+AddAutoForwardTransitionFF6 N
+<FFN O
+TRequestFFO W
+>FFW X
+(FFX Y
+TStateFFY _
+toStateFF` g
+,FFg h
+FuncFFi m
+<FFm n
+TFFn o
+,FFo p
+TRequestFFq y
+,FFy z
+CancellationToken	FF{ 
+,
+FF 
+Task
+FF ’
+<
+FF’ “
+bool
+FF“ —
+>
+FF— 
+>
+FF 
+	condition
+FF ฃ
+,
+FFฃ ค
+string
+FFฅ ซ
+name
+FFฌ ฐ
+=
+FFฑ ฒ
+null
+FFณ ท
+,
+FFท ธ
+uint
+FFน ฝ
+priority
+FFพ ฦ
+=
+FFว ศ
+$num
+FFษ ส
+)
+FFส ห
+whereGG 
+TRequestGG 
+:GG 
+classGG "
+;GG" #$
+IStateConfigurationAsyncRR  
+<RR  !
+TRR! "
+,RR" #
+TStateRR$ *
+,RR* +
+TTriggerRR, 4
+>RR4 5$
+AddAutoForwardTransitionRR6 N
+(RRN O
+TStateRRO U
+toStateRRV ]
+,RR] ^
+FuncRR_ c
+<RRc d
+TRRd e
+,RRe f
+CancellationTokenRRg x
+,RRx y
+TaskRRz ~
+<RR~ 
+bool	RR 
+>
+RR 
+>
+RR …
+	condition
+RR 
+,
+RR 
+TState
+RR‘ —
+previousState
+RR ฅ
+,
+RRฅ ฆ
+string
+RRง ญ
+name
+RRฎ ฒ
+=
+RRณ ด
+null
+RRต น
+,
+RRน บ
+uint
+RRป ฟ
+priority
+RRภ ศ
+=
+RRษ ส
+$num
+RRห ฬ
+)
+RRฬ อ
+;
+RRอ ฮ$
+IStateConfigurationAsync\\  
+<\\  !
+T\\! "
+,\\" #
+TState\\$ *
+,\\* +
+TTrigger\\, 4
+>\\4 5$
+AddAutoForwardTransition\\6 N
+(\\N O
+TState\\O U
+toState\\V ]
+,\\] ^
+Func\\_ c
+<\\c d
+T\\d e
+,\\e f
+CancellationToken\\g x
+,\\x y
+Task\\z ~
+<\\~ 
+bool	\\ 
+>
+\\ 
+>
+\\ …
+	condition
+\\ 
+,
+\\ 
+string
+\\‘ —
+name
+\\ 
+=
+\\ 
+null
+\\ ฃ
+,
+\\ฃ ค
+uint
+\\ฅ ฉ
+priority
+\\ช ฒ
+=
+\\ณ ด
+$num
+\\ต ถ
+)
+\\ถ ท
+;
+\\ท ธ$
+IStateConfigurationAsynchh  
+<hh  !
+Thh! "
+,hh" #
+TStatehh$ *
+,hh* +
+TTriggerhh, 4
+>hh4 5$
+AddAutoForwardTransitionhh6 N
+<hhN O
+TRequesthhO W
+>hhW X
+(hhX Y
+TStatehhY _
+toStatehh` g
+,hhg h
+Funchhi m
+<hhm n
+Thhn o
+,hho p
+TRequesthhq y
+,hhy z
+CancellationToken	hh{ 
+,
+hh 
+Task
+hh ’
+<
+hh’ “
+bool
+hh“ —
+>
+hh— 
+>
+hh 
+	condition
+hh ฃ
+,
+hhฃ ค
+TState
+hhฅ ซ
+previousState
+hhฌ น
+,
+hhน บ
+string
+hhป ม
+name
+hhย ฦ
+=
+hhว ศ
+null
+hhษ อ
+,
+hhอ ฮ
+uint
+hhฯ ำ
+priority
+hhิ Ü
+=
+hhÝ Þ
+$num
+hh฿ เ
+)
+hhเ แ
+whereii 
+TRequestii 
+:ii 
+classii "
+;ii" #$
+IStateConfigurationAsyncss  
+<ss  !
+Tss! "
+,ss" #
+TStatess$ *
+,ss* +
+TTriggerss, 4
+>ss4 5 
+AddDynamicTransitionss6 J
+(ssJ K
+TTriggerssK S
+triggerssT [
+,ss[ \
+Funcss] a
+<ssa b
+Tssb c
+,ssc d
+CancellationTokensse v
+,ssv w
+Taskssx |
+<ss| }
+TState	ss} 
+>
+ss 
+>
+ss …
 function
-99 
+ss 
 ,
-99 
+ss 
 string
-99 –
+ss –
 name
-99— 
+ss— 
 =
-99 
+ss 
 null
-99 ข
+ss ข
 ,
-99ข ฃ
+ssข ฃ
 uint
-99ค จ
+ssค จ
 priority
-99ฉ ฑ
+ssฉ ฑ
 =
-99ฒ ณ
+ssฒ ณ
 $num
-99ด ต
+ssด ต
 )
-99ต ถ
+ssต ถ
 ;
-99ถ ท$
-IStateConfigurationAsyncBB  
-<BB  !
-TBB! "
-,BB" #
-TStateBB$ *
-,BB* +
-TTriggerBB, 4
->BB4 5 
-AddDynamicTransitionBB6 J
-<BBJ K
-TRequestBBK S
->BBS T
-(BBT U
-TTriggerBBU ]
-triggerBB^ e
-,BBe f
-FuncBBg k
-<BBk l
-TBBl m
-,BBm n
-TRequestBBo w
-,BBw x
-CancellationToken	BBy 
+ssถ ท$
+IStateConfigurationAsync~~  
+<~~  !
+T~~! "
+,~~" #
+TState~~$ *
+,~~* +
+TTrigger~~, 4
+>~~4 5 
+AddDynamicTransition~~6 J
+<~~J K
+TRequest~~K S
+>~~S T
+(~~T U
+TTrigger~~U ]
+trigger~~^ e
+,~~e f
+Func~~g k
+<~~k l
+T~~l m
+,~~m n
+TRequest~~o w
+,~~w x
+CancellationToken	~~y 
 ,
-BB 
+~~ 
 Task
-BB 
+~~ 
 <
-BB ‘
+~~ ‘
 TState
-BB‘ —
+~~‘ —
 >
-BB— 
+~~— 
 >
-BB 
+~~ 
 function
-BB ข
+~~ ข
 ,
-BBข ฃ
+~~ข ฃ
 string
-BBค ช
+~~ค ช
 name
-BBซ ฏ
+~~ซ ฏ
 =
-BBฐ ฑ
+~~ฐ ฑ
 null
-BBฒ ถ
+~~ฒ ถ
 ,
-BBถ ท
+~~ถ ท
 uint
-BBธ ผ
+~~ธ ผ
 priority
-BBฝ ล
+~~ฝ ล
 =
-BBฦ ว
+~~ฦ ว
 $num
-BBศ ษ
+~~ศ ษ
 )
-BBษ ส
-whereCC 
-TRequestCC 
-:CC 
-classCC "
-;CC" #$
-IStateConfigurationAsyncKK  
-<KK  !
-TKK! "
-,KK" #
-TStateKK$ *
-,KK* +
-TTriggerKK, 4
->KK4 5
-AddAutoTransitionKK6 G
-(KKG H
-TStateKKH N
-toStateKKO V
-,KKV W
-FuncKKX \
-<KK\ ]
-TKK] ^
-,KK^ _
-CancellationTokenKK` q
-,KKq r
-TaskKKs w
-<KKw x
-boolKKx |
->KK| }
->KK} ~
-	condition	KK 
-,
-KK 
-string
-KK 
-name
-KK‘ •
-=
-KK– —
-null
-KK 
-,
-KK 
-uint
-KK ข
-priority
-KKฃ ซ
-=
-KKฌ ญ
-$num
-KKฎ ฏ
-)
-KKฏ ฐ
-;
-KKฐ ฑ$
-IStateConfigurationAsyncMM  
-<MM  !
-TMM! "
-,MM" #
-TStateMM$ *
-,MM* +
-TTriggerMM, 4
->MM4 5!
-AddFallbackTransitionMM6 K
-(MMK L
-FuncMML P
-<MMP Q
-TMMQ R
-,MMR S
-CancellationTokenMMT e
-,MMe f
-TaskMMg k
-<MMk l
-boolMMl p
->MMp q
->MMq r
-	conditionMMs |
-,MM| }
-string	MM~ 
-name
-MM… 
-=
-MM 
-null
-MM 
-,
-MM ‘
-uint
-MM’ –
-priority
-MM— 
-=
-MM  ก
-$num
-MMข ฃ
-)
-MMฃ ค
-;
-MMค ฅ$
-IStateConfigurationAsyncVV  
-<VV  !
-TVV! "
-,VV" #
-TStateVV$ *
-,VV* +
-TTriggerVV, 4
->VV4 5
-AddAutoTransitionVV6 G
-<VVG H
-TRequestVVH P
->VVP Q
-(VVQ R
-TStateVVR X
-toStateVVY `
-,VV` a
-FuncVVb f
-<VVf g
-TVVg h
-,VVh i
-TRequestVVj r
-,VVr s
-CancellationToken	VVt …
-,
-VV… 
-Task
-VV 
-<
-VV 
-bool
-VV 
->
-VV ‘
->
-VV‘ ’
-	condition
-VV“ 
-,
-VV 
-string
-VV ค
-name
-VVฅ ฉ
-=
-VVช ซ
-null
-VVฌ ฐ
-,
-VVฐ ฑ
-uint
-VVฒ ถ
-priority
-VVท ฟ
-=
-VVภ ม
-$num
-VVย ร
-)
-VVร ฤ
-whereWW 
-TRequestWW 
-:WW 
-classWW "
-;WW" #$
-IStateConfigurationAsyncYY  
-<YY  !
-TYY! "
-,YY" #
-TStateYY$ *
-,YY* +
-TTriggerYY, 4
->YY4 5!
-AddFallbackTransitionYY6 K
-<YYK L
-TRequestYYL T
->YYT U
-(YYU V
-FuncYYV Z
-<YYZ [
-TYY[ \
-,YY\ ]
-TRequestYY^ f
-,YYf g
-CancellationTokenYYh y
-,YYy z
-TaskYY{ 
-<	YY €
-bool
-YY€ 
->
-YY …
->
-YY… 
-	condition
-YY 
-,
-YY ‘
-string
-YY’ 
-name
-YY 
-=
-YY 
-null
-YY  ค
-,
-YYค ฅ
-uint
-YYฆ ช
-priority
-YYซ ณ
-=
-YYด ต
-$num
-YYถ ท
-)
-YYท ธ
-whereZZ 
-TRequestZZ 
-:ZZ 
-classZZ "
-;ZZ" #$
-IStateConfigurationAsynccc  
-<cc  !
-Tcc! "
-,cc" #
-TStatecc$ *
-,cc* +
-TTriggercc, 4
->cc4 5
-AddAutoTransitioncc6 G
-(ccG H
-TStateccH N
-toStateccO V
-,ccV W
-FuncccX \
-<cc\ ]
-Tcc] ^
-,cc^ _
-CancellationTokencc` q
-,ccq r
-Taskccs w
-<ccw x
-boolccx |
->cc| }
->cc} ~
-	condition	cc 
-,
-cc 
-TState
-cc 
-previousState
-cc‘ 
-,
-cc 
-string
-cc  ฆ
-name
-ccง ซ
-=
-ccฌ ญ
-null
-ccฎ ฒ
-,
-ccฒ ณ
-uint
-ccด ธ
-priority
-ccน ม
-=
-ccย ร
-$num
-ccฤ ล
-)
-ccล ฦ
-;
-ccฦ ว$
-IStateConfigurationAsyncee  
-<ee  !
-Tee! "
-,ee" #
-TStateee$ *
-,ee* +
-TTriggeree, 4
->ee4 5!
-AddFallbackTransitionee6 K
-(eeK L
-FunceeL P
-<eeP Q
-TeeQ R
-,eeR S
-CancellationTokeneeT e
-,eee f
-Taskeeg k
-<eek l
-booleel p
->eep q
->eeq r
-	conditionees |
-,ee| }
-TState	ee~ 
-previousState
-ee… ’
-,
-ee’ “
-string
-ee” 
-name
-ee 
-=
-ee  ก
-null
-eeข ฆ
-,
-eeฆ ง
-uint
-eeจ ฌ
-priority
-eeญ ต
-=
-eeถ ท
-$num
-eeธ น
-)
-eeน บ
-;
-eeบ ป$
-IStateConfigurationAsyncoo  
-<oo  !
-Too! "
-,oo" #
-TStateoo$ *
-,oo* +
-TTriggeroo, 4
->oo4 5
-AddAutoTransitionoo6 G
-<ooG H
-TRequestooH P
->ooP Q
-(ooQ R
-TStateooR X
-toStateooY `
-,oo` a
-Funcoob f
-<oof g
-Toog h
-,ooh i
-TRequestooj r
-,oor s
-CancellationToken	oot …
-,
-oo… 
-Task
-oo 
-<
-oo 
-bool
-oo 
->
-oo ‘
->
-oo‘ ’
-	condition
-oo“ 
-,
-oo 
-TState
-oo ค
-previousState
-ooฅ ฒ
-,
-ooฒ ณ
-string
-ooด บ
-name
-ooป ฟ
-=
-ooภ ม
-null
-ooย ฦ
-,
-ooฦ ว
-uint
-ooศ ฬ
-priority
-ooอ ี
-=
-ooึ ื
-$num
-ooุ ู
-)
-ooู ฺ
-wherepp 
-TRequestpp 
-:pp 
-classpp "
-;pp" #$
-IStateConfigurationAsyncrr  
-<rr  !
-Trr! "
-,rr" #
-TStaterr$ *
-,rr* +
-TTriggerrr, 4
->rr4 5!
-AddFallbackTransitionrr6 K
-<rrK L
-TRequestrrL T
->rrT U
-(rrU V
-FuncrrV Z
-<rrZ [
-Trr[ \
-,rr\ ]
-TRequestrr^ f
-,rrf g
-CancellationTokenrrh y
-,rry z
-Taskrr{ 
-<	rr €
-bool
-rr€ 
->
-rr …
->
-rr… 
-	condition
-rr 
-,
-rr ‘
-TState
-rr’ 
-previousState
-rr ฆ
-,
-rrฆ ง
-string
-rrจ ฎ
-name
-rrฏ ณ
-=
-rrด ต
-null
-rrถ บ
-,
-rrบ ป
-uint
-rrผ ภ
-priority
-rrม ษ
-=
-rrส ห
-$num
-rrฬ อ
-)
-rrอ ฮ
-wheress 
-TRequestss 
-:ss 
-classss "
-;ss" #$
-IStateConfigurationAsynczz  
-<zz  !
-Tzz! "
-,zz" #
-TStatezz$ *
-,zz* +
-TTriggerzz, 4
->zz4 5
-AddEntryActionzz6 D
-(zzD E
-FunczzE I
-<zzI J
-TzzJ K
-,zzK L
-CancellationTokenzzM ^
-,zz^ _
-Taskzz` d
->zzd e
-actionzzf l
-)zzl m
-;zzm n&
+~~ษ ส
+where 
+TRequest 
+: 
+class "
+;" #&
 IStateConfigurationAsync
-  
+  
 <
-  !
+  !
 T
-! "
+! "
 ,
-" #
+" #
 TState
-$ *
+$ *
 ,
-* +
+* +
 TTrigger
-, 4
+, 4
 >
-4 5
-AddReentryAction
-6 F
-(
-F G
-Func
-G K
-<
-K L
-T
-L M
-,
-M N
-CancellationToken
-O `
-,
-` a
-Task
-b f
->
-f g
-action
-h n
-)
-n o
-;
-o p&
-IStateConfigurationAsync
-  
-<
-  !
-T
-! "
-,
-" #
-TState
-$ *
-,
-* +
-TTrigger
-, 4
->
-4 5
+4 5
 AddEntryAction
-6 D
+6 D
 (
-D E
+D E
 Func
-E I
+E I
 <
-I J
+I J
 T
-J K
+J K
 ,
-K L
+K L
 CancellationToken
-M ^
+M ^
 ,
-^ _
+^ _
 Task
-` d
+` d
 >
-d e
+d e
 action
-f l
-,
-l m
-TState
-n t
-previousStateu 
-) 
-; &
-IStateConfigurationAsync
-  
-<
-  !
-T
-! "
-,
-" #
-TState
-$ *
-,
-* +
-TTrigger
-, 4
->
-4 5
-AddExitAction
-6 C
-(
-C D
-Func
-D H
-<
-H I
-T
-I J
-,
-J K
-CancellationToken
-L ]
-,
-] ^
-Task
-_ c
->
-c d
-action
-e k
+f l
 )
-k l
+l m
 ;
-l m&
+m n&
 IStateConfigurationAsync
-——  
+  
 <
-——  !
+  !
 T
-——! "
+! "
 ,
-——" #
+" #
 TState
-——$ *
+$ *
 ,
-——* +
+* +
 TTrigger
-——, 4
+, 4
 >
-——4 5
-AddExitAction
-——6 C
+4 5
+AddEntryAction
+6 D
 (
-——C D
+D E
 Func
-——D H
+E I
 <
-——H I
+I J
 T
-——I J
+J K
 ,
-——J K
+K L
 CancellationToken
-——L ]
+M ^
 ,
-——] ^
+^ _
 Task
-——_ c
+` d
 >
-——c d
+d e
 action
-——e k
+f l
 ,
-——k l
+l m
 TState
-——m s
+n t
+previousStateu 
+) 
+; &
+IStateConfigurationAsync
+••  
+<
+••  !
+T
+••! "
+,
+••" #
+TState
+••$ *
+,
+••* +
+TTrigger
+••, 4
+>
+••4 5
+AddExitAction
+••6 C
+(
+••C D
+Func
+••D H
+<
+••H I
+T
+••I J
+,
+••J K
+CancellationToken
+••L ]
+,
+••] ^
+Task
+••_ c
+>
+••c d
+action
+••e k
+)
+••k l
+;
+••l m&
+IStateConfigurationAsync
+  
+<
+  !
+T
+! "
+,
+" #
+TState
+$ *
+,
+* +
+TTrigger
+, 4
+>
+4 5
+AddExitAction
+6 C
+(
+C D
+Func
+D H
+<
+H I
+T
+I J
+,
+J K
+CancellationToken
+L ]
+,
+] ^
+Task
+_ c
+>
+c d
+action
+e k
+,
+k l
+TState
+m s
 	nextState
-——t }
+t }
 )
-——} ~
+} ~
 ;
-——~ &
+~ &
 IStateConfigurationAsync
-  
+คค  
 <
-  !
+คค  !
 T
-! "
+คค! "
 ,
-" #
+คค" #
 TState
-$ *
+คค$ *
 ,
-* +
+คค* +
 TTrigger
-, 4
+คค, 4
 >
-4 5
-AddTriggerAction
-6 F
+คค4 5
+AddReentryAction
+คค6 F
 (
-F G
-TTrigger
-G O
-trigger
-P W
-,
-W X
+คคF G
 Func
-Y ]
+คคG K
 <
-] ^
+คคK L
 T
-^ _
+คคL M
 ,
-_ `
+คคM N
 CancellationToken
-a r
+คคO `
 ,
-r s
+คค` a
 Task
-t x
+คคb f
 >
-x y
-actionz €
-)€ 
-; &
-IStateConfigurationAsync
-จจ  
-<
-จจ  !
-T
-จจ! "
-,
-จจ" #
-TState
-จจ$ *
-,
-จจ* +
-TTrigger
-จจ, 4
->
-จจ4 5
-AddTriggerAction
-จจ6 F
-<
-จจF G
-TRequest
-จจG O
->
-จจO P
-(
-จจP Q
-TTrigger
-จจQ Y
-trigger
-จจZ a
-,
-จจa b
-Func
-จจc g
-<
-จจg h
-T
-จจh i
-,
-จจi j
-TRequest
-จจk s
-,
-จจs t 
-CancellationTokenจจu 
-,จจ 
-Taskจจ 
->จจ 
-actionจจ ”
-)จจ” •
-;จจ• –
-bool
-ชช 
-	IsInState
-ชช 
-(
-ชช 
-TState
-ชช 
-state
-ชช #
+คคf g
+action
+คคh n
 )
-ชช# $
+คคn o
 ;
-ชช$ %&
+คคo p&
 IStateConfigurationAsync
-ญญ  
+ฏฏ  
 <
-ญญ  !
+ฏฏ  !
 T
-ญญ! "
+ฏฏ! "
 ,
-ญญ" #
+ฏฏ" #
 TState
-ญญ$ *
+ฏฏ$ *
 ,
-ญญ* +
+ฏฏ* +
 TTrigger
-ญญ, 4
+ฏฏ, 4
 >
-ญญ4 5
-IsSubStateOf
-ญญ6 B
+ฏฏ4 5
+AddTransition
+ฏฏ6 C
 (
-ญญB C&
-IStateConfigurationAsync
-ญญC [
-<
-ญญ[ \
-T
-ญญ\ ]
-,
-ญญ] ^
-TState
-ญญ_ e
-,
-ญญe f
+ฏฏC D
 TTrigger
-ญญg o
+ฏฏD L
+trigger
+ฏฏM T
+,
+ฏฏT U
+TState
+ฏฏV \
+toState
+ฏฏ] d
+,
+ฏฏd e
+Func
+ฏฏf j
+<
+ฏฏj k
+T
+ฏฏk l
+,
+ฏฏl m
+CancellationToken
+ฏฏn 
+,ฏฏ €
+Taskฏฏ …
+<ฏฏ… 
+boolฏฏ 
+>ฏฏ 
+>ฏฏ 
+conditionAsyncฏฏ 
+=ฏฏ 
+nullฏฏ ข
+,ฏฏข ฃ
+stringฏฏค ช
+nameฏฏซ ฏ
+=ฏฏฐ ฑ
+nullฏฏฒ ถ
+,ฏฏถ ท
+uintฏฏธ ผ
+priorityฏฏฝ ล
+=ฏฏฦ ว
+$numฏฏศ ษ
+)ฏฏษ ส
+;ฏฏส ห&
+IStateConfigurationAsync
+ปป  
+<
+ปป  !
+T
+ปป! "
+,
+ปป" #
+TState
+ปป$ *
+,
+ปป* +
+TTrigger
+ปป, 4
 >
-ญญo p&
-superStateConfigurationญญq 
-)ญญ 
-;ญญ 
+ปป4 5
+AddTransition
+ปป6 C
+<
+ปปC D
+TRequest
+ปปD L
+>
+ปปL M
+(
+ปปM N
+TTrigger
+ปปN V
+trigger
+ปปW ^
+,
+ปป^ _
+TState
+ปป` f
+toState
+ปปg n
+,
+ปปn o
+Func
+ปปp t
+<
+ปปt u
+T
+ปปu v
+,
+ปปv w
+TRequestปปx €
+,ปป€ !
+CancellationTokenปป “
+,ปป“ ”
+Taskปป• 
+<ปป 
+boolปป 
+>ปป 
+>ปป  
+conditionAsyncปปก ฏ
+,ปปฏ ฐ
+stringปปฑ ท
+nameปปธ ผ
+=ปปฝ พ
+nullปปฟ ร
+,ปปร ฤ
+uintปปล ษ
+priorityปปส า
+=ปปำ ิ
+$numปปี ึ
+)ปปึ ื
+where
+ผผ 
+TRequest
+ผผ 
+:
+ผผ 
+class
+ผผ "
+;
+ผผ" #&
+IStateConfigurationAsync
+ฤฤ  
+<
+ฤฤ  !
+T
+ฤฤ! "
+,
+ฤฤ" #
+TState
+ฤฤ$ *
+,
+ฤฤ* +
+TTrigger
+ฤฤ, 4
+>
+ฤฤ4 5
+AddTriggerAction
+ฤฤ6 F
+(
+ฤฤF G
+TTrigger
+ฤฤG O
+trigger
+ฤฤP W
+,
+ฤฤW X
+Func
+ฤฤY ]
+<
+ฤฤ] ^
+T
+ฤฤ^ _
+,
+ฤฤ_ `
+CancellationToken
+ฤฤa r
+,
+ฤฤr s
+Task
+ฤฤt x
+>
+ฤฤx y
+actionฤฤz €
+)ฤฤ€ 
+;ฤฤ &
+IStateConfigurationAsync
+ออ  
+<
+ออ  !
+T
+ออ! "
+,
+ออ" #
+TState
+ออ$ *
+,
+ออ* +
+TTrigger
+ออ, 4
+>
+ออ4 5
+AddTriggerAction
+ออ6 F
+<
+ออF G
+TRequest
+ออG O
+>
+ออO P
+(
+ออP Q
+TTrigger
+ออQ Y
+trigger
+ออZ a
+,
+ออa b
+Func
+ออc g
+<
+ออg h
+T
+ออh i
+,
+ออi j
+TRequest
+ออk s
+,
+ออs t 
+CancellationTokenออu 
+,ออ 
+Taskออ 
+>ออ 
+actionออ ”
+)ออ” •
+;ออ• –
+bool
+ิิ 
+	IsInState
+ิิ 
+(
+ิิ 
+TState
+ิิ 
+state
+ิิ #
+)
+ิิ# $
+;
+ิิ$ %&
+IStateConfigurationAsync
+ÛÛ  
+<
+ÛÛ  !
+T
+ÛÛ! "
+,
+ÛÛ" #
+TState
+ÛÛ$ *
+,
+ÛÛ* +
+TTrigger
+ÛÛ, 4
+>
+ÛÛ4 5
+IsSubStateOf
+ÛÛ6 B
+(
+ÛÛB C&
+IStateConfigurationAsync
+ÛÛC [
+<
+ÛÛ[ \
+T
+ÛÛ\ ]
+,
+ÛÛ] ^
+TState
+ÛÛ_ e
+,
+ÛÛe f
+TTrigger
+ÛÛg o
+>
+ÛÛo p&
+superStateConfigurationÛÛq 
+)ÛÛ 
+;ÛÛ 
 }
-ฎฎ 
-}ฏฏ 
+ÜÜ 
+}ÝÝ 
 bC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\IStateConfigurationAsyncInternal.cs
 	namespace 	
 NStateManager
@@ -2751,7 +2879,7 @@ parameters] g
 ; 
 } 
 } 
-} 
+} ”
 OC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\IStateMachine.cs
 	namespace 	
 NStateManager
@@ -2906,9 +3034,31 @@ OC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\IStateMachine.cs
 )
  
 ;
- 
-} 
-} ฐ
+ 
+Func 
+< 
+T 
+, 
+TState 
+> 
+StateAccessor %
+{& '
+get( +
+;+ ,
+}- .
+Action 
+< 
+T 
+, 
+TState 
+> 
+StateMutator &
+{' (
+get) ,
+;, -
+}. /
+} 
+} 
 TC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\IStateMachineAsync.cs
 	namespace 	
 NStateManager
@@ -3066,10 +3216,20 @@ TC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\IStateMachineAsy
 ,@@b c
 CancellationToken@@d u
 cancellationToken	@@v 
+=
+@@ 
+default
+@@ ‘
+(
+@@‘ ’
+CancellationToken
+@@’ ฃ
 )
-@@ 
+@@ฃ ค
+)
+@@ค ฅ
 ;
-@@ 
+@@ฅ ฆ
 boolBB 
 	IsInStateBB 
 (BB 
@@ -3107,81 +3267,53 @@ TC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\IStateMachineAsy
 ;
 DD“ ”
 }EE 
-}FF ั
+}FF ซ
 TC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateConfiguration.cs
-	namespace 	
-NStateManager
+	namespace 	
+NStateManager
  
-{ 
-public 
+{ 
+public 
 
-class 
-StateConfiguration #
-<# $
-T$ %
-,% &
-TState' -
-,- .
-TTrigger/ 7
->7 8
-:9 :"
-StateConfigurationBase; Q
-<Q R
-TR S
-,S T
-TStateU [
-,[ \
-TTrigger] e
->e f
-,f g(
-IStateConfigurationInternal	h 
+class 
+StateConfiguration #
+<# $
+T$ %
+,% &
+TState' -
+,- .
+TTrigger/ 7
+>7 8
+:9 :"
+StateConfigurationBase; Q
+<Q R
+TR S
+,S T
+TStateU [
+,[ \
+TTrigger] e
+>e f
+,f g(
+IStateConfigurationInternal	h 
 <
- 
+ 
 T
- …
+ …
 ,
-… 
+… 
 TState
- 
+ 
 ,
- 
+ 
 TTrigger
- —
+ —
 >
-— 
-where 
-TState 
-: 
-IComparable "
-{ 
-private 
-readonly 
-
-Dictionary #
-<# $
-TState$ *
-,* +
-Action, 2
-<2 3
-T3 4
->4 5
->5 6&
-_previousStateEntryActions7 Q
-=R S
-newT W
-
-DictionaryX b
-<b c
-TStatec i
-,i j
-Actionk q
-<q r
-Tr s
->s t
->t u
-(u v
-)v w
-;w x
+— 
+where 
+TState 
+: 
+IComparable "
+{ 
 private 
 readonly 
 
@@ -3193,129 +3325,157 @@ Dictionary #
 <2 3
 T3 4
 >4 5
->5 6!
-_nextStateExitActions7 L
-=M N
-newO R
+>5 6&
+_previousStateEntryActions7 Q
+=R S
+newT W
 
-DictionaryS ]
-<] ^
-TState^ d
-,d e
-Actionf l
-<l m
-Tm n
->n o
->o p
-(p q
-)q r
-;r s
+DictionaryX b
+<b c
+TStatec i
+,i j
+Actionk q
+<q r
+Tr s
+>s t
+>t u
+(u v
+)v w
+;w x
 private 
 readonly 
 
 Dictionary #
-<# $
-TTrigger$ ,
-,, -
-TriggerActionBase. ?
-<? @
-T@ A
-,A B
-TTriggerC K
->K L
->L M
-_triggerActionsN ]
-=^ _
-new` c
+<# $
+TState$ *
+,* +
+Action, 2
+<2 3
+T3 4
+>4 5
+>5 6!
+_nextStateExitActions7 L
+=M N
+newO R
 
-Dictionaryd n
-<n o
-TTriggero w
-,w x
-TriggerActionBase	y 
+DictionaryS ]
+<] ^
+TState^ d
+,d e
+Actionf l
+<l m
+Tm n
+>n o
+>o p
+(p q
+)q r
+;r s
+private 
+readonly 
+
+Dictionary #
+<# $
+TTrigger$ ,
+,, -
+TriggerActionBase. ?
+<? @
+T@ A
+,A B
+TTriggerC K
+>K L
+>L M
+_triggerActionsN ]
+=^ _
+new` c
+
+Dictionaryd n
+<n o
+TTriggero w
+,w x
+TriggerActionBase	y 
 <
- 
+ 
 T
- 
+ 
 ,
- 
+ 
 TTrigger
- –
+ –
 >
-– —
+– —
 >
-— 
+— 
 (
- 
+ 
 )
- 
+ 
 ;
- 
-private 
-Action 
-< 
-T 
-> 
-_defaultEntryAction -
-;- .
+ 
 private 
 Action 
 < 
 T 
-> 
-_defaultExitAction ,
-;, -
+> 
+_defaultEntryAction -
+;- .
 private 
 Action 
 < 
 T 
-> 
-_reentryAction (
-;( )
-private   '
-IStateConfigurationInternal   +
-<  + ,
-T  , -
-,  - .
-TState  / 5
-,  5 6
-TTrigger  7 ?
->  ? @
-_superState  A L
-;  L M
-internal(( 
-StateConfiguration(( #
-(((# $
-TState(($ *
-state((+ 0
-,((0 1
-Func((2 6
-<((6 7
-T((7 8
-,((8 9
-TState((: @
->((@ A
-stateAccessor((B O
-,((O P
-Action((Q W
-<((W X
-T((X Y
-,((Y Z
-TState(([ a
->((a b
-stateMutator((c o
-)((o p
-:)) 
-base)) 
-()) 
-state)) 
-,)) 
-stateAccessor)) '
-,))' (
-stateMutator))) 5
-)))5 6
-{** 	
-}**
+> 
+_defaultExitAction ,
+;, -
+private   
+Action   
+<   
+T   
+>   
+_reentryAction   (
+;  ( )
+private!! '
+IStateConfigurationInternal!! +
+<!!+ ,
+T!!, -
+,!!- .
+TState!!/ 5
+,!!5 6
+TTrigger!!7 ?
+>!!? @
+_superState!!A L
+;!!L M
+internal)) 
+StateConfiguration)) #
+())# $
+TState))$ *
+state))+ 0
+,))0 1
+Func))2 6
+<))6 7
+T))7 8
+,))8 9
+TState)): @
+>))@ A
+stateAccessor))B O
+,))O P
+Action))Q W
+<))W X
+T))X Y
+,))Y Z
+TState))[ a
+>))a b
+stateMutator))c o
+)))o p
+:** 
+base** 
+(** 
+state** 
+,** 
+stateAccessor** '
+,**' (
+stateMutator**) 5
+)**5 6
+{++ 	
+}++
  
 public44 
 IStateConfiguration44 "
@@ -3325,1499 +3485,1597 @@ Dictionaryd n
 TState44& ,
 ,44, -
 TTrigger44. 6
->446 7 
-AddDynamicTransition448 L
-(44L M
-TTrigger44M U
-trigger44V ]
-,55 
-Func55 
-<55 
-T55 
-,55 
-TState55 
->55 
-function55 &
-,66 
-string66 
-name66 
-=66 
-null66  
-,77 
-uint77 
-priority77 
-=77 
-$num77 
-)77  
-{88 	
-if99 
-(99 
-function99 
-==99 
-null99  
-)99  !
-{:: 
-throw:: 
-new:: !
-ArgumentNullException:: -
-(::- .
-nameof::. 4
-(::4 5
-function::5 =
-)::= >
-)::> ?
-;::? @
-}::A B
-var<< 
-
-transition<< 
-=<< "
-StateTransitionFactory<< 3
-<<<3 4
-T<<4 5
-,<<5 6
-TState<<7 =
-,<<= >
-TTrigger<<? G
-><<G H
-.<<H I
-GetStateTransition<<I [
-(<<[ \
-StateAccessor<<\ i
-,== 
-StateMutator== 
-,>> 
-State>> 
-,?? 
-function?? 
-,@@ 
-name@@ 
-,AA 
-priorityAA 
-)AA 
-;AA 
-AddTransitionBB 
-(BB 
-triggerBB !
-,BB! "
-
-transitionBB# -
-)BB- .
-;BB. /
-returnDD 
-thisDD 
-;DD 
-}EE 	
-publicPP 
-IStateConfigurationPP "
-<PP" #
-TPP# $
-,PP$ %
-TStatePP& ,
-,PP, -
-TTriggerPP. 6
->PP6 7 
-AddDynamicTransitionPP8 L
-<PPL M
-TRequestPPM U
->PPU V
-(PPV W
-TTriggerPPW _
-triggerPP` g
-,QQ 
-FuncQQ 
-<QQ 
-TQQ 
-,QQ 
-TRequestQQ 
-,QQ 
-TStateQQ  &
->QQ& '
-functionQQ( 0
-,RR 
-stringRR 
-nameRR 
-=RR 
-nullRR  
-,SS 
-uintSS 
-prioritySS 
-=SS 
-$numSS 
-)SS  
-whereTT 
-TRequestTT 
-:TT 
-classTT "
-{UU 	
-ifVV 
-(VV 
-functionVV 
-==VV 
-nullVV  
-)VV  !
-{WW 
-throwWW 
-newWW !
-ArgumentNullExceptionWW -
-(WW- .
-nameofWW. 4
-(WW4 5
-functionWW5 =
-)WW= >
-)WW> ?
-;WW? @
-}WWA B
-varYY 
-
-transitionYY 
-=YY "
-StateTransitionFactoryYY 3
-<YY3 4
-TYY4 5
-,YY5 6
-TStateYY7 =
-,YY= >
-TTriggerYY? G
->YYG H
-.YYH I
-GetStateTransitionYYI [
-(YY[ \
-StateAccessorYY\ i
-,ZZ 
-StateMutatorZZ 
-,[[ 
-State[[ 
-,\\ 
-function\\ 
-,]] 
-name]] 
-,^^ 
-priority^^ 
-)^^ 
-;^^ 
-AddTransition__ 
-(__ 
-trigger__ !
-,__! "
-
-transition__# -
-)__- .
-;__. /
-returnaa 
-thisaa 
-;aa 
-}bb 	
-publicmm 
-IStateConfigurationmm "
-<mm" #
-Tmm# $
-,mm$ %
-TStatemm& ,
-,mm, -
-TTriggermm. 6
->mm6 7
-AddTransitionmm8 E
-(mmE F
-TTriggermmF N
-triggermmO V
-,nn 
-TStatenn 
-toStatenn 
-,oo 
-Funcoo 
-<oo 
-Too 
-,oo 
-booloo 
->oo 
-	conditionoo %
-=oo& '
-nulloo( ,
-,pp 
-stringpp 
-namepp 
-=pp 
-nullpp  
-,qq 
-uintqq 
-priorityqq 
-=qq 
-$numqq 
-)qq  
-{rr 	
-ifss 
-(ss 
-	conditionss 
-==ss 
-nullss !
-)ss! "
-{tt 
-	conditiontt 
-=tt 
-_tt 
-=>tt 
-truett #
-;tt# $
-}tt% &
-varvv 
-
-transitionvv 
-=vv "
-StateTransitionFactoryvv 3
-<vv3 4
-Tvv4 5
-,vv5 6
-TStatevv7 =
-,vv= >
-TTriggervv? G
->vvG H
-.vvH I
-GetStateTransitionvvI [
-(vv[ \
-StateAccessorvv\ i
-,ww 
-StateMutatorww 
-,xx 
-Statexx 
-,yy 
-toStateyy 
-,zz 
-	conditionzz 
-,{{ 
-name{{ 
-,|| 
-priority|| 
-)|| 
-;|| 
-AddTransition}} 
-(}} 
-trigger}} !
-,}}! "
-
-transition}}# -
-)}}- .
-;}}. /
-return 
-this 
-; 
-}
-€€ 	
-public
- !
-IStateConfiguration
- "
-<
-" #
-T
-# $
-,
-$ %
-TState
-& ,
-,
-, -
-TTrigger
-. 6
->
-6 7
-AddTransition
-8 E
-<
-E F
-TRequest
-F N
->
-N O
-(
-O P
-TTrigger
-P X
-trigger
-Y `
-,
- 
-TState
- 
-toState
- 
-,
- 
-Func
- 
-<
- 
-T
- 
-,
- 
-TRequest
- 
-,
- 
-bool
-  $
->
-$ %
-	condition
-& /
-,
- 
-string
- 
-name
- 
-=
- 
-null
-  
-,
- 
-uint
- 
+>446 7%
+AddAutoFallbackTransition448 Q
+(44Q R
+Func44R V
+<44V W
+T44W X
+,44X Y
+bool44Z ^
+>44^ _
+	condition44` i
+,44i j
+string44k q
+name44r v
+=44w x
+null44y }
+,44} ~
+uint	44 
 priority
- 
+44 
 =
- 
+44 
 $num
- 
+44 
 )
-  
-where
-‘‘ 
+44 ‘
+{55 	
+if66 
+(66 
+	condition66 
+==66 
+null66 !
+)66! "
+{77 
+throw77 
+new77 !
+ArgumentNullException77 -
+(77- .
+nameof77. 4
+(774 5
+	condition775 >
+)77> ?
+)77? @
+;77@ A
+}77B C
+var99 
+
+transition99 
+=99 "
+StateTransitionFactory99 3
+<993 4
+T994 5
+,995 6
+TState997 =
+,99= >
+TTrigger99? G
+>99G H
+.99H I
+GetStateTransition99I [
+(99[ \
+StateAccessor99\ i
+,:: 
+StateMutator:: 
+,;; 
+State;; 
+,<< 
+State<< 
+,== 
+	condition== 
+,>> 
+name>> 
+,?? 
+priority?? 
+)?? 
+;?? 
+AddAutoTransition@@ 
+(@@ 
+
+transition@@ (
+)@@( )
+;@@) *
+returnBB 
+thisBB 
+;BB 
+}CC 	
+publicLL 
+IStateConfigurationLL "
+<LL" #
+TLL# $
+,LL$ %
+TStateLL& ,
+,LL, -
+TTriggerLL. 6
+>LL6 7%
+AddAutoFallbackTransitionLL8 Q
+<LLQ R
+TRequestLLR Z
+>LLZ [
+(LL[ \
+FuncLL\ `
+<LL` a
+TLLa b
+,LLb c
+TRequestLLd l
+,LLl m
+boolLLn r
+>LLr s
+	conditionLLt }
+,MM
+ 
+stringMM 
+nameMM 
+=MM 
+nullMM 
+,NN
+ 
+uintNN 
+priorityNN 
+=NN 
+$numNN 
+)NN 
+whereOO 
+TRequestOO 
+:OO 
+classOO "
+{PP 	
+ifQQ 
+(QQ 
+	conditionQQ 
+==QQ 
+nullQQ !
+)QQ! "
+{RR 
+throwRR 
+newRR !
+ArgumentNullExceptionRR -
+(RR- .
+nameofRR. 4
+(RR4 5
+	conditionRR5 >
+)RR> ?
+)RR? @
+;RR@ A
+}RRB C
+varTT 
+
+transitionTT 
+=TT "
+StateTransitionFactoryTT 3
+<TT3 4
+TTT4 5
+,TT5 6
+TStateTT7 =
+,TT= >
+TTriggerTT? G
+>TTG H
+.TTH I
+GetStateTransitionTTI [
+(TT[ \
+StateAccessorTT\ i
+,UU 
+StateMutatorUU 
+,VV 
+StateVV 
+,WW 
+StateWW 
+,XX 
+	conditionXX 
+,YY 
+nameYY 
+,ZZ 
+priorityZZ 
+)ZZ 
+;ZZ 
+AddAutoTransition[[ 
+([[ 
+
+transition[[ (
+)[[( )
+;[[) *
+return]] 
+this]] 
+;]] 
+}^^ 	
+publichh 
+IStateConfigurationhh "
+<hh" #
+Thh# $
+,hh$ %
+TStatehh& ,
+,hh, -
+TTriggerhh. 6
+>hh6 7%
+AddAutoFallbackTransitionhh8 Q
+(hhQ R
+TStatehhR X
+previousStatehhY f
+,ii
+ 
+Funcii 
+<ii 
+Tii 
+,ii 
+boolii 
+>ii 
+	conditionii #
+,jj
+ 
+stringjj 
+namejj 
+=jj 
+nulljj 
+,kk
+ 
+uintkk 
+prioritykk 
+=kk 
+$numkk 
+)kk 
+{ll 	
+ifmm 
+(mm 
+	conditionmm 
+==mm 
+nullmm !
+)mm! "
+{nn 
+thrownn 
+newnn !
+ArgumentNullExceptionnn -
+(nn- .
+nameofnn. 4
+(nn4 5
+	conditionnn5 >
+)nn> ?
+)nn? @
+;nn@ A
+}nnB C
+varpp 
+
+transitionpp 
+=pp "
+StateTransitionFactorypp 3
+<pp3 4
+Tpp4 5
+,pp5 6
+TStatepp7 =
+,pp= >
+TTriggerpp? G
+>ppG H
+.ppH I
+GetStateTransitionppI [
+(pp[ \
+StateAccessorpp\ i
+,qq 
+StateMutatorqq 
+,rr 
+Staterr 
+,ss 
+Statess 
+,tt 
+	conditiontt 
+,uu 
+nameuu 
+,vv 
+priorityvv 
+)vv 
+;vv 
+AddAutoTransitionww 
+(ww 
+
+transitionww (
+)ww( )
+;ww) *
+returnyy 
+thisyy 
+;yy 
+}zz 	
+public
+ !
+IStateConfiguration
+ "
+<
+" #
+T
+# $
+,
+$ %
+TState
+& ,
+,
+, -
+TTrigger
+. 6
+>
+6 7'
+AddAutoFallbackTransition
+8 Q
+<
+Q R
 TRequest
-‘‘ 
-:
-‘‘ 
-class
-‘‘ "
-{
-’’ 	
-if
-““ 
+R Z
+>
+Z [
 (
-““ 
+[ \
+TState
+\ b
+previousState
+c p
+,
+……
+ 
+Func
+…… 
+<
+…… 
+T
+…… 
+,
+…… 
+TRequest
+…… 
+,
+…… 
+bool
+…… "
+>
+……" #
 	condition
-““ 
-==
-““ 
+……$ -
+,
+
+ 
+string
+ 
+name
+ 
+=
+ 
 null
-““ !
+ 
+,
+
+ 
+uint
+ 
+priority
+ 
+=
+ 
+$num
+ 
 )
-““! "
+ 
+where
+ 
+TRequest
+ 
+:
+ 
+class
+ "
 {
-”” 
+ 	
+if
+ 
+(
+ 
+	condition
+ 
+==
+ 
+null
+ !
+)
+! "
+{
+ 
 throw
-”” 
+ 
 new
-”” #
+ #
 ArgumentNullException
-”” -
+ -
 (
-””- .
+- .
 nameof
-””. 4
+. 4
 (
-””4 5
+4 5
 	condition
-””5 >
+5 >
 )
-””> ?
+> ?
 )
-””? @
+? @
 ;
-””@ A
+@ A
 }
-””B C
+B C
+if
+ 
+(
+ 
+!
+ *
+AutoPreviousStateTransitions
+ -
+.
+- .
+TryGetValue
+. 9
+(
+9 :
+previousState
+: G
+,
+G H
+out
+I L
 var
-–– 
-
-transition
-–– 
-=
-–– $
-StateTransitionFactory
-–– 3
-<
-––3 4
-T
-––4 5
-,
-––5 6
-TState
-––7 =
-,
-––= >
-TTrigger
-––? G
->
-––G H
-.
-––H I 
-GetStateTransition
-––I [
-(
-––[ \
-StateAccessor
-––\ i
-,
-—— 
-StateMutator
-—— 
-,
- 
-State
- 
-,
- 
-toState
- 
-,
- 
-	condition
- 
-,
- 
-name
- 
-,
- 
-priority
- 
+M P
+transitions
+Q \
 )
- 
-;
- 
-AddTransition
- 
-(
- 
-trigger
- !
-,
-! "
-
-transition
-# -
+\ ]
 )
-- .
-;
-. /
-return
- 
-this
- 
-;
- 
-}
-   	
-public
-ชช !
-IStateConfiguration
-ชช "
-<
-ชช" #
-T
-ชช# $
-,
-ชช$ %
-TState
-ชช& ,
-,
-ชช, -
-TTrigger
-ชช. 6
->
-ชช6 7
-AddAutoTransition
-ชช8 I
-(
-ชชI J
-TState
-ชชJ P
-toState
-ชชQ X
-,
-ซซ 
-Func
-ซซ 
-<
-ซซ 
-T
-ซซ 
-,
-ซซ 
-bool
-ซซ 
->
-ซซ 
-	condition
-ซซ %
-=
-ซซ& '
-null
-ซซ( ,
-,
-ฌฌ 
-string
-ฌฌ 
-name
-ฌฌ 
-=
-ฌฌ 
-null
-ฌฌ  
-,
-ญญ 
-uint
-ญญ 
-priority
-ญญ 
-=
-ญญ 
-$num
-ญญ 
-)
-ญญ  
+] ^
 {
-ฎฎ 	
-if
-ฏฏ 
-(
-ฏฏ #
-DefaultAutoTransition
-ฏฏ %
-!=
-ฏฏ& (
-null
-ฏฏ) -
-)
-ฏฏ- .
-{
-ฐฐ 
-throw
-ฐฐ 
+ 
+transitions
+ 
+=
+ 
 new
-ฐฐ '
-InvalidOperationException
-ฐฐ 1
-(
-ฐฐ1 2
-$str
-ฐฐ2 d
-)
-ฐฐd e
-;
-ฐฐe f
-}
-ฐฐg h
-if
-ฒฒ 
-(
-ฒฒ 
-	condition
-ฒฒ 
-==
-ฒฒ 
-null
-ฒฒ !
-)
-ฒฒ! "
-{
-ณณ 
-	condition
-ณณ 
-=
-ณณ 
-_
-ณณ 
-=>
-ณณ 
-true
-ณณ #
-;
-ณณ# $
-}
-ณณ% &#
-DefaultAutoTransition
-ตต !
-=
-ตต" #$
-StateTransitionFactory
-ตต$ :
+ !
+List
+" &
 <
-ตต: ;
+& '!
+StateTransitionBase
+' :
+<
+: ;
 T
-ตต; <
+; <
 ,
-ตต< =
+< =
 TState
-ตต> D
+> D
 ,
-ตตD E
+D E
 TTrigger
-ตตF N
+F N
 >
-ตตN O
+N O
+>
+O P
+(
+P Q
+)
+Q R
+;
+R S*
+AutoPreviousStateTransitions
+ ,
 .
-ตตO P 
-GetStateTransition
-ตตP b
+, -
+Add
+- 0
 (
-ตตb c
-StateAccessor
-ตตc p
+0 1
+previousState
+1 >
 ,
-ถถ 
-StateMutator
-ถถ 
-,
-ทท 
-State
-ทท 
-,
-ธธ 
-toState
-ธธ 
-,
-นน 
-	condition
-นน 
-,
-บบ 
-name
-บบ 
-,
-ปป 
-priority
-ปป 
+> ?
+transitions
+@ K
 )
-ปป 
+K L
 ;
-ปป 
-return
-ฝฝ 
-this
-ฝฝ 
-;
-ฝฝ 
+L M
 }
-พพ 	
-public
-ษษ !
-IStateConfiguration
-ษษ "
+‘‘ 
+var
+““ 
+
+transition
+““ 
+=
+““ $
+StateTransitionFactory
+““ 3
 <
-ษษ" #
+““3 4
 T
-ษษ# $
+““4 5
 ,
-ษษ$ %
+““5 6
 TState
-ษษ& ,
+““7 =
 ,
-ษษ, -
+““= >
 TTrigger
-ษษ. 6
+““? G
 >
-ษษ6 7
-AddAutoTransition
-ษษ8 I
-<
-ษษI J
-TRequest
-ษษJ R
->
-ษษR S
+““G H
+.
+““H I 
+GetStateTransition
+““I [
 (
-ษษS T
-TState
-ษษT Z
-toState
-ษษ[ b
+““[ \
+StateAccessor
+““\ i
 ,
-สส 
-Func
-สส 
-<
-สส 
-T
-สส 
+”” 
+StateMutator
+”” 
 ,
-สส 
-TRequest
-สส 
+•• 
+State
+•• 
 ,
-สส 
-bool
-สส  $
->
-สส$ %
+–– 
+State
+–– 
+,
+—— 
 	condition
-สส& /
-=
-สส0 1
-null
-สส2 6
+—— 
 ,
-หห 
-string
-หห 
+ 
 name
-หห 
-=
-หห 
-null
-หห  
+ 
 ,
-ฬฬ 
-uint
-ฬฬ 
+ 
 priority
-ฬฬ 
-=
-ฬฬ 
-$num
-ฬฬ 
+ 
 )
-ฬฬ  
+ 
+;
+ 
+transitions
+ 
+.
+ 
+Add
+ 
+(
+ 
+
+transition
+ &
+)
+& '
+;
+' (
+return
+ 
+this
+ 
+;
+ 
+}
+ 	
+public
+งง !
+IStateConfiguration
+งง "
+<
+งง" #
+T
+งง# $
+,
+งง$ %
+TState
+งง& ,
+,
+งง, -
+TTrigger
+งง. 6
+>
+งง6 7&
+AddAutoForwardTransition
+งง8 P
+(
+งงP Q
+TState
+งงQ W
+toState
+งงX _
+,
+จจ
+ 
+Func
+จจ 
+<
+จจ 
+T
+จจ 
+,
+จจ 
+bool
+จจ 
+>
+จจ 
+	condition
+จจ #
+,
+ฉฉ
+ 
+string
+ฉฉ 
+name
+ฉฉ 
+=
+ฉฉ 
+null
+ฉฉ 
+,
+ชช
+ 
+uint
+ชช 
+priority
+ชช 
+=
+ชช 
+$num
+ชช 
+)
+ชช 
+{
+ซซ 	
+if
+ฌฌ 
+(
+ฌฌ 
+	condition
+ฌฌ 
+==
+ฌฌ 
+null
+ฌฌ !
+)
+ฌฌ! "
+{
+ญญ 
+throw
+ญญ 
+new
+ญญ #
+ArgumentNullException
+ญญ -
+(
+ญญ- .
+nameof
+ญญ. 4
+(
+ญญ4 5
+	condition
+ญญ5 >
+)
+ญญ> ?
+)
+ญญ? @
+;
+ญญ@ A
+}
+ญญB C
+var
+ฏฏ 
+
+transition
+ฏฏ 
+=
+ฏฏ $
+StateTransitionFactory
+ฏฏ 3
+<
+ฏฏ3 4
+T
+ฏฏ4 5
+,
+ฏฏ5 6
+TState
+ฏฏ7 =
+,
+ฏฏ= >
+TTrigger
+ฏฏ? G
+>
+ฏฏG H
+.
+ฏฏH I 
+GetStateTransition
+ฏฏI [
+(
+ฏฏ[ \
+StateAccessor
+ฏฏ\ i
+,
+ฐฐ 
+StateMutator
+ฐฐ 
+,
+ฑฑ 
+State
+ฑฑ 
+,
+ฒฒ 
+toState
+ฒฒ 
+,
+ณณ 
+	condition
+ณณ 
+,
+ดด 
+name
+ดด 
+,
+ตต 
+priority
+ตต 
+)
+ตต 
+;
+ตต 
+AddAutoTransition
+ถถ 
+(
+ถถ 
+
+transition
+ถถ (
+)
+ถถ( )
+;
+ถถ) *
+return
+ธธ 
+this
+ธธ 
+;
+ธธ 
+}
+นน 	
+public
+ฤฤ !
+IStateConfiguration
+ฤฤ "
+<
+ฤฤ" #
+T
+ฤฤ# $
+,
+ฤฤ$ %
+TState
+ฤฤ& ,
+,
+ฤฤ, -
+TTrigger
+ฤฤ. 6
+>
+ฤฤ6 7&
+AddAutoForwardTransition
+ฤฤ8 P
+<
+ฤฤP Q
+TRequest
+ฤฤQ Y
+>
+ฤฤY Z
+(
+ฤฤZ [
+TState
+ฤฤ[ a
+toState
+ฤฤb i
+,
+ลล 
+Func
+ลล 
+<
+ลล 
+T
+ลล 
+,
+ลล 
+TRequest
+ลล 
+,
+ลล 
+bool
+ลล  $
+>
+ลล$ %
+	condition
+ลล& /
+,
+ฦฦ 
+string
+ฦฦ 
+name
+ฦฦ 
+=
+ฦฦ 
+null
+ฦฦ  
+,
+วว 
+uint
+วว 
+priority
+วว 
+=
+วว 
+$num
+วว 
+)
+วว  
 where
-ออ 
+ศศ 
 TRequest
-ออ 
+ศศ 
 :
-ออ 
+ศศ 
 class
-ออ "
+ศศ "
 {
-ฮฮ 	
+ษษ 	
 if
-ฯฯ 
+สส 
 (
-ฯฯ #
-DefaultAutoTransition
-ฯฯ %
-!=
-ฯฯ& (
-null
-ฯฯ) -
-)
-ฯฯ- .
-{
-ะะ 
-throw
-ะะ 
-new
-ะะ '
-InvalidOperationException
-ะะ 1
-(
-ะะ1 2
-$str
-ะะ2 b
-)
-ะะb c
-;
-ะะc d
-}
-ะะe f
-if
-าา 
-(
-าา 
+สส 
 	condition
-าา 
+สส 
 ==
-าา 
+สส 
 null
-าา !
+สส !
 )
-าา! "
+สส! "
 {
-ำำ 
+หห 
+throw
+หห 
+new
+หห #
+ArgumentNullException
+หห -
+(
+หห- .
+nameof
+หห. 4
+(
+หห4 5
 	condition
-ำำ 
+หห5 >
+)
+หห> ?
+)
+หห? @
+;
+หห@ A
+}
+หหB C
+var
+ออ 
+
+transition
+ออ 
 =
+ออ $
+StateTransitionFactory
+ออ 3
+<
+ออ3 4
+T
+ออ4 5
+,
+ออ5 6
+TState
+ออ7 =
+,
+ออ= >
+TTrigger
+ออ? G
+>
+ออG H
+.
+ออH I 
+GetStateTransition
+ออI [
+(
+ออ[ \
+StateAccessor
+ออ\ i
+,
+ฮฮ 
+StateMutator
+ฮฮ 
+,
+ฯฯ 
+State
+ฯฯ 
+,
+ะะ 
+toState
+ะะ 
+,
+ัั 
+	condition
+ัั 
+,
+าา 
+name
+าา 
+,
+ำำ 
+priority
+ำำ 
+)
 ำำ 
-(
-ำำ 
-_
-ำำ 
-,
-ำำ 
-request
-ำำ %
-)
-ำำ% &
-=>
-ำำ' )
-true
-ำำ* .
 ;
-ำำ. /
-}
-ำำ0 1#
-DefaultAutoTransition
-ีี !
-=
-ีี" #$
-StateTransitionFactory
-ีี$ :
-<
-ีี: ;
-T
-ีี; <
-,
-ีี< =
-TState
-ีี> D
-,
-ีีD E
-TTrigger
-ีีF N
->
-ีีN O
-.
-ีีO P 
-GetStateTransition
-ีีP b
-(
-ีีb c
-StateAccessor
-ีีc p
-,
-ึึ 
-StateMutator
-ึึ 
-,
-ืื 
-State
-ืื 
-,
-ุุ 
-toState
-ุุ 
-,
-ูู 
-	condition
-ูู 
-,
-ฺฺ 
-name
-ฺฺ 
-,
-ÛÛ 
-priority
-ÛÛ 
-)
-ÛÛ 
-;
-ÛÛ 
-return
-ÝÝ 
-this
-ÝÝ 
-;
-ÝÝ 
-}
-ÞÞ 	
-public
-้้ !
-IStateConfiguration
-้้ "
-<
-้้" #
-T
-้้# $
-,
-้้$ %
-TState
-้้& ,
-,
-้้, -
-TTrigger
-้้. 6
->
-้้6 7
+ำำ 
 AddAutoTransition
-้้8 I
+ิิ 
 (
-้้I J
-TState
-้้J P
-toState
-้้Q X
-,
-๊๊ 
-Func
-๊๊ 
-<
-๊๊ 
-T
-๊๊ 
-,
-๊๊ 
-bool
-๊๊ 
->
-๊๊ 
-	condition
-๊๊ %
-,
-๋๋ 
-TState
-๋๋ 
-previousState
-๋๋ "
-,
-์์ 
-string
-์์ 
-name
-์์ 
-=
-์์ 
-null
-์์  
-,
-ํํ 
-uint
-ํํ 
-priority
-ํํ 
-=
-ํํ 
-$num
-ํํ 
-)
-ํํ  
-{
-๎๎ 	
-if
-๏๏ 
-(
-๏๏ 
-	condition
-๏๏ 
-==
-๏๏ 
-null
-๏๏ !
-)
-๏๏! "
-{
-๐๐ 
-throw
-๐๐ 
-new
-๐๐ #
-ArgumentNullException
-๐๐ -
-(
-๐๐- .
-nameof
-๐๐. 4
-(
-๐๐4 5
-	condition
-๐๐5 >
-)
-๐๐> ?
-)
-๐๐? @
-;
-๐๐@ A
-}
-๐๐B C
-if
-๒๒ 
-(
-๒๒ *
-PreviousStateAutoTransitions
-๒๒ ,
-.
-๒๒, -
-ContainsKey
-๒๒- 8
-(
-๒๒8 9
-previousState
-๒๒9 F
-)
-๒๒F G
-)
-๒๒G H
-{
-๓๓ 
-throw
-๔๔ 
-new
-๔๔ '
-InvalidOperationException
-๔๔ 3
-(
-๔๔3 4
-$"
-๕๕ 1
-#AutoTransition already defined for 
-๕๕ 9
-{
-๕๕9 :
-previousState
-๕๕: G
-}
-๕๕G H<
-.. Only one auto transition allowed per toState
-๕๕H v
-"
-๕๕v w
-)
-๕๕w x
-;
-๕๕x y
-}
-๖๖ 
-var
-๘๘ 
+ิิ 
 
 transition
-๘๘ 
-=
-๘๘ $
-StateTransitionFactory
-๘๘ 3
-<
-๘๘3 4
-T
-๘๘4 5
-,
-๘๘5 6
-TState
-๘๘7 =
-,
-๘๘= >
-TTrigger
-๘๘? G
->
-๘๘G H
-.
-๘๘H I 
-GetStateTransition
-๘๘I [
-(
-๘๘[ \
-StateAccessor
-๘๘\ i
-,
-๙๙ 
-StateMutator
-๙๙ 
-,
-๚๚ 
-State
-๚๚ 
-,
-๛๛ 
-toState
-๛๛ 
-,
-üü 
-	condition
-üü 
-,
-ýý 
-name
-ýý 
-,
-þþ 
-priority
-þþ 
+ิิ (
 )
-þþ 
+ิิ( )
 ;
-þþ *
-PreviousStateAutoTransitions
-ÿÿ (
-.
-ÿÿ( )
-Add
-ÿÿ) ,
-(
-ÿÿ, -
-previousState
-ÿÿ- :
-,
-ÿÿ: ;
-
-transition
-ÿÿ< F
-)
-ÿÿF G
-;
-ÿÿG H
+ิิ) *
 return
- 
+ึึ 
 this
- 
+ึึ 
 ;
- 
+ึึ 
 }
- 	
+ืื 	
 public
- !
+โโ !
 IStateConfiguration
- "
+โโ "
 <
-" #
+โโ" #
 T
-# $
+โโ# $
 ,
-$ %
+โโ$ %
 TState
-& ,
+โโ& ,
 ,
-, -
+โโ, -
 TTrigger
-. 6
+โโ. 6
 >
-6 7
-AddAutoTransition
-8 I
-<
-I J
-TRequest
-J R
->
-R S
+โโ6 7&
+AddAutoForwardTransition
+โโ8 P
 (
-S T
+โโP Q
 TState
-T Z
+โโQ W
 toState
-[ b
+โโX _
 ,
- 
+ใใ 
 Func
- 
+ใใ 
 <
- 
+ใใ 
 T
- 
+ใใ 
 ,
- 
-TRequest
- 
-,
- 
+ใใ 
 bool
-  $
+ใใ 
 >
-$ %
+ใใ 
 	condition
-& /
+ใใ %
 ,
- 
+ไไ 
 TState
- 
+ไไ 
 previousState
- "
+ไไ "
 ,
-‘‘ 
+ๅๅ 
 string
-‘‘ 
+ๅๅ 
 name
-‘‘ 
+ๅๅ 
 =
-‘‘ 
+ๅๅ 
 null
-‘‘  
+ๅๅ  
 ,
-’’ 
+ๆๆ 
 uint
-’’ 
+ๆๆ 
 priority
-’’ 
+ๆๆ 
 =
-’’ 
+ๆๆ 
 $num
-’’ 
+ๆๆ 
 )
-’’  
-where
-““ 
-TRequest
-““ 
-:
-““ 
-class
-““ "
+ๆๆ  
 {
-”” 	
+็็ 	
 if
-•• 
+่่ 
 (
-•• 
+่่ 
 	condition
-•• 
+่่ 
 ==
-•• 
+่่ 
 null
-•• !
+่่ !
 )
-••! "
+่่! "
 {
-–– 
+้้ 
 throw
-–– 
+้้ 
 new
-–– #
+้้ #
 ArgumentNullException
-–– -
+้้ -
 (
-––- .
+้้- .
 nameof
-––. 4
+้้. 4
 (
-––4 5
+้้4 5
 	condition
-––5 >
+้้5 >
 )
-––> ?
+้้> ?
 )
-––? @
+้้? @
 ;
-––@ A
+้้@ A
 }
-––B C
+้้B C
 if
- 
+๋๋ 
 (
- *
-PreviousStateAutoTransitions
- ,
+๋๋ 
+!
+๋๋ *
+AutoPreviousStateTransitions
+๋๋ -
 .
-, -
-ContainsKey
-- 8
+๋๋- .
+TryGetValue
+๋๋. 9
 (
-8 9
+๋๋9 :
 previousState
-9 F
-)
-F G
-)
-G H
-{
- 
-throw
- 
-new
- '
-InvalidOperationException
- 3
-(
-3 4
-$"
- 1
-#AutoTransition already defined for 
- 9
-{
-9 :
-previousState
-: G
-}
-G HC
-5. Only one auto transition allowed per previous state
-H }
-"
-} ~
-)
-~ 
-; €
-}
- 
+๋๋: G
+,
+๋๋G H
+out
+๋๋I L
 var
- 
-
-transition
- 
-=
- $
-StateTransitionFactory
- 3
-<
-3 4
-T
-4 5
-,
-5 6
-TState
-7 =
-,
-= >
-TTrigger
-? G
->
-G H
-.
-H I 
-GetStateTransition
-I [
-(
-[ \
-StateAccessor
-\ i
-,
- 
-StateMutator
- 
-,
-   
-State
-   
-,
-กก 
-toState
-กก 
-,
-ขข 
-	condition
-ขข 
-,
-ฃฃ 
-name
-ฃฃ 
-,
-คค 
-priority
-คค 
+๋๋M P
+transitions
+๋๋Q \
 )
-คค 
+๋๋\ ]
+)
+๋๋] ^
+{
+์์ 
+transitions
+ํํ 
+=
+ํํ 
+new
+ํํ !
+List
+ํํ" &
+<
+ํํ& '!
+StateTransitionBase
+ํํ' :
+<
+ํํ: ;
+T
+ํํ; <
+,
+ํํ< =
+TState
+ํํ> D
+,
+ํํD E
+TTrigger
+ํํF N
+>
+ํํN O
+>
+ํํO P
+(
+ํํP Q
+)
+ํํQ R
 ;
-คค *
-PreviousStateAutoTransitions
-ฅฅ (
+ํํR S*
+AutoPreviousStateTransitions
+๎๎ ,
 .
-ฅฅ( )
+๎๎, -
 Add
-ฅฅ) ,
+๎๎- 0
 (
-ฅฅ, -
+๎๎0 1
 previousState
-ฅฅ- :
+๎๎1 >
 ,
-ฅฅ: ;
+๎๎> ?
+transitions
+๎๎@ K
+)
+๎๎K L
+;
+๎๎L M
+}
+๏๏ 
+var
+๑๑ 
 
 transition
-ฅฅ< F
-)
-ฅฅF G
-;
-ฅฅG H
-return
-งง 
-this
-งง 
-;
-งง 
-}
-จจ 	
-public
-ชช !
-IStateConfiguration
-ชช "
+๑๑ 
+=
+๑๑ $
+StateTransitionFactory
+๑๑ 3
 <
-ชช" #
+๑๑3 4
 T
-ชช# $
+๑๑4 5
 ,
-ชช$ %
+๑๑5 6
 TState
-ชช& ,
+๑๑7 =
 ,
-ชช, -
+๑๑= >
 TTrigger
-ชช. 6
+๑๑? G
 >
-ชช6 7#
-AddFallbackTransition
-ชช8 M
-<
-ชชM N
-TRequest
-ชชN V
->
-ชชV W
+๑๑G H
+.
+๑๑H I 
+GetStateTransition
+๑๑I [
 (
-ชชW X
-Func
-ชชX \
-<
-ชช\ ]
-T
-ชช] ^
+๑๑[ \
+StateAccessor
+๑๑\ i
 ,
-ชช^ _
-TRequest
-ชช` h
+๒๒ 
+StateMutator
+๒๒ 
 ,
-ชชh i
-bool
-ชชj n
->
-ชชn o
+๓๓ 
+State
+๓๓ 
+,
+๔๔ 
+toState
+๔๔ 
+,
+๕๕ 
 	condition
-ชชp y
+๕๕ 
 ,
-ซซ 
-TState
-ซซ 
-previousState
-ซซ "
-,
-ฌฌ 
-string
-ฌฌ 
+๖๖ 
 name
-ฌฌ 
-=
-ฌฌ 
-null
-ฌฌ  
+๖๖ 
 ,
-ญญ 
-uint
-ญญ 
+๗๗ 
 priority
-ญญ 
-=
-ญญ 
-$num
-ญญ 
+๗๗ 
 )
-ญญ  
-where
-ฎฎ 
+๗๗ 
+;
+๗๗ 
+transitions
+๘๘ 
+.
+๘๘ 
+Add
+๘๘ 
+(
+๘๘ 
+
+transition
+๘๘ &
+)
+๘๘& '
+;
+๘๘' (
+return
+๚๚ 
+this
+๚๚ 
+;
+๚๚ 
+}
+๛๛ 	
+public
+ !
+IStateConfiguration
+ "
+<
+" #
+T
+# $
+,
+$ %
+TState
+& ,
+,
+, -
+TTrigger
+. 6
+>
+6 7&
+AddAutoForwardTransition
+8 P
+<
+P Q
 TRequest
-ฎฎ 
+Q Y
+>
+Y Z
+(
+Z [
+TState
+[ a
+toState
+b i
+,
+ 
+Func
+ 
+<
+ 
+T
+ 
+,
+ 
+TRequest
+ 
+,
+ 
+bool
+  $
+>
+$ %
+	condition
+& /
+,
+ 
+TState
+ 
+previousState
+ "
+,
+ 
+string
+ 
+name
+ 
+=
+ 
+null
+  
+,
+ 
+uint
+ 
+priority
+ 
+=
+ 
+$num
+ 
+)
+  
+where
+ 
+TRequest
+ 
 :
-ฎฎ 
+ 
 class
-ฎฎ "
+ "
+{
+ 	
+if
+ 
+(
+ 
+	condition
+ 
+==
+ 
+null
+ !
+)
+! "
+{
+ 
+throw
+ 
+new
+ #
+ArgumentNullException
+ -
+(
+- .
+nameof
+. 4
+(
+4 5
+	condition
+5 >
+)
+> ?
+)
+? @
+;
+@ A
+}
+B C
+if
+‘‘ 
+(
+‘‘ 
+!
+‘‘ *
+AutoPreviousStateTransitions
+‘‘ -
+.
+‘‘- .
+TryGetValue
+‘‘. 9
+(
+‘‘9 :
+previousState
+‘‘: G
+,
+‘‘G H
+out
+‘‘I L
+var
+‘‘M P
+transitions
+‘‘Q \
+)
+‘‘\ ]
+)
+‘‘] ^
+{
+’’ 
+transitions
+““ 
+=
+““ 
+new
+““ !
+List
+““" &
+<
+““& '!
+StateTransitionBase
+““' :
+<
+““: ;
+T
+““; <
+,
+““< =
+TState
+““> D
+,
+““D E
+TTrigger
+““F N
+>
+““N O
+>
+““O P
+(
+““P Q
+)
+““Q R
+;
+““R S*
+AutoPreviousStateTransitions
+”” ,
+.
+””, -
+Add
+””- 0
+(
+””0 1
+previousState
+””1 >
+,
+””> ?
+transitions
+””@ K
+)
+””K L
+;
+””L M
+}
+•• 
+var
+—— 
+
+transition
+—— 
+=
+—— $
+StateTransitionFactory
+—— 3
+<
+——3 4
+T
+——4 5
+,
+——5 6
+TState
+——7 =
+,
+——= >
+TTrigger
+——? G
+>
+——G H
+.
+——H I 
+GetStateTransition
+——I [
+(
+——[ \
+StateAccessor
+——\ i
+,
+ 
+StateMutator
+ 
+,
+ 
+State
+ 
+,
+ 
+toState
+ 
+,
+ 
+	condition
+ 
+,
+ 
+name
+ 
+,
+ 
+priority
+ 
+)
+ 
+;
+ 
+transitions
+ 
+.
+ 
+Add
+ 
+(
+ 
+
+transition
+ &
+)
+& '
+;
+' (
+return
+   
+this
+   
+;
+   
+}
+กก 	
+public
+ซซ !
+IStateConfiguration
+ซซ "
+<
+ซซ" #
+T
+ซซ# $
+,
+ซซ$ %
+TState
+ซซ& ,
+,
+ซซ, -
+TTrigger
+ซซ. 6
+>
+ซซ6 7"
+AddDynamicTransition
+ซซ8 L
+(
+ซซL M
+TTrigger
+ซซM U
+trigger
+ซซV ]
+,
+ฌฌ 
+Func
+ฌฌ 
+<
+ฌฌ 
+T
+ฌฌ 
+,
+ฌฌ 
+TState
+ฌฌ 
+>
+ฌฌ 
+function
+ฌฌ &
+,
+ญญ 
+string
+ญญ 
+name
+ญญ 
+=
+ญญ 
+null
+ญญ  
+,
+ฎฎ 
+uint
+ฎฎ 
+priority
+ฎฎ 
+=
+ฎฎ 
+$num
+ฎฎ 
+)
+ฎฎ  
 {
 ฏฏ 	
 if
 ฐฐ 
 (
-ฐฐ 
-	condition
-ฐฐ 
+ฐฐ 
+function
+ฐฐ 
 ==
-ฐฐ 
+ฐฐ 
 null
-ฐฐ !
+ฐฐ  
 )
-ฐฐ! "
+ฐฐ  !
 {
 ฑฑ 
 throw
@@ -4831,2844 +5089,2870 @@ transition
 nameof
 ฑฑ. 4
 (
-ฑฑ4 5
-	condition
-ฑฑ5 >
+ฑฑ4 5
+function
+ฑฑ5 =
+)
+ฑฑ= >
 )
 ฑฑ> ?
-)
+;
 ฑฑ? @
-;
-ฑฑ@ A
 }
-ฑฑB C
-if
-ณณ 
-(
-ณณ *
-PreviousStateAutoTransitions
-ณณ ,
-.
-ณณ, -
-ContainsKey
-ณณ- 8
-(
-ณณ8 9
-previousState
-ณณ9 F
-)
-ณณF G
-)
+ฑฑA B
+var
+ณณ 
+
+transition
+ณณ 
+=
+ณณ $
+StateTransitionFactory
+ณณ 3
+<
+ณณ3 4
+T
+ณณ4 5
+,
+ณณ5 6
+TState
+ณณ7 =
+,
+ณณ= >
+TTrigger
+ณณ? G
+>
 ณณG H
-{
-ดด 
-throw
-ตต 
-new
-ตต '
-InvalidOperationException
-ตต 3
+.
+ณณH I 
+GetStateTransition
+ณณI [
 (
-ตต3 4
-$"
-ถถ 1
-#AutoTransition already defined for 
-ถถ 9
-{
-ถถ9 :
-previousState
-ถถ: G
-}
-ถถG HC
-5. Only one auto transition allowed per previous state
-ถถH }
-"
-ถถ} ~
+ณณ[ \
+StateAccessor
+ณณ\ i
+,
+ดด 
+StateMutator
+ดด 
+,
+ตต 
+State
+ตต 
+,
+ถถ 
+function
+ถถ 
+,
+ทท 
+name
+ทท 
+,
+ธธ 
+priority
+ธธ 
 )
-ถถ~ 
-;ถถ €
-}
-ทท 
-var
-นน 
+ธธ 
+;
+ธธ 
+AddTransition
+นน 
+(
+นน 
+trigger
+นน !
+,
+นน! "
 
 transition
-นน 
-=
-นน $
-StateTransitionFactory
-นน 3
-<
-นน3 4
-T
-นน4 5
-,
-นน5 6
-TState
-นน7 =
-,
-นน= >
-TTrigger
-นน? G
->
-นนG H
-.
-นนH I 
-GetStateTransition
-นนI [
-(
-นน[ \
-StateAccessor
-นน\ i
-,
-บบ 
-StateMutator
-บบ 
-,
-ปป 
-State
-ปป 
-,
-ผผ 
-State
-ผผ 
-,
-ฝฝ 
-	condition
-ฝฝ 
-,
-พพ 
-name
-พพ 
-,
-ฟฟ 
-priority
-ฟฟ 
+นน# -
 )
-ฟฟ 
+นน- .
 ;
-ฟฟ *
-PreviousStateAutoTransitions
-ภภ (
-.
-ภภ( )
-Add
-ภภ) ,
-(
-ภภ, -
-previousState
-ภภ- :
-,
-ภภ: ;
-
-transition
-ภภ< F
-)
-ภภF G
-;
-ภภG H
+นน. /
 return
-ยย 
+ปป 
 this
-ยย 
+ปป 
 ;
-ยย 
+ปป 
 }
-รร 	
+ผผ 	
 public
-สส !
+วว !
 IStateConfiguration
-สส "
+วว "
 <
-สส" #
+วว" #
 T
-สส# $
+วว# $
 ,
-สส$ %
+วว$ %
 TState
-สส& ,
+วว& ,
 ,
-สส, -
+วว, -
 TTrigger
-สส. 6
+วว. 6
 >
-สส6 7
-AddEntryAction
-สส8 F
-(
-สสF G
-Action
-สสG M
+วว6 7"
+AddDynamicTransition
+วว8 L
 <
-สสM N
-T
-สสN O
->
-สสO P
-action
-สสQ W
-)
-สสW X
-{
-หห 	
-if
-ฬฬ 
-(
-ฬฬ !
-_defaultEntryAction
-ฬฬ #
-!=
-ฬฬ$ &
-null
-ฬฬ' +
-)
-ฬฬ+ ,
-{
-ออ 
-throw
-ออ 
-new
-ออ '
-InvalidOperationException
-ออ 1
-(
-ออ1 2
-$str
-ออ2 a
-)
-ออa b
-;
-ออb c
-}
-ออd e!
-_defaultEntryAction
-ฯฯ 
-=
-ฯฯ  !
-action
-ฯฯ" (
-??
-ฯฯ) +
-throw
-ฯฯ, 1
-new
-ฯฯ2 5#
-ArgumentNullException
-ฯฯ6 K
-(
-ฯฯK L
-nameof
-ฯฯL R
-(
-ฯฯR S
-action
-ฯฯS Y
-)
-ฯฯY Z
-)
-ฯฯZ [
-;
-ฯฯ[ \
-return
-ัั 
-this
-ัั 
-;
-ัั 
-}
-าา 	
-public
-ÛÛ !
-IStateConfiguration
-ÛÛ "
-<
-ÛÛ" #
-T
-ÛÛ# $
-,
-ÛÛ$ %
-TState
-ÛÛ& ,
-,
-ÛÛ, -
-TTrigger
-ÛÛ. 6
->
-ÛÛ6 7#
-AddFallbackTransition
-ÛÛ8 M
-(
-ÛÛM N
-Func
-ÛÛN R
-<
-ÛÛR S
-T
-ÛÛS T
-,
-ÛÛT U
-bool
-ÛÛV Z
->
-ÛÛZ [
-	condition
-ÛÛ\ e
-=
-ÛÛf g
-null
-ÛÛh l
-,
-ÜÜ
- 
-string
-ÜÜ 
-name
-ÜÜ 
-=
-ÜÜ 
-null
-ÜÜ 
-,
-ÝÝ
- 
-uint
-ÝÝ 
-priority
-ÝÝ 
-=
-ÝÝ 
-$num
-ÝÝ 
-)
-ÝÝ 
-{
-ÞÞ 	
-if
-฿฿ 
-(
-฿฿ #
-DefaultAutoTransition
-฿฿ %
-!=
-฿฿& (
-null
-฿฿) -
-)
-฿฿- .
-{
-เเ 
-throw
-เเ 
-new
-เเ '
-InvalidOperationException
-เเ 1
-(
-เเ1 2
-$str
-เเ2 b
-)
-เเb c
-;
-เเc d
-}
-เเe f
-if
-โโ 
-(
-โโ 
-	condition
-โโ 
-==
-โโ 
-null
-โโ !
-)
-โโ! "
-{
-ใใ 
-	condition
-ใใ 
-=
-ใใ 
-_
-ใใ 
-=>
-ใใ 
-true
-ใใ #
-;
-ใใ# $
-}
-ใใ% &#
-DefaultAutoTransition
-ๅๅ !
-=
-ๅๅ" #$
-StateTransitionFactory
-ๅๅ$ :
-<
-ๅๅ: ;
-T
-ๅๅ; <
-,
-ๅๅ< =
-TState
-ๅๅ> D
-,
-ๅๅD E
-TTrigger
-ๅๅF N
->
-ๅๅN O
-.
-ๅๅO P 
-GetStateTransition
-ๅๅP b
-(
-ๅๅb c
-StateAccessor
-ๅๅc p
-,
-ๆๆ 
-StateMutator
-ๆๆ 
-,
-็็ 
-State
-็็ 
-,
-่่ 
-State
-่่ 
-,
-้้ 
-	condition
-้้ 
-,
-๊๊ 
-name
-๊๊ 
-,
-๋๋ 
-priority
-๋๋ 
-)
-๋๋ 
-;
-๋๋ 
-return
-ํํ 
-this
-ํํ 
-;
-ํํ 
-}
-๎๎ 	
-public
-๗๗ !
-IStateConfiguration
-๗๗ "
-<
-๗๗" #
-T
-๗๗# $
-,
-๗๗$ %
-TState
-๗๗& ,
-,
-๗๗, -
-TTrigger
-๗๗. 6
->
-๗๗6 7#
-AddFallbackTransition
-๗๗8 M
-<
-๗๗M N
+ววL M
 TRequest
-๗๗N V
+ววM U
 >
-๗๗V W
+ววU V
 (
-๗๗W X
+ววV W
+TTrigger
+ววW _
+trigger
+วว` g
+,
+ศศ 
 Func
-๗๗X \
+ศศ 
 <
-๗๗\ ]
+ศศ 
 T
-๗๗] ^
+ศศ 
 ,
-๗๗^ _
+ศศ 
 TRequest
-๗๗` h
+ศศ 
 ,
-๗๗h i
-bool
-๗๗j n
+ศศ 
+TState
+ศศ  &
 >
-๗๗n o
-	condition
-๗๗p y
-=
-๗๗z {
-null๗๗| €
+ศศ& '
+function
+ศศ( 0
 ,
-๘๘
- 
+ษษ 
 string
-๘๘ 
+ษษ 
 name
-๘๘ 
+ษษ 
 =
-๘๘ 
+ษษ 
 null
-๘๘ 
+ษษ  
 ,
-๙๙
- 
+สส 
 uint
-๙๙ 
+สส 
 priority
-๙๙ 
+สส 
 =
-๙๙ 
+สส 
 $num
-๙๙ 
+สส 
 )
-๙๙ 
+สส  
 where
-๚๚ 
+หห 
 TRequest
-๚๚ 
+หห 
 :
-๚๚ 
+หห 
 class
-๚๚ "
+หห "
 {
-๛๛ 	
+ฬฬ 	
 if
-üü 
+ออ 
 (
-üü #
-DefaultAutoTransition
-üü %
-!=
-üü& (
-null
-üü) -
-)
-üü- .
-{
-ýý 
-throw
-ýý 
-new
-ýý '
-InvalidOperationException
-ýý 1
-(
-ýý1 2
-$str
-ýý2 b
-)
-ýýb c
-;
-ýýc d
-}
-ýýe f
-if
-ÿÿ 
-(
-ÿÿ 
-	condition
-ÿÿ 
+ออ 
+function
+ออ 
 ==
-ÿÿ 
+ออ 
 null
-ÿÿ !
+ออ  
 )
-ÿÿ! "
+ออ  !
 {
-€€ 
-	condition
-€€ 
-=
-€€ 
-(
-€€ 
-_
-€€ 
-,
-€€ 
-request
-€€ %
-)
-€€% &
-=>
-€€' )
-true
-€€* .
-;
-€€. /
-}
-€€0 1#
-DefaultAutoTransition
- !
-=
-" #$
-StateTransitionFactory
-$ :
-<
-: ;
-T
-; <
-,
-< =
-TState
-> D
-,
-D E
-TTrigger
-F N
->
-N O
-.
-O P 
-GetStateTransition
-P b
-(
-b c
-StateAccessor
-c p
-,
- 
-StateMutator
- 
-,
- 
-State
- 
-,
-…… 
-State
-…… 
-,
- 
-	condition
- 
-,
- 
-name
- 
-,
- 
-priority
- 
-)
- 
-;
- 
-return
- 
-this
- 
-;
- 
-}
- 	
-public
-•• !
-IStateConfiguration
-•• "
-<
-••" #
-T
-••# $
-,
-••$ %
-TState
-••& ,
-,
-••, -
-TTrigger
-••. 6
->
-••6 7#
-AddFallbackTransition
-••8 M
-(
-••M N
-Func
-••N R
-<
-••R S
-T
-••S T
-,
-••T U
-bool
-••V Z
->
-••Z [
-	condition
-••\ e
-,
-––
- 
-TState
-–– 
-previousState
-––  
-,
-——
- 
-string
-—— 
-name
-—— 
-=
-—— 
-null
-—— 
-,
-
- 
-uint
- 
-priority
- 
-=
- 
-$num
- 
-)
- 
-{
- 	
-if
- 
-(
- 
-	condition
- 
-==
- 
-null
- !
-)
-! "
-{
- 
+ฮฮ 
 throw
- 
+ฮฮ 
 new
- #
+ฮฮ #
 ArgumentNullException
- -
+ฮฮ -
 (
-- .
+ฮฮ- .
 nameof
-. 4
+ฮฮ. 4
 (
-4 5
-	condition
-5 >
+ฮฮ4 5
+function
+ฮฮ5 =
 )
-> ?
+ฮฮ= >
 )
-? @
+ฮฮ> ?
 ;
-@ A
+ฮฮ? @
 }
-B C
-if
- 
-(
- *
-PreviousStateAutoTransitions
- ,
-.
-, -
-ContainsKey
-- 8
-(
-8 9
-previousState
-9 F
-)
-F G
-)
-G H
-{
- 
-throw
- 
-new
- '
-InvalidOperationException
- 1
-(
-1 2
-$"
-2 41
-#AutoTransition already defined for 
-4 W
-{
-W X
-previousState
-X e
-}
-e f=
-.. Only one auto transition allowed per toStatef ”
-"” •
-)• –
-;– —
-} 
+ฮฮA B
 var
-   
+ะะ 
 
 transition
-   
+ะะ 
 =
-   $
+ะะ $
 StateTransitionFactory
-   3
+ะะ 3
 <
-  3 4
+ะะ3 4
 T
-  4 5
+ะะ4 5
 ,
-  5 6
+ะะ5 6
 TState
-  7 =
+ะะ7 =
 ,
-  = >
+ะะ= >
 TTrigger
-  ? G
+ะะ? G
 >
-  G H
+ะะG H
 .
-  H I 
+ะะH I 
 GetStateTransition
-  I [
+ะะI [
 (
-  [ \
+ะะ[ \
 StateAccessor
-  \ i
+ะะ\ i
 ,
-กก 
+ัั 
 StateMutator
-กก 
+ัั 
 ,
-ขข 
+าา 
 State
-ขข 
+าา 
 ,
-ฃฃ 
-State
-ฃฃ 
+ำำ 
+function
+ำำ 
 ,
-คค 
-	condition
-คค 
-,
-ฅฅ 
+ิิ 
 name
-ฅฅ 
+ิิ 
 ,
-ฆฆ 
+ีี 
 priority
-ฆฆ 
+ีี 
 )
-ฆฆ 
+ีี 
 ;
-ฆฆ *
-PreviousStateAutoTransitions
-งง (
-.
-งง( )
-Add
-งง) ,
+ีี 
+AddTransition
+ึึ 
 (
-งง, -
-previousState
-งง- :
+ึึ 
+trigger
+ึึ !
 ,
-งง: ;
+ึึ! "
 
 transition
-งง< F
+ึึ# -
 )
-งงF G
+ึึ- .
 ;
-งงG H
+ึึ. /
 return
-ฉฉ 
+ุุ 
 this
-ฉฉ 
+ุุ 
 ;
-ฉฉ 
+ุุ 
 }
-ชช 	
+ูู 	
 public
-ฒฒ !
+ไไ !
 IStateConfiguration
-ฒฒ "
+ไไ "
 <
-ฒฒ" #
+ไไ" #
 T
-ฒฒ# $
+ไไ# $
 ,
-ฒฒ$ %
+ไไ$ %
 TState
-ฒฒ& ,
+ไไ& ,
 ,
-ฒฒ, -
+ไไ, -
 TTrigger
-ฒฒ. 6
+ไไ. 6
 >
-ฒฒ6 7
-AddReentryAction
-ฒฒ8 H
+ไไ6 7
+AddTransition
+ไไ8 E
 (
-ฒฒH I
-Action
-ฒฒI O
+ไไE F
+TTrigger
+ไไF N
+trigger
+ไไO V
+,
+ๅๅ 
+TState
+ๅๅ 
+toState
+ๅๅ 
+,
+ๆๆ 
+Func
+ๆๆ 
 <
-ฒฒO P
+ๆๆ 
 T
-ฒฒP Q
+ๆๆ 
+,
+ๆๆ 
+bool
+ๆๆ 
 >
-ฒฒQ R
+ๆๆ 
+	condition
+ๆๆ %
+=
+ๆๆ& '
+null
+ๆๆ( ,
+,
+็็ 
+string
+็็ 
+name
+็็ 
+=
+็็ 
+null
+็็  
+,
+่่ 
+uint
+่่ 
+priority
+่่ 
+=
+่่ 
+$num
+่่ 
+)
+่่  
+{
+้้ 	
+if
+๊๊ 
+(
+๊๊ 
+	condition
+๊๊ 
+==
+๊๊ 
+null
+๊๊ !
+)
+๊๊! "
+{
+๋๋ 
+	condition
+๋๋ 
+=
+๋๋ 
+_
+๋๋ 
+=>
+๋๋ 
+true
+๋๋ #
+;
+๋๋# $
+}
+๋๋% &
+var
+ํํ 
+
+transition
+ํํ 
+=
+ํํ $
+StateTransitionFactory
+ํํ 3
+<
+ํํ3 4
+T
+ํํ4 5
+,
+ํํ5 6
+TState
+ํํ7 =
+,
+ํํ= >
+TTrigger
+ํํ? G
+>
+ํํG H
+.
+ํํH I 
+GetStateTransition
+ํํI [
+(
+ํํ[ \
+StateAccessor
+ํํ\ i
+,
+๎๎ 
+StateMutator
+๎๎ 
+,
+๏๏ 
+State
+๏๏ 
+,
+๐๐ 
+toState
+๐๐ 
+,
+๑๑ 
+	condition
+๑๑ 
+,
+๒๒ 
+name
+๒๒ 
+,
+๓๓ 
+priority
+๓๓ 
+)
+๓๓ 
+;
+๓๓ 
+AddTransition
+๔๔ 
+(
+๔๔ 
+trigger
+๔๔ !
+,
+๔๔! "
+
+transition
+๔๔# -
+)
+๔๔- .
+;
+๔๔. /
+return
+๖๖ 
+this
+๖๖ 
+;
+๖๖ 
+}
+๗๗ 	
+public
+ !
+IStateConfiguration
+ "
+<
+" #
+T
+# $
+,
+$ %
+TState
+& ,
+,
+, -
+TTrigger
+. 6
+>
+6 7
+AddTransition
+8 E
+<
+E F
+TRequest
+F N
+>
+N O
+(
+O P
+TTrigger
+P X
+trigger
+Y `
+,
+ 
+TState
+ 
+toState
+ 
+,
+…… 
+Func
+…… 
+<
+…… 
+T
+…… 
+,
+…… 
+TRequest
+…… 
+,
+…… 
+bool
+……  $
+>
+……$ %
+	condition
+……& /
+,
+ 
+string
+ 
+name
+ 
+=
+ 
+null
+  
+,
+ 
+uint
+ 
+priority
+ 
+=
+ 
+$num
+ 
+)
+  
+where
+ 
+TRequest
+ 
+:
+ 
+class
+ "
+{
+ 	
+if
+ 
+(
+ 
+	condition
+ 
+==
+ 
+null
+ !
+)
+! "
+{
+ 
+throw
+ 
+new
+ #
+ArgumentNullException
+ -
+(
+- .
+nameof
+. 4
+(
+4 5
+	condition
+5 >
+)
+> ?
+)
+? @
+;
+@ A
+}
+B C
+var
+ 
+
+transition
+ 
+=
+ $
+StateTransitionFactory
+ 3
+<
+3 4
+T
+4 5
+,
+5 6
+TState
+7 =
+,
+= >
+TTrigger
+? G
+>
+G H
+.
+H I 
+GetStateTransition
+I [
+(
+[ \
+StateAccessor
+\ i
+,
+ 
+StateMutator
+ 
+,
+ 
+State
+ 
+,
+ 
+toState
+ 
+,
+‘‘ 
+	condition
+‘‘ 
+,
+’’ 
+name
+’’ 
+,
+““ 
+priority
+““ 
+)
+““ 
+;
+““ 
+AddTransition
+”” 
+(
+”” 
+trigger
+”” !
+,
+””! "
+
+transition
+””# -
+)
+””- .
+;
+””. /
+return
+–– 
+this
+–– 
+;
+–– 
+}
+—— 	
+public
+ !
+IStateConfiguration
+ "
+<
+" #
+T
+# $
+,
+$ %
+TState
+& ,
+,
+, -
+TTrigger
+. 6
+>
+6 7
+AddEntryAction
+8 F
+(
+F G
+Action
+G M
+<
+M N
+T
+N O
+>
+O P
 action
-ฒฒS Y
+Q W
+)
+W X
+{
+ 	
+if
+   
+(
+   !
+_defaultEntryAction
+   #
+!=
+  $ &
+null
+  ' +
+)
+  + ,
+{
+กก 
+throw
+กก 
+new
+กก '
+InvalidOperationException
+กก 1
+(
+กก1 2
+$str
+กก2 a
+)
+กกa b
+;
+กกb c
+}
+กกd e!
+_defaultEntryAction
+ฃฃ 
+=
+ฃฃ  !
+action
+ฃฃ" (
+??
+ฃฃ) +
+throw
+ฃฃ, 1
+new
+ฃฃ2 5#
+ArgumentNullException
+ฃฃ6 K
+(
+ฃฃK L
+nameof
+ฃฃL R
+(
+ฃฃR S
+action
+ฃฃS Y
+)
+ฃฃY Z
+)
+ฃฃZ [
+;
+ฃฃ[ \
+return
+ฅฅ 
+this
+ฅฅ 
+;
+ฅฅ 
+}
+ฆฆ 	
+public
+ฏฏ !
+IStateConfiguration
+ฏฏ "
+<
+ฏฏ" #
+T
+ฏฏ# $
+,
+ฏฏ$ %
+TState
+ฏฏ& ,
+,
+ฏฏ, -
+TTrigger
+ฏฏ. 6
+>
+ฏฏ6 7
+AddReentryAction
+ฏฏ8 H
+(
+ฏฏH I
+Action
+ฏฏI O
+<
+ฏฏO P
+T
+ฏฏP Q
+>
+ฏฏQ R
+action
+ฏฏS Y
+)
+ฏฏY Z
+{
+ฐฐ 	
+if
+ฑฑ 
+(
+ฑฑ 
+_reentryAction
+ฑฑ 
+!=
+ฑฑ !
+null
+ฑฑ" &
+)
+ฑฑ& '
+{
+ฒฒ 
+throw
+ฒฒ 
+new
+ฒฒ '
+InvalidOperationException
+ฒฒ 1
+(
+ฒฒ1 2
+$str
+ฒฒ2 Y
 )
 ฒฒY Z
-{
-ณณ 	
-if
-ดด 
-(
-ดด 
-_reentryAction
-ดด 
-!=
-ดด !
-null
-ดด" &
-)
-ดด& '
-{
-ตต 
-throw
-ถถ 
-new
-ถถ '
-InvalidOperationException
-ถถ 3
-(
-ถถ3 4
-$str
-ถถ4 [
-)
-ถถ[ \
 ;
-ถถ\ ]
+ฒฒZ [
 }
-ทท 
+ฒฒ\ ]
 _reentryAction
-นน 
+ดด 
 =
-นน 
+ดด 
 action
-นน #
+ดด #
 ??
-นน$ &
+ดด$ &
 throw
-นน' ,
+ดด' ,
 new
-นน- 0#
+ดด- 0#
 ArgumentNullException
-นน1 F
+ดด1 F
 (
-นนF G
+ดดF G
 nameof
-นนG M
+ดดG M
 (
-นนM N
+ดดM N
 action
-นนN T
+ดดN T
 )
-นนT U
+ดดT U
 )
-นนU V
+ดดU V
 ;
-นนV W
+ดดV W
 return
-ปป 
+ถถ 
 this
-ปป 
+ถถ 
 ;
-ปป 
+ถถ 
 }
-ผผ 	
+ทท 	
 public
-ฤฤ !
+ฟฟ !
 IStateConfiguration
-ฤฤ "
+ฟฟ "
 <
-ฤฤ" #
+ฟฟ" #
 T
-ฤฤ# $
+ฟฟ# $
 ,
-ฤฤ$ %
+ฟฟ$ %
 TState
-ฤฤ& ,
+ฟฟ& ,
 ,
-ฤฤ, -
+ฟฟ, -
 TTrigger
-ฤฤ. 6
+ฟฟ. 6
 >
-ฤฤ6 7
+ฟฟ6 7
 AddEntryAction
-ฤฤ8 F
+ฟฟ8 F
 (
-ฤฤF G
+ฟฟF G
 Action
-ฤฤG M
+ฟฟG M
 <
-ฤฤM N
+ฟฟM N
 T
-ฤฤN O
+ฟฟN O
 >
-ฤฤO P
+ฟฟO P
 action
-ฤฤQ W
+ฟฟQ W
 ,
-ฤฤW X
+ฟฟW X
 TState
-ฤฤY _
+ฟฟY _
 previousState
-ฤฤ` m
+ฟฟ` m
 )
-ฤฤm n
+ฟฟm n
 {
-ลล 	
+ภภ 	
 if
-ฦฦ 
+มม 
 (
-ฦฦ 
+มม 
 action
-ฦฦ 
+มม 
 ==
-ฦฦ 
+มม 
 null
-ฦฦ 
+มม 
 )
-ฦฦ 
+มม 
 {
-วว 
+ยย 
 throw
-วว 
+ยย 
 new
-วว #
+ยย #
 ArgumentNullException
-วว -
+ยย -
 (
-วว- .
+ยย- .
 nameof
-วว. 4
+ยย. 4
 (
-วว4 5
+ยย4 5
 action
-วว5 ;
+ยย5 ;
 )
-วว; <
+ยย; <
 )
-วว< =
+ยย< =
 ;
-วว= >
+ยย= >
 }
-วว? @
+ยย? @
 if
-ษษ 
+ฤฤ 
 (
-ษษ (
+ฤฤ (
 _previousStateEntryActions
-ษษ *
+ฤฤ *
 .
-ษษ* +
+ฤฤ* +
 ContainsKey
-ษษ+ 6
+ฤฤ+ 6
 (
-ษษ6 7
+ฤฤ6 7
 previousState
-ษษ7 D
+ฤฤ7 D
 )
-ษษD E
+ฤฤD E
 )
-ษษE F
+ฤฤE F
 {
-สส 
+ลล 
 throw
-สส 
+ลล 
 new
-สส '
+ลล '
 InvalidOperationException
-สส 1
+ลล 1
 (
-สส1 2
+ลล1 2
 $str
-สส2 g
+ลล2 g
 )
-สสg h
+ลลg h
 ;
-สสh i
+ลลh i
 }
-สสj k(
+ลลj k(
 _previousStateEntryActions
-ฬฬ &
+วว &
 .
-ฬฬ& '
+วว& '
 Add
-ฬฬ' *
+วว' *
 (
-ฬฬ* +
+วว* +
 previousState
-ฬฬ+ 8
+วว+ 8
 ,
-ฬฬ8 9
+วว8 9
 action
-ฬฬ: @
+วว: @
 )
-ฬฬ@ A
+วว@ A
 ;
-ฬฬA B
+ววA B
 return
-ฮฮ 
+ษษ 
 this
-ฮฮ 
+ษษ 
 ;
-ฮฮ 
+ษษ 
 }
-ฯฯ 	
+สส 	
 public
-ึึ !
+ัั !
 IStateConfiguration
-ึึ "
+ัั "
 <
-ึึ" #
+ัั" #
 T
-ึึ# $
+ัั# $
 ,
-ึึ$ %
+ัั$ %
 TState
-ึึ& ,
+ัั& ,
 ,
-ึึ, -
+ัั, -
 TTrigger
-ึึ. 6
+ัั. 6
 >
-ึึ6 7
+ัั6 7
 AddExitAction
-ึึ8 E
+ัั8 E
 (
-ึึE F
+ััE F
 Action
-ึึF L
+ััF L
 <
-ึึL M
+ััL M
 T
-ึึM N
+ััM N
 >
-ึึN O
+ััN O
 action
-ึึP V
+ััP V
 )
-ึึV W
+ััV W
 {
-ืื 	
+าา 	
 if
-ุุ 
+ำำ 
 (
-ุุ  
+ำำ  
 _defaultExitAction
-ุุ "
+ำำ "
 !=
-ุุ# %
+ำำ# %
 null
-ุุ& *
+ำำ& *
 )
-ุุ* +
+ำำ* +
 {
-ูู 
+ิิ 
 throw
-ูู 
+ิิ 
 new
-ูู '
+ิิ '
 InvalidOperationException
-ูู 1
+ิิ 1
 (
-ูู1 2
+ิิ1 2
 $str
-ูู2 T
+ิิ2 T
 )
-ููT U
+ิิT U
 ;
-ููU V
+ิิU V
 }
-ููW X 
+ิิW X 
 _defaultExitAction
-ÛÛ 
+ึึ 
 =
-ÛÛ  
+ึึ  
 action
-ÛÛ! '
+ึึ! '
 ??
-ÛÛ( *
+ึึ( *
 throw
-ÛÛ+ 0
+ึึ+ 0
 new
-ÛÛ1 4#
+ึึ1 4#
 ArgumentNullException
-ÛÛ5 J
+ึึ5 J
 (
-ÛÛJ K
+ึึJ K
 nameof
-ÛÛK Q
+ึึK Q
 (
-ÛÛQ R
+ึึQ R
 action
-ÛÛR X
+ึึR X
 )
-ÛÛX Y
+ึึX Y
 )
-ÛÛY Z
+ึึY Z
 ;
-ÛÛZ [
+ึึZ [
 return
-ÝÝ 
+ุุ 
 this
-ÝÝ 
+ุุ 
 ;
-ÝÝ 
+ุุ 
 }
-ÞÞ 	
+ูู 	
 public
-ๆๆ !
+แแ !
 IStateConfiguration
-ๆๆ "
+แแ "
 <
-ๆๆ" #
+แแ" #
 T
-ๆๆ# $
+แแ# $
 ,
-ๆๆ$ %
+แแ$ %
 TState
-ๆๆ& ,
+แแ& ,
 ,
-ๆๆ, -
+แแ, -
 TTrigger
-ๆๆ. 6
+แแ. 6
 >
-ๆๆ6 7
+แแ6 7
 AddExitAction
-ๆๆ8 E
+แแ8 E
 (
-ๆๆE F
+แแE F
 Action
-ๆๆF L
+แแF L
 <
-ๆๆL M
+แแL M
 T
-ๆๆM N
+แแM N
 >
-ๆๆN O
+แแN O
 action
-ๆๆP V
+แแP V
 ,
-ๆๆV W
+แแV W
 TState
-ๆๆX ^
+แแX ^
 	nextState
-ๆๆ_ h
+แแ_ h
 )
-ๆๆh i
+แแh i
 {
-็็ 	
+โโ 	
 if
-่่ 
+ใใ 
 (
-่่ 
+ใใ 
 action
-่่ 
+ใใ 
 ==
-่่ 
+ใใ 
 null
-่่ 
+ใใ 
 )
-่่ 
+ใใ 
 {
-้้ 
+ไไ 
 throw
-้้ 
+ไไ 
 new
-้้ #
+ไไ #
 ArgumentNullException
-้้ -
+ไไ -
 (
-้้- .
+ไไ- .
 nameof
-้้. 4
+ไไ. 4
 (
-้้4 5
+ไไ4 5
 action
-้้5 ;
+ไไ5 ;
 )
-้้; <
+ไไ; <
 )
-้้< =
+ไไ< =
 ;
-้้= >
+ไไ= >
 }
-้้> ?
+ไไ> ?
 if
-๋๋ 
+ๆๆ 
 (
-๋๋ #
+ๆๆ #
 _nextStateExitActions
-๋๋ %
+ๆๆ %
 .
-๋๋% &
+ๆๆ% &
 ContainsKey
-๋๋& 1
+ๆๆ& 1
 (
-๋๋1 2
+ๆๆ1 2
 	nextState
-๋๋2 ;
+ๆๆ2 ;
 )
-๋๋; <
+ๆๆ; <
 )
-๋๋< =
+ๆๆ< =
 {
-์์ 
+็็ 
 throw
-์์ 
+็็ 
 new
-์์ '
+็็ '
 InvalidOperationException
-์์ 1
+็็ 1
 (
-์์1 2
+็็1 2
 $"
-์์2 4)
+็็2 4)
 Exit action for next state 
-์์4 O
+็็4 O
 {
-์์O P
+็็O P
 	nextState
-์์P Y
+็็P Y
 }
-์์Y Z
+็็Y Z
  already set.
-์์Z g
+็็Z g
 "
-์์g h
+็็g h
 )
-์์h i
+็็h i
 ;
-์์i j
+็็i j
 }
-์์k l#
+็็k l#
 _nextStateExitActions
-๎๎ !
+้้ !
 .
-๎๎! "
+้้! "
 Add
-๎๎" %
+้้" %
 (
-๎๎% &
+้้% &
 	nextState
-๎๎& /
+้้& /
 ,
-๎๎/ 0
+้้/ 0
 action
-๎๎1 7
+้้1 7
 )
-๎๎7 8
+้้7 8
 ;
-๎๎8 9
+้้8 9
 return
-๐๐ 
+๋๋ 
 this
-๐๐ 
+๋๋ 
 ;
-๐๐ 
+๋๋ 
 }
-๑๑ 	
+์์ 	
 public
-๓๓ 
+๎๎ 
 void
-๓๓ 
+๎๎ 
 AddSuperState
-๓๓ !
+๎๎ !
 (
-๓๓! ")
+๎๎! ")
 IStateConfigurationInternal
-๓๓" =
+๎๎" =
 <
-๓๓= >
+๎๎= >
 T
-๓๓> ?
+๎๎> ?
 ,
-๓๓? @
+๎๎? @
 TState
-๓๓A G
+๎๎A G
 ,
-๓๓G H
+๎๎G H
 TTrigger
-๓๓I Q
+๎๎I Q
 >
-๓๓Q R%
+๎๎Q R%
 superStateConfiguration
-๓๓S j
+๎๎S j
 )
-๓๓j k
+๎๎j k
 {
-๔๔ 	
+๏๏ 	
 if
-๕๕ 
+๐๐ 
 (
-๕๕ 
+๐๐ 
 	IsInState
-๕๕ 
+๐๐ 
 (
-๕๕ %
+๐๐ %
 superStateConfiguration
-๕๕ 1
+๐๐ 1
 .
-๕๕1 2
+๐๐1 2
 State
-๕๕2 7
+๐๐2 7
 )
-๕๕7 8
+๐๐7 8
 )
-๕๕8 9
+๐๐8 9
 {
-๖๖ 
+๑๑ 
 throw
-๖๖ 
+๑๑ 
 new
-๖๖ )
+๑๑ )
 ArgumentOutOfRangeException
-๖๖ 3
+๑๑ 3
 (
-๖๖3 4
+๑๑3 4
 $"
-๖๖4 6
+๑๑4 6
 {
-๖๖6 7
+๑๑6 7
 State
-๖๖7 <
+๑๑7 <
 }
-๖๖< =)
+๑๑< =)
  is already a sub-state of 
-๖๖= X
+๑๑= X
 {
-๖๖X Y%
+๑๑X Y%
 superStateConfiguration
-๖๖Y p
+๑๑Y p
 .
-๖๖p q
+๑๑p q
 State
-๖๖q v
+๑๑q v
 }
-๖๖v w
+๑๑v w
 .
-๖๖w x
+๑๑w x
 "
-๖๖x y
+๑๑x y
 )
-๖๖y z
+๑๑y z
 ;
-๖๖z {
+๑๑z {
 }
-๖๖| }
+๑๑| }
 if
-๘๘ 
+๓๓ 
 (
-๘๘ %
+๓๓ %
 superStateConfiguration
-๘๘ '
+๓๓ '
 .
-๘๘' (
+๓๓' (
 	IsInState
-๘๘( 1
+๓๓( 1
 (
-๘๘1 2
+๓๓1 2
 State
-๘๘2 7
+๓๓2 7
 )
-๘๘7 8
+๓๓7 8
 )
-๘๘8 9
+๓๓8 9
 {
-๙๙ 
+๔๔ 
 throw
-๙๙ 
+๔๔ 
 new
-๙๙ )
+๔๔ )
 ArgumentOutOfRangeException
-๙๙ 3
+๔๔ 3
 (
-๙๙3 4
+๔๔3 4
 $"
-๙๙4 6
+๔๔4 6
 {
-๙๙6 7%
+๔๔6 7%
 superStateConfiguration
-๙๙7 N
+๔๔7 N
 .
-๙๙N O
+๔๔N O
 State
-๙๙O T
+๔๔O T
 }
-๙๙T U)
+๔๔T U)
  is already a sub-state of 
-๙๙U p
+๔๔U p
 {
-๙๙p q
+๔๔p q
 State
-๙๙q v
+๔๔q v
 }
-๙๙v w
+๔๔v w
 .
-๙๙w x
+๔๔w x
 "
-๙๙x y
+๔๔x y
 )
-๙๙y z
+๔๔y z
 ;
-๙๙z {
+๔๔z {
 }
-๙๙| }
+๔๔| }
 _superState
-๛๛ 
+๖๖ 
 =
-๛๛ %
+๖๖ %
 superStateConfiguration
-๛๛ 1
+๖๖ 1
 ;
-๛๛1 2
+๖๖1 2
 }
-üü 	
+๗๗ 	
 public
- !
+ÿÿ !
 IStateConfiguration
- "
+ÿÿ "
 <
-" #
+ÿÿ" #
 T
-# $
+ÿÿ# $
 ,
-$ %
+ÿÿ$ %
 TState
-& ,
+ÿÿ& ,
 ,
-, -
+ÿÿ, -
 TTrigger
-. 6
+ÿÿ. 6
 >
-6 7
+ÿÿ6 7
 AddTriggerAction
-8 H
+ÿÿ8 H
 (
-H I
+ÿÿH I
 TTrigger
-I Q
+ÿÿI Q
 trigger
-R Y
+ÿÿR Y
 ,
-Y Z
+ÿÿY Z
 Action
-[ a
+ÿÿ[ a
 <
-a b
+ÿÿa b
 T
-b c
+ÿÿb c
 >
-c d
+ÿÿc d
 action
-e k
+ÿÿe k
 )
-k l
+ÿÿk l
 {
-…… 	
+€€ 	
 if
- 
+ 
 (
- 
+ 
 _triggerActions
- 
+ 
 .
-  
+  
 ContainsKey
-  +
+  +
 (
-+ ,
++ ,
 trigger
-, 3
+, 3
 )
-3 4
+3 4
 )
-4 5
+4 5
 {
- 
+ 
 throw
- 
+ 
 new
- '
+ '
 InvalidOperationException
- 1
+ 1
 (
-1 2
+1 2
 $"
-2 41
+2 41
 #Only one action is allowed for the 
-4 W
+4 W
 {
-W X
+W X
 trigger
-X _
+X _
 }
-_ `
+_ `
 	 trigger.
-` i
+` i
 "
-i j
+i j
 )
-j k
+j k
 ;
-k l
+k l
 }
-m n
+m n
 _triggerActions
- 
+ 
 .
- 
+ 
 Add
- 
+ 
 (
-  
+  
 trigger
-  '
+  '
 ,
-' ("
+' ("
 TriggerActionFactory
-) =
+) =
 <
-= >
+= >
 T
-> ?
+> ?
 ,
-? @
+? @
 TTrigger
-A I
+A I
 >
-I J
+I J
 .
-J K
+J K
 GetTriggerAction
-K [
+K [
 (
-[ \
+[ \
 action
-\ b
+\ b
 )
-b c
+b c
 )
-c d
+c d
 ;
-d e
+d e
 return
- 
+ 
 this
- 
+ 
 ;
- 
+ 
 }
- 	
+ 	
 public
-•• !
+ !
 IStateConfiguration
-•• "
+ "
 <
-••" #
+" #
 T
-••# $
+# $
 ,
-••$ %
+$ %
 TState
-••& ,
+& ,
 ,
-••, -
+, -
 TTrigger
-••. 6
+. 6
 >
-••6 7
+6 7
 AddTriggerAction
-••8 H
+8 H
 <
-••H I
+H I
 TRequest
-••I Q
+I Q
 >
-••Q R
+Q R
 (
-••R S
+R S
 TTrigger
-••S [
+S [
 trigger
-••\ c
+\ c
 ,
-••c d
+c d
 Action
-–– 
+‘‘ 
 <
-–– 
+‘‘ 
 T
-–– 
+‘‘ 
 ,
-–– 
+‘‘ 
 TRequest
-–– 
+‘‘ 
 >
-–– 
+‘‘ 
 action
-––  &
+‘‘  &
 )
-––& '
+‘‘& '
 {
-—— 	
+’’ 	
 if
- 
+““ 
 (
- 
+““ 
 _triggerActions
- 
+““ 
 .
-  
+““  
 ContainsKey
-  +
+““  +
 (
-+ ,
+““+ ,
 trigger
-, 3
+““, 3
 )
-3 4
+““3 4
 )
-4 5
+““4 5
 {
- 
+”” 
 throw
- 
+”” 
 new
- '
+”” '
 InvalidOperationException
- 1
+”” 1
 (
-1 2
+””1 2
 $"
-2 4-
+””2 4-
 Only one action is allowed for 
-4 S
+””4 S
 {
-S T
+””S T
 trigger
-T [
+””T [
 }
-[ \
+””[ \
 	 trigger.
-\ e
+””\ e
 "
-e f
+””e f
 )
-f g
+””f g
 ;
-g h
+””g h
 }
-i j
+””i j
 _triggerActions
- 
+–– 
 .
- 
+–– 
 Add
- 
+–– 
 (
-  
+––  
 trigger
-  '
+––  '
 ,
-' ("
+––' ("
 TriggerActionFactory
-) =
+––) =
 <
-= >
+––= >
 T
-> ?
+––> ?
 ,
-? @
+––? @
 TTrigger
-A I
+––A I
 >
-I J
+––I J
 .
-J K
+––J K
 GetTriggerAction
-K [
+––K [
 (
-[ \
+––[ \
 action
-\ b
+––\ b
 )
-b c
+––b c
 )
-c d
+––c d
 ;
-d e
+––d e
 return
- 
+ 
 this
- 
+ 
 ;
- 
+ 
 }
- 	
+ 	
 public
-   #
+ #
 StateTransitionResult
-   $
+ $
 <
-  $ %
+$ %
 TState
-  % +
+% +
 ,
-  + ,
++ ,
 TTrigger
-  - 5
+- 5
 >
-  5 6#
+5 6#
 ExecuteAutoTransition
-  7 L
+7 L
 (
-  L M!
+L M!
 ExecutionParameters
-  M `
+M `
 <
-  ` a
+` a
 T
-  a b
+a b
 ,
-  b c
+b c
 TTrigger
-  d l
+d l
 >
-  l m
+l m
 
 parameters
-  n x
+n x
 ,
-กก #
+ #
 StateTransitionResult
-กก #
+ #
 <
-กก# $
+# $
 TState
-กก$ *
+$ *
 ,
-กก* +
+* +
 TTrigger
-กก, 4
+, 4
 >
-กก4 5
+4 5
 currentResult
-กก6 C
+6 C
 )
-กกC D
+C D
 {
-ขข 	
+ 	#
+StateTransitionResult
+ !
+<
+! "
+TState
+" (
+,
+( )
+TTrigger
+* 2
+>
+2 3
+localResult
+4 ?
+;
+? @
 if
-คค 
+กก 
 (
-คค *
-PreviousStateAutoTransitions
-คค ,
+กก *
+AutoPreviousStateTransitions
+กก ,
 .
-คค, -
+กก, -
 TryGetValue
-คค- 8
+กก- 8
 (
-คค8 9
+กก8 9
 currentResult
-คค9 F
+กก9 F
 .
-คคF G
+กกF G
 PreviousState
-คคG T
+กกG T
 ,
-คคT U
+กกT U
 out
-คคV Y
+กกV Y
 var
-คคZ ]
-action
-คค^ d
+กกZ ]&
+previousStateTransitions
+กก^ v
 )
-คคd e
+กกv w
 )
-คคe f
+กกw x
 {
-ฅฅ 
-return
-ฅฅ 
-action
-ฅฅ 
-.
-ฅฅ 
-Execute
-ฅฅ #
+ขข 
+foreach
+ฃฃ 
 (
-ฅฅ# $
-
-parameters
-ฅฅ$ .
-,
-ฅฅ. /
-currentResult
-ฅฅ0 =
-)
-ฅฅ= >
-;
-ฅฅ> ?
-}
-ฅฅ@ A
-if
-จจ 
-(
-จจ #
-DefaultAutoTransition
-จจ %
-!=
-จจ& (
-null
-จจ) -
-)
-จจ- .
-{
-ฉฉ 
-return
-ฉฉ #
-DefaultAutoTransition
-ฉฉ *
-.
-ฉฉ* +
-Execute
-ฉฉ+ 2
-(
-ฉฉ2 3
-
-parameters
-ฉฉ3 =
-,
-ฉฉ= >
-currentResult
-ฉฉ? L
-)
-ฉฉL M
-;
-ฉฉM N
-}
-ฉฉO P
-return
-ซซ 
-_superState
-ซซ 
-!=
-ซซ !
-null
-ซซ" &
-?
-ฌฌ 
-_superState
-ฌฌ 
-.
-ฌฌ #
-ExecuteAutoTransition
-ฌฌ 3
-(
-ฌฌ3 4
-
-parameters
-ฌฌ4 >
-,
-ฌฌ> ?
-currentResult
-ฌฌ@ M
-)
-ฌฌM N
-:
-ญญ 
-new
-ญญ #
-StateTransitionResult
-ญญ +
-<
-ญญ+ ,
-TState
-ญญ, 2
-,
-ญญ2 3
-TTrigger
-ญญ4 <
->
-ญญ< =
-(
-ญญ= >
-
-parameters
-ญญ> H
-.
-ญญH I
-Trigger
-ญญI P
-,
-ฎฎ 
-currentResult
-ฎฎ #
-.
-ฎฎ# $
-StartingState
-ฎฎ$ 1
-,
-ฏฏ 
-currentResult
-ฏฏ #
-.
-ฏฏ# $
-PreviousState
-ฏฏ$ 1
-,
-ฐฐ 
-currentResult
-ฐฐ #
-.
-ฐฐ# $
-CurrentState
-ฐฐ$ 0
-,
-ฑฑ 
-currentResult
-ฑฑ #
-.
-ฑฑ# $ 
-LastTransitionName
-ฑฑ$ 6
-,
-ฒฒ 
-transitionDefined
-ฒฒ '
-:
-ฒฒ' (
-true
-ฒฒ) -
-)
-ฒฒ- .
-;
-ฒฒ. /
-}
-ณณ 	
-public
-ตต 
-void
-ตต  
-ExecuteEntryAction
-ตต &
-(
-ตต& '
-T
-ตต' (
-context
-ตต) 0
-,
-ตต0 1#
-StateTransitionResult
-ตต2 G
-<
-ตตG H
-TState
-ตตH N
-,
-ตตN O
-TTrigger
-ตตP X
->
-ตตX Y
-currentResult
-ตตZ g
-)
-ตตg h
-{
-ถถ 	
-if
-ธธ 
-(
-ธธ 
-_superState
-ธธ 
-!=
-ธธ 
-null
-ธธ #
-&&
-ธธ$ &
-!
-ธธ' (
-	IsInState
-ธธ( 1
-(
-ธธ1 2
-currentResult
-ธธ2 ?
-.
-ธธ? @
-CurrentState
-ธธ@ L
-)
-ธธL M
-)
-ธธM N
-{
-นน 
-_superState
-นน 
-.
-นน  
-ExecuteEntryAction
-นน ,
-(
-นน, -
-context
-นน- 4
-,
-นน4 5
-currentResult
-นน6 C
-)
-นนC D
-;
-นนD E
-}
-นนF G
-if
-ผผ 
-(
-ผผ (
-_previousStateEntryActions
-ผผ *
-.
-ผผ* +
-TryGetValue
-ผผ+ 6
-(
-ผผ6 7
-currentResult
-ผผ7 D
-.
-ผผD E
-PreviousState
-ผผE R
-,
-ผผR S
-out
-ผผT W
+ฃฃ 
 var
-ผผX [
-action
-ผผ\ b
-)
-ผผb c
-)
-ผผc d
-{
-ฝฝ 
-action
-ฝฝ 
-.
-ฝฝ 
-Invoke
-ฝฝ 
-(
-ฝฝ 
-context
-ฝฝ #
-)
-ฝฝ# $
-;
-ฝฝ$ %
-}
-ฝฝ& '!
-_defaultEntryAction
-ภภ 
-?
-ภภ  
-.
-ภภ  !
-Invoke
-ภภ! '
-(
-ภภ' (
-context
-ภภ( /
-)
-ภภ/ 0
-;
-ภภ0 1
-}
-มม 	
-public
-รร 
-void
-รร 
-ExecuteExitAction
-รร %
-(
-รร% &
-T
-รร& '
-context
-รร( /
-,
-รร/ 0#
-StateTransitionResult
-รร1 F
-<
-รรF G
-TState
-รรG M
-,
-รรM N
-TTrigger
-รรO W
->
-รรW X
-currentResult
-รรY f
-)
-รรf g
-{
-ฤฤ 	
-if
-ฦฦ 
-(
-ฦฦ #
-_nextStateExitActions
-ฦฦ %
-.
-ฦฦ% &
-TryGetValue
-ฦฦ& 1
-(
-ฦฦ1 2
-currentResult
-ฦฦ2 ?
-.
-ฦฦ? @
-CurrentState
-ฦฦ@ L
-,
-ฦฦL M
-out
-ฦฦN Q
-var
-ฦฦR U
-action
-ฦฦV \
-)
-ฦฦ\ ]
-)
-ฦฦ] ^
-{
-วว 
-action
-วว 
-.
-วว 
-Invoke
-วว 
-(
-วว 
-context
-วว #
-)
-วว# $
-;
-วว$ %
-}
-วว& ' 
-_defaultExitAction
-สส 
-?
-สส 
-.
-สส  
-Invoke
-สส  &
-(
-สส& '
-context
-สส' .
-)
-สส. /
-;
-สส/ 0
-if
-ฬฬ 
-(
-ฬฬ 
-_superState
-ฬฬ 
-!=
-ฬฬ 
-null
-ฬฬ #
-&&
-ฬฬ$ &
-!
-ฬฬ' (
-	IsInState
-ฬฬ( 1
-(
-ฬฬ1 2
-currentResult
-ฬฬ2 ?
-.
-ฬฬ? @
-CurrentState
-ฬฬ@ L
-)
-ฬฬL M
-)
-ฬฬM N
-{
-ออ 
-_superState
-ออ 
-.
-ออ 
-ExecuteExitAction
-ออ +
-(
-ออ+ ,
-context
-ออ, 3
-,
-ออ3 4
-currentResult
-ออ5 B
-)
-ออB C
-;
-ออC D
-}
-ออE F
-}
-ฮฮ 	
-public
-ะะ 
-void
-ะะ "
-ExecuteReentryAction
-ะะ (
-(
-ะะ( )
-T
-ะะ) *
-context
-ะะ+ 2
-,
-ะะ2 3#
-StateTransitionResult
-ะะ4 I
-<
-ะะI J
-TState
-ะะJ P
-,
-ะะP Q
-TTrigger
-ะะR Z
->
-ะะZ [
-currentResult
-ะะ\ i
-)
-ะะi j
-{
-ัั 	
-_superState
-าา 
-?
-าา 
-.
-าา "
-ExecuteReentryAction
-าา -
-(
-าา- .
-context
-าา. 5
-,
-าา5 6
-currentResult
-าา7 D
-)
-าาD E
-;
-าาE F
-_reentryAction
-ิิ 
-?
-ิิ 
-.
-ิิ 
-Invoke
-ิิ "
-(
-ิิ" #
-context
-ิิ# *
-)
-ิิ* +
-;
-ิิ+ ,
-}
-ีี 	
-public
-ืื #
-StateTransitionResult
-ืื $
-<
-ืื$ %
-TState
-ืื% +
-,
-ืื+ ,
-TTrigger
-ืื- 5
->
-ืื5 6
-FireTrigger
-ืื7 B
-(
-ืืB C!
-ExecutionParameters
-ืืC V
-<
-ืืV W
-T
-ืืW X
-,
-ืืX Y
-TTrigger
-ืืZ b
->
-ืืb c
+ฃฃ 
 
-parameters
-ืืd n
+transition
+ฃฃ '
+in
+ฃฃ( *&
+previousStateTransitions
+ฃฃ+ C
+.
+ฃฃC D
+OrderBy
+ฃฃD K
+(
+ฃฃK L
+t
+ฃฃL M
+=>
+ฃฃN P
+t
+ฃฃQ R
+.
+ฃฃR S
+Priority
+ฃฃS [
 )
-ืืn o
+ฃฃ[ \
+)
+ฃฃ\ ]
 {
-ุุ 	
-if
-ูู 
-(
-ูู 
-_triggerActions
-ูู 
-.
-ูู  
-TryGetValue
-ูู  +
-(
-ูู+ ,
-
-parameters
-ูู, 6
-.
-ูู6 7
-Trigger
-ูู7 >
-,
-ูู> ?
-out
-ูู@ C
-var
-ููD G
-triggerAction
-ููH U
-)
-ููU V
-)
-ููV W
-{
-ฺฺ 
-triggerAction
-ฺฺ 
-.
-ฺฺ 
-Execute
-ฺฺ #
-(
-ฺฺ# $
-
-parameters
-ฺฺ$ .
-)
-ฺฺ. /
-;
-ฺฺ/ 0
-}
-ฺฺ1 2
-var
-ÜÜ 
-result
-ÜÜ 
+คค 
+localResult
+ฅฅ 
 =
-ÜÜ 
-FireTriggerPrim
-ÜÜ (
+ฅฅ  !
+
+transition
+ฅฅ" ,
+.
+ฅฅ, -
+Execute
+ฅฅ- 4
 (
-ÜÜ( )
+ฅฅ4 5
 
 parameters
-ÜÜ) 3
+ฅฅ5 ?
+,
+ฅฅ? @
+currentResult
+ฅฅA N
 )
-ÜÜ3 4
+ฅฅN O
 ;
-ÜÜ4 5
+ฅฅO P
 if
-ÞÞ 
+ฆฆ 
 (
-ÞÞ 
-!
-ÞÞ 
-(
-ÞÞ 
-result
-ÞÞ 
-?
-ÞÞ 
+ฆฆ 
+localResult
+ฆฆ #
 .
-ÞÞ 
+ฆฆ# $
 WasSuccessful
-ÞÞ '
-??
-ÞÞ( *
-false
-ÞÞ+ 0
+ฆฆ$ 1
 )
-ÞÞ0 1
-&&
-ÞÞ2 4
-_superState
-ÞÞ5 @
-!=
-ÞÞA C
-null
-ÞÞD H
-)
-ÞÞH I
+ฆฆ1 2
 {
-฿฿ 
-result
-฿฿ 
-=
-฿฿ 
-_superState
-฿฿ "
-.
-฿฿" #
-FireTrigger
-฿฿# .
-(
-฿฿. /
-
-parameters
-฿฿/ 9
-)
-฿฿9 :
+งง 
+return
+งง 
+localResult
+งง (
 ;
-฿฿: ;
+งง( )
 }
-฿฿< =
-else
-เเ 
-{
-แแ 
+งง* +
+}
+จจ 
+}
+ฉฉ 
+foreach
+ฌฌ 
+(
+ฌฌ 
 var
-โโ 
+ฌฌ 
 
-startState
-โโ 
-=
-โโ  
-StateAccessor
-โโ! .
-(
-โโ. /
-
-parameters
-โโ/ 9
+transition
+ฌฌ #
+in
+ฌฌ$ &
+AutoTransitions
+ฌฌ' 6
 .
-โโ9 :
-Context
-โโ: A
-)
-โโA B
-;
-โโB C
-result
-ใใ 
-=
-ใใ 
-result
-ใใ 
-??
-ใใ  "
-new
-ไไ #
-StateTransitionResult
-ไไ -
-<
-ไไ- .
-TState
-ไไ. 4
-,
-ไไ4 5
-TTrigger
-ไไ6 >
->
-ไไ> ?
+ฌฌ6 7
+OrderBy
+ฌฌ7 >
 (
-ไไ? @
-
-parameters
-ไไ@ J
+ฌฌ> ?
+t
+ฌฌ? @
+=>
+ฌฌA C
+t
+ฌฌD E
 .
-ไไJ K
-Trigger
-ไไK R
-,
-ๅๅ 
-
-startState
-ๅๅ $
-,
-ๆๆ 
-
-startState
-ๆๆ $
-,
-็็ 
-
-startState
-็็ $
-,
-่่ 
-string
-่่  
-.
-่่  !
-Empty
-่่! &
-,
-้้ 
-transitionDefined
-้้ +
-:
-้้+ ,
-false
-้้- 2
+ฌฌE F
+Priority
+ฌฌF N
 )
-้้2 3
-;
-้้3 4
-}
-๊๊ 
-return
-์์ 
-result
-์์ 
-;
-์์ 
-}
-ํํ 	
-public
-๏๏ 
-bool
-๏๏ 
-	IsInState
-๏๏ 
-(
-๏๏ 
-TState
-๏๏ $
-state
-๏๏% *
+ฌฌN O
 )
-๏๏* +
+ฌฌO P
 {
-๐๐ 	
+ญญ 
+localResult
+ฎฎ 
+=
+ฎฎ 
+
+transition
+ฎฎ (
+.
+ฎฎ( )
+Execute
+ฎฎ) 0
+(
+ฎฎ0 1
+
+parameters
+ฎฎ1 ;
+,
+ฎฎ; <
+currentResult
+ฎฎ= J
+)
+ฎฎJ K
+;
+ฎฎK L
 if
-๑๑ 
+ฏฏ 
 (
-๑๑ 
-state
-๑๑ 
+ฏฏ 
+localResult
+ฏฏ 
 .
-๑๑ 
-	CompareTo
-๑๑ 
-(
-๑๑  
-State
-๑๑  %
+ฏฏ  
+WasSuccessful
+ฏฏ  -
 )
-๑๑% &
-==
-๑๑' )
-$num
-๑๑* +
-)
-๑๑+ ,
+ฏฏ- .
 {
-๒๒ 
+ฐฐ 
 return
-๒๒ 
-true
-๒๒ 
+ฐฐ 
+localResult
+ฐฐ $
 ;
-๒๒ 
+ฐฐ$ %
 }
-๒๒ 
+ฐฐ& '
+}
+ฑฑ 
 return
-๔๔ 
+ดด 
 _superState
-๔๔ 
+ดด 
+!=
+ดด !
+null
+ดด" &
 ?
-๔๔ 
+ตต 
+_superState
+ตต 
 .
-๔๔  
-	IsInState
-๔๔  )
+ตต #
+ExecuteAutoTransition
+ตต 3
 (
-๔๔) *
-state
-๔๔* /
+ตต3 4
+
+parameters
+ตต4 >
+,
+ตต> ?
+currentResult
+ตต@ M
 )
-๔๔/ 0
-??
-๔๔1 3
-false
-๔๔4 9
+ตตM N
+:
+ถถ 
+new
+ถถ #
+StateTransitionResult
+ถถ +
+<
+ถถ+ ,
+TState
+ถถ, 2
+,
+ถถ2 3
+TTrigger
+ถถ4 <
+>
+ถถ< =
+(
+ถถ= >
+
+parameters
+ถถ> H
+.
+ถถH I
+Trigger
+ถถI P
+,
+ทท 
+currentResult
+ทท !
+.
+ทท! "
+StartingState
+ทท" /
+,
+ธธ 
+currentResult
+ธธ !
+.
+ธธ! "
+PreviousState
+ธธ" /
+,
+นน 
+currentResult
+นน !
+.
+นน! "
+CurrentState
+นน" .
+,
+บบ 
+currentResult
+บบ !
+.
+บบ! " 
+LastTransitionName
+บบ" 4
+,
+ปป 
+transitionDefined
+ปป %
+:
+ปป% &
+true
+ปป' +
+)
+ปป+ ,
 ;
-๔๔9 :
+ปป, -
 }
-๕๕ 	
+ผผ 	
 public
-๗๗ !
-IStateConfiguration
-๗๗ "
-<
-๗๗" #
-T
-๗๗# $
-,
-๗๗$ %
-TState
-๗๗& ,
-,
-๗๗, -
-TTrigger
-๗๗. 6
->
-๗๗6 7
-IsSubStateOf
-๗๗8 D
+พพ 
+void
+พพ  
+ExecuteEntryAction
+พพ &
 (
-๗๗D E!
-IStateConfiguration
-๗๗E X
-<
-๗๗X Y
+พพ& '
 T
-๗๗Y Z
+พพ' (
+context
+พพ) 0
 ,
-๗๗Z [
-TState
-๗๗\ b
-,
-๗๗b c
-TTrigger
-๗๗d l
->
-๗๗l m&
-superStateConfiguration๗๗n …
-)๗๗… 
-{
-๘๘ 	
-AddSuperState
-๙๙ 
-(
-๙๙ %
-superStateConfiguration
-๙๙ 1
-as
-๙๙2 4)
-IStateConfigurationInternal
-๙๙5 P
+พพ0 1#
+StateTransitionResult
+พพ2 G
 <
-๙๙P Q
-T
-๙๙Q R
-,
-๙๙R S
+พพG H
 TState
-๙๙T Z
+พพH N
 ,
-๙๙Z [
+พพN O
 TTrigger
-๙๙\ d
+พพP X
 >
-๙๙d e
+พพX Y
+currentResult
+พพZ g
 )
-๙๙e f
+พพg h
+{
+ฟฟ 	
+if
+มม 
+(
+มม 
+_superState
+มม 
+!=
+มม 
+null
+มม #
+&&
+มม$ &
+!
+มม' (
+	IsInState
+มม( 1
+(
+มม1 2
+currentResult
+มม2 ?
+.
+มม? @
+CurrentState
+มม@ L
+)
+มมL M
+)
+มมM N
+{
+ยย 
+_superState
+ยย 
+.
+ยย  
+ExecuteEntryAction
+ยย ,
+(
+ยย, -
+context
+ยย- 4
+,
+ยย4 5
+currentResult
+ยย6 C
+)
+ยยC D
 ;
-๙๙f g
+ยยD E
+}
+ยยF G
+if
+ลล 
+(
+ลล (
+_previousStateEntryActions
+ลล *
+.
+ลล* +
+TryGetValue
+ลล+ 6
+(
+ลล6 7
+currentResult
+ลล7 D
+.
+ลลD E
+PreviousState
+ลลE R
+,
+ลลR S
+out
+ลลT W
+var
+ลลX [
+action
+ลล\ b
+)
+ลลb c
+)
+ลลc d
+{
+ฦฦ 
+action
+ฦฦ 
+.
+ฦฦ 
+Invoke
+ฦฦ 
+(
+ฦฦ 
+context
+ฦฦ #
+)
+ฦฦ# $
+;
+ฦฦ$ %
+}
+ฦฦ& '!
+_defaultEntryAction
+ษษ 
+?
+ษษ  
+.
+ษษ  !
+Invoke
+ษษ! '
+(
+ษษ' (
+context
+ษษ( /
+)
+ษษ/ 0
+;
+ษษ0 1
+}
+สส 	
+public
+ฬฬ 
+void
+ฬฬ 
+ExecuteExitAction
+ฬฬ %
+(
+ฬฬ% &
+T
+ฬฬ& '
+context
+ฬฬ( /
+,
+ฬฬ/ 0#
+StateTransitionResult
+ฬฬ1 F
+<
+ฬฬF G
+TState
+ฬฬG M
+,
+ฬฬM N
+TTrigger
+ฬฬO W
+>
+ฬฬW X
+currentResult
+ฬฬY f
+)
+ฬฬf g
+{
+ออ 	
+if
+ฯฯ 
+(
+ฯฯ #
+_nextStateExitActions
+ฯฯ %
+.
+ฯฯ% &
+TryGetValue
+ฯฯ& 1
+(
+ฯฯ1 2
+currentResult
+ฯฯ2 ?
+.
+ฯฯ? @
+CurrentState
+ฯฯ@ L
+,
+ฯฯL M
+out
+ฯฯN Q
+var
+ฯฯR U
+action
+ฯฯV \
+)
+ฯฯ\ ]
+)
+ฯฯ] ^
+{
+ะะ 
+action
+ะะ 
+.
+ะะ 
+Invoke
+ะะ 
+(
+ะะ 
+context
+ะะ #
+)
+ะะ# $
+;
+ะะ$ %
+}
+ะะ& ' 
+_defaultExitAction
+ำำ 
+?
+ำำ 
+.
+ำำ  
+Invoke
+ำำ  &
+(
+ำำ& '
+context
+ำำ' .
+)
+ำำ. /
+;
+ำำ/ 0
+if
+ีี 
+(
+ีี 
+_superState
+ีี 
+!=
+ีี 
+null
+ีี #
+&&
+ีี$ &
+!
+ีี' (
+	IsInState
+ีี( 1
+(
+ีี1 2
+currentResult
+ีี2 ?
+.
+ีี? @
+CurrentState
+ีี@ L
+)
+ีีL M
+)
+ีีM N
+{
+ึึ 
+_superState
+ึึ 
+.
+ึึ 
+ExecuteExitAction
+ึึ +
+(
+ึึ+ ,
+context
+ึึ, 3
+,
+ึึ3 4
+currentResult
+ึึ5 B
+)
+ึึB C
+;
+ึึC D
+}
+ึึE F
+}
+ืื 	
+public
+ูู 
+void
+ูู "
+ExecuteReentryAction
+ูู (
+(
+ูู( )
+T
+ูู) *
+context
+ูู+ 2
+,
+ูู2 3#
+StateTransitionResult
+ูู4 I
+<
+ููI J
+TState
+ููJ P
+,
+ููP Q
+TTrigger
+ููR Z
+>
+ููZ [
+currentResult
+ูู\ i
+)
+ููi j
+{
+ฺฺ 	
+_superState
+ÛÛ 
+?
+ÛÛ 
+.
+ÛÛ "
+ExecuteReentryAction
+ÛÛ -
+(
+ÛÛ- .
+context
+ÛÛ. 5
+,
+ÛÛ5 6
+currentResult
+ÛÛ7 D
+)
+ÛÛD E
+;
+ÛÛE F
+_reentryAction
+ÝÝ 
+?
+ÝÝ 
+.
+ÝÝ 
+Invoke
+ÝÝ "
+(
+ÝÝ" #
+context
+ÝÝ# *
+)
+ÝÝ* +
+;
+ÝÝ+ ,
+}
+ÞÞ 	
+public
+เเ #
+StateTransitionResult
+เเ $
+<
+เเ$ %
+TState
+เเ% +
+,
+เเ+ ,
+TTrigger
+เเ- 5
+>
+เเ5 6
+FireTrigger
+เเ7 B
+(
+เเB C!
+ExecutionParameters
+เเC V
+<
+เเV W
+T
+เเW X
+,
+เเX Y
+TTrigger
+เเZ b
+>
+เเb c
+
+parameters
+เเd n
+)
+เเn o
+{
+แแ 	
+if
+โโ 
+(
+โโ 
+_triggerActions
+โโ 
+.
+โโ  
+TryGetValue
+โโ  +
+(
+โโ+ ,
+
+parameters
+โโ, 6
+.
+โโ6 7
+Trigger
+โโ7 >
+,
+โโ> ?
+out
+โโ@ C
+var
+โโD G
+triggerAction
+โโH U
+)
+โโU V
+)
+โโV W
+{
+ใใ 
+triggerAction
+ใใ 
+.
+ใใ 
+Execute
+ใใ #
+(
+ใใ# $
+
+parameters
+ใใ$ .
+)
+ใใ. /
+;
+ใใ/ 0
+}
+ใใ1 2
+var
+ๅๅ 
+result
+ๅๅ 
+=
+ๅๅ 
+FireTriggerPrim
+ๅๅ (
+(
+ๅๅ( )
+
+parameters
+ๅๅ) 3
+)
+ๅๅ3 4
+;
+ๅๅ4 5
+if
+็็ 
+(
+็็ 
+!
+็็ 
+(
+็็ 
+result
+็็ 
+?
+็็ 
+.
+็็ 
+WasSuccessful
+็็ '
+??
+็็( *
+false
+็็+ 0
+)
+็็0 1
+&&
+็็2 4
+_superState
+็็5 @
+!=
+็็A C
+null
+็็D H
+)
+็็H I
+{
+่่ 
+result
+่่ 
+=
+่่ 
+_superState
+่่ "
+.
+่่" #
+FireTrigger
+่่# .
+(
+่่. /
+
+parameters
+่่/ 9
+)
+่่9 :
+;
+่่: ;
+}
+่่< =
+else
+้้ 
+{
+๊๊ 
+var
+๋๋ 
+
+startState
+๋๋ 
+=
+๋๋  
+StateAccessor
+๋๋! .
+(
+๋๋. /
+
+parameters
+๋๋/ 9
+.
+๋๋9 :
+Context
+๋๋: A
+)
+๋๋A B
+;
+๋๋B C
+result
+์์ 
+=
+์์ 
+result
+์์ 
+??
+์์  "
+new
+ํํ #
+StateTransitionResult
+ํํ -
+<
+ํํ- .
+TState
+ํํ. 4
+,
+ํํ4 5
+TTrigger
+ํํ6 >
+>
+ํํ> ?
+(
+ํํ? @
+
+parameters
+ํํ@ J
+.
+ํํJ K
+Trigger
+ํํK R
+,
+๎๎ 
+
+startState
+๎๎ $
+,
+๏๏ 
+
+startState
+๏๏ $
+,
+๐๐ 
+
+startState
+๐๐ $
+,
+๑๑ 
+string
+๑๑  
+.
+๑๑  !
+Empty
+๑๑! &
+,
+๒๒ 
+transitionDefined
+๒๒ +
+:
+๒๒+ ,
+false
+๒๒- 2
+)
+๒๒2 3
+;
+๒๒3 4
+}
+๓๓ 
 return
-๛๛ 
-this
-๛๛ 
+๕๕ 
+result
+๕๕ 
 ;
-๛๛ 
+๕๕ 
 }
-üü 	
+๖๖ 	
+public
+๘๘ 
+bool
+๘๘ 
+	IsInState
+๘๘ 
+(
+๘๘ 
+TState
+๘๘ $
+state
+๘๘% *
+)
+๘๘* +
+{
+๙๙ 	
+if
+๚๚ 
+(
+๚๚ 
+state
+๚๚ 
+.
+๚๚ 
+	CompareTo
+๚๚ 
+(
+๚๚  
+State
+๚๚  %
+)
+๚๚% &
+==
+๚๚' )
+$num
+๚๚* +
+)
+๚๚+ ,
+{
+๛๛ 
+return
+๛๛ 
+true
+๛๛ 
+;
+๛๛ 
 }
-ýý 
-}þþ ลู
+๛๛ 
+return
+ýý 
+_superState
+ýý 
+?
+ýý 
+.
+ýý  
+	IsInState
+ýý  )
+(
+ýý) *
+state
+ýý* /
+)
+ýý/ 0
+??
+ýý1 3
+false
+ýý4 9
+;
+ýý9 :
+}
+þþ 	
+public
+€€ !
+IStateConfiguration
+€€ "
+<
+€€" #
+T
+€€# $
+,
+€€$ %
+TState
+€€& ,
+,
+€€, -
+TTrigger
+€€. 6
+>
+€€6 7
+IsSubStateOf
+€€8 D
+(
+€€D E!
+IStateConfiguration
+€€E X
+<
+€€X Y
+T
+€€Y Z
+,
+€€Z [
+TState
+€€\ b
+,
+€€b c
+TTrigger
+€€d l
+>
+€€l m&
+superStateConfiguration€€n …
+)€€… 
+{
+ 	
+AddSuperState
+ 
+(
+ %
+superStateConfiguration
+ 1
+as
+2 4)
+IStateConfigurationInternal
+5 P
+<
+P Q
+T
+Q R
+,
+R S
+TState
+T Z
+,
+Z [
+TTrigger
+\ d
+>
+d e
+)
+e f
+;
+f g
+return
+ 
+this
+ 
+;
+ 
+}
+…… 	
+}
+ 
+} ไ
 YC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateConfigurationAsync.cs
 	namespace 	
 NStateManager
@@ -7902,11 +8186,11 @@ Dictionary''[ e
 TState==+ 1
 ,==1 2
 TTrigger==3 ;
->==; <
-AddAutoTransition=== N
-(==N O
-TState==O U
-toState==V ]
+>==; <$
+AddAutoForwardTransition=== U
+(==U V
+TState==V \
+toState==] d
 ,>>
  
 Func>> 
@@ -7936,4215 +8220,4239 @@ Dictionary''[ e
 )@@ 
 {AA 	
 ifBB 
-(BB !
-DefaultAutoTransitionBB %
-!=BB& (
-nullBB) -
-)BB- .
+(BB 
+	conditionBB 
+==BB 
+nullBB !
+)BB! "
 {CC 
 throwCC 
-newCC %
-InvalidOperationExceptionCC 1
-(CC1 2
-$strCC2 d
-)CCd e
-;CCe f
-}CCg h
-ifEE 
-(EE 
-	conditionEE 
-==EE 
-nullEE !
-)EE! "
-{FF 
-throwFF 
-newFF !
-ArgumentNullExceptionFF -
-(FF- .
-nameofFF. 4
-(FF4 5
-	conditionFF5 >
-)FF> ?
-)FF? @
-;FF@ A
-}FFB C!
-DefaultAutoTransitionHH !
-=HH" #"
-StateTransitionFactoryHH$ :
-<HH: ;
-THH; <
-,HH< =
-TStateHH> D
-,HHD E
-TTriggerHHF N
->HHN O
-.HHO P
-GetStateTransitionHHP b
-(HHb c
-StateAccessorHHc p
-,II 
-StateMutatorII 
-,JJ 
-StateJJ 
-,KK 
-toStateKK 
-,LL 
-	conditionLL 
-,MM 
-nameMM 
-,NN 
-priorityNN 
-)NN 
-;NN 
-returnPP 
-thisPP 
-;PP 
-}QQ 	
-public\\ $
-IStateConfigurationAsync\\ '
-<\\' (
-T\\( )
-,\\) *
-TState\\+ 1
-,\\1 2
-TTrigger\\3 ;
->\\; <
-AddAutoTransition\\= N
-<\\N O
-TRequest\\O W
->\\W X
-(\\X Y
-TState\\Y _
-toState\\` g
+newCC !
+ArgumentNullExceptionCC -
+(CC- .
+nameofCC. 4
+(CC4 5
+	conditionCC5 >
+)CC> ?
+)CC? @
+;CC@ A
+}CCB C
+varEE 
+
+transitionEE 
+=EE "
+StateTransitionFactoryEE 3
+<EE3 4
+TEE4 5
+,EE5 6
+TStateEE7 =
+,EE= >
+TTriggerEE? G
+>EEG H
+.EEH I
+GetStateTransitionEEI [
+(EE[ \
+StateAccessorEE\ i
+,FF 
+StateMutatorFF 
+,GG 
+StateGG 
+,HH 
+toStateHH 
+,II 
+	conditionII 
+,JJ 
+nameJJ 
+,KK 
+priorityKK 
+)KK 
+;KK 
+AddAutoTransitionLL 
+(LL 
+
+transitionLL (
+)LL( )
+;LL) *
+returnNN 
+thisNN 
+;NN 
+}OO 	
+publicZZ $
+IStateConfigurationAsyncZZ '
+<ZZ' (
+TZZ( )
+,ZZ) *
+TStateZZ+ 1
+,ZZ1 2
+TTriggerZZ3 ;
+>ZZ; <$
+AddAutoForwardTransitionZZ= U
+<ZZU V
+TRequestZZV ^
+>ZZ^ _
+(ZZ_ `
+TStateZZ` f
+toStateZZg n
+,[[
+ 
+Func[[ 
+<[[ 
+T[[ 
+,[[ 
+TRequest[[ 
+,[[ 
+CancellationToken[[ /
+,[[/ 0
+Task[[1 5
+<[[5 6
+bool[[6 :
+>[[: ;
+>[[; <
+	condition[[= F
+,\\
+ 
+string\\ 
+name\\ 
+=\\ 
+null\\ 
 ,]]
  
-Func]] 
-<]] 
-T]] 
-,]] 
-TRequest]] 
-,]] 
-CancellationToken]] /
-,]]/ 0
-Task]]1 5
-<]]5 6
-bool]]6 :
->]]: ;
->]]; <
-	condition]]= F
-,^^
- 
-string^^ 
-name^^ 
-=^^ 
-null^^ 
-,__
+uint]] 
+priority]] 
+=]] 
+$num]] 
+)]] 
+where^^ 
+TRequest^^ 
+:^^ 
+class^^ "
+{__ 	
+if`` 
+(`` 
+	condition`` 
+==`` 
+null`` !
+)``! "
+{aa 
+throwaa 
+newaa !
+ArgumentNullExceptionaa -
+(aa- .
+nameofaa. 4
+(aa4 5
+	conditionaa5 >
+)aa> ?
+)aa? @
+;aa@ A
+}aaB C
+varcc 
+
+transitioncc 
+=cc "
+StateTransitionFactorycc 3
+<cc3 4
+Tcc4 5
+,cc5 6
+TStatecc7 =
+,cc= >
+TTriggercc? G
+>ccG H
+.ccH I
+GetStateTransitionccI [
+(cc[ \
+StateAccessorcc\ i
+,dd 
+StateMutatordd 
+,ee 
+Stateee 
+,ff 
+toStateff 
+,gg 
+	conditiongg 
+,hh 
+namehh 
+,ii 
+priorityii 
+)ii 
+;ii 
+AddAutoTransitionjj 
+(jj 
+
+transitionjj (
+)jj( )
+;jj) *
+returnll 
+thisll 
+;ll 
+}mm 	
+publicxx $
+IStateConfigurationAsyncxx '
+<xx' (
+Txx( )
+,xx) *
+TStatexx+ 1
+,xx1 2
+TTriggerxx3 ;
+>xx; <$
+AddAutoForwardTransitionxx= U
+(xxU V
+TStatexxV \
+toStatexx] d
+,yy
  
-uint__ 
-priority__ 
-=__ 
-$num__ 
-)__ 
-where`` 
-TRequest`` 
-:`` 
-class`` "
-{aa 	
-ifbb 
-(bb !
-DefaultAutoTransitionbb %
-!=bb& (
-nullbb) -
-)bb- .
-{cc 
-throwcc 
-newcc %
-InvalidOperationExceptioncc 1
-(cc1 2
-$strcc2 b
-)ccb c
-;ccc d
-}cce f
-ifee 
-(ee 
-	conditionee 
-==ee 
-nullee !
-)ee! "
-{ff 
-throwff 
-newff !
-ArgumentNullExceptionff -
-(ff- .
-nameofff. 4
-(ff4 5
-	conditionff5 >
-)ff> ?
-)ff? @
-;ff@ A
-}ffB C!
-DefaultAutoTransitionhh !
-=hh" #"
-StateTransitionFactoryhh$ :
-<hh: ;
-Thh; <
-,hh< =
-TStatehh> D
-,hhD E
-TTriggerhhF N
->hhN O
-.hhO P
-GetStateTransitionhhP b
-(hhb c
-StateAccessorhhc p
-,ii 
-StateMutatorii 
-,jj 
-Statejj 
-,kk 
-toStatekk 
-,ll 
-	conditionll 
-,mm 
-namemm 
-,nn 
-prioritynn 
-)nn 
-;nn 
-returnpp 
-thispp 
-;pp 
-}qq 	
-public|| $
-IStateConfigurationAsync|| '
-<||' (
-T||( )
-,||) *
-TState||+ 1
-,||1 2
-TTrigger||3 ;
->||; <
-AddAutoTransition||= N
-(||N O
-TState||O U
-toState||V ]
-,}}
+Funcyy 
+<yy 
+Tyy 
+,yy 
+CancellationTokenyy %
+,yy% &
+Taskyy' +
+<yy+ ,
+boolyy, 0
+>yy0 1
+>yy1 2
+	conditionyy3 <
+,zz
+ 
+TStatezz 
+previousStatezz  
+,{{
+ 
+string{{ 
+name{{ 
+={{ 
+null{{ 
+,||
  
-Func}} 
-<}} 
-T}} 
-,}} 
-CancellationToken}} %
-,}}% &
-Task}}' +
-<}}+ ,
-bool}}, 0
->}}0 1
->}}1 2
-	condition}}3 <
-,~~
- 
-TState~~ 
-previousState~~  
-,
- 
-string 
-name 
-= 
-null 
-,
-€€
- 
-uint
-€€ 
-priority
-€€ 
-=
-€€ 
-$num
-€€ 
-)
-€€ 
-{
- 	
+uint|| 
+priority|| 
+=|| 
+$num|| 
+)|| 
+{}} 	
+if~~ 
+(~~ 
+	condition~~ 
+==~~ 
+null~~ !
+)~~! "
+{ 
+throw 
+new !
+ArgumentNullException -
+(- .
+nameof. 4
+(4 5
+	condition5 >
+)> ?
+)? @
+;@ A
+}B C
 if
- 
+ 
 (
- 
-	condition
- 
-==
- 
-null
- !
-)
-! "
-{
- 
-throw
- 
-new
- #
-ArgumentNullException
- -
-(
-- .
-nameof
-. 4
-(
-4 5
-	condition
-5 >
-)
-> ?
-)
-? @
-;
-@ A
-}
-B C
-if
-…… 
-(
-…… *
-PreviousStateAutoTransitions
-…… ,
+ 
+!
+ *
+AutoPreviousStateTransitions
+ -
 .
-……, -
-ContainsKey
-……- 8
+- .
+TryGetValue
+. 9
 (
-……8 9
+9 :
 previousState
-……9 F
-)
-……F G
-)
-……G H
-{
- 
-throw
- 
-new
- '
-InvalidOperationException
- 3
-(
-3 4
-$"
- 1
-#AutoTransition already defined for 
- 9
-{
-9 :
-previousState
-: G
-}
-G H<
-.. Only one auto transition allowed per toState
-H v
-"
-v w
-)
-w x
-;
-x y
-}
- 
+: G
+,
+G H
+out
+I L
 var
- 
-
-transition
- 
+M P
+transitions
+Q \
+)
+\ ]
+)
+] ^
+{
+ 
+transitions
+ 
 =
- $
-StateTransitionFactory
- 3
+ 
+new
+ !
+List
+" &
 <
-3 4
+& '!
+StateTransitionBase
+' :
+<
+: ;
 T
-4 5
+; <
 ,
-5 6
+< =
 TState
-7 =
+> D
 ,
-= >
+D E
 TTrigger
-? G
+F N
 >
-G H
-.
-H I 
-GetStateTransition
-I [
+N O
+>
+O P
 (
-[ \
-StateAccessor
-\ i
-,
- 
-StateMutator
- 
-,
- 
-State
- 
-,
- 
-toState
- 
-,
- 
-	condition
- 
-,
- 
-name
- 
-,
-‘‘ 
-priority
-‘‘ 
+P Q
 )
-‘‘ 
+Q R
 ;
-‘‘ *
-PreviousStateAutoTransitions
-’’ (
+R S*
+AutoPreviousStateTransitions
+ ,
 .
-’’( )
+, -
 Add
-’’) ,
+- 0
 (
-’’, -
+0 1
 previousState
-’’- :
+1 >
 ,
-’’: ;
+> ?
+transitions
+@ K
+)
+K L
+;
+L M
+}
+…… 
+var
+ 
 
 transition
-’’< F
-)
-’’F G
-;
-’’G H
-return
-”” 
-this
-”” 
-;
-”” 
-}
-•• 	
-public
-กก &
-IStateConfigurationAsync
-กก '
+ 
+=
+ $
+StateTransitionFactory
+ 3
 <
-กก' (
+3 4
 T
-กก( )
+4 5
 ,
-กก) *
+5 6
 TState
-กก+ 1
+7 =
 ,
-กก1 2
+= >
 TTrigger
-กก3 ;
+? G
 >
-กก; <
-AddAutoTransition
-กก= N
-<
-กกN O
-TRequest
-กกO W
->
-กกW X
+G H
+.
+H I 
+GetStateTransition
+I [
 (
-กกX Y
-TState
-กกY _
-toState
-กก` g
+[ \
+StateAccessor
+\ i
 ,
-ขข
+ 
+StateMutator
+ 
+,
+ 
+State
+ 
+,
+ 
+toState
+ 
+,
+ 
+	condition
+ 
+,
+ 
+name
+ 
+,
+ 
+priority
+ 
+)
+ 
+;
+ 
+transitions
+ 
+.
+ 
+Add
+ 
+(
+ 
+
+transition
+ &
+)
+& '
+;
+' (
+return
+ 
+this
+ 
+;
+ 
+}
+‘‘ 	
+public
+ &
+IStateConfigurationAsync
+ '
+<
+' (
+T
+( )
+,
+) *
+TState
++ 1
+,
+1 2
+TTrigger
+3 ;
+>
+; <&
+AddAutoForwardTransition
+= U
+<
+U V
+TRequest
+V ^
+>
+^ _
+(
+_ `
+TState
+` f
+toState
+g n
+,
+
  
 Func
-ขข 
+ 
 <
-ขข 
+ 
 T
-ขข 
+ 
 ,
-ขข 
+ 
 TRequest
-ขข 
+ 
 ,
-ขข 
+ 
 CancellationToken
-ขข /
+ /
 ,
-ขข/ 0
+/ 0
 Task
-ขข1 5
+1 5
 <
-ขข5 6
+5 6
 bool
-ขข6 :
+6 :
 >
-ขข: ;
+: ;
 >
-ขข; <
+; <
 	condition
-ขข= F
+= F
 ,
-ฃฃ
+
  
 TState
-ฃฃ 
+ 
 previousState
-ฃฃ  
+  
 ,
-คค
+  
  
 string
-คค 
+   
 name
-คค 
+   
 =
-คค 
+   
 null
-คค 
+   
 ,
-ฅฅ
+กก
  
 uint
-ฅฅ 
+กก 
 priority
-ฅฅ 
+กก 
 =
-ฅฅ 
+กก 
 $num
-ฅฅ 
+กก 
 )
-ฅฅ 
+กก 
 where
-ฆฆ 
+ขข 
 TRequest
-ฆฆ 
+ขข 
 :
-ฆฆ 
+ขข 
 class
-ฆฆ "
+ขข "
 {
-งง 	
+ฃฃ 	
 if
-จจ 
+คค 
 (
-จจ 
+คค 
 	condition
-จจ 
+คค 
 ==
-จจ 
+คค 
 null
-จจ !
+คค !
 )
-จจ! "
+คค! "
 {
-ฉฉ 
+ฅฅ 
 throw
-ฉฉ 
+ฅฅ 
 new
-ฉฉ #
+ฅฅ #
 ArgumentNullException
-ฉฉ -
+ฅฅ -
 (
-ฉฉ- .
+ฅฅ- .
 nameof
-ฉฉ. 4
+ฅฅ. 4
 (
-ฉฉ4 5
+ฅฅ4 5
 	condition
-ฉฉ5 >
+ฅฅ5 >
 )
-ฉฉ> ?
+ฅฅ> ?
 )
-ฉฉ? @
+ฅฅ? @
 ;
-ฉฉ@ A
+ฅฅ@ A
 }
-ฉฉB C
+ฅฅB C
 if
-ซซ 
+งง 
 (
-ซซ *
-PreviousStateAutoTransitions
-ซซ ,
+งง 
+!
+งง *
+AutoPreviousStateTransitions
+งง -
 .
-ซซ, -
-ContainsKey
-ซซ- 8
+งง- .
+TryGetValue
+งง. 9
 (
-ซซ8 9
+งง9 :
 previousState
-ซซ9 F
-)
-ซซF G
-)
-ซซG H
-{
-ฌฌ 
-throw
-ฌฌ 
-new
-ฌฌ '
-InvalidOperationException
-ฌฌ 1
-(
-ฌฌ1 2
-$"
-ฌฌ2 41
-#AutoTransition already defined for 
-ฌฌ4 W
-{
-ฌฌW X
-previousState
-ฌฌX e
-}
-ฌฌe f=
-.. Only one auto transition allowed per toStateฌฌf ”
-"ฌฌ” •
-)ฌฌ• –
-;ฌฌ– —
-}ฌฌ 
+งง: G
+,
+งงG H
+out
+งงI L
 var
-ฎฎ 
+งงM P
+transitions
+งงQ \
+)
+งง\ ]
+)
+งง] ^
+{
+จจ 
+transitions
+ฉฉ 
+=
+ฉฉ 
+new
+ฉฉ !
+List
+ฉฉ" &
+<
+ฉฉ& '!
+StateTransitionBase
+ฉฉ' :
+<
+ฉฉ: ;
+T
+ฉฉ; <
+,
+ฉฉ< =
+TState
+ฉฉ> D
+,
+ฉฉD E
+TTrigger
+ฉฉF N
+>
+ฉฉN O
+>
+ฉฉO P
+(
+ฉฉP Q
+)
+ฉฉQ R
+;
+ฉฉR S*
+AutoPreviousStateTransitions
+ชช ,
+.
+ชช, -
+Add
+ชช- 0
+(
+ชช0 1
+previousState
+ชช1 >
+,
+ชช> ?
+transitions
+ชช@ K
+)
+ชชK L
+;
+ชชL M
+}
+ซซ 
+var
+ญญ 
 
 transition
-ฎฎ 
+ญญ 
 =
-ฎฎ $
+ญญ $
 StateTransitionFactory
-ฎฎ 3
+ญญ 3
 <
-ฎฎ3 4
+ญญ3 4
 T
-ฎฎ4 5
+ญญ4 5
 ,
-ฎฎ5 6
+ญญ5 6
 TState
-ฎฎ7 =
+ญญ7 =
 ,
-ฎฎ= >
+ญญ= >
 TTrigger
-ฎฎ? G
+ญญ? G
 >
-ฎฎG H
+ญญG H
 .
-ฎฎH I 
+ญญH I 
 GetStateTransition
-ฎฎI [
+ญญI [
 (
-ฎฎ[ \
+ญญ[ \
 StateAccessor
-ฎฎ\ i
+ญญ\ i
 ,
-ฏฏ 
+ฎฎ 
 StateMutator
-ฏฏ 
+ฎฎ 
 ,
-ฐฐ 
+ฏฏ 
 State
-ฐฐ 
+ฏฏ 
 ,
-ฑฑ 
+ฐฐ 
 toState
-ฑฑ 
+ฐฐ 
 ,
-ฒฒ 
+ฑฑ 
 	condition
-ฒฒ 
+ฑฑ 
 ,
-ณณ 
+ฒฒ 
 name
-ณณ 
+ฒฒ 
 ,
-ดด 
+ณณ 
 priority
-ดด 
+ณณ 
 )
-ดด 
+ณณ 
 ;
-ดด *
-PreviousStateAutoTransitions
-ตต (
+ณณ 
+transitions
+ดด 
 .
-ตต( )
+ดด 
 Add
-ตต) ,
+ดด 
 (
-ตต, -
-previousState
-ตต- :
-,
-ตต: ;
+ดด 
 
 transition
-ตต< F
+ดด &
 )
-ตตF G
+ดด& '
 ;
-ตตG H
+ดด' (
 return
-ทท 
+ถถ 
 this
-ทท 
+ถถ 
 ;
-ทท 
+ถถ 
 }
-ธธ 	
+ทท 	
 public
-ยย &
+มม &
 IStateConfigurationAsync
-ยย '
+มม '
 <
-ยย' (
+มม' (
 T
-ยย( )
+มม( )
 ,
-ยย) *
+มม) *
 TState
-ยย+ 1
+มม+ 1
 ,
-ยย1 2
+มม1 2
 TTrigger
-ยย3 ;
+มม3 ;
 >
-ยย; <"
+มม; <"
 AddDynamicTransition
-ยย= Q
+มม= Q
 (
-ยยQ R
+มมQ R
 TTrigger
-ยยR Z
+มมR Z
 trigger
-ยย[ b
+มม[ b
 ,
-รร 
+ยย 
 Func
-รร 
+ยย 
 <
-รร 
+ยย 
 T
-รร 
+ยย 
 ,
-รร 
+ยย 
 CancellationToken
-รร '
+ยย '
 ,
-รร' (
+ยย' (
 Task
-รร) -
+ยย) -
 <
-รร- .
+ยย- .
 TState
-รร. 4
+ยย. 4
 >
-รร4 5
+ยย4 5
 >
-รร5 6
+ยย5 6
 function
-รร7 ?
+ยย7 ?
 ,
-ฤฤ 
+รร 
 string
-ฤฤ 
+รร 
 name
-ฤฤ 
+รร 
 =
-ฤฤ 
+รร 
 null
-ฤฤ  
+รร  
 ,
-ลล 
+ฤฤ 
 uint
-ลล 
+ฤฤ 
 priority
-ลล 
+ฤฤ 
 =
-ลล 
+ฤฤ 
 $num
-ลล 
+ฤฤ 
 )
-ลล  
+ฤฤ  
 {
-ฦฦ 	
+ลล 	
 if
-วว 
+ฦฦ 
 (
-วว 
+ฦฦ 
 function
-วว 
+ฦฦ 
 ==
-วว 
+ฦฦ 
 null
-วว  
+ฦฦ  
 )
-วว  !
+ฦฦ  !
 {
-ศศ 
+วว 
 throw
-ศศ 
+วว 
 new
-ศศ #
+วว #
 ArgumentNullException
-ศศ -
+วว -
 (
-ศศ- .
+วว- .
 nameof
-ศศ. 4
+วว. 4
 (
-ศศ4 5
+วว4 5
 function
-ศศ5 =
+วว5 =
 )
-ศศ= >
+วว= >
 )
-ศศ> ?
+วว> ?
 ;
-ศศ? @
+วว? @
 }
-ศศA B
+ววA B
 var
-สส 
+ษษ 
 
 transition
-สส 
+ษษ 
 =
-สส $
+ษษ $
 StateTransitionFactory
-สส 3
+ษษ 3
 <
-สส3 4
+ษษ3 4
 T
-สส4 5
+ษษ4 5
 ,
-สส5 6
+ษษ5 6
 TState
-สส7 =
+ษษ7 =
 ,
-สส= >
+ษษ= >
 TTrigger
-สส? G
+ษษ? G
 >
-สสG H
+ษษG H
 .
-สสH I 
+ษษH I 
 GetStateTransition
-สสI [
+ษษI [
 (
-สส[ \
+ษษ[ \
 StateAccessor
-สส\ i
+ษษ\ i
 ,
-หห 
+สส 
 StateMutator
-หห 
+สส 
 ,
-ฬฬ 
+หห 
 State
-ฬฬ 
+หห 
 ,
-ออ 
+ฬฬ 
 function
-ออ 
+ฬฬ 
 ,
-ฮฮ 
+ออ 
 name
-ฮฮ 
+ออ 
 ,
-ฯฯ 
+ฮฮ 
 priority
-ฯฯ 
+ฮฮ 
 )
-ฯฯ 
+ฮฮ 
 ;
-ฯฯ 
+ฮฮ 
 AddTransition
-ะะ 
+ฯฯ 
 (
-ะะ 
+ฯฯ 
 trigger
-ะะ !
+ฯฯ !
 ,
-ะะ! "
+ฯฯ! "
 
 transition
-ะะ# -
+ฯฯ# -
 )
-ะะ- .
+ฯฯ- .
 ;
-ะะ. /
+ฯฯ. /
 return
-าา 
+ัั 
 this
-าา 
+ัั 
 ;
-าา 
+ัั 
 }
-ำำ 	
+าา 	
 public
-ÞÞ &
+ÝÝ &
 IStateConfigurationAsync
-ÞÞ '
+ÝÝ '
 <
-ÞÞ' (
+ÝÝ' (
 T
-ÞÞ( )
+ÝÝ( )
 ,
-ÞÞ) *
+ÝÝ) *
 TState
-ÞÞ+ 1
+ÝÝ+ 1
 ,
-ÞÞ1 2
+ÝÝ1 2
 TTrigger
-ÞÞ3 ;
+ÝÝ3 ;
 >
-ÞÞ; <"
+ÝÝ; <"
 AddDynamicTransition
-ÞÞ= Q
+ÝÝ= Q
 <
-ÞÞQ R
+ÝÝQ R
 TRequest
-ÞÞR Z
+ÝÝR Z
 >
-ÞÞZ [
+ÝÝZ [
 (
-ÞÞ[ \
+ÝÝ[ \
 TTrigger
-ÞÞ\ d
+ÝÝ\ d
 trigger
-ÞÞe l
+ÝÝe l
 ,
-฿฿ 
+ÞÞ 
 Func
-฿฿ 
+ÞÞ 
 <
-฿฿ 
+ÞÞ 
 T
-฿฿ 
+ÞÞ 
 ,
-฿฿ 
+ÞÞ 
 TRequest
-฿฿ 
+ÞÞ 
 ,
-฿฿ 
+ÞÞ 
 CancellationToken
-฿฿  1
+ÞÞ  1
 ,
-฿฿1 2
+ÞÞ1 2
 Task
-฿฿3 7
+ÞÞ3 7
 <
-฿฿7 8
+ÞÞ7 8
 TState
-฿฿8 >
+ÞÞ8 >
 >
-฿฿> ?
+ÞÞ> ?
 >
-฿฿? @
+ÞÞ? @
 function
-฿฿A I
+ÞÞA I
 ,
-เเ 
+฿฿ 
 string
-เเ 
+฿฿ 
 name
-เเ 
+฿฿ 
 =
-เเ 
+฿฿ 
 null
-เเ  
+฿฿  
 ,
-แแ 
+เเ 
 uint
-แแ 
+เเ 
 priority
-แแ 
+เเ 
 =
-แแ 
+เเ 
 $num
-แแ 
+เเ 
 )
-แแ  
+เเ  
 where
-โโ 
+แแ 
 TRequest
-โโ 
+แแ 
 :
-โโ 
+แแ 
 class
-โโ "
+แแ "
 {
-ใใ 	
+โโ 	
 if
-ไไ 
+ใใ 
 (
-ไไ 
+ใใ 
 function
-ไไ 
+ใใ 
 ==
-ไไ 
+ใใ 
 null
-ไไ  
+ใใ  
 )
-ไไ  !
+ใใ  !
 {
-ๅๅ 
+ไไ 
 throw
-ๅๅ 
+ไไ 
 new
-ๅๅ #
+ไไ #
 ArgumentNullException
-ๅๅ -
+ไไ -
 (
-ๅๅ- .
+ไไ- .
 nameof
-ๅๅ. 4
+ไไ. 4
 (
-ๅๅ4 5
+ไไ4 5
 function
-ๅๅ5 =
+ไไ5 =
 )
-ๅๅ= >
+ไไ= >
 )
-ๅๅ> ?
+ไไ> ?
 ;
-ๅๅ? @
+ไไ? @
 }
-ๅๅA B
+ไไA B
 var
-็็ 
+ๆๆ 
 
 transition
-็็ 
+ๆๆ 
 =
-็็ $
+ๆๆ $
 StateTransitionFactory
-็็ 3
+ๆๆ 3
 <
-็็3 4
+ๆๆ3 4
 T
-็็4 5
+ๆๆ4 5
 ,
-็็5 6
+ๆๆ5 6
 TState
-็็7 =
+ๆๆ7 =
 ,
-็็= >
+ๆๆ= >
 TTrigger
-็็? G
+ๆๆ? G
 >
-็็G H
+ๆๆG H
 .
-่่  
+็็  
 GetStateTransition
-่่ "
+็็ "
 (
-่่" #
+็็" #
 StateAccessor
-่่# 0
+็็# 0
 ,
-้้ 
+่่ 
 StateMutator
-้้ "
+่่ "
 ,
-๊๊ 
+้้ 
 State
-๊๊ 
+้้ 
 ,
-๋๋ 
+๊๊ 
 function
-๋๋ 
+๊๊ 
 ,
-์์ 
+๋๋ 
 name
-์์ 
+๋๋ 
 ,
-ํํ 
+์์ 
 priority
-ํํ 
+์์ 
 )
-ํํ 
+์์ 
 ;
-ํํ  
+์์  
 AddTransition
-๎๎ 
+ํํ 
 (
-๎๎ 
+ํํ 
 trigger
-๎๎ !
+ํํ !
 ,
-๎๎! "
+ํํ! "
 
 transition
-๎๎# -
+ํํ# -
 )
-๎๎- .
+ํํ- .
 ;
-๎๎. /
+ํํ. /
 return
-๐๐ 
+๏๏ 
 this
-๐๐ 
+๏๏ 
 ;
-๐๐ 
+๏๏ 
 }
-๑๑ 	
+๐๐ 	
 public
-๘๘ &
+๗๗ &
 IStateConfigurationAsync
-๘๘ '
+๗๗ '
 <
-๘๘' (
+๗๗' (
 T
-๘๘( )
+๗๗( )
 ,
-๘๘) *
+๗๗) *
 TState
-๘๘+ 1
+๗๗+ 1
 ,
-๘๘1 2
+๗๗1 2
 TTrigger
-๘๘3 ;
+๗๗3 ;
 >
-๘๘; <
+๗๗; <
 AddEntryAction
-๘๘= K
+๗๗= K
 (
-๘๘K L
+๗๗K L
 Func
-๘๘L P
+๗๗L P
 <
-๘๘P Q
+๗๗P Q
 T
-๘๘Q R
+๗๗Q R
 ,
-๘๘R S
+๗๗R S
 CancellationToken
-๘๘T e
+๗๗T e
 ,
-๘๘e f
+๗๗e f
 Task
-๘๘g k
+๗๗g k
 >
-๘๘k l
+๗๗k l
 action
-๘๘m s
+๗๗m s
 )
-๘๘s t
+๗๗s t
 {
-๙๙ 	
+๘๘ 	
 if
-๚๚ 
+๙๙ 
 (
-๚๚ !
+๙๙ !
 _defaultEntryAction
-๚๚ #
+๙๙ #
 !=
-๚๚$ &
+๙๙$ &
 null
-๚๚' +
+๙๙' +
 )
-๚๚+ ,
+๙๙+ ,
 {
-๛๛ 
+๚๚ 
 throw
-๛๛ 
+๚๚ 
 new
-๛๛ '
+๚๚ '
 InvalidOperationException
-๛๛ 1
+๚๚ 1
 (
-๛๛1 2
+๚๚1 2
 $str
-๛๛2 a
+๚๚2 a
 )
-๛๛a b
+๚๚a b
 ;
-๛๛b c
+๚๚b c
 }
-๛๛d e!
+๚๚d e!
 _defaultEntryAction
-ýý 
+üü 
 =
-ýý  !
+üü  !
 action
-ýý" (
+üü" (
 ??
-ýý) +
+üü) +
 throw
-ýý, 1
+üü, 1
 new
-ýý2 5#
+üü2 5#
 ArgumentNullException
-ýý6 K
+üü6 K
 (
-ýýK L
+üüK L
 nameof
-ýýL R
+üüL R
 (
-ýýR S
+üüR S
 action
-ýýS Y
+üüS Y
 )
-ýýY Z
+üüY Z
 )
-ýýZ [
+üüZ [
 ;
-ýý[ \
+üü[ \
 return
-ÿÿ 
+þþ 
 this
-ÿÿ 
+þþ 
 ;
-ÿÿ 
+þþ 
 }
-€€ 	
+ÿÿ 	
 public
- &
+ &
 IStateConfigurationAsync
- '
+ '
 <
-' (
+' (
 T
-( )
+( )
 ,
-) *
+) *
 TState
-+ 1
++ 1
 ,
-1 2
+1 2
 TTrigger
-3 ;
+3 ;
 >
-; <
+; <
 AddEntryAction
-= K
+= K
 (
-K L
+K L
 Func
-L P
+L P
 <
-P Q
+P Q
 T
-Q R
+Q R
 ,
-R S
+R S
 CancellationToken
-T e
+T e
 ,
-e f
+e f
 Task
-g k
+g k
 >
-k l
+k l
 action
-m s
+m s
 ,
-s t
+s t
 TState
-u {
-previousState| 
-) 
+u {
+previousState| 
+) 
 {
- 	
+ 	
 if
- 
+ 
 (
- 
+ 
 action
- 
+ 
 ==
- 
+ 
 null
- 
+ 
 )
- 
+ 
 {
- 
+ 
 throw
- 
+ 
 new
- #
+ #
 ArgumentNullException
- -
+ -
 (
-- .
+- .
 nameof
-. 4
+. 4
 (
-4 5
+4 5
 action
-5 ;
+5 ;
 )
-; <
+; <
 )
-< =
+< =
 ;
-= >
+= >
 }
-? @
+? @
 if
- 
+ 
 (
- (
+ (
 _previousStateEntryActions
- *
+ *
 .
-* +
+* +
 ContainsKey
-+ 6
++ 6
 (
-6 7
+6 7
 previousState
-7 D
+7 D
 )
-D E
+D E
 )
-E F
+E F
 {
- 
+ 
 throw
- 
+ 
 new
- '
+ '
 InvalidOperationException
- 1
+ 1
 (
-1 2
+1 2
 $str
-2 g
+2 g
 )
-g h
+g h
 ;
-h i
+h i
 }
-j k(
+j k(
 _previousStateEntryActions
- &
+ &
 .
-& '
+& '
 Add
-' *
+' *
 (
-* +
+* +
 previousState
-+ 8
++ 8
 ,
-8 9
+8 9
 action
-: @
+: @
 )
-@ A
+@ A
 ;
-A B
+A B
 return
-’’ 
+‘‘ 
 this
-’’ 
+‘‘ 
 ;
-’’ 
+‘‘ 
 }
-““ 	
+’’ 	
 public
- &
+ &
 IStateConfigurationAsync
- '
+ '
 <
-' (
+' (
 T
-( )
+( )
 ,
-) *
+) *
 TState
-+ 1
++ 1
 ,
-1 2
+1 2
 TTrigger
-3 ;
+3 ;
 >
-; <
+; <
 AddExitAction
-= J
+= J
 (
-J K
+J K
 Func
-K O
+K O
 <
-O P
+O P
 T
-P Q
+P Q
 ,
-Q R
+Q R
 CancellationToken
-S d
+S d
 ,
-d e
+d e
 Task
-f j
+f j
 >
-j k
+j k
 action
-l r
+l r
 )
-r s
+r s
 {
- 	
+ 	
 if
- 
+ 
 (
-  
+  
 _defaultExitAction
- "
+ "
 !=
-# %
+# %
 null
-& *
+& *
 )
-* +
+* +
 {
- 
+ 
 throw
- 
+ 
 new
- '
+ '
 InvalidOperationException
- 1
+ 1
 (
-1 2
+1 2
 $str
-2 T
+2 T
 )
-T U
+T U
 ;
-U V
+U V
 }
-W X 
+W X 
 _defaultExitAction
- 
+ 
 =
-  
+  
 action
-! '
+! '
 ??
-( *
+( *
 throw
-+ 0
++ 0
 new
-1 4#
+1 4#
 ArgumentNullException
-5 J
+5 J
 (
-J K
+J K
 nameof
-K Q
+K Q
 (
-Q R
+Q R
 action
-R X
+R X
 )
-X Y
+X Y
 )
-Y Z
+Y Z
 ;
-Z [
+Z [
 return
-กก 
+   
 this
-กก 
+   
 ;
-กก 
+   
 }
-ขข 	
+กก 	
 public
-ชช &
+ฉฉ &
 IStateConfigurationAsync
-ชช '
+ฉฉ '
 <
-ชช' (
+ฉฉ' (
 T
-ชช( )
+ฉฉ( )
 ,
-ชช) *
+ฉฉ) *
 TState
-ชช+ 1
+ฉฉ+ 1
 ,
-ชช1 2
+ฉฉ1 2
 TTrigger
-ชช3 ;
+ฉฉ3 ;
 >
-ชช; <
+ฉฉ; <
 AddExitAction
-ชช= J
+ฉฉ= J
 (
-ชชJ K
+ฉฉJ K
 Func
-ชชK O
+ฉฉK O
 <
-ชชO P
+ฉฉO P
 T
-ชชP Q
+ฉฉP Q
 ,
-ชชQ R
+ฉฉQ R
 CancellationToken
-ชชS d
+ฉฉS d
 ,
-ชชd e
+ฉฉd e
 Task
-ชชf j
+ฉฉf j
 >
-ชชj k
+ฉฉj k
 action
-ชชl r
+ฉฉl r
 ,
-ชชr s
+ฉฉr s
 TState
-ชชt z
-	nextStateชช{ 
-)ชช …
+ฉฉt z
+	nextStateฉฉ{ 
+)ฉฉ …
 {
-ซซ 	
+ชช 	
 if
-ฌฌ 
+ซซ 
 (
-ฌฌ 
+ซซ 
 action
-ฌฌ 
+ซซ 
 ==
-ฌฌ 
+ซซ 
 null
-ฌฌ 
+ซซ 
 )
-ฌฌ 
+ซซ 
 {
-ญญ 
+ฌฌ 
 throw
-ญญ 
+ฌฌ 
 new
-ญญ #
+ฌฌ #
 ArgumentNullException
-ญญ -
+ฌฌ -
 (
-ญญ- .
+ฌฌ- .
 nameof
-ญญ. 4
+ฌฌ. 4
 (
-ญญ4 5
+ฌฌ4 5
 	nextState
-ญญ5 >
+ฌฌ5 >
 )
-ญญ> ?
+ฌฌ> ?
 )
-ญญ? @
+ฌฌ? @
 ;
-ญญ@ A
+ฌฌ@ A
 }
-ญญB C
+ฌฌB C
 if
-ฏฏ 
+ฎฎ 
 (
-ฏฏ #
+ฎฎ #
 _nextStateExitActions
-ฏฏ %
+ฎฎ %
 .
-ฏฏ% &
+ฎฎ% &
 ContainsKey
-ฏฏ& 1
+ฎฎ& 1
 (
-ฏฏ1 2
+ฎฎ1 2
 	nextState
-ฏฏ2 ;
+ฎฎ2 ;
 )
-ฏฏ; <
+ฎฎ; <
 )
-ฏฏ< =
+ฎฎ< =
 {
-ฐฐ 
+ฏฏ 
 throw
-ฐฐ 
+ฏฏ 
 new
-ฐฐ '
+ฏฏ '
 InvalidOperationException
-ฐฐ 1
+ฏฏ 1
 (
-ฐฐ1 2
+ฏฏ1 2
 $"
-ฐฐ2 4)
+ฏฏ2 4)
 Exit action with nextState 
-ฐฐ4 O
+ฏฏ4 O
 {
-ฐฐO P
+ฏฏO P
 	nextState
-ฐฐP Y
+ฏฏP Y
 }
-ฐฐY Z
+ฏฏY Z
  already set.
-ฐฐZ g
+ฏฏZ g
 "
-ฐฐg h
+ฏฏg h
 )
-ฐฐh i
+ฏฏh i
 ;
-ฐฐi j
+ฏฏi j
 }
-ฐฐk l#
+ฏฏk l#
 _nextStateExitActions
-ฒฒ !
+ฑฑ !
 .
-ฒฒ! "
+ฑฑ! "
 Add
-ฒฒ" %
+ฑฑ" %
 (
-ฒฒ% &
+ฑฑ% &
 	nextState
-ฒฒ& /
+ฑฑ& /
 ,
-ฒฒ/ 0
+ฑฑ/ 0
 action
-ฒฒ1 7
+ฑฑ1 7
 )
-ฒฒ7 8
+ฑฑ7 8
 ;
-ฒฒ8 9
+ฑฑ8 9
 return
-ดด 
+ณณ 
 this
-ดด 
+ณณ 
 ;
-ดด 
+ณณ 
 }
-ตต 	
+ดด 	
 public
-ทท &
+ถถ &
 IStateConfigurationAsync
-ทท '
+ถถ '
 <
-ทท' (
+ถถ' (
 T
-ทท( )
+ถถ( )
 ,
-ทท) *
+ถถ) *
 TState
-ทท+ 1
+ถถ+ 1
 ,
-ทท1 2
+ถถ1 2
 TTrigger
-ทท3 ;
+ถถ3 ;
 >
-ทท; <#
-AddFallbackTransition
-ทท= R
+ถถ; <'
+AddAutoFallbackTransition
+ถถ= V
 (
-ททR S
+ถถV W
 Func
-ททS W
+ถถW [
 <
-ททW X
+ถถ[ \
 T
-ททX Y
+ถถ\ ]
 ,
-ททY Z
+ถถ] ^
 CancellationToken
-ทท[ l
+ถถ_ p
 ,
-ททl m
+ถถp q
 Task
-ททn r
+ถถr v
 <
-ททr s
+ถถv w
 bool
-ททs w
+ถถw {
 >
-ททw x
+ถถ{ |
 >
-ททx y
-	conditionททz 
+ถถ| }
+	conditionถถ~ 
+,
+ทท
+ 
+string
+ทท 
+name
+ทท 
+=
+ทท 
+null
+ทท 
 ,
 ธธ
- 
-string
-ธธ 
-name
-ธธ 
-=
-ธธ 
-null
-ธธ 
-,
-นน
  
 uint
-นน 
+ธธ 
 priority
-นน 
+ธธ 
 =
-นน 
+ธธ 
 $num
-นน 
+ธธ 
 )
-นน 
+ธธ 
 {
-บบ 	
+นน 	
 if
-ปป 
+บบ 
 (
-ปป #
-DefaultAutoTransition
-ปป %
-!=
-ปป& (
-null
-ปป) -
-)
-ปป- .
-{
-ผผ 
-throw
-ผผ 
-new
-ผผ '
-InvalidOperationException
-ผผ 1
-(
-ผผ1 2
-$str
-ผผ2 b
-)
-ผผb c
-;
-ผผc d
-}
-ผผe f
-if
-พพ 
-(
-พพ 
+บบ 
 	condition
-พพ 
+บบ 
 ==
-พพ 
+บบ 
 null
-พพ !
+บบ !
 )
-พพ! "
+บบ! "
 {
-ฟฟ 
+ปป 
 throw
-ฟฟ 
+ปป 
 new
-ฟฟ #
+ปป #
 ArgumentNullException
-ฟฟ -
+ปป -
 (
-ฟฟ- .
+ปป- .
 nameof
-ฟฟ. 4
+ปป. 4
 (
-ฟฟ4 5
+ปป4 5
 	condition
-ฟฟ5 >
+ปป5 >
 )
-ฟฟ> ?
+ปป> ?
 )
-ฟฟ? @
+ปป? @
 ;
-ฟฟ@ A
+ปป@ A
 }
-ฟฟB C#
-DefaultAutoTransition
-มม !
-=
-มม" #$
-StateTransitionFactory
-มม$ :
-<
-มม: ;
-T
-มม; <
-,
-มม< =
-TState
-มม> D
-,
-มมD E
-TTrigger
-มมF N
->
-มมN O
-.
-มมO P 
-GetStateTransition
-มมP b
-(
-มมb c
-StateAccessor
-มมc p
-,
-ยย 
-StateMutator
-ยย 
-,
-รร 
-State
-รร 
-,
-ฤฤ 
-State
-ฤฤ 
-,
-ลล 
-	condition
-ลล 
-,
-ฦฦ 
-name
-ฦฦ 
-,
-วว 
-priority
-วว 
-)
-วว 
-;
-วว 
-return
-ษษ 
-this
-ษษ 
-;
-ษษ 
-}
-สส 	
-public
-ฬฬ &
-IStateConfigurationAsync
-ฬฬ '
-<
-ฬฬ' (
-T
-ฬฬ( )
-,
-ฬฬ) *
-TState
-ฬฬ+ 1
-,
-ฬฬ1 2
-TTrigger
-ฬฬ3 ;
->
-ฬฬ; <#
-AddFallbackTransition
-ฬฬ= R
-<
-ฬฬR S
-TRequest
-ฬฬS [
->
-ฬฬ[ \
-(
-ฬฬ\ ]
-Func
-ฬฬ] a
-<
-ฬฬa b
-T
-ฬฬb c
-,
-ฬฬc d
-TRequest
-ฬฬe m
-,
-ฬฬm n 
-CancellationTokenฬฬo €
-,ฬฬ€ 
-Taskฬฬ 
-<ฬฬ 
-boolฬฬ 
->ฬฬ 
->ฬฬ 
-	conditionฬฬ —
-,
-ออ
- 
-string
-ออ 
-name
-ออ 
-=
-ออ 
-null
-ออ 
-,
-ฮฮ
- 
-uint
-ฮฮ 
-priority
-ฮฮ 
-=
-ฮฮ 
-$num
-ฮฮ 
-)
-ฮฮ 
-where
-ฯฯ 
-TRequest
-ฯฯ 
-:
-ฯฯ 
-class
-ฯฯ "
-{
-ะะ 	
-if
-ัั 
-(
-ัั #
-DefaultAutoTransition
-ัั %
-!=
-ัั& (
-null
-ัั) -
-)
-ัั- .
-{
-าา 
-throw
-าา 
-new
-าา '
-InvalidOperationException
-าา 1
-(
-าา1 2
-$str
-าา2 b
-)
-าาb c
-;
-าาc d
-}
-าาe f
-if
-ิิ 
-(
-ิิ 
-	condition
-ิิ 
-==
-ิิ 
-null
-ิิ !
-)
-ิิ! "
-{
-ีี 
-throw
-ีี 
-new
-ีี #
-ArgumentNullException
-ีี -
-(
-ีี- .
-nameof
-ีี. 4
-(
-ีี4 5
-	condition
-ีี5 >
-)
-ีี> ?
-)
-ีี? @
-;
-ีี@ A
-}
-ีีB C#
-DefaultAutoTransition
-ืื !
-=
-ืื" #$
-StateTransitionFactory
-ืื$ :
-<
-ืื: ;
-T
-ืื; <
-,
-ืื< =
-TState
-ืื> D
-,
-ืืD E
-TTrigger
-ืืF N
->
-ืืN O
-.
-ืืO P 
-GetStateTransition
-ืืP b
-(
-ืืb c
-StateAccessor
-ืืc p
-,
-ุุ 
-StateMutator
-ุุ 
-,
-ูู 
-State
-ูู 
-,
-ฺฺ 
-State
-ฺฺ 
-,
-ÛÛ 
-	condition
-ÛÛ 
-,
-ÜÜ 
-name
-ÜÜ 
-,
-ÝÝ 
-priority
-ÝÝ 
-)
-ÝÝ 
-;
-ÝÝ 
-return
-฿฿ 
-this
-฿฿ 
-;
-฿฿ 
-}
-เเ 	
-public
-โโ &
-IStateConfigurationAsync
-โโ '
-<
-โโ' (
-T
-โโ( )
-,
-โโ) *
-TState
-โโ+ 1
-,
-โโ1 2
-TTrigger
-โโ3 ;
->
-โโ; <#
-AddFallbackTransition
-โโ= R
-(
-โโR S
-Func
-โโS W
-<
-โโW X
-T
-โโX Y
-,
-โโY Z
-CancellationToken
-โโ[ l
-,
-โโl m
-Task
-โโn r
-<
-โโr s
-bool
-โโs w
->
-โโw x
->
-โโx y
-	conditionโโz 
-,
-ใใ
- 
-TState
-ใใ 
-previousState
-ใใ  
-,
-ไไ
- 
-string
-ไไ 
-name
-ไไ 
-=
-ไไ 
-null
-ไไ 
-,
-ๅๅ
- 
-uint
-ๅๅ 
-priority
-ๅๅ 
-=
-ๅๅ 
-$num
-ๅๅ 
-)
-ๅๅ 
-{
-ๆๆ 	
-if
-็็ 
-(
-็็ 
-	condition
-็็ 
-==
-็็ 
-null
-็็ !
-)
-็็! "
-{
-่่ 
-throw
-่่ 
-new
-่่ #
-ArgumentNullException
-่่ -
-(
-่่- .
-nameof
-่่. 4
-(
-่่4 5
-	condition
-่่5 >
-)
-่่> ?
-)
-่่? @
-;
-่่@ A
-}
-่่B C
-if
-๊๊ 
-(
-๊๊ *
-PreviousStateAutoTransitions
-๊๊ ,
-.
-๊๊, -
-ContainsKey
-๊๊- 8
-(
-๊๊8 9
-previousState
-๊๊9 F
-)
-๊๊F G
-)
-๊๊G H
-{
-๋๋ 
-throw
-๋๋ 
-new
-๋๋ '
-InvalidOperationException
-๋๋ 1
-(
-๋๋1 2
-$"
-๋๋2 41
-#AutoTransition already defined for 
-๋๋4 W
-{
-๋๋W X
-previousState
-๋๋X e
-}
-๋๋e fC
-4. Only one auto transition allowed per previousState๋๋f 
-"๋๋ 
-)๋๋ 
-;๋๋ 
-}๋๋ 
+ปปB C
 var
-ํํ 
+ฝฝ 
 
 transition
-ํํ 
+ฝฝ 
 =
-ํํ $
+ฝฝ $
 StateTransitionFactory
-ํํ 3
+ฝฝ 3
 <
-ํํ3 4
+ฝฝ3 4
 T
-ํํ4 5
+ฝฝ4 5
 ,
-ํํ5 6
+ฝฝ5 6
 TState
-ํํ7 =
+ฝฝ7 =
 ,
-ํํ= >
+ฝฝ= >
 TTrigger
-ํํ? G
+ฝฝ? G
 >
-ํํG H
+ฝฝG H
 .
-ํํH I 
+ฝฝH I 
 GetStateTransition
-ํํI [
+ฝฝI [
 (
-ํํ[ \
+ฝฝ[ \
 StateAccessor
-ํํ\ i
+ฝฝ\ i
 ,
-๎๎ 
+พพ 
 StateMutator
-๎๎ 
+พพ 
 ,
-๏๏ 
+ฟฟ 
 State
-๏๏ 
+ฟฟ 
 ,
-๐๐ 
+ภภ 
 State
-๐๐ 
+ภภ 
 ,
-๑๑ 
+มม 
 	condition
-๑๑ 
+มม 
 ,
-๒๒ 
+ยย 
 name
-๒๒ 
+ยย 
 ,
-๓๓ 
+รร 
 priority
-๓๓ 
+รร 
 )
-๓๓ 
+รร 
 ;
-๓๓ *
-PreviousStateAutoTransitions
-๔๔ (
-.
-๔๔( )
-Add
-๔๔) ,
+รร 
+AddAutoTransition
+ฤฤ 
 (
-๔๔, -
-previousState
-๔๔- :
-,
-๔๔: ;
+ฤฤ 
 
 transition
-๔๔< F
+ฤฤ (
 )
-๔๔F G
+ฤฤ( )
 ;
-๔๔G H
+ฤฤ) *
 return
-๖๖ 
+ฦฦ 
 this
-๖๖ 
+ฦฦ 
 ;
-๖๖ 
+ฦฦ 
 }
-๗๗ 	
+วว 	
 public
-๙๙ &
+ษษ &
 IStateConfigurationAsync
-๙๙ '
+ษษ '
 <
-๙๙' (
+ษษ' (
 T
-๙๙( )
+ษษ( )
 ,
-๙๙) *
+ษษ) *
 TState
-๙๙+ 1
+ษษ+ 1
 ,
-๙๙1 2
+ษษ1 2
 TTrigger
-๙๙3 ;
+ษษ3 ;
 >
-๙๙; <#
-AddFallbackTransition
-๙๙= R
+ษษ; <'
+AddAutoFallbackTransition
+ษษ= V
 <
-๙๙R S
+ษษV W
 TRequest
-๙๙S [
+ษษW _
 >
-๙๙[ \
+ษษ_ `
 (
-๙๙\ ]
+ษษ` a
 Func
-๙๙] a
+ษษa e
 <
-๙๙a b
+ษษe f
 T
-๙๙b c
+ษษf g
 ,
-๙๙c d
+ษษg h
 TRequest
-๙๙e m
+ษษi q
 ,
-๙๙m n 
-CancellationToken๙๙o €
-,๙๙€ 
-Task๙๙ 
-<๙๙ 
-bool๙๙ 
->๙๙ 
->๙๙ 
-	condition๙๙ —
+ษษq r 
+CancellationTokenษษs 
+,ษษ …
+Taskษษ 
+<ษษ 
+boolษษ 
+>ษษ 
+>ษษ ‘
+	conditionษษ’ 
+,
+สส
+ 
+string
+สส 
+name
+สส 
+=
+สส 
+null
+สส 
+,
+หห
+ 
+uint
+หห 
+priority
+หห 
+=
+หห 
+$num
+หห 
+)
+หห 
+where
+ฬฬ 
+TRequest
+ฬฬ 
+:
+ฬฬ 
+class
+ฬฬ "
+{
+ออ 	
+if
+ฮฮ 
+(
+ฮฮ 
+	condition
+ฮฮ 
+==
+ฮฮ 
+null
+ฮฮ !
+)
+ฮฮ! "
+{
+ฯฯ 
+throw
+ฯฯ 
+new
+ฯฯ #
+ArgumentNullException
+ฯฯ -
+(
+ฯฯ- .
+nameof
+ฯฯ. 4
+(
+ฯฯ4 5
+	condition
+ฯฯ5 >
+)
+ฯฯ> ?
+)
+ฯฯ? @
+;
+ฯฯ@ A
+}
+ฯฯB C
+var
+ัั 
+
+transition
+ัั 
+=
+ัั $
+StateTransitionFactory
+ัั 3
+<
+ัั3 4
+T
+ัั4 5
+,
+ัั5 6
+TState
+ัั7 =
+,
+ัั= >
+TTrigger
+ัั? G
+>
+ััG H
+.
+ััH I 
+GetStateTransition
+ััI [
+(
+ัั[ \
+StateAccessor
+ัั\ i
+,
+าา 
+StateMutator
+าา 
+,
+ำำ 
+State
+ำำ 
+,
+ิิ 
+State
+ิิ 
+,
+ีี 
+	condition
+ีี 
+,
+ึึ 
+name
+ึึ 
+,
+ืื 
+priority
+ืื 
+)
+ืื 
+;
+ืื 
+AddAutoTransition
+ุุ 
+(
+ุุ 
+
+transition
+ุุ (
+)
+ุุ( )
+;
+ุุ) *
+return
+ฺฺ 
+this
+ฺฺ 
+;
+ฺฺ 
+}
+ÛÛ 	
+public
+ÝÝ &
+IStateConfigurationAsync
+ÝÝ '
+<
+ÝÝ' (
+T
+ÝÝ( )
+,
+ÝÝ) *
+TState
+ÝÝ+ 1
+,
+ÝÝ1 2
+TTrigger
+ÝÝ3 ;
+>
+ÝÝ; <'
+AddAutoFallbackTransition
+ÝÝ= V
+(
+ÝÝV W
+Func
+ÝÝW [
+<
+ÝÝ[ \
+T
+ÝÝ\ ]
+,
+ÝÝ] ^
+CancellationToken
+ÝÝ_ p
+,
+ÝÝp q
+Task
+ÝÝr v
+<
+ÝÝv w
+bool
+ÝÝw {
+>
+ÝÝ{ |
+>
+ÝÝ| }
+	conditionÝÝ~ 
+,
+ÞÞ
+ 
+TState
+ÞÞ 
+previousState
+ÞÞ  
+,
+฿฿
+ 
+string
+฿฿ 
+name
+฿฿ 
+=
+฿฿ 
+null
+฿฿ 
+,
+เเ
+ 
+uint
+เเ 
+priority
+เเ 
+=
+เเ 
+$num
+เเ 
+)
+เเ 
+{
+แแ 	
+if
+โโ 
+(
+โโ 
+	condition
+โโ 
+==
+โโ 
+null
+โโ !
+)
+โโ! "
+{
+ใใ 
+throw
+ใใ 
+new
+ใใ #
+ArgumentNullException
+ใใ -
+(
+ใใ- .
+nameof
+ใใ. 4
+(
+ใใ4 5
+	condition
+ใใ5 >
+)
+ใใ> ?
+)
+ใใ? @
+;
+ใใ@ A
+}
+ใใB C
+if
+ๅๅ 
+(
+ๅๅ 
+!
+ๅๅ *
+AutoPreviousStateTransitions
+ๅๅ -
+.
+ๅๅ- .
+TryGetValue
+ๅๅ. 9
+(
+ๅๅ9 :
+previousState
+ๅๅ: G
+,
+ๅๅG H
+out
+ๅๅI L
+var
+ๅๅM P
+transitions
+ๅๅQ \
+)
+ๅๅ\ ]
+)
+ๅๅ] ^
+{
+ๆๆ 
+transitions
+็็ 
+=
+็็ 
+new
+็็ !
+List
+็็" &
+<
+็็& '!
+StateTransitionBase
+็็' :
+<
+็็: ;
+T
+็็; <
+,
+็็< =
+TState
+็็> D
+,
+็็D E
+TTrigger
+็็F N
+>
+็็N O
+>
+็็O P
+(
+็็P Q
+)
+็็Q R
+;
+็็R S*
+AutoPreviousStateTransitions
+่่ ,
+.
+่่, -
+Add
+่่- 0
+(
+่่0 1
+previousState
+่่1 >
+,
+่่> ?
+transitions
+่่@ K
+)
+่่K L
+;
+่่L M
+}
+้้ 
+var
+๋๋ 
+
+transition
+๋๋ 
+=
+๋๋ $
+StateTransitionFactory
+๋๋ 3
+<
+๋๋3 4
+T
+๋๋4 5
+,
+๋๋5 6
+TState
+๋๋7 =
+,
+๋๋= >
+TTrigger
+๋๋? G
+>
+๋๋G H
+.
+๋๋H I 
+GetStateTransition
+๋๋I [
+(
+๋๋[ \
+StateAccessor
+๋๋\ i
+,
+์์ 
+StateMutator
+์์ 
+,
+ํํ 
+State
+ํํ 
+,
+๎๎ 
+State
+๎๎ 
+,
+๏๏ 
+	condition
+๏๏ 
+,
+๐๐ 
+name
+๐๐ 
+,
+๑๑ 
+priority
+๑๑ 
+)
+๑๑ 
+;
+๑๑ 
+transitions
+๒๒ 
+.
+๒๒ 
+Add
+๒๒ 
+(
+๒๒ 
+
+transition
+๒๒ &
+)
+๒๒& '
+;
+๒๒' (
+return
+๔๔ 
+this
+๔๔ 
+;
+๔๔ 
+}
+๕๕ 	
+public
+๗๗ &
+IStateConfigurationAsync
+๗๗ '
+<
+๗๗' (
+T
+๗๗( )
+,
+๗๗) *
+TState
+๗๗+ 1
+,
+๗๗1 2
+TTrigger
+๗๗3 ;
+>
+๗๗; <'
+AddAutoFallbackTransition
+๗๗= V
+<
+๗๗V W
+TRequest
+๗๗W _
+>
+๗๗_ `
+(
+๗๗` a
+Func
+๗๗a e
+<
+๗๗e f
+T
+๗๗f g
+,
+๗๗g h
+TRequest
+๗๗i q
+,
+๗๗q r 
+CancellationToken๗๗s 
+,๗๗ …
+Task๗๗ 
+<๗๗ 
+bool๗๗ 
+>๗๗ 
+>๗๗ ‘
+	condition๗๗’ 
+,
+๘๘
+ 
+TState
+๘๘ 
+previousState
+๘๘  
+,
+๙๙
+ 
+string
+๙๙ 
+name
+๙๙ 
+=
+๙๙ 
+null
+๙๙ 
 ,
 ๚๚
- 
-TState
-๚๚ 
-previousState
-๚๚  
-,
-๛๛
- 
-string
-๛๛ 
-name
-๛๛ 
-=
-๛๛ 
-null
-๛๛ 
-,
-üü
  
 uint
-üü 
+๚๚ 
 priority
-üü 
+๚๚ 
 =
-üü 
+๚๚ 
 $num
-üü 
+๚๚ 
 )
-üü 
+๚๚ 
 where
-ýý 
+๛๛ 
 TRequest
-ýý 
+๛๛ 
 :
-ýý 
+๛๛ 
 class
-ýý "
+๛๛ "
 {
-þþ 	
+üü 	
 if
-ÿÿ 
+ýý 
 (
-ÿÿ 
+ýý 
 	condition
-ÿÿ 
+ýý 
 ==
-ÿÿ 
+ýý 
 null
-ÿÿ !
+ýý !
 )
-ÿÿ! "
+ýý! "
 {
-€€ 
+þþ 
 throw
-€€ 
+þþ 
 new
-€€ #
+þþ #
 ArgumentNullException
-€€ -
+þþ -
 (
-€€- .
+þþ- .
 nameof
-€€. 4
+þþ. 4
 (
-€€4 5
+þþ4 5
 	condition
-€€5 >
+þþ5 >
 )
-€€> ?
+þþ> ?
 )
-€€? @
+þþ? @
 ;
-€€@ A
+þþ@ A
 }
-€€B C
+þþB C
 if
- 
+€€ 
 (
- *
-PreviousStateAutoTransitions
- ,
+€€ 
+!
+€€ *
+AutoPreviousStateTransitions
+€€ -
 .
-, -
-ContainsKey
-- 8
+€€- .
+TryGetValue
+€€. 9
 (
-8 9
+€€9 :
 previousState
-9 F
-)
-F G
-)
-G H
-{
- 
-throw
- 
-new
- '
-InvalidOperationException
- 1
-(
-1 2
-$"
-2 41
-#AutoTransition already defined for 
-4 W
-{
-W X
-previousState
-X e
-}
-e fC
-4. Only one auto transition allowed per previousStatef 
-" 
-) 
-; 
-} 
+€€: G
+,
+€€G H
+out
+€€I L
 var
-…… 
+€€M P
+transitions
+€€Q \
+)
+€€\ ]
+)
+€€] ^
+{
+ 
+transitions
+ 
+=
+ 
+new
+ !
+List
+" &
+<
+& '!
+StateTransitionBase
+' :
+<
+: ;
+T
+; <
+,
+< =
+TState
+> D
+,
+D E
+TTrigger
+F N
+>
+N O
+>
+O P
+(
+P Q
+)
+Q R
+;
+R S*
+AutoPreviousStateTransitions
+ ,
+.
+, -
+Add
+- 0
+(
+0 1
+previousState
+1 >
+,
+> ?
+transitions
+@ K
+)
+K L
+;
+L M
+}
+ 
+var
+ 
 
 transition
-…… 
+ 
 =
-…… $
+ $
 StateTransitionFactory
-…… 3
+ 3
 <
-……3 4
+3 4
 T
-……4 5
+4 5
 ,
-……5 6
+5 6
 TState
-……7 =
+7 =
 ,
-……= >
+= >
 TTrigger
-……? G
+? G
 >
-……G H
+G H
 .
-……H I 
+H I 
 GetStateTransition
-……I [
+I [
 (
-……[ \
+[ \
 StateAccessor
-……\ i
+\ i
 ,
- 
+ 
 StateMutator
- 
-,
- 
-State
- 
+ 
 ,
  
 State
  
 ,
- 
+ 
+State
+ 
+,
+ 
 	condition
- 
+ 
 ,
- 
+ 
 name
- 
+ 
 ,
- 
+ 
 priority
- 
+ 
 )
- 
+ 
 ;
- *
-PreviousStateAutoTransitions
- (
+ 
+transitions
+ 
 .
-( )
+ 
 Add
-) ,
+ 
 (
-, -
-previousState
-- :
-,
-: ;
+ 
 
 transition
-< F
+ &
 )
-F G
+& '
 ;
-G H
+' (
 return
- 
+ 
 this
- 
+ 
 ;
- 
+ 
 }
- 	
+ 	
 public
-—— &
+ &
 IStateConfigurationAsync
-—— '
+ '
 <
-——' (
+' (
 T
-——( )
+( )
 ,
-——) *
+) *
 TState
-——+ 1
++ 1
 ,
-——1 2
+1 2
 TTrigger
-——3 ;
+3 ;
 >
-——; <
+; <
 AddReentryAction
-——= M
+= M
 (
-——M N
+M N
 Func
-——N R
+N R
 <
-——R S
+R S
 T
-——S T
+S T
 ,
-——T U
+T U
 CancellationToken
-——V g
+V g
 ,
-——g h
+g h
 Task
-——i m
+i m
 >
-——m n
+m n
 action
-——o u
+o u
 )
-——u v
+u v
 {
- 	
+ 	
 if
- 
+ 
 (
- 
+ 
 _reentryAction
- 
+ 
 !=
- !
+ !
 null
-" &
+" &
 )
-& '
+& '
 {
- 
+ 
 throw
- 
+ 
 new
- '
+ '
 InvalidOperationException
- 1
+ 1
 (
-1 2
+1 2
 $str
-2 Y
+2 Y
 )
-Y Z
+Y Z
 ;
-Z [
+Z [
 }
-\ ]
+\ ]
 _reentryAction
- 
+ 
 =
- 
+ 
 action
- #
+ #
 ??
-$ &
+$ &
 throw
-' ,
+' ,
 new
-- 0#
+- 0#
 ArgumentNullException
-1 F
+1 F
 (
-F G
+F G
 nameof
-G M
+G M
 (
-M N
+M N
 action
-N T
+N T
 )
-T U
+T U
 )
-U V
+U V
 ;
-V W
+V W
 return
- 
+ 
 this
- 
+ 
 ;
- 
+ 
 }
- 	
+   	
 public
-กก 
+ขข 
 void
-กก 
+ขข 
 AddSuperState
-กก !
+ขข !
 (
-กก! ".
+ขข! ".
  IStateConfigurationAsyncInternal
-กก" B
+ขข" B
 <
-กกB C
+ขขB C
 T
-กกC D
+ขขC D
 ,
-กกD E
+ขขD E
 TState
-กกF L
+ขขF L
 ,
-กกL M
+ขขL M
 TTrigger
-กกN V
+ขขN V
 >
-กกV W%
+ขขV W%
 superStateConfiguration
-กกX o
+ขขX o
 )
-กกo p
+ขขo p
 {
-ขข 	
+ฃฃ 	
 if
-ฃฃ 
+คค 
 (
-ฃฃ 
+คค 
 	IsInState
-ฃฃ 
+คค 
 (
-ฃฃ %
+คค %
 superStateConfiguration
-ฃฃ 1
+คค 1
 .
-ฃฃ1 2
+คค1 2
 State
-ฃฃ2 7
+คค2 7
 )
-ฃฃ7 8
+คค7 8
 )
-ฃฃ8 9
+คค8 9
 {
-คค 
+ฅฅ 
 throw
-คค 
+ฅฅ 
 new
-คค )
+ฅฅ )
 ArgumentOutOfRangeException
-คค 3
+ฅฅ 3
 (
-คค3 4
+ฅฅ3 4
 $"
-คค4 6
+ฅฅ4 6
 {
-คค6 7
+ฅฅ6 7
 State
-คค7 <
+ฅฅ7 <
 }
-คค< =)
+ฅฅ< =)
  is already a sub-state of 
-คค= X
+ฅฅ= X
 {
-คคX Y%
+ฅฅX Y%
 superStateConfiguration
-คคY p
+ฅฅY p
 .
-คคp q
+ฅฅp q
 State
-คคq v
+ฅฅq v
 }
-คคv w
+ฅฅv w
 .
-คคw x
+ฅฅw x
 "
-คคx y
+ฅฅx y
 )
-คคy z
+ฅฅy z
 ;
-คคz {
+ฅฅz {
 }
-คค| }
+ฅฅ| }
 if
-ฆฆ 
+งง 
 (
-ฆฆ %
+งง %
 superStateConfiguration
-ฆฆ '
+งง '
 .
-ฆฆ' (
+งง' (
 	IsInState
-ฆฆ( 1
+งง( 1
 (
-ฆฆ1 2
+งง1 2
 State
-ฆฆ2 7
+งง2 7
 )
-ฆฆ7 8
+งง7 8
 )
-ฆฆ8 9
+งง8 9
 {
-งง 
+จจ 
 throw
-งง 
+จจ 
 new
-งง )
+จจ )
 ArgumentOutOfRangeException
-งง 3
+จจ 3
 (
-งง3 4
+จจ3 4
 $"
-งง4 6
+จจ4 6
 {
-งง6 7%
+จจ6 7%
 superStateConfiguration
-งง7 N
+จจ7 N
 .
-งงN O
+จจN O
 State
-งงO T
+จจO T
 }
-งงT U)
+จจT U)
  is already a sub-state of 
-งงU p
+จจU p
 {
-งงp q
+จจp q
 State
-งงq v
+จจq v
 }
-งงv w
+จจv w
 .
-งงw x
+จจw x
 "
-งงx y
+จจx y
 )
-งงy z
+จจy z
 ;
-งงz {
+จจz {
 }
-งง| }
+จจ| }
 _superState
-ฉฉ 
+ชช 
 =
-ฉฉ %
+ชช %
 superStateConfiguration
-ฉฉ 1
+ชช 1
 ;
-ฉฉ1 2
+ชช1 2
 }
-ชช 	
+ซซ 	
 public
-ตต &
+ถถ &
 IStateConfigurationAsync
-ตต '
+ถถ '
 <
-ตต' (
+ถถ' (
 T
-ตต( )
+ถถ( )
 ,
-ตต) *
+ถถ) *
 TState
-ตต+ 1
+ถถ+ 1
 ,
-ตต1 2
+ถถ1 2
 TTrigger
-ตต3 ;
+ถถ3 ;
 >
-ตต; <
+ถถ; <
 AddTransition
-ตต= J
+ถถ= J
 (
-ตตJ K
+ถถJ K
 TTrigger
-ตตK S
+ถถK S
 trigger
-ตตT [
+ถถT [
 ,
-ถถ 
+ทท 
 TState
-ถถ 
+ทท 
 toState
-ถถ 
+ทท 
 ,
-ทท 
+ธธ 
 Func
-ทท 
+ธธ 
 <
-ทท 
+ธธ 
 T
-ทท 
+ธธ 
 ,
-ทท 
+ธธ 
 CancellationToken
-ทท '
+ธธ '
 ,
-ทท' (
+ธธ' (
 Task
-ทท) -
+ธธ) -
 <
-ทท- .
+ธธ- .
 bool
-ทท. 2
+ธธ. 2
 >
-ทท2 3
+ธธ2 3
 >
-ทท3 4
+ธธ3 4
 conditionAsync
-ทท5 C
+ธธ5 C
 =
-ททD E
+ธธD E
 null
-ททF J
+ธธF J
 ,
-ธธ 
+นน 
 string
-ธธ 
+นน 
 name
-ธธ 
+นน 
 =
-ธธ 
+นน 
 null
-ธธ  
+นน  
 ,
-นน 
+บบ 
 uint
-นน 
+บบ 
 priority
-นน 
+บบ 
 =
-นน 
+บบ 
 $num
-นน 
+บบ 
 )
-นน  
+บบ  
 {
-บบ 	
+ปป 	
 if
-ปป 
+ผผ 
 (
-ปป 
+ผผ 
 conditionAsync
-ปป 
+ผผ 
 ==
-ปป !
+ผผ !
 null
-ปป" &
+ผผ" &
 )
-ปป& '
+ผผ& '
 {
-ผผ 
+ฝฝ 
 conditionAsync
-ผผ 
+ฝฝ 
 =
-ผผ 
+ฝฝ 
 (
-ผผ  
+ฝฝ  
 _
-ผผ  !
+ฝฝ  !
 ,
-ผผ! "
+ฝฝ! "
 ct
-ผผ# %
+ฝฝ# %
 )
-ผผ% &
+ฝฝ% &
 =>
-ผผ' )
+ฝฝ' )
 Task
-ผผ* .
+ฝฝ* .
 .
-ผผ. /
+ฝฝ. /
 
 FromResult
-ผผ/ 9
+ฝฝ/ 9
 (
-ผผ9 :
+ฝฝ9 :
 result
-ผผ: @
+ฝฝ: @
 :
-ผผ@ A
+ฝฝ@ A
 true
-ผผB F
+ฝฝB F
 )
-ผผF G
+ฝฝF G
 ;
-ผผG H
+ฝฝG H
 }
-ผผI J
+ฝฝI J
 var
-พพ 
+ฟฟ 
 
 transition
-พพ 
+ฟฟ 
 =
-พพ $
+ฟฟ $
 StateTransitionFactory
-พพ 3
+ฟฟ 3
 <
-พพ3 4
+ฟฟ3 4
 T
-พพ4 5
+ฟฟ4 5
 ,
-พพ5 6
+ฟฟ5 6
 TState
-พพ7 =
+ฟฟ7 =
 ,
-พพ= >
+ฟฟ= >
 TTrigger
-พพ? G
+ฟฟ? G
 >
-พพG H
+ฟฟG H
 .
-พพH I 
+ฟฟH I 
 GetStateTransition
-พพI [
+ฟฟI [
 (
-พพ[ \
+ฟฟ[ \
 StateAccessor
-พพ\ i
+ฟฟ\ i
 ,
-ฟฟ 
+ภภ 
 StateMutator
-ฟฟ 
+ภภ 
 ,
-ภภ 
+มม 
 State
-ภภ 
+มม 
 ,
-มม 
+ยย 
 toState
-มม 
+ยย 
 ,
-ยย 
+รร 
 conditionAsync
-ยย  
+รร  
 ,
-รร 
+ฤฤ 
 name
-รร 
+ฤฤ 
 ,
-ฤฤ 
+ลล 
 priority
-ฤฤ 
+ลล 
 )
-ฤฤ 
+ลล 
 ;
-ฤฤ 
+ลล 
 AddTransition
-ลล 
+ฦฦ 
 (
-ลล 
+ฦฦ 
 trigger
-ลล !
+ฦฦ !
 ,
-ลล! "
+ฦฦ! "
 
 transition
-ลล# -
+ฦฦ# -
 )
-ลล- .
+ฦฦ- .
 ;
-ลล. /
+ฦฦ. /
 return
-วว 
+ศศ 
 this
-วว 
+ศศ 
 ;
-วว 
+ศศ 
 }
-ศศ 	
+ษษ 	
 public
-ิิ &
+ีี &
 IStateConfigurationAsync
-ิิ '
+ีี '
 <
-ิิ' (
+ีี' (
 T
-ิิ( )
+ีี( )
 ,
-ิิ) *
+ีี) *
 TState
-ิิ+ 1
+ีี+ 1
 ,
-ิิ1 2
+ีี1 2
 TTrigger
-ิิ3 ;
+ีี3 ;
 >
-ิิ; <
+ีี; <
 AddTransition
-ิิ= J
+ีี= J
 <
-ิิJ K
+ีีJ K
 TRequest
-ิิK S
+ีีK S
 >
-ิิS T
+ีีS T
 (
-ิิT U
+ีีT U
 TTrigger
-ิิU ]
+ีีU ]
 trigger
-ิิ^ e
+ีี^ e
 ,
-ีี 
+ึึ 
 TState
-ีี 
+ึึ 
 toState
-ีี 
+ึึ 
 ,
-ึึ 
+ืื 
 Func
-ึึ 
+ืื 
 <
-ึึ 
+ืื 
 T
-ึึ 
+ืื 
 ,
-ึึ 
+ืื 
 TRequest
-ึึ 
+ืื 
 ,
-ึึ 
+ืื 
 CancellationToken
-ึึ  1
+ืื  1
 ,
-ึึ1 2
+ืื1 2
 Task
-ึึ3 7
+ืื3 7
 <
-ึึ7 8
+ืื7 8
 bool
-ึึ8 <
+ืื8 <
 >
-ึึ< =
+ืื< =
 >
-ึึ= >
+ืื= >
 conditionAsync
-ึึ? M
+ืื? M
 ,
-ืื 
+ุุ 
 string
-ืื 
+ุุ 
 name
-ืื 
+ุุ 
 =
-ืื 
+ุุ 
 null
-ืื  
+ุุ  
 ,
-ุุ 
+ูู 
 uint
-ุุ 
+ูู 
 priority
-ุุ 
+ูู 
 =
-ุุ 
+ูู 
 $num
-ุุ 
+ูู 
 )
-ุุ  
+ูู  
 where
-ูู 
+ฺฺ 
 TRequest
-ูู 
+ฺฺ 
 :
-ูู 
+ฺฺ 
 class
-ูู "
+ฺฺ "
 {
-ฺฺ 	
+ÛÛ 	
 if
-ÛÛ 
+ÜÜ 
 (
-ÛÛ 
+ÜÜ 
 conditionAsync
-ÛÛ 
+ÜÜ 
 ==
-ÛÛ !
+ÜÜ !
 null
-ÛÛ" &
+ÜÜ" &
 )
-ÛÛ& '
+ÜÜ& '
 {
-ÜÜ 
+ÝÝ 
 throw
-ÜÜ 
+ÝÝ 
 new
-ÜÜ #
+ÝÝ #
 ArgumentNullException
-ÜÜ -
+ÝÝ -
 (
-ÜÜ- .
+ÝÝ- .
 nameof
-ÜÜ. 4
+ÝÝ. 4
 (
-ÜÜ4 5
+ÝÝ4 5
 conditionAsync
-ÜÜ5 C
+ÝÝ5 C
 )
-ÜÜC D
+ÝÝC D
 )
-ÜÜD E
+ÝÝD E
 ;
-ÜÜE F
+ÝÝE F
 }
-ÜÜG H
+ÝÝG H
 var
-ÞÞ 
+฿฿ 
 
 transition
-ÞÞ 
+฿฿ 
 =
-ÞÞ $
+฿฿ $
 StateTransitionFactory
-ÞÞ 3
+฿฿ 3
 <
-ÞÞ3 4
+฿฿3 4
 T
-ÞÞ4 5
+฿฿4 5
 ,
-ÞÞ5 6
+฿฿5 6
 TState
-ÞÞ7 =
+฿฿7 =
 ,
-ÞÞ= >
+฿฿= >
 TTrigger
-ÞÞ? G
+฿฿? G
 >
-ÞÞG H
+฿฿G H
 .
-ÞÞH I 
+฿฿H I 
 GetStateTransition
-ÞÞI [
+฿฿I [
 (
-ÞÞ[ \
+฿฿[ \
 StateAccessor
-ÞÞ\ i
+฿฿\ i
 ,
-฿฿ 
+เเ 
 StateMutator
-฿฿ 
+เเ 
 ,
-เเ 
+แแ 
 State
-เเ 
+แแ 
 ,
-แแ 
+โโ 
 toState
-แแ 
+โโ 
 ,
-โโ 
+ใใ 
 conditionAsync
-โโ  
+ใใ  
 ,
-ใใ 
+ไไ 
 name
-ใใ 
+ไไ 
 ,
-ไไ 
+ๅๅ 
 priority
-ไไ 
+ๅๅ 
 )
-ไไ 
+ๅๅ 
 ;
-ไไ 
+ๅๅ 
 AddTransition
-ๅๅ 
+ๆๆ 
 (
-ๅๅ 
+ๆๆ 
 trigger
-ๅๅ !
+ๆๆ !
 ,
-ๅๅ! "
+ๆๆ! "
 
 transition
-ๅๅ# -
+ๆๆ# -
 )
-ๅๅ- .
+ๆๆ- .
 ;
-ๅๅ. /
+ๆๆ. /
 return
-็็ 
+่่ 
 this
-็็ 
+่่ 
 ;
-็็ 
+่่ 
 }
-่่ 	
+้้ 	
 public
-๐๐ &
+๑๑ &
 IStateConfigurationAsync
-๐๐ '
+๑๑ '
 <
-๐๐' (
+๑๑' (
 T
-๐๐( )
+๑๑( )
 ,
-๐๐) *
+๑๑) *
 TState
-๐๐+ 1
+๑๑+ 1
 ,
-๐๐1 2
+๑๑1 2
 TTrigger
-๐๐3 ;
+๑๑3 ;
 >
-๐๐; <
+๑๑; <
 AddTriggerAction
-๐๐= M
+๑๑= M
 (
-๐๐M N
+๑๑M N
 TTrigger
-๐๐N V
+๑๑N V
 trigger
-๐๐W ^
+๑๑W ^
 ,
-๐๐^ _
+๑๑^ _
 Func
-๐๐` d
+๑๑` d
 <
-๐๐d e
+๑๑d e
 T
-๐๐e f
+๑๑e f
 ,
-๐๐f g
+๑๑f g
 CancellationToken
-๐๐h y
+๑๑h y
 ,
-๐๐y z
+๑๑y z
 Task
-๐๐{ 
->๐๐ €
-action๐๐ 
-)๐๐ 
+๑๑{ 
+>๑๑ €
+action๑๑ 
+)๑๑ 
 {
-๑๑ 	
+๒๒ 	
 if
-๒๒ 
+๓๓ 
 (
-๒๒ 
+๓๓ 
 _triggerActions
-๒๒ 
+๓๓ 
 .
-๒๒  
+๓๓  
 ContainsKey
-๒๒  +
+๓๓  +
 (
-๒๒+ ,
+๓๓+ ,
 trigger
-๒๒, 3
+๓๓, 3
 )
-๒๒3 4
+๓๓3 4
 )
-๒๒4 5
+๓๓4 5
 {
-๓๓ 
+๔๔ 
 throw
-๓๓ 
+๔๔ 
 new
-๓๓ '
+๔๔ '
 InvalidOperationException
-๓๓ 1
+๔๔ 1
 (
-๓๓1 2
+๔๔1 2
 $"
-๓๓2 4-
+๔๔2 4-
 Only one action is allowed for 
-๓๓4 S
+๔๔4 S
 {
-๓๓S T
+๔๔S T
 trigger
-๓๓T [
+๔๔T [
 }
-๓๓[ \
+๔๔[ \
 	 trigger.
-๓๓\ e
+๔๔\ e
 "
-๓๓e f
+๔๔e f
 )
-๓๓f g
+๔๔f g
 ;
-๓๓g h
+๔๔g h
 }
-๓๓i j
+๔๔i j
 _triggerActions
-๕๕ 
+๖๖ 
 .
-๕๕ 
+๖๖ 
 Add
-๕๕ 
+๖๖ 
 (
-๕๕  
+๖๖  
 trigger
-๕๕  '
+๖๖  '
 ,
-๕๕' ("
+๖๖' ("
 TriggerActionFactory
-๕๕) =
+๖๖) =
 <
-๕๕= >
+๖๖= >
 T
-๕๕> ?
+๖๖> ?
 ,
-๕๕? @
+๖๖? @
 TTrigger
-๕๕A I
+๖๖A I
 >
-๕๕I J
+๖๖I J
 .
-๕๕J K
+๖๖J K
 GetTriggerAction
-๕๕K [
+๖๖K [
 (
-๕๕[ \
+๖๖[ \
 action
-๕๕\ b
+๖๖\ b
 )
-๕๕b c
+๖๖b c
 )
-๕๕c d
+๖๖c d
 ;
-๕๕d e
+๖๖d e
 return
-๗๗ 
+๘๘ 
 this
-๗๗ 
+๘๘ 
 ;
-๗๗ 
+๘๘ 
 }
-๘๘ 	
+๙๙ 	
 public
- &
+ &
 IStateConfigurationAsync
- '
+ '
 <
-' (
+' (
 T
-( )
+( )
 ,
-) *
+) *
 TState
-+ 1
++ 1
 ,
-1 2
+1 2
 TTrigger
-3 ;
+3 ;
 >
-; <
+; <
 AddTriggerAction
-= M
+= M
 <
-M N
+M N
 TRequest
-N V
+N V
 >
-V W
+V W
 (
-W X
+W X
 TTrigger
-X `
+X `
 trigger
-a h
+a h
 ,
-
+
  
 Func
- 
+ 
 <
- 
+ 
 T
- 
+ 
 ,
- 
+ 
 TRequest
- 
+ 
 ,
- 
+ 
 CancellationToken
- /
+ /
 ,
-/ 0
+/ 0
 Task
-1 5
+1 5
 >
-5 6
+5 6
 action
-7 =
+7 =
 )
-= >
+= >
 {
- 	
+ 	
 if
- 
+…… 
 (
- 
+…… 
 _triggerActions
- 
+…… 
 .
-  
+……  
 ContainsKey
-  +
+……  +
 (
-+ ,
+……+ ,
 trigger
-, 3
+……, 3
 )
-3 4
+……3 4
 )
-4 5
+……4 5
 {
-…… 
+ 
 throw
-…… 
+ 
 new
-…… '
+ '
 InvalidOperationException
-…… 1
+ 1
 (
-……1 2
+1 2
 $"
-……2 4-
+2 4-
 Only one action is allowed for 
-……4 S
+4 S
 {
-……S T
+S T
 trigger
-……T [
+T [
 }
-……[ \
+[ \
 	 trigger.
-……\ e
+\ e
 "
-……e f
+e f
 )
-……f g
+f g
 ;
-……g h
+g h
 }
-……i j
+i j
 _triggerActions
- 
+ 
 .
- 
+ 
 Add
- 
+ 
 (
-  
+  
 trigger
-  '
+  '
 ,
-' ("
+' ("
 TriggerActionFactory
-) =
+) =
 <
-= >
+= >
 T
-> ?
+> ?
 ,
-? @
+? @
 TTrigger
-A I
+A I
 >
-I J
+I J
 .
-J K
+J K
 GetTriggerAction
-K [
+K [
 (
-[ \
+[ \
 action
-\ b
+\ b
 )
-b c
+b c
 )
-c d
+c d
 ;
-d e
+d e
 return
- 
+ 
 this
- 
+ 
 ;
- 
+ 
 }
- 	
+ 	
 public
- 
+ 
 async
- 
+ 
 Task
- 
+ 
 <
- #
+ #
 StateTransitionResult
- /
+ /
 <
-/ 0
+/ 0
 TState
-0 6
+0 6
 ,
-6 7
+6 7
 TTrigger
-8 @
+8 @
 >
-@ A
+@ A
 >
-A B(
+A B(
 ExecuteAutoTransitionAsync
-C ]
+C ]
 (
-] ^!
+] ^!
 ExecutionParameters
-^ q
+^ q
 <
-q r
+q r
 T
-r s
+r s
 ,
-s t
+s t
 TTrigger
-u }
+u }
 >
-} ~
+} ~
 
-parameters 
+parameters 
 ,
- #
+ #
 StateTransitionResult
- #
+ #
 <
-# $
+# $
 TState
-$ *
+$ *
 ,
-* +
+* +
 TTrigger
-, 4
+, 4
 >
-4 5
+4 5
 currentResult
-6 C
+6 C
 )
-C D
+C D
 {
- 	
-if
- 
-(
- *
-PreviousStateAutoTransitions
- ,
-.
-, -
-TryGetValue
-- 8
-(
-8 9
-currentResult
-9 F
-.
-F G
-PreviousState
-G T
+ 	#
+StateTransitionResult
+ !
+<
+! "
+TState
+" (
 ,
-T U
-out
-V Y
-var
-Z ]
-action
-^ d
-)
-d e
-)
-e f
-{
-‘‘ 
-return
-‘‘ 
-await
-‘‘ 
-action
-‘‘ !
-.
-‘‘! "
-ExecuteAsync
-‘‘" .
-(
-‘‘. /
-
-parameters
-‘‘/ 9
-,
-‘‘9 :
-currentResult
-‘‘; H
-)
-‘‘H I
-.
-‘‘I J
-ConfigureAwait
-‘‘J X
-(
-‘‘X Y'
-continueOnCapturedContext
-‘‘Y r
-:
-‘‘r s
-false
-‘‘t y
-)
-‘‘y z
+( )
+TTrigger
+* 2
+>
+2 3
+localResult
+4 ?
 ;
-‘‘z {
-}
-‘‘| }
+? @
 if
-”” 
+““ 
 (
-”” #
-DefaultAutoTransition
-”” %
-!=
-””& (
-null
-””) -
-)
-””- .
-{
-•• 
-return
-•• 
-await
-•• #
-DefaultAutoTransition
-•• 0
+““ *
+AutoPreviousStateTransitions
+““ ,
 .
-••0 1
-ExecuteAsync
-••1 =
+““, -
+TryGetValue
+““- 8
 (
-••= >
+““8 9
+currentResult
+““9 F
+.
+““F G
+PreviousState
+““G T
+,
+““T U
+out
+““V Y
+var
+““Z ]&
+previousStateTransitions
+““^ v
+)
+““v w
+)
+““w x
+{
+”” 
+foreach
+•• 
+(
+•• 
+var
+•• 
+
+transition
+•• '
+in
+••( *&
+previousStateTransitions
+••+ C
+.
+••C D
+OrderBy
+••D K
+(
+••K L
+t
+••L M
+=>
+••N P
+t
+••Q R
+.
+••R S
+Priority
+••S [
+)
+••[ \
+)
+••\ ]
+{
+–– 
+localResult
+—— 
+=
+——  !
+await
+——" '
+
+transition
+——( 2
+.
+——2 3
+ExecuteAsync
+——3 ?
+(
+——? @
 
 parameters
-••> H
+——@ J
 ,
-••H I
+——J K
 currentResult
-••J W
+——L Y
 )
-••W X
+——Y Z
 .
-••X Y
+——Z [
 ConfigureAwait
-••Y g
+——[ i
 (
-••g h(
-continueOnCapturedContext••h 
-:•• 
-false•• 
-)•• 
-;•• 
-}•• 
-return
-—— 
-_superState
-—— 
-!=
-—— !
-null
-——" &
-?
- 
-await
- 
-_superState
+——i j(
+continueOnCapturedContext——j 
+:—— 
+false——… 
+)—— 
+;—— 
+if
+ 
+(
+ 
+localResult
  #
 .
-# $(
-ExecuteAutoTransitionAsync
-$ >
-(
-> ?
-
-parameters
-? I
-,
-I J
-currentResult
-K X
+# $
+WasSuccessful
+$ 1
 )
-X Y
-.
-Y Z
-ConfigureAwait
-Z h
-(
-h i(
-continueOnCapturedContexti 
-: 
-false 
-) 
-:
- 
-new
- #
-StateTransitionResult
- +
-<
-+ ,
-TState
-, 2
-,
-2 3
-TTrigger
-4 <
->
-< =
-(
-= >
-
-parameters
-> H
-.
-H I
-Trigger
-I P
-,
- 
-currentResult
- #
-.
-# $
-StartingState
-$ 1
-,
- 
-currentResult
- #
-.
-# $
-PreviousState
-$ 1
-,
- 
-currentResult
- #
-.
-# $
-CurrentState
-$ 0
-,
- 
-currentResult
- #
-.
-# $ 
-LastTransitionName
-$ 6
-,
- 
-transitionDefined
- '
-:
-' (
-true
-) -
-,
- 
-wasCancelled
- "
-:
-" #
-
-parameters
-$ .
-.
-. /
-CancellationToken
-/ @
-.
-@ A%
-IsCancellationRequested
-A X
-)
-X Y
-;
-Y Z
-}
-   	
-public
-ขข 
-async
-ขข 
-Task
-ขข %
-ExecuteEntryActionAsync
-ขข 1
-(
-ขข1 2!
-ExecutionParameters
-ขข2 E
-<
-ขขE F
-T
-ขขF G
-,
-ขขG H
-TTrigger
-ขขI Q
->
-ขขQ R
-
-parameters
-ขขS ]
-,
-ขข] ^#
-StateTransitionResult
-ขข_ t
-<
-ขขt u
-TState
-ขขu {
-,
-ขข{ |
-TTriggerขข} …
->ขข… 
-currentResultขข ”
-)ขข” •
+1 2
 {
-ฃฃ 	
-if
-ฅฅ 
+ 
+return
+ 
+localResult
+ (
+;
+( )
+}
+* +
+}
+ 
+}
+ 
+foreach
+ 
 (
-ฅฅ (
-_previousStateEntryActions
-ฅฅ *
-.
-ฅฅ* +
-TryGetValue
-ฅฅ+ 6
-(
-ฅฅ6 7
-currentResult
-ฅฅ7 D
-.
-ฅฅD E
-PreviousState
-ฅฅE R
-,
-ฅฅR S
-out
-ฅฅT W
+ 
 var
-ฅฅX [
-action
-ฅฅ\ b
-)
-ฅฅb c
-)
-ฅฅc d
-{
-ฆฆ 
-if
-งง 
-(
-งง 
+ 
 
-parameters
-งง 
+transition
+ #
+in
+$ &
+AutoTransitions
+' 6
 .
-งง 
-CancellationToken
-งง 0
+6 7
+OrderBy
+7 >
+(
+> ?
+t
+? @
+=>
+A C
+t
+D E
 .
-งง0 1%
-IsCancellationRequested
-งง1 H
+E F
+Priority
+F N
 )
-งงH I
+N O
+)
+O P
 {
-จจ 
-return
-จจ 
-;
-จจ 
-}
-จจ 
+ 
+localResult
+   
+=
+   
 await
-ชช 
-action
-ชช 
+   #
+
+transition
+  $ .
 .
-ชช 
-Invoke
-ชช #
+  . /
+ExecuteAsync
+  / ;
 (
-ชช# $
+  ; <
 
 parameters
-ชช$ .
-.
-ชช. /
-Context
-ชช/ 6
+  < F
 ,
-ชช6 7
-
-parameters
-ชช8 B
-.
-ชชB C
-CancellationToken
-ชชC T
+  F G
+currentResult
+  H U
 )
-ชชT U
+  U V
 .
-ชชU V
+  V W
 ConfigureAwait
-ชชV d
+  W e
 (
-ชชd e'
+  e f'
 continueOnCapturedContext
-ชชe ~
-:
-ชช~ 
-falseชช€ …
-)ชช… 
-;ชช 
-}
-ซซ 
+  f 
+:   €
+false   
+)   
+;   
 if
-ฎฎ 
+กก 
 (
-ฎฎ !
-_defaultEntryAction
-ฎฎ #
-!=
-ฎฎ$ &
-null
-ฎฎ' +
-)
-ฎฎ+ ,
-{
-ฏฏ 
-if
-ฐฐ 
-(
-ฐฐ 
-
-parameters
-ฐฐ 
+กก 
+localResult
+กก 
 .
-ฐฐ 
-CancellationToken
-ฐฐ 0
-.
-ฐฐ0 1%
-IsCancellationRequested
-ฐฐ1 H
+กก  
+WasSuccessful
+กก  -
 )
-ฐฐH I
+กก- .
 {
-ฑฑ 
+ขข 
 return
-ฑฑ 
+ขข 
+localResult
+ขข $
 ;
-ฑฑ 
+ขข$ %
 }
-ฑฑ 
-if
-ณณ 
-(
-ณณ !
-_defaultEntryAction
-ณณ '
+ขข& '
+}
+ฃฃ 
+return
+ฆฆ 
+_superState
+ฆฆ 
 !=
-ณณ( *
+ฆฆ !
 null
-ณณ+ /
-)
-ณณ/ 0
-{
-ดด 
+ฆฆ" &
+?
+งง 
 await
-ดด !
-_defaultEntryAction
-ดด +
+งง 
+_superState
+งง #
 .
-ดด+ ,
-Invoke
-ดด, 2
+งง# $(
+ExecuteAutoTransitionAsync
+งง$ >
 (
-ดด2 3
+งง> ?
 
 parameters
-ดด3 =
-.
-ดด= >
-Context
-ดด> E
+งง? I
 ,
-ดดE F
+งงI J
+currentResult
+งงK X
+)
+งงX Y
+.
+งงY Z
+ConfigureAwait
+งงZ h
+(
+งงh i(
+continueOnCapturedContextงงi 
+:งง 
+falseงง 
+)งง 
+:
+จจ 
+new
+จจ #
+StateTransitionResult
+จจ +
+<
+จจ+ ,
+TState
+จจ, 2
+,
+จจ2 3
+TTrigger
+จจ4 <
+>
+จจ< =
+(
+จจ= >
 
 parameters
-ดดG Q
+จจ> H
 .
-ดดQ R
+จจH I
+Trigger
+จจI P
+,
+ฉฉ 
+currentResult
+ฉฉ #
+.
+ฉฉ# $
+StartingState
+ฉฉ$ 1
+,
+ชช 
+currentResult
+ชช #
+.
+ชช# $
+PreviousState
+ชช$ 1
+,
+ซซ 
+currentResult
+ซซ #
+.
+ซซ# $
+CurrentState
+ซซ$ 0
+,
+ฌฌ 
+currentResult
+ฌฌ #
+.
+ฌฌ# $ 
+LastTransitionName
+ฌฌ$ 6
+,
+ญญ 
+transitionDefined
+ญญ '
+:
+ญญ' (
+true
+ญญ) -
+,
+ฎฎ 
+wasCancelled
+ฎฎ "
+:
+ฎฎ" #
+
+parameters
+ฎฎ$ .
+.
+ฎฎ. /
 CancellationToken
-ดดR c
+ฎฎ/ @
+.
+ฎฎ@ A%
+IsCancellationRequested
+ฎฎA X
+)
+ฎฎX Y
+;
+ฎฎY Z
+}
+ฏฏ 	
+public
+ฑฑ 
+async
+ฑฑ 
+Task
+ฑฑ %
+ExecuteEntryActionAsync
+ฑฑ 1
+(
+ฑฑ1 2!
+ExecutionParameters
+ฑฑ2 E
+<
+ฑฑE F
+T
+ฑฑF G
+,
+ฑฑG H
+TTrigger
+ฑฑI Q
+>
+ฑฑQ R
+
+parameters
+ฑฑS ]
+,
+ฑฑ] ^#
+StateTransitionResult
+ฑฑ_ t
+<
+ฑฑt u
+TState
+ฑฑu {
+,
+ฑฑ{ |
+TTriggerฑฑ} …
+>ฑฑ… 
+currentResultฑฑ ”
+)ฑฑ” •
+{
+ฒฒ 	
+if
+ดด 
+(
+ดด (
+_previousStateEntryActions
+ดด *
+.
+ดด* +
+TryGetValue
+ดด+ 6
+(
+ดด6 7
+currentResult
+ดด7 D
+.
+ดดD E
+PreviousState
+ดดE R
+,
+ดดR S
+out
+ดดT W
+var
+ดดX [
+action
+ดด\ b
+)
+ดดb c
 )
 ดดc d
-.
-ดดd e
-ConfigureAwait
-ดดe s
-(
-ดดs t(
-continueOnCapturedContextดดt 
-:ดด 
-falseดด ”
-)ดด” •
-;ดด• –
-}ดด— 
-}
-ตต 
-}
-ถถ 	
-public
-ธธ 
-async
-ธธ 
-Task
-ธธ '
-ExecuteReentryActionAsync
-ธธ 3
-(
-ธธ3 4!
-ExecutionParameters
-ธธ4 G
-<
-ธธG H
-T
-ธธH I
-,
-ธธI J
-TTrigger
-ธธK S
->
-ธธS T
-
-parameters
-ธธU _
-,
-ธธ_ `#
-StateTransitionResult
-ธธa v
-<
-ธธv w
-TState
-ธธw }
-,
-ธธ} ~
-TTriggerธธ 
->ธธ 
-currentResultธธ –
-)ธธ– —
 {
-นน 	
+ตต 
 if
-บบ 
+ถถ 
 (
-บบ 
-_superState
-บบ 
-!=
-บบ 
-null
-บบ #
-)
-บบ# $
-{
-ปป 
-await
-ผผ 
-_superState
-ผผ !
-.
-ผผ! "'
-ExecuteReentryActionAsync
-ผผ" ;
-(
-ผผ; <
+ถถ 
 
 parameters
-ผผ< F
-,
-ผผF G
-currentResult
-ผผH U
-)
-ผผU V
+ถถ 
 .
-ฝฝ 
-ConfigureAwait
-ฝฝ #
-(
-ฝฝ# $'
-continueOnCapturedContext
-ฝฝ$ =
-:
-ฝฝ= >
-false
-ฝฝ? D
+ถถ 
+CancellationToken
+ถถ 0
+.
+ถถ0 1%
+IsCancellationRequested
+ถถ1 H
 )
-ฝฝD E
+ถถH I
+{
+ทท 
+return
+ทท 
 ;
-ฝฝE F
+ทท 
 }
+ทท 
+await
+นน 
+action
+นน 
+.
+นน 
+Invoke
+นน #
+(
+นน# $
+
+parameters
+นน$ .
+.
+นน. /
+Context
+นน/ 6
+,
+นน6 7
+
+parameters
+นน8 B
+.
+นนB C
+CancellationToken
+นนC T
+)
+นนT U
+.
+นนU V
+ConfigureAwait
+นนV d
+(
+นนd e'
+continueOnCapturedContext
+นนe ~
+:
+นน~ 
+falseนน€ …
+)นน… 
+;นน 
+}
+บบ 
+if
+ฝฝ 
+(
+ฝฝ !
+_defaultEntryAction
+ฝฝ #
+!=
+ฝฝ$ &
+null
+ฝฝ' +
+)
+ฝฝ+ ,
+{
 พพ 
 if
-ภภ 
+ฟฟ 
 (
-ภภ 
-_reentryAction
-ภภ 
-!=
-ภภ !
-null
-ภภ" &
-&&
-ภภ' )
-!
-ภภ* +
+ฟฟ 
 
 parameters
-ภภ+ 5
+ฟฟ 
 .
-ภภ5 6
+ฟฟ 
 CancellationToken
-ภภ6 G
+ฟฟ 0
 .
-ภภG H%
+ฟฟ0 1%
 IsCancellationRequested
-ภภH _
+ฟฟ1 H
 )
-ภภ_ `
+ฟฟH I
 {
-มม 
-await
-ยย 
-_reentryAction
-ยย $
-.
-ยย$ %
-Invoke
-ยย% +
-(
-ยย+ ,
-
-parameters
-ยย, 6
-.
-ยย6 7
-Context
-ยย7 >
-,
-ยย> ?
-
-parameters
-ยย@ J
-.
-ยยJ K
-CancellationToken
-ยยK \
-)
-ยย\ ]
-.
-รร 
-ConfigureAwait
-รร #
-(
-รร# $'
-continueOnCapturedContext
-รร$ =
-:
-รร= >
-false
-รร? D
-)
-รรD E
+ภภ 
+return
+ภภ 
 ;
-รรE F
+ภภ 
+}
+ภภ 
+if
+ยย 
+(
+ยย !
+_defaultEntryAction
+ยย '
+!=
+ยย( *
+null
+ยย+ /
+)
+ยย/ 0
+{
+รร 
+await
+รร !
+_defaultEntryAction
+รร +
+.
+รร+ ,
+Invoke
+รร, 2
+(
+รร2 3
+
+parameters
+รร3 =
+.
+รร= >
+Context
+รร> E
+,
+รรE F
+
+parameters
+รรG Q
+.
+รรQ R
+CancellationToken
+รรR c
+)
+รรc d
+.
+รรd e
+ConfigureAwait
+รรe s
+(
+รรs t(
+continueOnCapturedContextรรt 
+:รร 
+falseรร ”
+)รร” •
+;รร• –
+}รร— 
 }
 ฤฤ 
 }
@@ -12154,949 +12462,1118 @@ parameters
 async
 วว 
 Task
-วว $
-ExecuteExitActionAsync
-วว 0
+วว '
+ExecuteReentryActionAsync
+วว 3
 (
-วว0 1!
+วว3 4!
 ExecutionParameters
-วว1 D
+วว4 G
 <
-ววD E
+ววG H
 T
-ววE F
+ววH I
 ,
-ววF G
+ววI J
 TTrigger
-ววH P
+ววK S
 >
-ววP Q
+ววS T
 
 parameters
-ววR \
+ววU _
 ,
-ศศ #
+วว_ `#
 StateTransitionResult
-ศศ #
+ววa v
 <
-ศศ# $
+ววv w
 TState
-ศศ$ *
+ววw }
 ,
-ศศ* +
-TTrigger
-ศศ, 4
->
-ศศ4 5
-currentResult
-ศศ6 C
-)
-ศศC D
+วว} ~
+TTriggerวว 
+>วว 
+currentResultวว –
+)วว– —
 {
-ษษ 	
+ศศ 	
 if
-หห 
+ษษ 
 (
-หห #
-_nextStateExitActions
-หห %
-.
-หห% &
-TryGetValue
-หห& 1
-(
-หห1 2
-currentResult
-หห2 ?
-.
-หห? @
-CurrentState
-หห@ L
-,
-หหL M
-out
-หหN Q
-var
-หหR U
-action
-หหV \
-)
-หห\ ]
-)
-หห] ^
-{
-ฬฬ 
-if
-ออ 
-(
-ออ 
-
-parameters
-ออ 
-.
-ออ 
-CancellationToken
-ออ 0
-.
-ออ0 1%
-IsCancellationRequested
-ออ1 H
-)
-ออH I
-{
-ฮฮ 
-return
-ฮฮ 
-;
-ฮฮ 
-}
-ฮฮ 
-await
-ะะ 
-action
-ะะ 
-.
-ะะ 
-Invoke
-ะะ #
-(
-ะะ# $
-
-parameters
-ะะ$ .
-.
-ะะ. /
-Context
-ะะ/ 6
-,
-ะะ6 7
-
-parameters
-ะะ8 B
-.
-ะะB C
-CancellationToken
-ะะC T
-)
-ะะT U
-.
-ัั 
-ConfigureAwait
-ัั "
-(
-ัั" #'
-continueOnCapturedContext
-ัั# <
-:
-ัั< =
-false
-ัั> C
-)
-ััC D
-;
-ััD E
-}
-าา 
-if
-ีี 
-(
-ีี  
-_defaultExitAction
-ีี "
+ษษ 
+_superState
+ษษ 
 !=
-ีี# %
+ษษ 
 null
-ีี& *
+ษษ #
 )
-ีี* +
+ษษ# $
 {
-ึึ 
-if
-ืื 
-(
-ืื 
-
-parameters
-ืื 
-.
-ืื 
-CancellationToken
-ืื 0
-.
-ืื0 1%
-IsCancellationRequested
-ืื1 H
-)
-ืืH I
-{
-ุุ 
-return
-ุุ 
-;
-ุุ 
-}
-ุุ 
-if
-ฺฺ 
-(
-ฺฺ  
-_defaultExitAction
-ฺฺ &
-!=
-ฺฺ' )
-null
-ฺฺ* .
-)
-ฺฺ. /
-{
-ÛÛ 
+สส 
 await
-ÜÜ  
-_defaultExitAction
-ÜÜ ,
+หห 
+_superState
+หห !
 .
-ÜÜ, -
-Invoke
-ÜÜ- 3
+หห! "'
+ExecuteReentryActionAsync
+หห" ;
 (
-ÜÜ3 4
+หห; <
 
 parameters
-ÜÜ4 >
-.
-ÜÜ> ?
-Context
-ÜÜ? F
+หห< F
 ,
-ÜÜF G
+หหF G
+currentResult
+หหH U
+)
+หหU V
+.
+ฬฬ 
+ConfigureAwait
+ฬฬ #
+(
+ฬฬ# $'
+continueOnCapturedContext
+ฬฬ$ =
+:
+ฬฬ= >
+false
+ฬฬ? D
+)
+ฬฬD E
+;
+ฬฬE F
+}
+ออ 
+if
+ฯฯ 
+(
+ฯฯ 
+_reentryAction
+ฯฯ 
+!=
+ฯฯ !
+null
+ฯฯ" &
+&&
+ฯฯ' )
+!
+ฯฯ* +
 
 parameters
-ÜÜH R
+ฯฯ+ 5
 .
-ÜÜR S
+ฯฯ5 6
 CancellationToken
-ÜÜS d
-)
-ÜÜd e
+ฯฯ6 G
 .
-ÝÝ 
-ConfigureAwait
-ÝÝ '
-(
-ÝÝ' ('
-continueOnCapturedContext
-ÝÝ( A
-:
-ÝÝA B
-false
-ÝÝC H
+ฯฯG H%
+IsCancellationRequested
+ฯฯH _
 )
-ÝÝH I
+ฯฯ_ `
+{
+ะะ 
+await
+ัั 
+_reentryAction
+ัั $
+.
+ัั$ %
+Invoke
+ัั% +
+(
+ัั+ ,
+
+parameters
+ัั, 6
+.
+ัั6 7
+Context
+ัั7 >
+,
+ัั> ?
+
+parameters
+ัั@ J
+.
+ััJ K
+CancellationToken
+ััK \
+)
+ัั\ ]
+.
+าา 
+ConfigureAwait
+าา #
+(
+าา# $'
+continueOnCapturedContext
+าา$ =
+:
+าา= >
+false
+าา? D
+)
+าาD E
 ;
-ÝÝI J
+าาE F
 }
-ÞÞ 
+ำำ 
 }
-฿฿ 
-}
-เเ 	
+ิิ 	
 public
-โโ 
+ึึ 
 async
-โโ 
+ึึ 
 Task
-โโ 
-<
-โโ #
-StateTransitionResult
-โโ /
-<
-โโ/ 0
-TState
-โโ0 6
-,
-โโ6 7
-TTrigger
-โโ8 @
->
-โโ@ A
->
-โโA B
-FireTriggerAsync
-โโC S
+ึึ $
+ExecuteExitActionAsync
+ึึ 0
 (
-โโS T!
+ึึ0 1!
 ExecutionParameters
-โโT g
+ึึ1 D
 <
-โโg h
+ึึD E
 T
-โโh i
+ึึE F
 ,
-โโi j
+ึึF G
 TTrigger
-โโk s
+ึึH P
 >
-โโs t
+ึึP Q
 
 parameters
-โโu 
-)โโ €
+ึึR \
+,
+ืื #
+StateTransitionResult
+ืื #
+<
+ืื# $
+TState
+ืื$ *
+,
+ืื* +
+TTrigger
+ืื, 4
+>
+ืื4 5
+currentResult
+ืื6 C
+)
+ืืC D
 {
-ใใ 	
+ุุ 	
+if
+ฺฺ 
+(
+ฺฺ #
+_nextStateExitActions
+ฺฺ %
+.
+ฺฺ% &
+TryGetValue
+ฺฺ& 1
+(
+ฺฺ1 2
+currentResult
+ฺฺ2 ?
+.
+ฺฺ? @
+CurrentState
+ฺฺ@ L
+,
+ฺฺL M
+out
+ฺฺN Q
+var
+ฺฺR U
+action
+ฺฺV \
+)
+ฺฺ\ ]
+)
+ฺฺ] ^
+{
+ÛÛ 
+if
+ÜÜ 
+(
+ÜÜ 
+
+parameters
+ÜÜ 
+.
+ÜÜ 
+CancellationToken
+ÜÜ 0
+.
+ÜÜ0 1%
+IsCancellationRequested
+ÜÜ1 H
+)
+ÜÜH I
+{
+ÝÝ 
+return
+ÝÝ 
+;
+ÝÝ 
+}
+ÝÝ 
+await
+฿฿ 
+action
+฿฿ 
+.
+฿฿ 
+Invoke
+฿฿ #
+(
+฿฿# $
+
+parameters
+฿฿$ .
+.
+฿฿. /
+Context
+฿฿/ 6
+,
+฿฿6 7
+
+parameters
+฿฿8 B
+.
+฿฿B C
+CancellationToken
+฿฿C T
+)
+฿฿T U
+.
+เเ 
+ConfigureAwait
+เเ "
+(
+เเ" #'
+continueOnCapturedContext
+เเ# <
+:
+เเ< =
+false
+เเ> C
+)
+เเC D
+;
+เเD E
+}
+แแ 
 if
 ไไ 
 (
-ไไ 
-_triggerActions
-ไไ 
-.
-ไไ  
-TryGetValue
-ไไ  +
-(
-ไไ+ ,
-
-parameters
-ไไ, 6
-.
-ไไ6 7
-Trigger
-ไไ7 >
-,
-ไไ> ?
-out
-ไไ@ C
-var
-ไไD G
-triggerAction
-ไไH U
-)
-ไไU V
-)
-ไไV W
-{
-ๅๅ 
-await
-ๆๆ 
-triggerAction
-ๆๆ #
-.
-ๆๆ# $
-ExecuteAsync
-ๆๆ$ 0
-(
-ๆๆ0 1
-
-parameters
-ๆๆ1 ;
-.
-ๆๆ; <
-Context
-ๆๆ< C
-,
-ๆๆC D
-request
-ๆๆE L
-:
-ๆๆL M
-null
-ๆๆN R
-,
-ๆๆR S
-cancellationToken
-ๆๆT e
-:
-ๆๆe f
-
-parameters
-ๆๆg q
-.
-ๆๆq r 
-CancellationTokenๆๆr 
-)ๆๆ 
-.
-็็ 
-ConfigureAwait
-็็ #
-(
-็็# $'
-continueOnCapturedContext
-็็$ =
-:
-็็= >
-false
-็็? D
-)
-็็D E
-;
-็็E F
-}
-่่ 
-var
-๊๊ 
-result
-๊๊ 
-=
-๊๊ 
-await
-๊๊ "
-FireTriggerPrimAsync
-๊๊ 3
-(
-๊๊3 4
-
-parameters
-๊๊4 >
-)
-๊๊> ?
-.
-๊๊? @
-ConfigureAwait
-๊๊@ N
-(
-๊๊N O'
-continueOnCapturedContext
-๊๊O h
-:
-๊๊h i
-false
-๊๊j o
-)
-๊๊o p
-;
-๊๊p q
-if
-์์ 
-(
-์์ 
-!
-์์ 
-(
-์์ 
-result
-์์ 
-?
-์์ 
-.
-์์ 
-WasSuccessful
-์์ '
-??
-์์( *
-false
-์์+ 0
-)
-์์0 1
-&&
-์์2 4
-_superState
-์์5 @
+ไไ  
+_defaultExitAction
+ไไ "
 !=
-์์A C
+ไไ# %
 null
-์์D H
+ไไ& *
+)
+ไไ* +
+{
+ๅๅ 
+if
+ๆๆ 
+(
+ๆๆ 
+
+parameters
+ๆๆ 
+.
+ๆๆ 
+CancellationToken
+ๆๆ 0
+.
+ๆๆ0 1%
+IsCancellationRequested
+ๆๆ1 H
+)
+ๆๆH I
+{
+็็ 
+return
+็็ 
+;
+็็ 
+}
+็็ 
+if
+้้ 
+(
+้้  
+_defaultExitAction
+้้ &
+!=
+้้' )
+null
+้้* .
+)
+้้. /
+{
+๊๊ 
+await
+๋๋  
+_defaultExitAction
+๋๋ ,
+.
+๋๋, -
+Invoke
+๋๋- 3
+(
+๋๋3 4
+
+parameters
+๋๋4 >
+.
+๋๋> ?
+Context
+๋๋? F
+,
+๋๋F G
+
+parameters
+๋๋H R
+.
+๋๋R S
+CancellationToken
+๋๋S d
+)
+๋๋d e
+.
+์์ 
+ConfigureAwait
+์์ '
+(
+์์' ('
+continueOnCapturedContext
+์์( A
+:
+์์A B
+false
+์์C H
 )
 ์์H I
-{
-ํํ 
-result
-๎๎ 
-=
-๎๎ 
-await
-๎๎ 
-_superState
-๎๎ *
-.
-๎๎* +
-FireTriggerAsync
-๎๎+ ;
-(
-๎๎; <
-
-parameters
-๎๎< F
-)
-๎๎F G
-.
-๎๎G H
-ConfigureAwait
-๎๎H V
-(
-๎๎V W'
-continueOnCapturedContext
-๎๎W p
-:
-๎๎p q
-false
-๎๎r w
-)
-๎๎w x
 ;
-๎๎x y
+์์I J
 }
-๏๏ 
-else
-๐๐ 
-{
-๑๑ 
-var
-๒๒ 
-
-startState
-๒๒ 
-=
-๒๒  
-StateAccessor
-๒๒! .
-(
-๒๒. /
-
-parameters
-๒๒/ 9
-.
-๒๒9 :
-Context
-๒๒: A
-)
-๒๒A B
-;
-๒๒B C
-result
-๓๓ 
-=
-๓๓ 
-result
-๓๓ 
-??
-๓๓  "
-new
-๓๓# &#
-StateTransitionResult
-๓๓' <
-<
-๓๓< =
-TState
-๓๓= C
-,
-๓๓C D
-TTrigger
-๓๓E M
->
-๓๓M N
-(
-๓๓N O
-
-parameters
-๓๓O Y
-.
-๓๓Y Z
-Trigger
-๓๓Z a
-,
-๔๔ 
-
-startState
-๔๔  
-,
-๕๕ 
-
-startState
-๕๕  
-,
-๖๖ 
-
-startState
-๖๖  
-,
-๗๗  
-lastTransitionName
-๗๗ (
-:
-๗๗( )
-string
-๗๗* 0
-.
-๗๗0 1
-Empty
-๗๗1 6
-,
-๘๘ 
-transitionDefined
-๘๘ '
-:
-๘๘' (
-false
-๘๘) .
-)
-๘๘. /
-;
-๘๘/ 0
+ํํ 
 }
-๙๙ 
-return
-๛๛ 
-result
-๛๛ 
-;
-๛๛ 
+๎๎ 
 }
-üü 	
-private
-þþ 
-async
-þþ 
-Task
-þþ 
-<
-þþ #
-StateTransitionResult
-þþ 0
-<
-þþ0 1
-TState
-þþ1 7
-,
-þþ7 8
-TTrigger
-þþ9 A
->
-þþA B
->
-þþB C"
-FireTriggerPrimAsync
-þþD X
-(
-þþX Y!
-ExecutionParameters
-þþY l
-<
-þþl m
-T
-þþm n
-,
-þþn o
-TTrigger
-þþp x
->
-þþx y
-
-parametersþþz 
-)þþ …
-{
-ÿÿ 	#
-StateTransitionResult
-€€ !
-<
-€€! "
-TState
-€€" (
-,
-€€( )
-TTrigger
-€€* 2
->
-€€2 3
-result
-€€4 :
-=
-€€; <
-null
-€€= A
-;
-€€A B
-if
- 
-(
-  
-AllowedTransitions
- "
-.
-" #
-TryGetValue
-# .
-(
-. /
-
-parameters
-/ 9
-.
-9 :
-Trigger
-: A
-,
-A B
-out
-C F
-var
-G J
-transitions
-K V
-)
-V W
-)
-W X
-{
- 
-foreach
- 
-(
- 
-var
- 
-
-transition
- '
-in
-( *
-transitions
-+ 6
-.
-6 7
-OrderBy
-7 >
-(
-> ?
-t
-? @
-=>
-A C
-t
-D E
-.
-E F
-Priority
-F N
-)
-N O
-)
-O P
-{
-…… 
-result
- 
-=
- 
-await
- "
-
-transition
-# -
-.
-- .
-ExecuteAsync
-. :
-(
-: ;
-
-parameters
-; E
-)
-E F
-.
-F G
-ConfigureAwait
-G U
-(
-U V'
-continueOnCapturedContext
-V o
-:
-o p
-false
-q v
-)
-v w
-;
-w x
-if
- 
-(
- 
-result
- 
-.
- 
-WasSuccessful
- ,
-)
-, -
-{
- 
-return
- 
-result
- #
-;
-# $
-}
-% &
-}
- 
-}
- 
-return
- 
-result
- 
-;
- 
-}
- 	
+๏๏ 	
 public
- 
-bool
- 
-	IsInState
- 
-(
- 
+๑๑ 
+async
+๑๑ 
+Task
+๑๑ 
+<
+๑๑ #
+StateTransitionResult
+๑๑ /
+<
+๑๑/ 0
 TState
- $
-state
-% *
-)
-* +
+๑๑0 6
+,
+๑๑6 7
+TTrigger
+๑๑8 @
+>
+๑๑@ A
+>
+๑๑A B
+FireTriggerAsync
+๑๑C S
+(
+๑๑S T!
+ExecutionParameters
+๑๑T g
+<
+๑๑g h
+T
+๑๑h i
+,
+๑๑i j
+TTrigger
+๑๑k s
+>
+๑๑s t
+
+parameters
+๑๑u 
+)๑๑ €
 {
- 	
+๒๒ 	
+if
+๓๓ 
+(
+๓๓ 
+_triggerActions
+๓๓ 
+.
+๓๓  
+TryGetValue
+๓๓  +
+(
+๓๓+ ,
+
+parameters
+๓๓, 6
+.
+๓๓6 7
+Trigger
+๓๓7 >
+,
+๓๓> ?
+out
+๓๓@ C
+var
+๓๓D G
+triggerAction
+๓๓H U
+)
+๓๓U V
+)
+๓๓V W
+{
+๔๔ 
+await
+๕๕ 
+triggerAction
+๕๕ #
+.
+๕๕# $
+ExecuteAsync
+๕๕$ 0
+(
+๕๕0 1
+
+parameters
+๕๕1 ;
+.
+๕๕; <
+Context
+๕๕< C
+,
+๕๕C D
+request
+๕๕E L
+:
+๕๕L M
+null
+๕๕N R
+,
+๕๕R S
+cancellationToken
+๕๕T e
+:
+๕๕e f
+
+parameters
+๕๕g q
+.
+๕๕q r 
+CancellationToken๕๕r 
+)๕๕ 
+.
+๖๖ 
+ConfigureAwait
+๖๖ #
+(
+๖๖# $'
+continueOnCapturedContext
+๖๖$ =
+:
+๖๖= >
+false
+๖๖? D
+)
+๖๖D E
+;
+๖๖E F
+}
+๗๗ 
+var
+๙๙ 
+result
+๙๙ 
+=
+๙๙ 
+await
+๙๙ "
+FireTriggerPrimAsync
+๙๙ 3
+(
+๙๙3 4
+
+parameters
+๙๙4 >
+)
+๙๙> ?
+.
+๙๙? @
+ConfigureAwait
+๙๙@ N
+(
+๙๙N O'
+continueOnCapturedContext
+๙๙O h
+:
+๙๙h i
+false
+๙๙j o
+)
+๙๙o p
+;
+๙๙p q
+if
+๛๛ 
+(
+๛๛ 
+!
+๛๛ 
+(
+๛๛ 
+result
+๛๛ 
+?
+๛๛ 
+.
+๛๛ 
+WasSuccessful
+๛๛ '
+??
+๛๛( *
+false
+๛๛+ 0
+)
+๛๛0 1
+&&
+๛๛2 4
+_superState
+๛๛5 @
+!=
+๛๛A C
+null
+๛๛D H
+)
+๛๛H I
+{
+üü 
+result
+ýý 
+=
+ýý 
+await
+ýý 
+_superState
+ýý *
+.
+ýý* +
+FireTriggerAsync
+ýý+ ;
+(
+ýý; <
+
+parameters
+ýý< F
+)
+ýýF G
+.
+ýýG H
+ConfigureAwait
+ýýH V
+(
+ýýV W'
+continueOnCapturedContext
+ýýW p
+:
+ýýp q
+false
+ýýr w
+)
+ýýw x
+;
+ýýx y
+}
+þþ 
+else
+ÿÿ 
+{
+€€ 
+var
+ 
+
+startState
+ 
+=
+  
+StateAccessor
+! .
+(
+. /
+
+parameters
+/ 9
+.
+9 :
+Context
+: A
+)
+A B
+;
+B C
+result
+ 
+=
+ 
+result
+ 
+??
+  "
+new
+# &#
+StateTransitionResult
+' <
+<
+< =
+TState
+= C
+,
+C D
+TTrigger
+E M
+>
+M N
+(
+N O
+
+parameters
+O Y
+.
+Y Z
+Trigger
+Z a
+,
+ 
+
+startState
+  
+,
+ 
+
+startState
+  
+,
+…… 
+
+startState
+……  
+,
+  
+lastTransitionName
+ (
+:
+( )
+string
+* 0
+.
+0 1
+Empty
+1 6
+,
+ 
+transitionDefined
+ '
+:
+' (
+false
+) .
+)
+. /
+;
+/ 0
+}
+ 
+return
+ 
+result
+ 
+;
+ 
+}
+ 	
+private
+ 
+async
+ 
+Task
+ 
+<
+ #
+StateTransitionResult
+ 0
+<
+0 1
+TState
+1 7
+,
+7 8
+TTrigger
+9 A
+>
+A B
+>
+B C"
+FireTriggerPrimAsync
+D X
+(
+X Y!
+ExecutionParameters
+Y l
+<
+l m
+T
+m n
+,
+n o
+TTrigger
+p x
+>
+x y
+
+parametersz 
+) …
+{
+ 	#
+StateTransitionResult
+ !
+<
+! "
+TState
+" (
+,
+( )
+TTrigger
+* 2
+>
+2 3
+result
+4 :
+=
+; <
+null
+= A
+;
+A B
 if
 ‘‘ 
 (
-‘‘ 
-state
-‘‘ 
+‘‘ 
+Transitions
+‘‘ 
 .
-‘‘ 
-	CompareTo
-‘‘ 
+‘‘ 
+TryGetValue
+‘‘ '
 (
-‘‘  
-State
-‘‘  %
+‘‘' (
+
+parameters
+‘‘( 2
+.
+‘‘2 3
+Trigger
+‘‘3 :
+,
+‘‘: ;
+out
+‘‘< ?
+var
+‘‘@ C
+transitions
+‘‘D O
 )
-‘‘% &
-==
-‘‘' )
-$num
-‘‘* +
+‘‘O P
 )
-‘‘+ ,
+‘‘P Q
 {
-’’ 
-return
-’’ 
-true
-’’ 
-;
-’’ 
-}
-’’ 
-return
-”” 
-_superState
-”” 
-?
-”” 
-.
-””  
-	IsInState
-””  )
+’’ 
+foreach
+““ 
 (
-””) *
-state
-””* /
+““ 
+var
+““ 
+
+transition
+““ '
+in
+““( *
+transitions
+““+ 6
+.
+““6 7
+OrderBy
+““7 >
+(
+““> ?
+t
+““? @
+=>
+““A C
+t
+““D E
+.
+““E F
+Priority
+““F N
 )
-””/ 0
-??
-””1 3
+““N O
+)
+““O P
+{
+”” 
+result
+•• 
+=
+•• 
+await
+•• "
+
+transition
+••# -
+.
+••- .
+ExecuteAsync
+••. :
+(
+••: ;
+
+parameters
+••; E
+)
+••E F
+.
+••F G
+ConfigureAwait
+••G U
+(
+••U V'
+continueOnCapturedContext
+••V o
+:
+••o p
 false
-””4 9
-;
-””9 :
-}
-•• 	
-public
-—— &
-IStateConfigurationAsync
-—— '
-<
-——' (
-T
-——( )
-,
-——) *
-TState
-——+ 1
-,
-——1 2
-TTrigger
-——3 ;
->
-——; <
-IsSubStateOf
-——= I
-(
-——I J&
-IStateConfigurationAsync
-——J b
-<
-——b c
-T
-——c d
-,
-——d e
-TState
-——f l
-,
-——l m
-TTrigger
-——n v
->
-——v w&
-superStateConfiguration——x 
-)—— 
-{
- 	
-AddSuperState
- 
-(
- %
-superStateConfiguration
- 1
-as
-2 4.
- IStateConfigurationAsyncInternal
-5 U
-<
-U V
-T
-V W
-,
-W X
-TState
-Y _
-,
-_ `
-TTrigger
-a i
->
-i j
+••q v
 )
-j k
+••v w
 ;
-k l
+••w x
+if
+–– 
+(
+–– 
+result
+–– 
+.
+–– 
+WasSuccessful
+–– ,
+)
+––, -
+{
+—— 
 return
- 
-this
- 
+—— 
+result
+—— #
 ;
- 
+——# $
 }
- 	
+——% &
 }
- 
-} ก9
+ 
+}
+ 
+return
+ 
+result
+ 
+;
+ 
+}
+ 	
+public
+ 
+bool
+ 
+	IsInState
+ 
+(
+ 
+TState
+ $
+state
+% *
+)
+* +
+{
+ 	
+if
+   
+(
+   
+state
+   
+.
+   
+	CompareTo
+   
+(
+    
+State
+    %
+)
+  % &
+==
+  ' )
+$num
+  * +
+)
+  + ,
+{
+กก 
+return
+กก 
+true
+กก 
+;
+กก 
+}
+กก 
+return
+ฃฃ 
+_superState
+ฃฃ 
+?
+ฃฃ 
+.
+ฃฃ  
+	IsInState
+ฃฃ  )
+(
+ฃฃ) *
+state
+ฃฃ* /
+)
+ฃฃ/ 0
+??
+ฃฃ1 3
+false
+ฃฃ4 9
+;
+ฃฃ9 :
+}
+คค 	
+public
+ฆฆ &
+IStateConfigurationAsync
+ฆฆ '
+<
+ฆฆ' (
+T
+ฆฆ( )
+,
+ฆฆ) *
+TState
+ฆฆ+ 1
+,
+ฆฆ1 2
+TTrigger
+ฆฆ3 ;
+>
+ฆฆ; <
+IsSubStateOf
+ฆฆ= I
+(
+ฆฆI J&
+IStateConfigurationAsync
+ฆฆJ b
+<
+ฆฆb c
+T
+ฆฆc d
+,
+ฆฆd e
+TState
+ฆฆf l
+,
+ฆฆl m
+TTrigger
+ฆฆn v
+>
+ฆฆv w&
+superStateConfigurationฆฆx 
+)ฆฆ 
+{
+งง 	
+AddSuperState
+จจ 
+(
+จจ %
+superStateConfiguration
+จจ 1
+as
+จจ2 4.
+ IStateConfigurationAsyncInternal
+จจ5 U
+<
+จจU V
+T
+จจV W
+,
+จจW X
+TState
+จจY _
+,
+จจ_ `
+TTrigger
+จจa i
+>
+จจi j
+)
+จจj k
+;
+จจk l
+return
+ชช 
+this
+ชช 
+;
+ชช 
+}
+ซซ 	
+}
+ฌฌ 
+}ญญ ÝE
 XC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateConfigurationBase.cs
 	namespace 	
 NStateManager
@@ -13118,31 +13595,105 @@ XC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateConfigurati
 TStateL R
 :S T
 IComparableU `
-{ 
-public 
-Func 
-< 
-T 
-, 
-TState 
-> 
-StateAccessor ,
-{- .
-get/ 2
-;2 3
-}4 5
-public 
-Action 
-< 
-T 
-, 
-TState 
->  
-StateMutator! -
-{. /
-get0 3
-;3 4
-}5 6
+{ 
+	protected 
+internal 
+List 
+<  
+StateTransitionBase  3
+<3 4
+T4 5
+,5 6
+TState7 =
+,= >
+TTrigger? G
+>G H
+>H I
+AutoTransitionsJ Y
+=Z [
+new\ _
+List` d
+<d e
+StateTransitionBasee x
+<x y
+Ty z
+,z {
+TState	| 
+,
+ 
+TTrigger
+ 
+>
+ 
+>
+ 
+(
+ 
+)
+ 
+;
+ ‘
+	protected 
+internal 
+
+Dictionary %
+<% &
+TState& ,
+,, -
+List. 2
+<2 3
+StateTransitionBase3 F
+<F G
+TG H
+,H I
+TStateJ P
+,P Q
+TTriggerR Z
+>Z [
+>[ \
+>\ ](
+AutoPreviousStateTransitions^ z
+={ |
+new	} €
+
+Dictionary
+ 
+<
+ 
+TState
+ ’
+,
+’ “
+List
+” 
+<
+ !
+StateTransitionBase
+ ฌ
+<
+ฌ ญ
+T
+ญ ฎ
+,
+ฎ ฏ
+TState
+ฐ ถ
+,
+ถ ท
+TTrigger
+ธ ภ
+>
+ภ ม
+>
+ม ย
+>
+ย ร
+(
+ร ฤ
+)
+ฤ ล
+;
+ล ฦ
 	protected 
 
 Dictionary 
@@ -13160,384 +13711,416 @@ Dictionary 
 TTriggerK S
 >S T
 >T U
->U V
-AllowedTransitionsW i
-=j k
-newl o
+>U V
+TransitionsW b
+=c d
+newe h
 
-Dictionaryp z
-<z {
-TTrigger	{ 
-,
- 
-List
-… 
+Dictionaryi s
+<s t
+TTriggert |
+,| }
+List	~ 
 <
- !
+ !
 StateTransitionBase
- 
+ –
 <
- 
+– —
 T
- 
+— 
 ,
-  
+ 
 TState
-ก ง
+  
 ,
-ง จ
+  ก
 TTrigger
-ฉ ฑ
+ข ช
 >
-ฑ ฒ
+ช ซ
 >
-ฒ ณ
+ซ ฌ
 >
-ณ ด
+ฌ ญ
 (
-ด ต
+ญ ฎ
 )
-ต ถ
+ฎ ฏ
 ;
-ถ ท
-	protected 
-
-Dictionary 
-< 
-TState #
-,# $
-StateTransitionBase% 8
-<8 9
-T9 :
-,: ;
-TState< B
-,B C
-TTriggerD L
->L M
->M N(
-PreviousStateAutoTransitionsO k
-=l m
-newn q
-
-Dictionaryr |
-<| }
-TState	} 
-,
- !
-StateTransitionBase
-… 
-<
- 
-T
- 
-,
- 
-TState
- ข
-,
-ข ฃ
-TTrigger
-ค ฌ
->
-ฌ ญ
->
-ญ ฎ
-(
-ฎ ฏ
-)
-ฏ ฐ
-;
-ฐ ฑ
-	protected 
-StateTransitionBase %
-<% &
-T& '
-,' (
-TState) /
-,/ 0
-TTrigger1 9
->9 :!
-DefaultAutoTransition; P
-;P Q
-public 
-TState 
-State 
-{ 
-get !
-;! "
-}# $
-internal$$ "
-StateConfigurationBase$$ '
-($$' (
-TState$$( .
-state$$/ 4
-,$$4 5
-Func$$6 :
-<$$: ;
-T$$; <
-,$$< =
-TState$$> D
->$$D E
-stateAccessor$$F S
-,$$S T
-Action$$U [
-<$$[ \
-T$$\ ]
-,$$] ^
-TState$$_ e
->$$e f
-stateMutator$$g s
-)$$s t
-{%% 	
-State&& 
-=&& 
-state&& 
-;&& 
-StateAccessor'' 
-='' 
-stateAccessor'' )
-??''* ,
-throw''- 2
-new''3 6!
-ArgumentNullException''7 L
-(''L M
-nameof''M S
-(''S T
-stateAccessor''T a
-)''a b
-)''b c
-;''c d
-StateMutator(( 
-=(( 
-stateMutator(( '
-??((( *
-throw((+ 0
-new((1 4!
-ArgumentNullException((5 J
-(((J K
-nameof((K Q
-(((Q R
-stateMutator((R ^
-)((^ _
-)((_ `
-;((` a
-})) 	
+ฏ ฐ
+public 
+TState 
+State 
+{ 
+get !
+;! "
+}# $
+public 
+Func 
+< 
+T 
+, 
+TState 
+> 
+StateAccessor ,
+{- .
+get/ 2
+;2 3
+}4 5
+public 
+Action 
+< 
+T 
+, 
+TState 
+>  
+StateMutator! -
+{. /
+get0 3
+;3 4
+}5 6
+	protected%% "
+StateConfigurationBase%% (
+(%%( )
+TState%%) /
+state%%0 5
+,%%5 6
+Func%%7 ;
+<%%; <
+T%%< =
+,%%= >
+TState%%? E
+>%%E F
+stateAccessor%%G T
+,%%T U
+Action%%V \
+<%%\ ]
+T%%] ^
+,%%^ _
+TState%%` f
+>%%f g
+stateMutator%%h t
+)%%t u
+{&& 	
+State'' 
+='' 
+state'' 
+;'' 
+StateAccessor(( 
+=(( 
+stateAccessor(( )
+??((* ,
+throw((- 2
+new((3 6!
+ArgumentNullException((7 L
+(((L M
+nameof((M S
+(((S T
+stateAccessor((T a
+)((a b
+)((b c
+;((c d
+StateMutator)) 
+=)) 
+stateMutator)) '
+??))( *
+throw))+ 0
+new))1 4!
+ArgumentNullException))5 J
+())J K
+nameof))K Q
+())Q R
+stateMutator))R ^
+)))^ _
+)))_ `
+;))` a
+}** 	
 public00 
-void00 
-AddTransition00 !
-(00! "
-TTrigger00" *
-trigger00+ 2
-,002 3
-StateTransitionBase004 G
-<00G H
-T00H I
-,00I J
-TState00K Q
-,00Q R
-TTrigger00S [
->00[ \
+void00 
+AddAutoTransition00 %
+(00% &
+StateTransitionBase00& 9
+<009 :
+T00: ;
+,00; <
+TState00= C
+,00C D
+TTrigger00E M
+>00M N
 
-transition00] g
-)00g h
+transition00O Y
+)00Y Z
 {11 	
 if22 
-(22 
-!22 
-AllowedTransitions22 #
-.22# $
-TryGetValue22$ /
-(22/ 0
-trigger220 7
-,227 8
-out229 <
-var22= @
-existingTransitions22A T
-)22T U
-)22U V
-{33 
-AllowedTransitions33  
-.33  !
-Add33! $
-(33$ %
-trigger33% ,
-,33, -
-new33. 1
-List332 6
-<336 7
-StateTransitionBase337 J
-<33J K
-T33K L
-,33L M
-TState33N T
-,33T U
-TTrigger33V ^
->33^ _
->33_ `
-{33a b
+(22 
+AutoTransitions22 
+.22  
+Any22  #
+(22# $
+t22$ %
+=>22& (
+t22) *
+.22* +
+Priority22+ 3
+==224 6
 
-transition33b l
-}33l m
-)33m n
-;33n o
-}33p q
-else44 
-{55 
-if66 
-(66 
-existingTransitions66 '
-.66' (
-Any66( +
-(66+ ,
-t66, -
-=>66. 0
-t661 2
-.662 3
-Priority663 ;
-==66< >
+transition227 A
+.22A B
+Priority22B J
+)22J K
+)22K L
+{33 
+throw33 
+new33 %
+InvalidOperationException33 1
+(331 2
+$"332 4 
+Auto transition for 334 H
+{33H I
+State33I N
+}33N O!
+ state with priority 33O d
+{33d e
 
-transition66? I
-.66I J
-Priority66J R
-)66R S
-)66S T
-{77 
-throw77 
-new77 %
-InvalidOperationException77 5
-(775 6
-$"776 8
-{778 9
-trigger779 @
-}77@ A.
-" trigger was previously added for 77A c
-{77c d
-State77d i
-}77i j
- state as priority 77j }
-{77} ~
-
-transition	77~ 
-.
-77 
-Priority
-77 ‘
-}
-77‘ ’
-.
-77’ “
+transition33e o
+.33o p
+Priority33p x
+}33x y
+ already added.	33y 
 "
-77“ ”
+33 
 )
-77” •
+33 
 ;
-77• –
+33 
 }
-77— 
-existingTransitions99 #
-.99# $
-Add99$ '
-(99' (
+33 
+AutoTransitions55 
+.55 
+Add55 
+(55  
 
-transition99( 2
-)992 3
-;993 4
-}:: 
-};; 	
-	protected== !
-StateTransitionResult== '
-<==' (
-TState==( .
-,==. /
-TTrigger==0 8
->==8 9
-FireTriggerPrim==: I
-(==I J
-ExecutionParameters==J ]
-<==] ^
-T==^ _
-,==_ `
-TTrigger==a i
->==i j
+transition55  *
+)55* +
+;55+ ,
+}66 	
+public== 
+void== 
+AddTransition== !
+(==! "
+TTrigger==" *
+trigger==+ 2
+,==2 3
+StateTransitionBase==4 G
+<==G H
+T==H I
+,==I J
+TState==K Q
+,==Q R
+TTrigger==S [
+>==[ \
 
-parameters==k u
-)==u v
-{>> 	!
-StateTransitionResult?? !
-<??! "
-TState??" (
-,??( )
-TTrigger??* 2
->??2 3
-result??4 :
-=??; <
-null??= A
-;??A B
-ifAA 
-(AA 
-AllowedTransitionsAA "
-.AA" #
-TryGetValueAA# .
-(AA. /
+transition==] g
+)==g h
+{>> 	
+if?? 
+(?? 
+!?? 
+Transitions?? 
+.?? 
+TryGetValue?? (
+(??( )
+trigger??) 0
+,??0 1
+out??2 5
+var??6 9
+existingTransitions??: M
+)??M N
+)??N O
+{@@ 
+Transitions@@ 
+.@@ 
+Add@@ 
+(@@ 
+trigger@@ %
+,@@% &
+new@@' *
+List@@+ /
+<@@/ 0
+StateTransitionBase@@0 C
+<@@C D
+T@@D E
+,@@E F
+TState@@G M
+,@@M N
+TTrigger@@O W
+>@@W X
+>@@X Y
+{@@Z [
 
-parametersAA/ 9
-.AA9 :
-TriggerAA: A
-,AAA B
-outAAC F
-varAAG J
-transitionsAAK V
-)AAV W
-)AAW X
-{BB 
-foreachCC 
-(CC 
-varCC 
+transition@@[ e
+}@@e f
+)@@f g
+;@@g h
+}@@i j
+elseAA 
+{BB 
+ifCC 
+(CC 
+existingTransitionsCC '
+.CC' (
+AnyCC( +
+(CC+ ,
+tCC, -
+=>CC. 0
+tCC1 2
+.CC2 3
+PriorityCC3 ;
+==CC< >
 
-transitionCC '
-inCC( *
-transitionsCC+ 6
-.CC6 7
-OrderByCC7 >
-(CC> ?
-tCC? @
-=>CCA C
-tCCD E
-.CCE F
-PriorityCCF N
-)CCN O
-)CCO P
-{DD 
-resultEE 
-=EE 
+transitionCC? I
+.CCI J
+PriorityCCJ R
+)CCR S
+)CCS T
+{DD 
+throwDD 
+newDD %
+InvalidOperationExceptionDD 5
+(DD5 6
+$"DD6 8
+{DD8 9
+triggerDD9 @
+}DD@ A.
+" trigger was previously added for DDA c
+{DDc d
+StateDDd i
+}DDi j
+ state as priority DDj }
+{DD} ~
 
-transitionEE '
-.EE' (
-ExecuteEE( /
-(EE/ 0
+transition	DD~ 
+.
+DD 
+Priority
+DD ‘
+}
+DD‘ ’
+.
+DD’ “
+"
+DD“ ”
+)
+DD” •
+;
+DD• –
+}
+DD— 
+existingTransitionsFF #
+.FF# $
+AddFF$ '
+(FF' (
 
-parametersEE0 :
-)EE: ;
-;EE; <
-ifFF 
-(FF 
-resultFF 
-.FF 
-WasSuccessfulFF ,
-)FF, -
-{GG 
-returnGG 
-resultGG #
-;GG# $
-}GG% &
-}HH 
-}II 
-returnKK 
-resultKK 
-;KK 
-}LL 	
-}MM 
-}NN ๐“
+transitionFF( 2
+)FF2 3
+;FF3 4
+}GG 
+}HH 	
+	protectedJJ !
+StateTransitionResultJJ '
+<JJ' (
+TStateJJ( .
+,JJ. /
+TTriggerJJ0 8
+>JJ8 9
+FireTriggerPrimJJ: I
+(JJI J
+ExecutionParametersJJJ ]
+<JJ] ^
+TJJ^ _
+,JJ_ `
+TTriggerJJa i
+>JJi j
+
+parametersJJk u
+)JJu v
+{KK 	!
+StateTransitionResultLL !
+<LL! "
+TStateLL" (
+,LL( )
+TTriggerLL* 2
+>LL2 3
+resultLL4 :
+=LL; <
+nullLL= A
+;LLA B
+ifNN 
+(NN 
+TransitionsNN 
+.NN 
+TryGetValueNN '
+(NN' (
+
+parametersNN( 2
+.NN2 3
+TriggerNN3 :
+,NN: ;
+outNN< ?
+varNN@ C
+transitionsNND O
+)NNO P
+)NNP Q
+{OO 
+foreachPP 
+(PP 
+varPP 
+
+transitionPP '
+inPP( *
+transitionsPP+ 6
+.PP6 7
+OrderByPP7 >
+(PP> ?
+tPP? @
+=>PPA C
+tPPD E
+.PPE F
+PriorityPPF N
+)PPN O
+)PPO P
+{QQ 
+resultRR 
+=RR 
+
+transitionRR '
+.RR' (
+ExecuteRR( /
+(RR/ 0
+
+parametersRR0 :
+)RR: ;
+;RR; <
+ifSS 
+(SS 
+resultSS 
+.SS 
+WasSuccessfulSS ,
+)SS, -
+{TT 
+returnTT 
+resultTT #
+;TT# $
+}TT% &
+}UU 
+}VV 
+returnXX 
+resultXX 
+;XX 
+}YY 	
+}ZZ 
+}[[ —”
 NC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateMachine.cs
 	namespace 	
 NStateManager
@@ -13570,662 +14153,671 @@ NC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateMachine.cs
 IComparable "
 { 
 private 
-readonly 
-Func 
-< 
-T 
-,  
-TState! '
->' (
-_stateAccessor) 7
-;7 8
-private 
-readonly 
-Action 
-<  
-T  !
-,! "
-TState# )
->) *
-_stateMutator+ 8
-;8 9
-private 
-readonly 
+readonly 
 
-Dictionary #
-<# $
-TState$ *
-,* +'
-IStateConfigurationInternal, G
-<G H
-TH I
-,I J
-TStateK Q
-,Q R
-TTriggerS [
->[ \
->\ ] 
-_stateConfigurations^ r
-=s t
-new 
+Dictionary #
+<# $
+TState$ *
+,* +'
+IStateConfigurationInternal, G
+<G H
+TH I
+,I J
+TStateK Q
+,Q R
+TTriggerS [
+>[ \
+>\ ] 
+_stateConfigurations^ r
+=s t
+new 
 
-Dictionary 
-< 
-TState !
-,! "'
-IStateConfigurationInternal# >
-<> ?
-T? @
-,@ A
-TStateB H
-,H I
-TTriggerJ R
->R S
->S T
-(T U
-)U V
-;V W
-private 
-readonly 
+Dictionary 
+< 
+TState !
+,! "'
+IStateConfigurationInternal# >
+<> ?
+T? @
+,@ A
+TStateB H
+,H I
+TTriggerJ R
+>R S
+>S T
+(T U
+)U V
+;V W
+private 
+readonly 
 
-Dictionary #
-<# $
-TTrigger$ ,
-,, -
-TriggerActionBase. ?
-<? @
-T@ A
-,A B
-TTriggerC K
->K L
->L M
-_triggerActionsN ]
-=^ _
-new   
+Dictionary #
+<# $
+TTrigger$ ,
+,, -
+TriggerActionBase. ?
+<? @
+T@ A
+,A B
+TTriggerC K
+>K L
+>L M
+_triggerActionsN ]
+=^ _
+new 
 
-Dictionary   
-<   
-TTrigger   #
-,  # $
-TriggerActionBase  % 6
-<  6 7
-T  7 8
-,  8 9
-TTrigger  : B
->  B C
->  C D
-(  D E
-)  E F
-;  F G
-public'' 
-StateMachine'' 
-('' 
-Func''  
-<''  !
-T''! "
-,''" #
-TState''$ *
->''* +
-stateAccessor'', 9
-,''9 :
-Action''; A
-<''A B
-T''B C
-,''C D
-TState''E K
->''K L
-stateMutator''M Y
-)''Y Z
-{(( 	
-_stateAccessor)) 
-=)) 
-stateAccessor)) *
-??))+ -
-throw)). 3
-new))4 7!
-ArgumentNullException))8 M
-())M N
-nameof))N T
-())T U
-stateAccessor))U b
-)))b c
-)))c d
-;))d e
-_stateMutator** 
-=** 
-stateMutator** (
-??**) +
-throw**, 1
-new**2 5!
-ArgumentNullException**6 K
-(**K L
-nameof**L R
-(**R S
-stateMutator**S _
-)**_ `
-)**` a
-;**a b
-}++ 	
-public44 
-IStateMachine44 
-<44 
-T44 
-,44 
-TState44  &
-,44& '
-TTrigger44( 0
->440 1
-AddTriggerAction442 B
-(44B C
-TTrigger44C K
-trigger44L S
-,44S T
-Action44U [
-<44[ \
-T44\ ]
->44] ^
-action44_ e
-)44e f
-{55 	
-if66 
-(66 
-_triggerActions66 
-.66  
-ContainsKey66  +
-(66+ ,
-trigger66, 3
-)663 4
-)664 5
-{77 
-throw77 
-new77 %
-InvalidOperationException77 1
-(771 2
-$"772 4+
-Only one action is allowed for 774 S
-{77S T
-trigger77T [
-}77[ \
-	 trigger.77\ e
-"77e f
-)77f g
-;77g h
-}77i j
-_triggerActions99 
-.99 
-Add99 
-(99  
-trigger99  '
-,99' ( 
-TriggerActionFactory99) =
-<99= >
-T99> ?
-,99? @
-TTrigger99A I
->99I J
-.99J K
-GetTriggerAction99K [
-(99[ \
-action99\ b
-)99b c
-)99c d
-;99d e
-return;; 
-this;; 
-;;; 
-}<< 	
-publicFF 
-IStateMachineFF 
-<FF 
-TFF 
-,FF 
-TStateFF  &
-,FF& '
-TTriggerFF( 0
->FF0 1
-AddTriggerActionFF2 B
-<FFB C
-TRequestFFC K
->FFK L
-(FFL M
-TTriggerFFM U
-triggerFFV ]
-,FF] ^
-ActionGG 
-<GG 
-TGG 
-,GG 
-TRequestGG 
->GG 
-actionGG  &
-)GG& '
-{HH 	
-ifII 
-(II 
-_triggerActionsII 
-.II  
-ContainsKeyII  +
-(II+ ,
-triggerII, 3
-)II3 4
-)II4 5
-{JJ 
-throwJJ 
-newJJ %
-InvalidOperationExceptionJJ 1
-(JJ1 2
-$"JJ2 4+
-Only one action is allowed for JJ4 S
-{JJS T
-triggerJJT [
-}JJ[ \
-	 trigger.JJ\ e
-"JJe f
-)JJf g
-;JJg h
-}JJi j
-_triggerActionsLL 
-.LL 
-AddLL 
-(LL  
-triggerLL  '
-,LL' ( 
-TriggerActionFactoryLL) =
-<LL= >
-TLL> ?
-,LL? @
-TTriggerLLA I
->LLI J
-.LLJ K
-GetTriggerActionLLK [
-(LL[ \
-actionLL\ b
-)LLb c
-)LLc d
-;LLd e
-returnNN 
-thisNN 
-;NN 
-}OO 	
-publicVV 
-IStateConfigurationVV "
-<VV" #
-TVV# $
-,VV$ %
-TStateVV& ,
-,VV, -
-TTriggerVV. 6
->VV6 7
-ConfigureStateVV8 F
-(VVF G
-TStateVVG M
-stateVVN S
-)VVS T
-{WW 	
-ifXX 
-(XX  
-_stateConfigurationsXX $
-.XX$ %
-TryGetValueXX% 0
-(XX0 1
-stateXX1 6
-,XX6 7
-outXX8 ;
-varXX< ?
-stateConfigurationXX@ R
-)XXR S
-)XXS T
-{YY 
-returnYY 
-stateConfigurationYY '
-;YY' (
-}YY) *
-var[[ 
-newState[[ 
-=[[ 
-new[[ 
-StateConfiguration[[ 1
-<[[1 2
-T[[2 3
-,[[3 4
-TState[[5 ;
-,[[; <
-TTrigger[[= E
->[[E F
-([[F G
-state[[G L
-,[[L M
-_stateAccessor[[N \
-,[[\ ]
-_stateMutator[[^ k
-)[[k l
-;[[l m 
-_stateConfigurations\\  
-.\\  !
-Add\\! $
-(\\$ %
-state\\% *
-,\\* +
-newState\\, 4
-)\\4 5
-;\\5 6
-return]] 
-newState]] 
-;]] 
-}^^ 	
-publicgg !
-StateTransitionResultgg $
-<gg$ %
-TStategg% +
-,gg+ ,
-TTriggergg- 5
->gg5 6
-FireTriggergg7 B
-<ggB C
-TRequestggC K
->ggK L
-(ggL M
-TggM N
-contextggO V
-,ggV W
-TTriggerggX `
-triggergga h
-,ggh i
-TRequestggj r
-requestggs z
-)ggz {
-wherehh 
-TRequesthh 
-:hh 
-classhh "
-{ii 	
-varjj 
-executionParametersjj #
-=jj$ %
-newjj& )
-ExecutionParametersjj* =
-<jj= >
-Tjj> ?
-,jj? @
-TTriggerjjA I
->jjI J
-(jjJ K
-triggerjjK R
-,jjR S
-contextjjT [
-,jj[ \
-requestjj] d
-:jjd e
-requestjjf m
-)jjm n
-;jjn o
-varkk 
+Dictionary 
+< 
+TTrigger #
+,# $
+TriggerActionBase% 6
+<6 7
+T7 8
+,8 9
+TTrigger: B
+>B C
+>C D
+(D E
+)E F
+;F G
+public 
+Func 
+< 
+T 
+, 
+TState 
+> 
+StateAccessor ,
+{- .
+get/ 2
+;2 3
+}4 5
+public 
+Action 
+< 
+T 
+, 
+TState 
+>  
+StateMutator! -
+{. /
+get0 3
+;3 4
+}5 6
+public&& 
+StateMachine&& 
+(&& 
+Func&&  
+<&&  !
+T&&! "
+,&&" #
+TState&&$ *
+>&&* +
+stateAccessor&&, 9
+,&&9 :
+Action&&; A
+<&&A B
+T&&B C
+,&&C D
+TState&&E K
+>&&K L
+stateMutator&&M Y
+)&&Y Z
+{'' 	
+StateAccessor(( 
+=(( 
+stateAccessor(( )
+??((* ,
+throw((- 2
+new((3 6!
+ArgumentNullException((7 L
+(((L M
+nameof((M S
+(((S T
+stateAccessor((T a
+)((a b
+)((b c
+;((c d
+StateMutator)) 
+=)) 
+stateMutator)) '
+??))( *
+throw))+ 0
+new))1 4!
+ArgumentNullException))5 J
+())J K
+nameof))K Q
+())Q R
+stateMutator))R ^
+)))^ _
+)))_ `
+;))` a
+}** 	
+public33 
+IStateMachine33 
+<33 
+T33 
+,33 
+TState33  &
+,33& '
+TTrigger33( 0
+>330 1
+AddTriggerAction332 B
+(33B C
+TTrigger33C K
+trigger33L S
+,33S T
+Action33U [
+<33[ \
+T33\ ]
+>33] ^
+action33_ e
+)33e f
+{44 	
+if55 
+(55 
+_triggerActions55 
+.55  
+ContainsKey55  +
+(55+ ,
+trigger55, 3
+)553 4
+)554 5
+{66 
+throw66 
+new66 %
+InvalidOperationException66 1
+(661 2
+$"662 4+
+Only one action is allowed for 664 S
+{66S T
+trigger66T [
+}66[ \
+	 trigger.66\ e
+"66e f
+)66f g
+;66g h
+}66i j
+_triggerActions88 
+.88 
+Add88 
+(88  
+trigger88  '
+,88' ( 
+TriggerActionFactory88) =
+<88= >
+T88> ?
+,88? @
+TTrigger88A I
+>88I J
+.88J K
+GetTriggerAction88K [
+(88[ \
+action88\ b
+)88b c
+)88c d
+;88d e
+return:: 
+this:: 
+;:: 
+};; 	
+publicEE 
+IStateMachineEE 
+<EE 
+TEE 
+,EE 
+TStateEE  &
+,EE& '
+TTriggerEE( 0
+>EE0 1
+AddTriggerActionEE2 B
+<EEB C
+TRequestEEC K
+>EEK L
+(EEL M
+TTriggerEEM U
+triggerEEV ]
+,EE] ^
+ActionFF 
+<FF 
+TFF 
+,FF 
+TRequestFF 
+>FF 
+actionFF  &
+)FF& '
+{GG 	
+ifHH 
+(HH 
+_triggerActionsHH 
+.HH  
+ContainsKeyHH  +
+(HH+ ,
+triggerHH, 3
+)HH3 4
+)HH4 5
+{II 
+throwII 
+newII %
+InvalidOperationExceptionII 1
+(II1 2
+$"II2 4+
+Only one action is allowed for II4 S
+{IIS T
+triggerIIT [
+}II[ \
+	 trigger.II\ e
+"IIe f
+)IIf g
+;IIg h
+}IIi j
+_triggerActionsKK 
+.KK 
+AddKK 
+(KK  
+triggerKK  '
+,KK' ( 
+TriggerActionFactoryKK) =
+<KK= >
+TKK> ?
+,KK? @
+TTriggerKKA I
+>KKI J
+.KKJ K
+GetTriggerActionKKK [
+(KK[ \
+actionKK\ b
+)KKb c
+)KKc d
+;KKd e
+returnMM 
+thisMM 
+;MM 
+}NN 	
+publicUU 
+IStateConfigurationUU "
+<UU" #
+TUU# $
+,UU$ %
+TStateUU& ,
+,UU, -
+TTriggerUU. 6
+>UU6 7
+ConfigureStateUU8 F
+(UUF G
+TStateUUG M
+stateUUN S
+)UUS T
+{VV 	
+ifWW 
+(WW  
+_stateConfigurationsWW $
+.WW$ %
+TryGetValueWW% 0
+(WW0 1
+stateWW1 6
+,WW6 7
+outWW8 ;
+varWW< ?
+stateConfigurationWW@ R
+)WWR S
+)WWS T
+{XX 
+returnXX 
+stateConfigurationXX '
+;XX' (
+}XX) *
+varZZ 
+newStateZZ 
+=ZZ 
+newZZ 
+StateConfigurationZZ 1
+<ZZ1 2
+TZZ2 3
+,ZZ3 4
+TStateZZ5 ;
+,ZZ; <
+TTriggerZZ= E
+>ZZE F
+(ZZF G
+stateZZG L
+,ZZL M
+StateAccessorZZN [
+,ZZ[ \
+StateMutatorZZ] i
+)ZZi j
+;ZZj k 
+_stateConfigurations[[  
+.[[  !
+Add[[! $
+([[$ %
+state[[% *
+,[[* +
+newState[[, 4
+)[[4 5
+;[[5 6
+return\\ 
+newState\\ 
+;\\ 
+}]] 	
+publicff !
+StateTransitionResultff $
+<ff$ %
+TStateff% +
+,ff+ ,
+TTriggerff- 5
+>ff5 6
+FireTriggerff7 B
+<ffB C
+TRequestffC K
+>ffK L
+(ffL M
+TffM N
+contextffO V
+,ffV W
+TTriggerffX `
+triggerffa h
+,ffh i
+TRequestffj r
+requestffs z
+)ffz {
+wheregg 
+TRequestgg 
+:gg 
+classgg "
+{hh 	
+varii 
+executionParametersii #
+=ii$ %
+newii& )
+ExecutionParametersii* =
+<ii= >
+Tii> ?
+,ii? @
+TTriggeriiA I
+>iiI J
+(iiJ K
+triggeriiK R
+,iiR S
+contextiiT [
+,ii[ \
+requestii] d
+:iid e
+requestiif m
+)iim n
+;iin o
+varjj 
 
-startStatekk 
-=kk 
-_stateAccessorkk +
-(kk+ ,
-contextkk, 3
-)kk3 4
-;kk4 5
-ifmm 
-(mm 
-_triggerActionsmm 
-.mm  
-TryGetValuemm  +
-(mm+ ,
-triggermm, 3
-,mm3 4
-outmm5 8
-varmm9 <
-triggerActionmm= J
-)mmJ K
-)mmK L
-{nn 
-triggerActionnn 
-.nn 
-Executenn #
-(nn# $
-executionParametersnn$ 7
-)nn7 8
-;nn8 9
-}nn: ;
-varpp 
-resultpp 
-=pp 
-!pp  
-_stateConfigurationspp .
-.pp. /
-TryGetValuepp/ :
-(pp: ;
+startStatejj 
+=jj 
+StateAccessorjj *
+(jj* +
+contextjj+ 2
+)jj2 3
+;jj3 4
+ifll 
+(ll 
+_triggerActionsll 
+.ll  
+TryGetValuell  +
+(ll+ ,
+triggerll, 3
+,ll3 4
+outll5 8
+varll9 <
+triggerActionll= J
+)llJ K
+)llK L
+{mm 
+triggerActionmm 
+.mm 
+Executemm #
+(mm# $
+executionParametersmm$ 7
+)mm7 8
+;mm8 9
+}mm: ;
+varoo 
+resultoo 
+=oo 
+!oo  
+_stateConfigurationsoo .
+.oo. /
+TryGetValueoo/ :
+(oo: ;
 
-startStatepp; E
-,ppE F
-outppG J
-varppK N
-stateConfigurationppO a
-)ppa b
-?qq 
-newqq !
-StateTransitionResultqq +
-<qq+ ,
-TStateqq, 2
-,qq2 3
-TTriggerqq4 <
->qq< =
-(qq= >
-triggerqq> E
+startStateoo; E
+,ooE F
+outooG J
+varooK N
+stateConfigurationooO a
+)ooa b
+?pp 
+newpp !
+StateTransitionResultpp +
+<pp+ ,
+TStatepp, 2
+,pp2 3
+TTriggerpp4 <
+>pp< =
+(pp= >
+triggerpp> E
+,qq 
+
+startStateqq  
 ,rr 
 
 startStaterr  
 ,ss 
 
 startStatess  
-,tt 
-
-startStatett  
-,uu 
-lastTransitionNameuu (
-:uu( )
-stringuu* 0
-.uu0 1
-Emptyuu1 6
-,vv 
-transitionDefinedvv '
-:vv' (
-falsevv) .
-)vv. /
-:ww 
-stateConfigurationww $
-.ww$ %
-FireTriggerww% 0
-(ww0 1
-executionParametersww1 D
-)wwD E
-;wwE F
-returnyy &
-executeExitAndEntryActionsyy -
-(yy- .
-executionParametersyy. A
-,yyA B
-resultyyC I
-)yyI J
-;yyJ K
-}zz 	
+,tt 
+lastTransitionNamett (
+:tt( )
+stringtt* 0
+.tt0 1
+Emptytt1 6
+,uu 
+transitionDefineduu '
+:uu' (
+falseuu) .
+)uu. /
+:vv 
+stateConfigurationvv $
+.vv$ %
+FireTriggervv% 0
+(vv0 1
+executionParametersvv1 D
+)vvD E
+;vvE F
+returnxx &
+executeExitAndEntryActionsxx -
+(xx- .
+executionParametersxx. A
+,xxA B
+resultxxC I
+)xxI J
+;xxJ K
+}yy 	
 public
- #
+ #
 StateTransitionResult
- $
+ $
 <
-$ %
+$ %
 TState
-% +
+% +
 ,
-+ ,
++ ,
 TTrigger
-- 5
+- 5
 >
-5 6
+5 6
 FireTrigger
-7 B
+7 B
 (
-B C
+B C
 T
-C D
+C D
 context
-E L
+E L
 ,
-L M
+L M
 TTrigger
-N V
+N V
 trigger
-W ^
+W ^
 )
-^ _
+^ _
 {
- 	
+ 	
 var
- 
+ 
 
 startState
- 
+ 
 =
- 
-_stateAccessor
- +
+ 
+StateAccessor
+ *
 (
-+ ,
+* +
 context
-, 3
++ 2
 )
-3 4
+2 3
 ;
-4 5
+3 4
 var
-…… !
+ !
 executionParameters
-…… #
+ #
 =
-……$ %
+$ %
 new
-……& )!
+& )!
 ExecutionParameters
-……* =
+* =
 <
-……= >
+= >
 T
-……> ?
+> ?
 ,
-……? @
+? @
 TTrigger
-……A I
+A I
 >
-……I J
+I J
 (
-……J K
+J K
 trigger
-……K R
+K R
 ,
-……R S
+R S
 context
-……T [
+T [
 )
-……[ \
+[ \
 ;
-……\ ]
+\ ]
 if
- 
+ 
 (
- 
+ 
 _triggerActions
- 
+ 
 .
-  
+  
 TryGetValue
-  +
+  +
 (
-+ ,
++ ,
 trigger
-, 3
+, 3
 ,
-3 4
+3 4
 out
-5 8
+5 8
 var
-9 <
+9 <
 triggerAction
-= J
+= J
 )
-J K
+J K
 )
-K L
+K L
 {
- 
+ 
 triggerAction
- 
+ 
 .
- 
+ 
 Execute
- #
+ #
 (
-# $!
+# $!
 executionParameters
-$ 7
+$ 7
 )
-7 8
+7 8
 ;
-8 9
+8 9
 }
-: ;
+: ;
 var
- 
+ 
 result
- 
+ 
 =
- 
+ 
 !
- "
+ "
 _stateConfigurations
- .
+ .
 .
-. /
+. /
 TryGetValue
-/ :
+/ :
 (
-: ;
+: ;
 
 startState
-; E
+; E
 ,
-E F
+E F
 out
-G J
+G J
 var
-K N 
+K N 
 stateConfiguration
-O a
+O a
 )
-a b
+a b
 ?
- 
+ 
 new
- #
+ #
 StateTransitionResult
- +
+ +
 <
-+ ,
++ ,
 TState
-, 2
+, 2
 ,
-2 3
+2 3
 TTrigger
-4 <
+4 <
 >
-< =
+< =
 (
-= >
+= >
 trigger
-> E
+> E
+,
+ 
+
+startState
+  
 ,
  
 
@@ -14237,701 +14829,696 @@ startState
 startState
   
 ,
- 
-
-startState
-  
-,
-  
+  
 lastTransitionName
- '
+ '
 :
-' (
+' (
 String
-) /
+) /
 .
-/ 0
+/ 0
 Empty
-0 5
+0 5
 ,
- 
+ 
 transitionDefined
- '
+ '
 :
-' (
+' (
 false
-) .
+) .
 )
-. /
+. /
 :
-‘‘  
+  
 stateConfiguration
-‘‘ $
+ $
 .
-‘‘$ %
+$ %
 FireTrigger
-‘‘% 0
+% 0
 (
-‘‘0 1!
+0 1!
 executionParameters
-‘‘1 D
+1 D
 )
-‘‘D E
+D E
 ;
-‘‘E F
+E F
 return
-““ (
+’’ (
 executeExitAndEntryActions
-““ -
+’’ -
 (
-““- .!
+’’- .!
 executionParameters
-““. A
+’’. A
 ,
-““A B
+’’A B
 result
-““C I
+’’C I
 )
-““I J
+’’I J
 ;
-““J K
+’’J K
 }
-”” 	
+““ 	
 public
-–– 
+•• 
 bool
-–– 
+•• 
 	IsInState
-–– 
+•• 
 (
-–– 
+•• 
 T
-–– 
+•• 
 context
-––  '
+••  '
 ,
-––' (
+••' (
 TState
-––) /
+••) /
 state
-––0 5
+••0 5
 )
-––5 6
+••5 6
 {
-—— 	
+–– 	
 var
- 
+—— 
 objectState
- 
+—— 
 =
- 
-_stateAccessor
- ,
+—— 
+StateAccessor
+—— +
 (
-, -
+——+ ,
 context
-- 4
+——, 3
 )
-4 5
+——3 4
 ;
-5 6
+——4 5
 if
- 
+ 
 (
- 
+ 
 state
- 
+ 
 .
- 
+ 
 	CompareTo
- 
+ 
 (
-  
+  
 objectState
-  +
+  +
 )
-+ ,
++ ,
 ==
-- /
+- /
 $num
-0 1
+0 1
 )
-1 2
+1 2
 {
- 
+ 
 return
- 
+ 
 true
- 
+ 
 ;
- 
+ 
 }
- 
+ 
 return
- "
+ "
 _stateConfigurations
- '
+ '
 .
-' (
+' (
 TryGetValue
-( 3
+( 3
 (
-3 4
+3 4
 objectState
-4 ?
+4 ?
 ,
-? @
+? @
 out
-A D
+A D
 var
-E H&
+E H&
 objectStateConfiguration
-I a
+I a
 )
-a b
+a b
 &&
- &
+ &
 objectStateConfiguration
- .
+ .
 .
-. /
+. /
 	IsInState
-/ 8
+/ 8
 (
-8 9
+8 9
 state
-9 >
+9 >
 )
-> ?
+> ?
 ;
-? @
+? @
 }
- 	
+ 	
 public
-กก 
+   
 IStateMachine
-กก 
+   
 <
-กก 
+   
 T
-กก 
+   
 ,
-กก 
+   
 TState
-กก  &
+    &
 ,
-กก& '
+  & '
 TTrigger
-กก( 0
+  ( 0
 >
-กก0 1*
+  0 1*
 RegisterOnTransitionedAction
-กก2 N
+  2 N
 (
-กกN O
+  N O
 Action
-กกO U
+  O U
 <
-กกU V
+  U V
 T
-กกV W
+  V W
 ,
-กกW X#
+  W X#
 StateTransitionResult
-กกY n
+  Y n
 <
-กกn o
+  n o
 TState
-กกo u
+  o u
 ,
-กกu v
+  u v
 TTrigger
-กกw 
->กก €
->กก€ 
-actionกก 
-)กก 
+  w 
+>   €
+>  € 
+action   
+)   
 {
-ขข 	!
+กก 	!
 StateTransitionBase
-ฃฃ 
+ขข 
 <
-ฃฃ  
+ขข  
 T
-ฃฃ  !
+ขข  !
 ,
-ฃฃ! "
+ขข! "
 TState
-ฃฃ# )
+ขข# )
 ,
-ฃฃ) *
+ขข) *
 TTrigger
-ฃฃ+ 3
+ขข+ 3
 >
-ฃฃ3 4
+ขข3 4
 .
-ฃฃ4 5!
+ขข4 5!
 OnTransitionedEvent
-ฃฃ5 H
+ขข5 H
 +=
-ฃฃI K
+ขขI K
 action
-ฃฃL R
+ขขL R
 ;
-ฃฃR S
+ขขR S
 return
-ฅฅ 
+คค 
 this
-ฅฅ 
+คค 
 ;
-ฅฅ 
+คค 
 }
-ฆฆ 	
+ฅฅ 	
 private
-จจ #
+งง #
 StateTransitionResult
-จจ %
+งง %
 <
-จจ% &
+งง% &
 TState
-จจ& ,
+งง& ,
 ,
-จจ, -
+งง, -
 TTrigger
-จจ. 6
+งง. 6
 >
-จจ6 7(
+งง6 7(
 executeExitAndEntryActions
-จจ8 R
+งง8 R
 (
-จจR S!
+งงR S!
 ExecutionParameters
-จจS f
+งงS f
 <
-จจf g
+งงf g
 T
-จจg h
+งงg h
 ,
-จจh i
+งงh i
 TTrigger
-จจj r
+งงj r
 >
-จจr s
+งงr s
 
 parameters
-จจt ~
+งงt ~
 ,
-ฉฉ
+จจ
  #
 StateTransitionResult
-ฉฉ !
+จจ !
 <
-ฉฉ! "
+จจ! "
 TState
-ฉฉ" (
+จจ" (
 ,
-ฉฉ( )
+จจ( )
 TTrigger
-ฉฉ* 2
+จจ* 2
 >
-ฉฉ2 3
+จจ2 3
 currentResult
-ฉฉ4 A
+จจ4 A
 )
-ฉฉA B
+จจA B
 {
-ชช 	
+ฉฉ 	
 if
-ซซ 
+ชช 
 (
-ซซ 
+ชช 
 currentResult
-ซซ 
+ชช 
 .
-ซซ 
+ชช 
 WasSuccessful
-ซซ +
+ชช +
 &&
-ซซ, .
+ชช, .
 !
-ฌฌ 
+ซซ 
 (
-ฌฌ 
+ซซ 
 currentResult
-ฌฌ 
+ซซ 
 .
-ฌฌ  
+ซซ  
 StartingState
-ฌฌ  -
+ซซ  -
 .
-ฌฌ- .
+ซซ- .
 	CompareTo
-ฌฌ. 7
+ซซ. 7
 (
-ฌฌ7 8
+ซซ7 8
 currentResult
-ฌฌ8 E
+ซซ8 E
 .
-ฌฌE F
+ซซE F
 PreviousState
-ฌฌF S
+ซซF S
 )
-ฌฌS T
+ซซS T
 ==
-ฌฌU W
+ซซU W
 $num
-ฌฌX Y
+ซซX Y
 &&
-ฌฌZ \
+ซซZ \
 currentResult
-ฌฌ] j
+ซซ] j
 .
-ฌฌj k
+ซซj k
 PreviousState
-ฌฌk x
+ซซk x
 .
-ฌฌx y
-	CompareToฌฌy 
-(ฌฌ 
-currentResultฌฌ 
-.ฌฌ ‘
-CurrentStateฌฌ‘ 
-)ฌฌ 
-==ฌฌ ก
-$numฌฌข ฃ
-)ฌฌฃ ค
-)ฌฌค ฅ
+ซซx y
+	CompareToซซy 
+(ซซ 
+currentResultซซ 
+.ซซ ‘
+CurrentStateซซ‘ 
+)ซซ 
+==ซซ ก
+$numซซข ฃ
+)ซซฃ ค
+)ซซค ฅ
 {
-ญญ "
+ฌฌ "
 _stateConfigurations
-ฎฎ $
+ญญ $
 .
-ฎฎ$ %
+ญญ$ %
 TryGetValue
-ฎฎ% 0
+ญญ% 0
 (
-ฎฎ0 1
+ญญ0 1
 currentResult
-ฎฎ1 >
+ญญ1 >
 .
-ฎฎ> ?
+ญญ> ?
 PreviousState
-ฎฎ? L
+ญญ? L
 ,
-ฎฎL M
+ญญL M
 out
-ฎฎN Q
+ญญN Q
 var
-ฎฎR U
+ญญR U
 previousState
-ฎฎV c
+ญญV c
 )
-ฎฎc d
+ญญc d
 ;
-ฎฎd e
+ญญd e
 if
-ฑฑ 
+ฐฐ 
 (
-ฑฑ 
+ฐฐ 
 !
-ฑฑ 
+ฐฐ 
 	IsInState
-ฑฑ 
+ฐฐ 
 (
-ฑฑ 
+ฐฐ 
 
 parameters
-ฑฑ )
+ฐฐ )
 .
-ฑฑ) *
+ฐฐ) *
 Context
-ฑฑ* 1
+ฐฐ* 1
 ,
-ฑฑ1 2
+ฐฐ1 2
 currentResult
-ฑฑ3 @
+ฐฐ3 @
 .
-ฑฑ@ A
+ฐฐ@ A
 PreviousState
-ฑฑA N
+ฐฐA N
 )
-ฑฑN O
+ฐฐN O
 )
-ฑฑO P
+ฐฐO P
 {
-ฒฒ 
+ฑฑ 
 previousState
-ฒฒ 
+ฑฑ 
 .
-ฒฒ  
+ฑฑ  
 ExecuteExitAction
-ฒฒ  1
+ฑฑ  1
 (
-ฒฒ1 2
+ฑฑ1 2
 
 parameters
-ฒฒ2 <
+ฑฑ2 <
 .
-ฒฒ< =
+ฑฑ< =
 Context
-ฒฒ= D
+ฑฑ= D
 ,
-ฒฒD E
+ฑฑD E
 currentResult
-ฒฒF S
+ฑฑF S
 )
-ฒฒS T
+ฑฑS T
 ;
-ฒฒT U
+ฑฑT U
 }
-ฒฒV W
+ฑฑV W
 if
-ดด 
+ณณ 
 (
-ดด "
+ณณ "
 _stateConfigurations
-ดด (
+ณณ (
 .
-ดด( )
+ณณ( )
 TryGetValue
-ดด) 4
+ณณ) 4
 (
-ดด4 5
+ณณ4 5
 currentResult
-ดด5 B
+ณณ5 B
 .
-ดดB C
+ณณB C
 CurrentState
-ดดC O
+ณณC O
 ,
-ดดO P
+ณณO P
 out
-ดดQ T
+ณณQ T
 var
-ดดU X
+ณณU X
 newState
-ดดY a
+ณณY a
 )
-ดดa b
+ณณa b
 )
-ดดb c
+ณณb c
 {
-ตต 
+ดด 
 if
-ทท 
+ถถ 
 (
-ทท 
+ถถ 
 !
-ทท 
+ถถ 
 previousState
-ทท &
+ถถ &
 .
-ทท& '
+ถถ& '
 	IsInState
-ทท' 0
+ถถ' 0
 (
-ทท0 1
+ถถ0 1
 currentResult
-ทท1 >
+ถถ1 >
 .
-ทท> ?
+ถถ> ?
 CurrentState
-ทท? K
+ถถ? K
 )
-ททK L
+ถถK L
 )
-ททL M
+ถถL M
 {
-ธธ 
+ทท 
 newState
-ธธ 
+ทท 
 .
-ธธ  
+ทท  
 ExecuteEntryAction
-ธธ 1
+ทท 1
 (
-ธธ1 2
+ทท1 2
 
 parameters
-ธธ2 <
+ทท2 <
 .
-ธธ< =
+ทท< =
 Context
-ธธ= D
+ทท= D
 ,
-ธธD E
+ททD E
 currentResult
-ธธF S
+ททF S
 )
-ธธS T
+ททS T
 ;
-ธธT U
+ททT U
 }
-ธธV W
+ททV W
 var
-ปป !
+บบ !
 preAutoForwardState
-ปป +
+บบ +
 =
-ปป, -
+บบ, -
 currentResult
-ปป. ;
+บบ. ;
 .
-ปป; <
+บบ; <
 CurrentState
-ปป< H
+บบ< H
 ;
-ปปH I
+บบH I
 currentResult
-ผผ !
+ปป !
 =
-ผผ" #
+ปป" #
 newState
-ผผ$ ,
+ปป$ ,
 .
-ผผ, -#
+ปป, -#
 ExecuteAutoTransition
-ผผ- B
+ปป- B
 (
-ผผB C
+ปปB C
 
 parameters
-ผผC M
+ปปC M
 ,
-ผผM N
+ปปM N
 currentResult
-ผผO \
+ปปO \
 )
-ผผ\ ]
+ปป\ ]
 ??
-ผผ^ `
+ปป^ `
 currentResult
-ผผa n
+ปปa n
 ;
-ผผn o
+ปปn o
 if
-ฟฟ 
+พพ 
 (
-ฟฟ 
+พพ 
 currentResult
-ฟฟ %
+พพ %
 .
-ฟฟ% &
+พพ% &
 CurrentState
-ฟฟ& 2
+พพ& 2
 .
-ฟฟ2 3
+พพ2 3
 	CompareTo
-ฟฟ3 <
+พพ3 <
 (
-ฟฟ< =!
+พพ< =!
 preAutoForwardState
-ฟฟ= P
+พพ= P
 )
-ฟฟP Q
+พพP Q
 !=
-ฟฟR T
+พพR T
 $num
-ฟฟU V
+พพU V
 )
-ฟฟV W
+พพV W
 {
-ภภ 
+ฟฟ 
 currentResult
-ภภ #
+ฟฟ #
 =
-ภภ$ %(
+ฟฟ$ %(
 executeExitAndEntryActions
-ภภ& @
+ฟฟ& @
 (
-ภภ@ A
+ฟฟ@ A
 
 parameters
-ภภA K
+ฟฟA K
 ,
-ภภK L
+ฟฟK L
 currentResult
-ภภM Z
+ฟฟM Z
 )
-ภภZ [
+ฟฟZ [
 ;
-ภภ[ \
+ฟฟ[ \
 }
-ภภ] ^
+ฟฟ] ^
 }
-มม 
+ภภ 
 }
-ยย 
+มม 
 else
-ฤฤ 
+รร 
 if
-ฤฤ 
+รร 
 (
-ฤฤ "
+รร "
 _stateConfigurations
-ฤฤ )
+รร )
 .
-ฤฤ) *
+รร) *
 TryGetValue
-ฤฤ* 5
+รร* 5
 (
-ฤฤ5 6
+รร5 6
 currentResult
-ฤฤ6 C
+รร6 C
 .
-ฤฤC D
+รรC D
 CurrentState
-ฤฤD P
+รรD P
 ,
-ฤฤP Q
+รรP Q
 out
-ฤฤR U
+รรR U
 var
-ฤฤV Y
+รรV Y
 reenteredState
-ฤฤZ h
+รรZ h
 )
-ฤฤh i
+รรh i
 )
-ฤฤi j
+รรi j
 {
-ลล 
+ฤฤ 
 reenteredState
-ลล 
+ฤฤ 
 .
-ลล "
+ฤฤ "
 ExecuteReentryAction
-ลล 1
+ฤฤ 1
 (
-ลล1 2
+ฤฤ1 2
 
 parameters
-ลล2 <
+ฤฤ2 <
 .
-ลล< =
+ฤฤ< =
 Context
-ลล= D
+ฤฤ= D
 ,
-ลลD E
+ฤฤD E
 currentResult
-ลลF S
+ฤฤF S
 )
-ลลS T
+ฤฤS T
 ;
-ลลT U
+ฤฤT U
 }
-ลลV W
+ฤฤV W
 return
-วว 
+ฦฦ 
 currentResult
-วว  
+ฦฦ  
 ;
-วว  !
+ฦฦ  !
 }
-ศศ 	
+วว 	
 }
-ษษ 
-}สส ฌ
+ศศ 
+}ษษ ฌ
 SC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateMachineAsync.cs
 	namespace 	
 NStateManager
@@ -16593,7 +17180,7 @@ parameters
 ๅๅ 	
 }
 ๆๆ 
-}็็ ๆ(
+}็็ ์
 QC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateTransition.cs
 	namespace 	
 NStateManager
@@ -16733,171 +17320,27 @@ parametersi s
 =B C
 nullD H
 )H I
-{ 	
-var 
+{ 	
+return 
+ExecutePrim 
+( 
 
-startState 
-= 
-currentResult *
-!=+ -
-null. 2
-?3 4
-currentResult5 B
-.B C
-StartingStateC P
-:Q R
-StateAccessorS `
-(` a
+parameters )
+,) *
+currentResult+ 8
+,8 9
+	Condition: C
+(C D
 
-parametersa k
-.k l
-Contextl s
-)s t
-;t u
-if 
-( 
-! 
-	Condition 
-( 
-
-parameters %
-.% &
-Context& -
-)- .
-). /
-{ 
-if   
-(   
-currentResult   !
-!=  " $
-null  % )
-)  ) *
-{!! 
-return!! 
-currentResult!! &
-;!!& '
-}!!( )
-return## 
-new## !
-StateTransitionResult## 0
-<##0 1
-TState##1 7
-,##7 8
-TTrigger##9 A
->##A B
-(##B C
-
-parameters##C M
-.##M N
-Trigger##N U
-,$$ 
-
-startState$$  
-,%% 
-
-startState%%  
-,&& 
-
-startState&&  
-,'' 
-lastTransitionName'' (
-:''( )
-string''* 0
-.''0 1
-Empty''1 6
-,(( 
-conditionMet(( "
-:((" #
-false(($ )
-)(() *
-;((* +
-})) 
-StateMutator++ 
-(++ 
-
-parameters++ #
-.++# $
-Context++$ +
-,+++ ,
-ToState++- 4
-)++4 5
-;++5 6
-var-- 
-transitionResult--  
-=--! "
-currentResult--# 0
-==--1 3
-null--4 8
-?.. 
-new.. !
-StateTransitionResult.. +
-<..+ ,
-TState.., 2
-,..2 3
-TTrigger..4 <
->..< =
-(..= >
-
-parameters..> H
-...H I
-Trigger..I P
-,..P Q
-
-startState..R \
-,..\ ]
-
-startState..^ h
-,..h i
-ToState..j q
-,..q r
-Name..s w
-)..w x
-:// 
-new// !
-StateTransitionResult// +
-<//+ ,
-TState//, 2
-,//2 3
-TTrigger//4 <
->//< =
-(//= >
-
-parameters//> H
-.//H I
-Trigger//I P
-,//P Q
-
-startState//R \
-,//\ ]
-currentResult//^ k
-.//k l
-CurrentState//l x
-,//x y
-ToState	//z 
-,
-// 
-Name
-// 
-)
-// 
-;
-// 
-NotifyOfTransition00 
-(00 
-
-parameters00 )
-.00) *
-Context00* 1
-,001 2
-transitionResult003 C
-)00C D
-;00D E
-return22 
-transitionResult22 #
-;22# $
-}33 	
-}44 
-}55 ๖9
+parametersD N
+.N O
+ContextO V
+)V W
+)W X
+;X Y
+} 	
+} 
+} ธ*
 VC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateTransitionAsync.cs
 	namespace 	
 NStateManager
@@ -17089,240 +17532,131 @@ parameters   
 IsCancellationRequested  - D
 )  D E
 {!! 
-return"" 
-new"" !
-StateTransitionResult"" 0
-<""0 1
-TState""1 7
-,""7 8
-TTrigger""9 A
->""A B
-(""B C
+return!! 
+	GetResult!! 
+(!! 
 
-parameters""C M
-.""M N
-Trigger""N U
-,## 
+parameters!! )
+,!!) *
+currentResult!!+ 8
+,!!8 9
 
-startState##  
-,$$ 
-currentResult$$ #
-==$$$ &
-null$$' +
-?$$, -
+startState!!: D
+,!!D E
+wasSuccessful!!F S
+:!!S T
+false!!U Z
+,!!Z [
+wasCancelled!!\ h
+:!!h i
+true!!j n
+)!!n o
+;!!o p
+}!!q r
+if## 
+(## 
+!## 
+await## 
+ConditionAsync## %
+(##% &
 
-startState$$. 8
-:$$9 :
-currentResult$$; H
-.$$H I
-PreviousState$$I V
-,%% 
-currentResult%% #
-==%%$ &
-null%%' +
-?%%, -
+parameters##& 0
+.##0 1
+Context##1 8
+,##8 9
 
-startState%%. 8
-:%%9 :
-currentResult%%; H
-.%%H I
-CurrentState%%I U
-,&& 
-currentResult&& #
-==&&$ &
-null&&' +
-?&&, -
-string&&. 4
-.&&4 5
-Empty&&5 :
-:&&; <
-currentResult&&= J
-.&&J K
-LastTransitionName&&K ]
-,'' 
-wasCancelled'' "
-:''" #
-true''$ (
-)''( )
-;'') *
-}(( 
-if** 
-(** 
-!** 
-await** 
-ConditionAsync** %
-(**% &
+parameters##: D
+.##D E
+CancellationToken##E V
+)##V W
+.$$ 
+ConfigureAwait$$ 
+($$ %
+continueOnCapturedContext$$ 8
+:$$8 9
+false$$: ?
+)$$? @
+)$$@ A
+{%% 
+return%% 
+	GetResult%% 
+(%% 
 
-parameters**& 0
-.**0 1
-Context**1 8
-,**8 9
+parameters%% )
+,%%) *
+currentResult%%+ 8
+,%%8 9
 
-parameters**: D
-.**D E
-CancellationToken**E V
-)**V W
-.++ 
-ConfigureAwait++ 
-(++ %
-continueOnCapturedContext++ 8
-:++8 9
-false++: ?
-)++? @
-)++@ A
-{,, 
-return-- 
-new-- !
-StateTransitionResult-- 0
-<--0 1
-TState--1 7
-,--7 8
-TTrigger--9 A
->--A B
-(--B C
+startState%%: D
+,%%D E
+wasSuccessful%%F S
+:%%S T
+false%%U Z
+,%%Z [
+wasCancelled%%\ h
+:%%h i
 
-parameters--C M
-.--M N
-Trigger--N U
-,.. 
-
-startState..  
-,// 
-currentResult// #
-==//$ &
-null//' +
-?//, -
-
-startState//. 8
-://9 :
-currentResult//; H
-.//H I
-PreviousState//I V
-,00 
-currentResult00 #
-==00$ &
-null00' +
-?00, -
-
-startState00. 8
-:009 :
-currentResult00; H
-.00H I
-CurrentState00I U
-,11 
-currentResult11 #
-==11$ &
-null11' +
-?11, -
-string11. 4
-.114 5
-Empty115 :
-:11; <
-currentResult11= J
-.11J K
-LastTransitionName11K ]
-,22 
-conditionMet22 "
-:22" #
-false22$ )
-,33 
-wasCancelled33 "
-:33" #
-
-parameters33$ .
-.33. /
-CancellationToken33/ @
-.33@ A#
-IsCancellationRequested33A X
-)33X Y
-;33Y Z
-}44 
-StateMutator66 
-(66 
-
-parameters66 #
-.66# $
-Context66$ +
-,66+ ,
-ToState66- 4
-)664 5
-;665 6
-var77 
-transitionResult77  
-=77! "
-currentResult77# 0
-==771 3
-null774 8
-?88 
-new88 !
-StateTransitionResult88 +
-<88+ ,
-TState88, 2
-,882 3
-TTrigger884 <
->88< =
-(88= >
-
-parameters88> H
-.88H I
-Trigger88I P
-,88P Q
-
-startState88R \
-,88\ ]
-
-startState88^ h
-,88h i
-ToState88j q
-,88q r
-Name88s w
-)88w x
-:99 
-new99 !
-StateTransitionResult99 +
-<99+ ,
-TState99, 2
-,992 3
-TTrigger994 <
->99< =
-(99= >
-
-parameters99> H
-.99H I
-Trigger99I P
-,99P Q
-
-startState99R \
-,99\ ]
-currentResult99^ k
-.99k l
-CurrentState99l x
-,99x y
-ToState	99z 
-,
-99 
-Name
-99 
+parameters%%j t
+.%%t u
+CancellationToken	%%u 
+.
+%% %
+IsCancellationRequested
+%% 
 )
-99 
+%% 
 ;
-99 
-NotifyOfTransition:: 
-(:: 
+%%  
+}
+%%ก ข
+StateMutator'' 
+('' 
 
-parameters:: )
-.::) *
-Context::* 1
-,::1 2
-transitionResult::3 C
-)::C D
-;::D E
-return<< 
-transitionResult<< #
-;<<# $
-}== 	
-}>> 
-}?? ๘%
+parameters'' #
+.''# $
+Context''$ +
+,''+ ,
+ToState''- 4
+)''4 5
+;''5 6
+var(( 
+transitionResult((  
+=((! "
+	GetResult((# ,
+(((, -
+
+parameters((- 7
+,((7 8
+currentResult((9 F
+,((F G
+
+startState((H R
+,((R S
+wasSuccessful((T a
+:((a b
+true((c g
+,((g h
+wasCancelled((i u
+:((u v
+false((w |
+)((| }
+;((} ~
+NotifyOfTransition)) 
+()) 
+
+parameters)) )
+.))) *
+Context))* 1
+,))1 2
+transitionResult))3 C
+)))C D
+;))D E
+return++ 
+transitionResult++ #
+;++# $
+},, 	
+}-- 
+}.. €L
 UC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateTransitionBase.cs
 	namespace 	
 NStateManager
@@ -17557,35 +17891,304 @@ parameters..s }
 ;
 11” •
 }22 	
-	protected44 
-void44 
-NotifyOfTransition44 )
-(44) *
-T44* +
-context44, 3
-,443 4!
-StateTransitionResult445 J
-<44J K
-TState44K Q
-,44Q R
-TTrigger44S [
->44[ \
-transitionResult44] m
-)44m n
-{55 	
-OnTransitionedEvent66 
-?66  
-.66  !
-Invoke66! '
-(66' (
-context66( /
-,66/ 0
-transitionResult661 A
-)66A B
-;66B C
-}77 	
-}88 
-}99 ่+
+	protected44 !
+StateTransitionResult44 '
+<44' (
+TState44( .
+,44. /
+TTrigger440 8
+>448 9
+ExecutePrim44: E
+(44E F
+ExecutionParameters44F Y
+<44Y Z
+T44Z [
+,44[ \
+TTrigger44] e
+>44e f
+
+parameters44g q
+,55
+ !
+StateTransitionResult55 !
+<55! "
+TState55" (
+,55( )
+TTrigger55* 2
+>552 3
+currentResult554 A
+,55A B
+bool55C G
+conditionMet55H T
+)55T U
+{66 	
+var77 
+
+startState77 
+=77 
+currentResult77 *
+!=77+ -
+null77. 2
+?773 4
+currentResult775 B
+.77B C
+StartingState77C P
+:77Q R
+StateAccessor77S `
+(77` a
+
+parameters77a k
+.77k l
+Context77l s
+)77s t
+;77t u
+if99 
+(99 
+!99 
+conditionMet99 
+)99 
+{:: 
+return:: 
+	GetResult:: 
+(:: 
+
+parameters:: )
+,::) *
+currentResult::+ 8
+,::8 9
+
+startState::: D
+,::D E
+wasSuccessful::F S
+:::S T
+false::U Z
+,::Z [
+wasCancelled::\ h
+:::h i
+false::j o
+)::o p
+;::p q
+}::r s
+StateMutator<< 
+(<< 
+
+parameters<< #
+.<<# $
+Context<<$ +
+,<<+ ,
+ToState<<- 4
+)<<4 5
+;<<5 6
+var== 
+transitionResult==  
+===! "
+	GetResult==# ,
+(==, -
+
+parameters==- 7
+,==7 8
+currentResult==9 F
+,==F G
+
+startState==H R
+,==R S
+wasSuccessful==T a
+:==a b
+true==c g
+,==g h
+wasCancelled==i u
+:==u v
+false==w |
+)==| }
+;==} ~
+NotifyOfTransition>> 
+(>> 
+
+parameters>> )
+.>>) *
+Context>>* 1
+,>>1 2
+transitionResult>>3 C
+)>>C D
+;>>D E
+return@@ 
+transitionResult@@ #
+;@@# $
+}AA 	
+	protectedCC !
+StateTransitionResultCC '
+<CC' (
+TStateCC( .
+,CC. /
+TTriggerCC0 8
+>CC8 9
+	GetResultCC: C
+(CCC D
+ExecutionParametersCCD W
+<CCW X
+TCCX Y
+,CCY Z
+TTriggerCC[ c
+>CCc d
+
+parametersCCe o
+,DD !
+StateTransitionResultDD #
+<DD# $
+TStateDD$ *
+,DD* +
+TTriggerDD, 4
+>DD4 5
+currentResultDD6 C
+,EE 
+TStateEE 
+
+startStateEE 
+,FF 
+boolFF 
+wasSuccessfulFF  
+,GG 
+boolGG 
+wasCancelledGG 
+)GG  
+{HH 	
+returnII 
+newII !
+StateTransitionResultII ,
+<II, -
+TStateII- 3
+,II3 4
+TTriggerII5 =
+>II= >
+(II> ?
+
+parametersII? I
+.III J
+TriggerIIJ Q
+,JJ 
+
+startStateJJ 
+,KK 
+(KK 
+!KK 
+wasSuccessfulKK 
+||KK  "
+currentResultKK# 0
+==KK1 3
+nullKK4 8
+)KK8 9
+?KK: ;
+
+startStateKK< F
+:KKG H
+currentResultKKI V
+.KKV W
+CurrentStateKKW c
+,LL 
+wasSuccessfulLL 
+?LL 
+StateAccessorLL  -
+(LL- .
+
+parametersLL. 8
+.LL8 9
+ContextLL9 @
+)LL@ A
+:LLB C
+currentResultLLD Q
+==LLR T
+nullLLU Y
+?LLZ [
+
+startStateLL\ f
+:LLg h
+currentResultLLi v
+.LLv w
+PreviousState	LLw 
+,MM 
+wasSuccessfulMM 
+?MM 
+NameMM  $
+:MM& '
+currentResultMM( 5
+==MM6 8
+nullMM9 =
+?MM> ?
+stringMM@ F
+.MMF G
+EmptyMMG L
+:MMM N
+currentResultMMO \
+.MM\ ]
+LastTransitionNameMM] o
+,NN 
+wasCancelledNN 
+:NN 
+wasCancelledNN *
+,OO 
+conditionMetOO 
+:OO 
+wasSuccessfulOO +
+||OO, .
+(OO/ 0
+currentResultOO0 =
+!=OO> @
+nullOOA E
+&&OOF H
+currentResultOOI V
+.OOV W
+ConditionMetOOW c
+)OOc d
+)OOd e
+;OOe f
+}PP 	
+	protectedRR 
+stringRR #
+GetTransitionNameIfTrueRR 0
+(RR0 1
+boolRR1 5
+isTrueRR6 <
+)RR< =
+{SS 	
+returnTT 
+isTrueTT 
+?TT 
+NameTT  
+:TT! "
+stringTT# )
+.TT) *
+EmptyTT* /
+;TT/ 0
+}UU 	
+	protectedWW 
+voidWW 
+NotifyOfTransitionWW )
+(WW) *
+TWW* +
+contextWW, 3
+,WW3 4!
+StateTransitionResultWW5 J
+<WWJ K
+TStateWWK Q
+,WWQ R
+TTriggerWWS [
+>WW[ \
+transitionResultWW] m
+)WWm n
+{XX 	
+OnTransitionedEventYY 
+?YY  
+.YY  !
+InvokeYY! '
+(YY' (
+contextYY( /
+,YY/ 0
+transitionResultYY1 A
+)YYA B
+;YYB C
+}ZZ 	
+}[[ 
+}\\ ๔#
 XC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateTransitionDynamic.cs
 	namespace 	
 NStateManager
@@ -17776,140 +18379,78 @@ startState$$" ,
 ==$$. 0
 $num$$1 2
 )$$2 3
-{%% 
-if&& 
-(&& 
-currentResult&& !
-!=&&" $
-null&&% )
-)&&) *
-{'' 
-return'' 
-currentResult'' &
-;''& '
-}''( )
-return)) 
-new)) !
-StateTransitionResult)) 0
-<))0 1
-TState))1 7
-,))7 8
-TTrigger))9 A
->))A B
-())B C
+{%% 
+return%% 
+	GetResult%% 
+(%% 
 
-parameters))C M
-.))M N
-Trigger))N U
-,** 
+parameters%% )
+,%%) *
+currentResult%%+ 8
+,%%8 9
 
-startState**  
-,++ 
+startState%%: D
+,%%D E
+wasSuccessful%%F S
+:%%S T
+false%%U Z
+,%%Z [
+wasCancelled%%\ h
+:%%h i
+false%%j o
+)%%o p
+;%%p q
+}%%r s
+StateMutator'' 
+.'' 
+Invoke'' 
+(''  
 
-startState++  
-,,, 
-toState,, 
-,-- 
-lastTransitionName-- (
-:--( )
-string--* 0
-.--0 1
-Empty--1 6
-,.. 
-conditionMet.. "
-:.." #
-false..$ )
-)..) *
-;..* +
-}// 
-StateMutator11 
-.11 
-Invoke11 
-(11  
+parameters''  *
+.''* +
+Context''+ 2
+,''2 3
+toState''4 ;
+)''; <
+;''< =
+var(( 
+transitionResult((  
+=((! "
+	GetResult((# ,
+(((, -
 
-parameters11  *
-.11* +
-Context11+ 2
-,112 3
-toState114 ;
-)11; <
-;11< =
-var22 
-transitionResult22  
-=22! "
-currentResult22# 0
-==221 3
-null224 8
-?33 
-new33 !
-StateTransitionResult33 +
-<33+ ,
-TState33, 2
-,332 3
-TTrigger334 <
->33< =
-(33= >
+parameters((- 7
+,((7 8
+currentResult((9 F
+,((F G
 
-parameters33> H
-.33H I
-Trigger33I P
-,33P Q
+startState((H R
+,((R S
+wasSuccessful((T a
+:((a b
+true((c g
+,((g h
+wasCancelled((i u
+:((u v
+false((w |
+)((| }
+;((} ~
+NotifyOfTransition)) 
+()) 
 
-startState33R \
-,33\ ]
-
-startState33^ h
-,33h i
-toState33j q
-,33q r
-Name33s w
-)33w x
-:44 
-new44 !
-StateTransitionResult44 +
-<44+ ,
-TState44, 2
-,442 3
-TTrigger444 <
->44< =
-(44= >
-
-parameters44> H
-.44H I
-Trigger44I P
-,44P Q
-
-startState44R \
-,44\ ]
-currentResult44^ k
-.44k l
-CurrentState44l x
-,44x y
-toState	44z 
-,
-44 
-Name
-44 
-)
-44 
-;
-44 
-NotifyOfTransition55 
-(55 
-
-parameters55 )
-.55) *
-Context55* 1
-,551 2
-transitionResult553 C
-)55C D
-;55D E
-return77 
-transitionResult77 #
-;77# $
-}88 	
-}99 
-}:: บ9
+parameters)) )
+.))) *
+Context))* 1
+,))1 2
+transitionResult))3 C
+)))C D
+;))D E
+return++ 
+transitionResult++ #
+;++# $
+},, 	
+}-- 
+}.. #
 ]C:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateTransitionDynamicAsync.cs
 	namespace 	
 NStateManager
@@ -18090,236 +18631,69 @@ parameters&& 
 .&&, -#
 IsCancellationRequested&&- D
 )&&D E
-{'' 
-if(( 
-((( 
-currentResult(( !
-!=((" $
-null((% )
-)(() *
-{)) 
-return)) 
-currentResult)) &
-;))& '
-}))( )
-return++ 
-new++ !
-StateTransitionResult++ 0
-<++0 1
-TState++1 7
-,++7 8
-TTrigger++9 A
->++A B
-(++B C
+{'' 
+return'' 
+	GetResult'' 
+('' 
 
-parameters++C M
-.++M N
-Trigger++N U
-,,, 
+parameters'' )
+,'') *
+currentResult''+ 8
+,''8 9
 
-startState,,  
-,-- 
+startState'': D
+,''D E
+wasSuccessful''F S
+:''S T
+false''U Z
+,''Z [
+wasCancelled''\ h
+:''h i
+true''j n
+)''n o
+;''o p
+}''q r
+var)) 
+toState)) 
+=)) 
+await)) 
+StateFunctionAsync))  2
+())2 3
 
-startState--  
-,.. 
+parameters))3 =
+.))= >
+Context))> E
+,))E F
 
-startState..  
-,// 
-lastTransitionName// (
-://( )
-string//* 0
-.//0 1
-Empty//1 6
-,00 
-wasCancelled00 "
-:00" #
-true00$ (
-)00( )
-;00) *
-}11 
-var33 
-toState33 
-=33 
-await33 
-StateFunctionAsync33  2
-(332 3
+parameters))G Q
+.))Q R
+CancellationToken))R c
+)))c d
+.** 
+ConfigureAwait** 
+(**  %
+continueOnCapturedContext**  9
+:**9 :
+false**; @
+)**@ A
+;**A B
+return,,  
+ExecuteFinalizeAsync,, '
+(,,' (
 
-parameters333 =
-.33= >
-Context33> E
-,33E F
+parameters,,( 2
+,,,2 3
+currentResult,,4 A
+,,,A B
 
-parameters33G Q
-.33Q R
-CancellationToken33R c
-)33c d
-.44 
-ConfigureAwait44 
-(44  %
-continueOnCapturedContext44  9
-:449 :
-false44; @
-)44@ A
-;44A B
-if77 
-(77 
-toState77 
-.77 
-	CompareTo77 !
-(77! "
-
-startState77" ,
-)77, -
-==77. 0
-$num771 2
-)772 3
-{88 
-return99 
-new99 !
-StateTransitionResult99 0
-<990 1
-TState991 7
-,997 8
-TTrigger999 A
->99A B
-(99B C
-
-parameters99C M
-.99M N
-Trigger99N U
-,:: 
-
-startState::  
-,;; 
-currentResult;; #
-==;;$ &
-null;;' +
-?;;, -
-
-startState;;. 8
-:;;9 :
-currentResult;;; H
-.;;H I
-PreviousState;;I V
-,<< 
-toState<< 
-,== 
-currentResult== #
-====$ &
-null==' +
-?==, -
-string==. 4
-.==4 5
-Empty==5 :
-:==; <
-currentResult=== J
-.==J K
-LastTransitionName==K ]
-,>> 
-conditionMet>> "
-:>>" #
-currentResult>>$ 1
-!=>>2 4
-null>>5 9
-,?? 
-wasCancelled?? "
-:??" #
-
-parameters??$ .
-.??. /
-CancellationToken??/ @
-.??@ A#
-IsCancellationRequested??A X
-)??X Y
-;??Y Z
-}@@ 
-StateMutatorBB 
-(BB 
-
-parametersBB #
-.BB# $
-ContextBB$ +
-,BB+ ,
-toStateBB- 4
-)BB4 5
-;BB5 6
-varCC 
-transitionResultCC  
-=CC! "
-currentResultCC# 0
-==CC1 3
-nullCC4 8
-?DD 
-newDD !
-StateTransitionResultDD +
-<DD+ ,
-TStateDD, 2
-,DD2 3
-TTriggerDD4 <
->DD< =
-(DD= >
-
-parametersDD> H
-.DDH I
-TriggerDDI P
-,DDP Q
-
-startStateDDR \
-,DD\ ]
-
-startStateDD^ h
-,DDh i
-toStateDDj q
-,DDq r
-NameDDs w
-)DDw x
-:EE 
-newEE !
-StateTransitionResultEE +
-<EE+ ,
-TStateEE, 2
-,EE2 3
-TTriggerEE4 <
->EE< =
-(EE= >
-
-parametersEE> H
-.EEH I
-TriggerEEI P
-,EEP Q
-
-startStateEER \
-,EE\ ]
-currentResultEE^ k
-.EEk l
-CurrentStateEEl x
-,EEx y
-toState	EEz 
-,
-EE 
-Name
-EE 
-)
-EE 
-;
-EE 
-NotifyOfTransitionFF 
-(FF 
-
-parametersFF )
-.FF) *
-ContextFF* 1
-,FF1 2
-transitionResultFF3 C
-)FFC D
-;FFD E
-returnHH 
-transitionResultHH #
-;HH# $
-}II 	
-}JJ 
-}KK ์
-
+startState,,C M
+,,,M N
+toState,,O V
+),,V W
+;,,W X
+}-- 	
+}.. 
+}// ๖
 \C:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateTransitionDynamicBase.cs
 	namespace 	
 NStateManager
@@ -18344,59 +18718,173 @@ parametersFF )
 TStatee k
 ,k l
 TTriggerm u
->u v
-{ 
-	protected &
-StateTransitionDynamicBase ,
-(, -
-Func- 1
-<1 2
-T2 3
-,3 4
-TState5 ;
->; <
-stateAccessor= J
-,J K
-ActionL R
-<R S
-TS T
-,T U
-TStateV \
->\ ]
-stateMutator^ j
-,j k
-TStatel r
-	fromStates |
-,| }
-string	~ 
+>u v
+where 
+TState 
+: 
+IComparable "
+{ 
+	protected &
+StateTransitionDynamicBase ,
+(, -
+Func- 1
+<1 2
+T2 3
+,3 4
+TState5 ;
+>; <
+stateAccessor= J
+,J K
+ActionL R
+<R S
+TS T
+,T U
+TStateV \
+>\ ]
+stateMutator^ j
+,j k
+TStatel r
+	fromStates |
+,| }
+string	~ 
 name
-… 
+… 
 ,
- 
+ 
 uint
- 
+ 
 priority
- 
+ 
 )
- 
-: 
-base 
-( 
-stateAccessor  
-,  !
-stateMutator" .
-,. /
-	fromState0 9
-,9 :
-name; ?
-,? @
-priorityA I
-)I J
-{ 	
-}	 
-
-} 
-} ษ-
+ 
+: 
+base 
+( 
+stateAccessor  
+,  !
+stateMutator" .
+,. /
+	fromState0 9
+,9 :
+name; ?
+,? @
+priorityA I
+)I J
+{ 	
+}	 
+
+	protected !
+StateTransitionResult '
+<' (
+TState( .
+,. /
+TTrigger0 8
+>8 9 
+ExecuteFinalizeAsync: N
+(N O
+ExecutionParametersO b
+<b c
+Tc d
+,d e
+TTriggerf n
+>n o
+
+parametersp z
+, !
+StateTransitionResult #
+<# $
+TState$ *
+,* +
+TTrigger, 4
+>4 5
+currentResult6 C
+,C D
+TStateE K
+
+startStateL V
+,V W
+TStateX ^
+toState_ f
+)f g
+{ 	
+var 
+wasSuccessful 
+= 
+false  %
+;% &
+if 
+( 
+toState 
+. 
+	CompareTo !
+(! "
+
+startState" ,
+), -
+!=. 0
+$num1 2
+)2 3
+{ 
+StateMutator 
+( 
+
+parameters '
+.' (
+Context( /
+,/ 0
+toState1 8
+)8 9
+;9 :
+wasSuccessful 
+= 
+true  $
+;$ %
+} 
+var   
+transitionResult    
+=  ! "
+	GetResult  # ,
+(  , -
+
+parameters  - 7
+,!! 
+currentResult!! 
+,"" 
+
+startState"" 
+,## 
+wasSuccessful## 
+,$$ 
+
+parameters$$ 
+.$$ 
+CancellationToken$$ ,
+.$$, -#
+IsCancellationRequested$$- D
+)$$D E
+;$$E F
+if&& 
+(&& 
+wasSuccessful&& 
+)&& 
+{'' 
+NotifyOfTransition''  
+(''  !
+
+parameters''! +
+.''+ ,
+Context'', 3
+,''3 4
+transitionResult''5 E
+)''E F
+;''F G
+}''H I
+return)) 
+transitionResult)) #
+;))# $
+}** 	
+}++ 
+},, +
 eC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateTransitionDynamicParameterized.cs
 	namespace 	
 NStateManager
@@ -18414,333 +18902,327 @@ eC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateTransitionD
 ,J K
 TParamL R
 >R S
-: 	&
-StateTransitionDynamicBase
- $
-<$ %
-T% &
-,& '
-TState( .
-,. /
-TTrigger0 8
->8 9
+:T U&
+StateTransitionDynamicBaseV p
+<p q
+Tq r
+,r s
+TStatet z
+,z {
+TTrigger	| 
+>
+ …
+where 
+TParam 
+: 
+class 
 where 
-TParam 
-: 
-class 
-where 
-TState 
-: 
-IComparable "
-{ 
-public 
-Func 
-< 
-T 
-, 
-TParam 
-, 
-TState %
->% &
-	StateFunc' 0
-{1 2
-get3 6
-;6 7
-}8 9
-public /
-#StateTransitionDynamicParameterized 2
-(2 3
-Func3 7
-<7 8
-T8 9
-,9 :
-TState; A
->A B
-stateAccessorC P
-,P Q
-ActionR X
-<X Y
-TY Z
-,Z [
-TState\ b
->b c
-stateMutatord p
-,p q
-TStater x
-	fromState	y 
+TState 
+: 
+IComparable "
+{ 
+public 
+Func 
+< 
+T 
+, 
+TParam 
+, 
+TState %
+>% &
+	StateFunc' 0
+{1 2
+get3 6
+;6 7
+}8 9
+public /
+#StateTransitionDynamicParameterized 2
+(2 3
+Func3 7
+<7 8
+T8 9
+,9 :
+TState; A
+>A B
+stateAccessorC P
+,P Q
+ActionR X
+<X Y
+TY Z
+,Z [
+TState\ b
+>b c
+stateMutatord p
+,p q
+TStater x
+	fromState	y 
 ,
- 
+ 
 Func
- 
+ 
 <
- 
+ 
 T
- 
+ 
 ,
- 
+ 
 TParam
- ’
+ ’
 ,
-’ “
+’ “
 TState
-” 
+” 
 >
- 
+ 
 	stateFunc
- ฅ
+ ฅ
 ,
-ฅ ฆ
+ฅ ฆ
 string
-ง ญ
+ง ญ
 name
-ฎ ฒ
+ฎ ฒ
 ,
-ฒ ณ
+ฒ ณ
 uint
-ด ธ
+ด ธ
 priority
-น ม
+น ม
 )
-ม ย
-: 
-base 
-( 
-stateAccessor  
-,  !
-stateMutator" .
-,. /
-	fromState0 9
-,9 :
-name; ?
-,? @
-priorityA I
-)I J
-{ 	
-	StateFunc 
-= 
-	stateFunc !
-??" $
-throw% *
-new+ .!
-ArgumentNullException/ D
-(D E
-nameofE K
-(K L
-	stateFuncL U
-)U V
-)V W
-;W X
-} 	
-public 
-override !
-StateTransitionResult -
-<- .
-TState. 4
-,4 5
-TTrigger6 >
->> ?
-Execute@ G
-(G H
-ExecutionParametersH [
-<[ \
-T\ ]
-,] ^
-TTrigger_ g
->g h
+ม ย
+: 
+base 
+( 
+stateAccessor  
+,  !
+stateMutator" .
+,. /
+	fromState0 9
+,9 :
+name; ?
+,? @
+priorityA I
+)I J
+{ 	
+	StateFunc 
+= 
+	stateFunc !
+??" $
+throw% *
+new+ .!
+ArgumentNullException/ D
+(D E
+nameofE K
+(K L
+	stateFuncL U
+)U V
+)V W
+;W X
+} 	
+public 
+override !
+StateTransitionResult -
+<- .
+TState. 4
+,4 5
+TTrigger6 >
+>> ?
+Execute@ G
+(G H
+ExecutionParametersH [
+<[ \
+T\ ]
+,] ^
+TTrigger_ g
+>g h
 
-parametersi s
-,s t"
-StateTransitionResult	u 
+parametersi s
+,s t"
+StateTransitionResult	u 
 <
- 
+ 
 TState
- ‘
+ ‘
 ,
-‘ ’
+‘ ’
 TTrigger
-“ 
+“ 
 >
- 
+ 
 currentResult
- ช
+ ช
 =
-ซ ฌ
+ซ ฌ
 null
-ญ ฑ
+ญ ฑ
 )
-ฑ ฒ
-{ 	
-var!! 
+ฑ ฒ
+{ 	
+if 
+( 
+! 
+( 
 
-startState!! 
-=!! 
-currentResult!! *
-!=!!+ -
-null!!. 2
-?!!3 4
-currentResult!!5 B
-.!!B C
-StartingState!!C P
-:!!Q R
-StateAccessor!!S `
-(!!` a
+parameters 
+. 
+Request $
+is% '
+TParam( .
+typeSafeParam/ <
+)< =
+)= >
+{ 
+throw 
+new 
+ArgumentException )
+() *
+$"* ,
+Expected a , 7
+{7 8
+typeof8 >
+(> ?
+TParam? E
+)E F
+.F G
+NameG K
+}K L'
+ parameter, but received a L g
+{g h
 
-parameters!!a k
-.!!k l
-Context!!l s
-)!!s t
-;!!t u
-var"" 
-toState"" 
-="" 
-	StateFunc"" #
-(""# $
+parametersh r
+.r s
+Requests z
+?z {
+.{ |
+GetType	| 
+(
+ 
+)
+ …
+.
+… 
+Name
+ 
+??
+ 
+$str
+ ”
+}
+” •
+.
+• –
+"
+– —
+)
+— 
+;
+ 
+}
+ 
+var   
 
-parameters""$ .
-."". /
-Context""/ 6
-,""6 7
+startState   
+=   
+currentResult   *
+!=  + -
+null  . 2
+?  3 4
+currentResult  5 B
+.  B C
+StartingState  C P
+:  Q R
+StateAccessor  S `
+(  ` a
 
-parameters""8 B
-.""B C
-Request""C J
-as""K M
-TParam""N T
-)""T U
-;""U V
-var$$ 
-transitioned$$ 
-=$$ 
-toState$$ &
-.$$& '
-	CompareTo$$' 0
-($$0 1
+parameters  a k
+.  k l
+Context  l s
+)  s t
+;  t u
+var!! 
+toState!! 
+=!! 
+	StateFunc!! #
+(!!# $
 
-startState$$1 ;
-)$$; <
-!=$$= ?
-$num$$@ A
-;$$A B
-if&& 
-(&& 
-transitioned&& 
-)&& 
-{'' 
-StateMutator'' 
-('' 
+parameters!!$ .
+.!!. /
+Context!!/ 6
+,!!6 7
+typeSafeParam!!8 E
+)!!E F
+;!!F G
+var## 
+transitioned## 
+=## 
+toState## &
+.##& '
+	CompareTo##' 0
+(##0 1
 
-parameters'' %
-.''% &
-Context''& -
-,''- .
-toState''/ 6
-)''6 7
-;''7 8
-}''9 :
-var)) 
-transitionResult))  
-=))! "
-())# $
-currentResult))$ 1
-==))2 4
-null))5 9
-)))9 :
-?** 
-new** !
-StateTransitionResult** +
-<**+ ,
-TState**, 2
-,**2 3
-TTrigger**4 <
->**< =
-(**= >
+startState##1 ;
+)##; <
+!=##= ?
+$num##@ A
+;##A B
+if%% 
+(%% 
+transitioned%% 
+)%% 
+{&& 
+StateMutator&& 
+(&& 
 
-parameters**> H
-.**H I
-Trigger**I P
-,++ 
+parameters&& %
+.&&% &
+Context&&& -
+,&&- .
+toState&&/ 6
+)&&6 7
+;&&7 8
+}&&9 :
+var(( 
+transitionResult((  
+=((! "
+	GetResult((# ,
+(((, -
 
-startState++  
-,,, 
+parameters((- 7
+,((7 8
+currentResult((9 F
+,((F G
 
-startState,,  
-,-- 
-toState-- 
-,.. 
-lastTransitionName.. (
-:..( )
-transitioned..* 6
-?..7 8
-Name..9 =
-:..> ?
-string..@ F
-...F G
-Empty..G L
-,// 
-conditionMet// "
-://" #
-transitioned//$ 0
-)//0 1
-:00 
-new00 !
-StateTransitionResult00 +
-<00+ ,
-TState00, 2
-,002 3
-TTrigger004 <
->00< =
-(00= >
+startState((H R
+,((R S
+transitioned((T `
+,((` a
+wasCancelled((b n
+:((n o
+false((p u
+)((u v
+;((v w
+if)) 
+()) 
+transitioned)) 
+))) 
+{** 
+NotifyOfTransition**  
+(**  !
 
-parameters00> H
-.00H I
-Trigger00I P
-,11 
-
-startState11  
-,22 
-currentResult22 #
-.22# $
-CurrentState22$ 0
-,33 
-toState33 
-,44 
-lastTransitionName44 (
-:44( )
-transitioned44* 6
-?447 8
-Name449 =
-:44> ?
-string44@ F
-.44F G
-Empty44G L
-,55 
-conditionMet55 "
-:55" #
-transitioned55$ 0
-)550 1
-;551 2
-if77 
-(77 
-transitioned77 
-)77 
-{88 
-NotifyOfTransition88  
-(88  !
-
-parameters88! +
-.88+ ,
-Context88, 3
-,883 4
-transitionResult885 E
-)88E F
-;88F G
-}88H I
-return:: 
-transitionResult:: #
-;::# $
-};; 	
-}<< 
-}== ผ9
+parameters**! +
+.**+ ,
+Context**, 3
+,**3 4
+transitionResult**5 E
+)**E F
+;**F G
+}**H I
+return,, 
+transitionResult,, #
+;,,# $
+}-- 	
+}.. 
+}// ‘/
 jC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateTransitionDynamicParameterizedAsync.cs
 	namespace 	
 NStateManager
@@ -18903,7 +19385,68 @@ parameters	""z 
 =##B C
 null##D H
 )##H I
-{$$ 	
+{$$ 	
+if%% 
+(%% 
+!%% 
+(%% 
+
+parameters%% 
+.%% 
+Request%% $
+is%%% '
+TParam%%( .
+typeSafeParam%%/ <
+)%%< =
+)%%= >
+{&& 
+throw&& 
+new&& 
+ArgumentException&& )
+(&&) *
+$"&&* ,
+Expected a &&, 7
+{&&7 8
+typeof&&8 >
+(&&> ?
+TParam&&? E
+)&&E F
+.&&F G
+Name&&G K
+}&&K L'
+ parameter, but received a &&L g
+{&&g h
+
+parameters&&h r
+.&&r s
+Request&&s z
+?&&z {
+.&&{ |
+GetType	&&| 
+(
+&& 
+)
+&& …
+.
+&&… 
+Name
+&& 
+??
+&& 
+$str
+&& ”
+}
+&&” •
+.
+&&• –
+"
+&&– —
+)
+&&— 
+;
+&& 
+}
+&& 
 var(( 
 
 startState(( 
@@ -18990,181 +19533,55 @@ startState22  
 parameters77/ 9
 .779 :
 Context77: A
-,77A B
+,77A B
+typeSafeParam77C P
+,77P Q
 
-parameters77C M
-.77M N
-Request77N U
-as77V X
-TParam77Y _
-,77_ `
+parameters77R \
+.77\ ]
+CancellationToken77] n
+)77n o
+.88 
+ConfigureAwait88 
+(88 %
+continueOnCapturedContext88 8
+:888 9
+false88: ?
+)88? @
+;88@ A
+return::  
+ExecuteFinalizeAsync:: '
+(::' (
 
-parameters77a k
-.77k l
-CancellationToken77l }
-)77} ~
-.88 
-ConfigureAwait88 
-(88  %
-continueOnCapturedContext88  9
-:889 :
-false88; @
-)88@ A
-;88A B
-var:: 
-wasSuccessful:: 
-=:: 
-false::  %
-;::% &
-if;; 
-(;; 
-toState;; 
-.;; 
-	CompareTo;; !
-(;;! "
+parameters::( 2
+,::2 3
+currentResult::4 A
+,::A B
 
-startState;;" ,
-);;, -
-!=;;. 0
-$num;;1 2
-);;2 3
-{<< 
-StateMutator== 
-(== 
-
-parameters== '
-.==' (
-Context==( /
-,==/ 0
-toState==1 8
-)==8 9
-;==9 :
-wasSuccessful>> 
-=>> 
-true>>  $
-;>>$ %
-}?? 
-varAA 
-transitionResultAA  
-=AA! "
-currentResultAA# 0
-==AA1 3
-nullAA4 8
-?BB 
-newBB !
-StateTransitionResultBB +
-<BB+ ,
-TStateBB, 2
-,BB2 3
-TTriggerBB4 <
->BB< =
-(BB= >
-
-parametersBB> H
-.BBH I
-TriggerBBI P
-,CC 
-
-startStateCC  
-,DD 
-
-startStateDD  
-,EE 
-toStateEE 
-,FF 
-lastTransitionNameFF (
-:FF( )
-wasSuccessfulFF* 7
-?FF8 9
-NameFF: >
-:FF? @
-stringFFA G
-.FFG H
-EmptyFFH M
-,GG 
-conditionMetGG "
-:GG" #
-wasSuccessfulGG$ 1
-,HH 
-wasCancelledHH "
-:HH" #
-!HH$ %
-wasSuccessfulHH% 2
-&&HH3 5
-
-parametersHH6 @
-.HH@ A
-CancellationTokenHHA R
-.HHR S#
-IsCancellationRequestedHHS j
-)HHj k
-:II 
-newII !
-StateTransitionResultII +
-<II+ ,
-TStateII, 2
-,II2 3
-TTriggerII4 <
->II< =
-(II= >
-
-parametersII> H
-.IIH I
-TriggerIII P
-,IIP Q
-
-startStateIIR \
-,II\ ]
-currentResultII^ k
-.IIk l
-CurrentStateIIl x
-,IIx y
-toState	IIz 
-,
-II 
-Name
-II 
-)
-II 
-;
-II 
-ifKK 
-(KK 
-wasSuccessfulKK 
-)KK 
-{LL 
-NotifyOfTransitionLL  
-(LL  !
-
-parametersLL! +
-.LL+ ,
-ContextLL, 3
-,LL3 4
-transitionResultLL5 E
-)LLE F
-;LLF G
-}LLH I
-returnNN 
-transitionResultNN #
-;NN# $
-}OO 	
-}PP 
-}QQ บf
+startState::C M
+,::M N
+toState::O V
+)::V W
+;::W X
+};; 	
+}<< 
+}== ฮf
 XC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateTransitionFactory.cs
 	namespace 	
 NStateManager
  
 { 
-internal 
-class "
-StateTransitionFactory )
-<) *
-T* +
-,+ ,
-TState- 3
-,3 4
-TTrigger5 =
->= >
+internal 
+static 
+class "
+StateTransitionFactory 0
+<0 1
+T1 2
+,2 3
+TState4 :
+,: ;
+TTrigger< D
+>D E
 where 
 TState 
 : 
@@ -20096,7 +20513,7 @@ XC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateTransitionF
 == 
 }>> 	
 }?? 
-}@@ ข1
+}@@ Ý
 ^C:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateTransitionParameterized.cs
 	namespace 	
 NStateManager
@@ -20255,228 +20672,89 @@ parametersi s
 nullD H
 )H I
 { 	
-if 
-( 
-! 
-( 
+if 
+( 
+! 
+( 
 
-parameters 
-. 
-Request $
-is% '
-TParam( .
-typeSafeParam/ <
-)< =
-)= >
-{ 
-throw 
-new 
-ArgumentException )
-() *
-$"* ,
-Expected a , 7
-{7 8
-typeof8 >
-(> ?
-TParam? E
-)E F
-.F G
-NameG K
-}K L'
- parameter, but received a L g
-{g h
+parameters 
+. 
+Request $
+is% '
+TParam( .
+typeSafeParam/ <
+)< =
+)= >
+{ 
+throw 
+new 
+ArgumentException )
+() *
+$"* ,
+Expected a , 7
+{7 8
+typeof8 >
+(> ?
+TParam? E
+)E F
+.F G
+NameG K
+}K L'
+ parameter, but received a L g
+{g h
 
-parametersh r
-.r s
-Requests z
-.z {
-GetType	{ 
+parametersh r
+.r s
+Requests z
+?z {
+.{ |
+GetType	| 
 (
- 
+ 
 )
- 
+ …
 .
- …
+… 
 Name
-… 
+ 
+??
+ 
+$str
+ ”
 }
- 
+” •
 .
- 
+• –
 "
- 
+– —
 )
- 
+— 
 ;
- 
+ 
 }
- 
-var 
+ 
+return 
+ExecutePrim 
+( 
 
-startState 
-= 
-currentResult *
-!=+ -
-null. 2
-?3 4
-currentResult5 B
-.B C
-StartingStateC P
-:Q R
-StateAccessorS `
-(` a
+parameters )
+,) *
+currentResult+ 8
+,8 9
+	Condition: C
+(C D
 
-parametersa k
-.k l
-Contextl s
-)s t
-;t u
-if!! 
-(!! 
-!!! 
-	Condition!! 
-(!! 
-
-parameters!! %
-.!!% &
-Context!!& -
-,!!- .
-typeSafeParam!!/ <
-)!!< =
-)!!= >
-{"" 
-if## 
-(## 
-currentResult## !
-!=##" $
-null##% )
-)##) *
-{$$ 
-return$$ 
-currentResult$$ &
-;$$& '
-}$$( )
-return&& 
-new&& !
-StateTransitionResult&& 0
-<&&0 1
-TState&&1 7
-,&&7 8
-TTrigger&&9 A
->&&A B
-(&&B C
-
-parameters&&C M
-.&&M N
-Trigger&&N U
-,'' 
-
-startState''  
-,(( 
-
-startState((  
-,)) 
-
-startState))  
-,** 
-lastTransitionName** (
-:**( )
-string*** 0
-.**0 1
-Empty**1 6
-,++ 
-conditionMet++ "
-:++" #
-false++$ )
-)++) *
-;++* +
-},, 
-StateMutator.. 
-(.. 
-
-parameters.. #
-...# $
-Context..$ +
-,..+ ,
-ToState..- 4
-)..4 5
-;..5 6
-var// 
-transitionResult//  
-=//! "
-currentResult//# 0
-==//1 3
-null//4 8
-?00 
-new00 !
-StateTransitionResult00 +
-<00+ ,
-TState00, 2
-,002 3
-TTrigger004 <
->00< =
-(00= >
-
-parameters00> H
-.00H I
-Trigger00I P
-,00P Q
-
-startState00R \
-,00\ ]
-
-startState00^ h
-,00h i
-ToState00j q
-,00q r
-Name00s w
-)00w x
-:11 
-new11 !
-StateTransitionResult11 +
-<11+ ,
-TState11, 2
-,112 3
-TTrigger114 <
->11< =
-(11= >
-
-parameters11> H
-.11H I
-Trigger11I P
-,11P Q
-
-startState11R \
-,11\ ]
-currentResult11^ k
-.11k l
-CurrentState11l x
-,11x y
-ToState	11z 
-,
-11 
-Name
-11 
-)
-11 
-;
-11 
-NotifyOfTransition22 
-(22 
-
-parameters22 )
-.22) *
-Context22* 1
-,221 2
-transitionResult223 C
-)22C D
-;22D E
-return44 
-transitionResult44 #
-;44# $
-}55 	
-}66 
-}77 ๓D
+parametersD N
+.N O
+ContextO V
+,V W
+typeSafeParamX e
+)e f
+)f g
+;g h
+} 	
+}   
+}!! ฆ>
 cC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateTransitionParameterizedAsync.cs
 	namespace 	
 NStateManager
@@ -20655,349 +20933,301 @@ parameters	z 
 nullD H
 )H I
 { 	
-if   
-(   
+if 
+( 
+! 
+( 
 
-parameters   
-.   
-Request   "
-==  # %
-null  & *
-)  * +
-{!! 
-throw!! 
-new!! !
-ArgumentNullException!! -
-(!!- .
-nameof!!. 4
-(!!4 5
+parameters 
+. 
+Request $
+is% '
+TParam( .
+typeSafeParam/ <
+)< =
+)= >
+{   
+throw   
+new   
+ArgumentException   )
+(  ) *
+$"  * ,
+Expected a   , 7
+{  7 8
+typeof  8 >
+(  > ?
+TParam  ? E
+)  E F
+.  F G
+Name  G K
+}  K L'
+ parameter, but received a   L g
+{  g h
 
-parameters!!5 ?
-.!!? @
-Request!!@ G
-)!!G H
-)!!H I
-;!!I J
-}!!K L
-if$$ 
-($$ 
-!$$ 
-($$ 
-
-parameters$$ 
-.$$ 
-Request$$ $
-is$$% '
-TParam$$( .
-typeSafeParam$$/ <
-)$$< =
-)$$= >
-{%% 
-throw%% 
-new%% 
-ArgumentException%% )
-(%%) *
-$"%%* ,
-Expected a %%, 7
-{%%7 8
-typeof%%8 >
-(%%> ?
-TParam%%? E
-)%%E F
-.%%F G
-Name%%G K
-}%%K L'
- parameter, but received a %%L g
-{%%g h
-
-parameters%%h r
-.%%r s
-Request%%s z
-.%%z {
-GetType	%%{ 
+parameters  h r
+.  r s
+Request  s z
+?  z {
+.  { |
+GetType	  | 
 (
-%% 
+   
 )
-%% 
+   …
 .
-%% …
+  … 
 Name
-%%… 
+   
+??
+   
+$str
+   ”
 }
-%% 
+  ” •
 .
-%% 
+  • –
 "
-%% 
+  – —
 )
-%% 
+  — 
 ;
-%% 
+   
 }
-%% 
-var'' 
+   
+var"" 
 
-startState'' 
-='' 
-currentResult'' *
-!=''+ -
-null''. 2
-?''3 4
-currentResult''5 B
-.''B C
-StartingState''C P
-:''Q R
-StateAccessor''S `
-(''` a
+startState"" 
+="" 
+currentResult"" *
+!=""+ -
+null"". 2
+?""3 4
+currentResult""5 B
+.""B C
+StartingState""C P
+:""Q R
+StateAccessor""S `
+(""` a
 
-parameters''a k
-.''k l
-Context''l s
-)''s t
-;''t u
-if)) 
-()) 
+parameters""a k
+.""k l
+Context""l s
+)""s t
+;""t u
+if$$ 
+($$ 
 
-parameters)) 
-.)) 
-CancellationToken)) ,
-.)), -#
-IsCancellationRequested))- D
-)))D E
-{** 
-if++ 
-(++ 
-currentResult++ !
-!=++" $
-null++% )
-)++) *
-{,, 
-return,, 
-currentResult,, &
-;,,& '
-},,( )
-return.. 
-new.. !
-StateTransitionResult.. 0
-<..0 1
-TState..1 7
-,..7 8
-TTrigger..9 A
->..A B
-(..B C
+parameters$$ 
+.$$ 
+CancellationToken$$ ,
+.$$, -#
+IsCancellationRequested$$- D
+)$$D E
+{%% 
+return%% 
+	GetResult%% 
+(%% 
 
-parameters..C M
-...M N
-Trigger..N U
-,// 
+parameters%% )
+,%%) *
+currentResult%%+ 8
+,%%8 9
 
-startState//  
-,00 
+startState%%: D
+,%%D E
+wasSuccessful%%F S
+:%%S T
+false%%U Z
+,%%Z [
+wasCancelled%%\ h
+:%%h i
+true%%j n
+)%%n o
+;%%o p
+}%%q r
+if'' 
+('' 
+!'' 
+await'' 
+ConditionAsync'' %
+(''% &
 
-startState00  
-,11 
+parameters''& 0
+.''0 1
+Context''1 8
+,''8 9
+typeSafeParam'': G
+,''G H
 
-startState11  
-,22 
-lastTransitionName22 (
-:22( )
-string22* 0
-.220 1
-Empty221 6
-,33 
-conditionMet33 "
-:33" #
-false33$ )
-,44 
-wasCancelled44 "
-:44" #
-true44$ (
-)44( )
-;44) *
-}55 
-if77 
-(77 
-!77 
-await77 
-ConditionAsync77 %
-(77% &
+parameters''I S
+.''S T
+CancellationToken''T e
+)''e f
+.(( 
+ConfigureAwait(( 
+((( %
+continueOnCapturedContext(( 8
+:((8 9
+false((: ?
+)((? @
+)((@ A
+{)) 
+return** 
+new** !
+StateTransitionResult** 0
+<**0 1
+TState**1 7
+,**7 8
+TTrigger**9 A
+>**A B
+(**B C
 
-parameters77& 0
-.770 1
-Context771 8
-,778 9
-typeSafeParam77: G
-,77G H
+parameters**C M
+.**M N
+Trigger**N U
+,++ 
 
-parameters77I S
-.77S T
-CancellationToken77T e
-)77e f
-.88 
-ConfigureAwait88 
-(88 %
-continueOnCapturedContext88 8
-:888 9
-false88: ?
-)88? @
-)88@ A
-{99 
-return:: 
-new:: !
-StateTransitionResult:: 0
-<::0 1
-TState::1 7
-,::7 8
-TTrigger::9 A
->::A B
-(::B C
+startState++  
+,,, 
+currentResult,, #
+==,,$ &
+null,,' +
+?,,, -
 
-parameters::C M
-.::M N
-Trigger::N U
-,;; 
+startState,,. 8
+:,,9 :
+currentResult,,; H
+.,,H I
+PreviousState,,I V
+,-- 
+currentResult-- #
+==--$ &
+null--' +
+?--, -
 
-startState;;  
-,<< 
-currentResult<< #
-==<<$ &
-null<<' +
-?<<, -
+startState--. 8
+:--9 :
+currentResult--; H
+.--H I
+CurrentState--I U
+,.. 
+lastTransitionName.. (
+:..( )
+currentResult..* 7
+==..8 :
+null..; ?
+?..@ A
+string..B H
+...H I
+Empty..I N
+:..O P
+currentResult..Q ^
+...^ _
+LastTransitionName.._ q
+,// 
+conditionMet// "
+://" #
+currentResult//$ 1
+!=//2 4
+null//5 9
+,00 
+wasCancelled00 "
+:00" #
 
-startState<<. 8
-:<<9 :
-currentResult<<; H
-.<<H I
-PreviousState<<I V
-,== 
-currentResult== #
-====$ &
-null==' +
-?==, -
+parameters00$ .
+.00. /
+CancellationToken00/ @
+.00@ A#
+IsCancellationRequested00A X
+)00X Y
+;00Y Z
+}11 
+StateMutator33 
+(33 
 
-startState==. 8
-:==9 :
-currentResult==; H
-.==H I
-CurrentState==I U
-,>> 
-lastTransitionName>> (
-:>>( )
-currentResult>>* 7
-==>>8 :
-null>>; ?
-?>>@ A
-string>>B H
-.>>H I
-Empty>>I N
-:>>O P
-currentResult>>Q ^
-.>>^ _
-LastTransitionName>>_ q
-,?? 
-conditionMet?? "
-:??" #
-currentResult??$ 1
-!=??2 4
-null??5 9
-,@@ 
-wasCancelled@@ "
-:@@" #
+parameters33 #
+.33# $
+Context33$ +
+,33+ ,
+ToState33- 4
+)334 5
+;335 6
+var44 
+transitionResult44  
+=44! "
+currentResult44# 0
+==441 3
+null444 8
+?55 
+new55 !
+StateTransitionResult55 +
+<55+ ,
+TState55, 2
+,552 3
+TTrigger554 <
+>55< =
+(55= >
 
-parameters@@$ .
-.@@. /
-CancellationToken@@/ @
-.@@@ A#
-IsCancellationRequested@@A X
-)@@X Y
-;@@Y Z
-}AA 
-StateMutatorCC 
-(CC 
+parameters55> H
+.55H I
+Trigger55I P
+,55P Q
 
-parametersCC #
-.CC# $
-ContextCC$ +
-,CC+ ,
-ToStateCC- 4
-)CC4 5
-;CC5 6
-varDD 
-transitionResultDD  
-=DD! "
-currentResultDD# 0
-==DD1 3
-nullDD4 8
-?EE 
-newEE !
-StateTransitionResultEE +
-<EE+ ,
-TStateEE, 2
-,EE2 3
-TTriggerEE4 <
->EE< =
-(EE= >
+startState55R \
+,55\ ]
 
-parametersEE> H
-.EEH I
-TriggerEEI P
-,EEP Q
+startState55^ h
+,55h i
+ToState55j q
+,55q r
+Name55s w
+)55w x
+:66 
+new66 !
+StateTransitionResult66 +
+<66+ ,
+TState66, 2
+,662 3
+TTrigger664 <
+>66< =
+(66= >
 
-startStateEER \
-,EE\ ]
+parameters66> H
+.66H I
+Trigger66I P
+,66P Q
 
-startStateEE^ h
-,EEh i
-ToStateEEj q
-,EEq r
-NameEEs w
-)EEw x
-:FF 
-newFF !
-StateTransitionResultFF +
-<FF+ ,
-TStateFF, 2
-,FF2 3
-TTriggerFF4 <
->FF< =
-(FF= >
-
-parametersFF> H
-.FFH I
-TriggerFFI P
-,FFP Q
-
-startStateFFR \
-,FF\ ]
-currentResultFF^ k
-.FFk l
-CurrentStateFFl x
-,FFx y
-ToState	FFz 
+startState66R \
+,66\ ]
+currentResult66^ k
+.66k l
+CurrentState66l x
+,66x y
+ToState	66z 
 ,
-FF 
+66 
 Name
-FF 
+66 
 )
-FF 
+66 
 ;
-FF 
-NotifyOfTransitionGG 
-(GG 
+66 
+NotifyOfTransition77 
+(77 
 
-parametersGG )
-.GG) *
-ContextGG* 1
-,GG1 2
-transitionResultGG3 C
-)GGC D
-;GGD E
-returnII 
-transitionResultII #
-;II# $
-}JJ 	
-}KK 
-}LL ฃ
+parameters77 )
+.77) *
+Context77* 1
+,771 2
+transitionResult773 C
+)77C D
+;77D E
+return99 
+transitionResult99 #
+;99# $
+}:: 	
+};; 
+}<< ฃ
 WC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\StateTransitionResult.cs
 	namespace 	
 NStateManager
@@ -21241,19 +21471,19 @@ OC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\TriggerAction.cs
 parametersH R
 )R S
 { 	
-Action 
-. 
-Invoke 
-( 
+Action 
+. 
+Invoke 
+( 
 
-parameters $
-.$ %
-Context% ,
-), -
-;- .
-} 	
-} 
-} ๘
+parameters $
+.$ %
+Context% ,
+), -
+;- .
+} 	
+} 
+} ๘
 SC:\Users\Scott\Source\Repos\NStateManager\Source\NStateManager\TriggerActionBase.cs
 	namespace 	
 NStateManager
