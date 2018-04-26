@@ -115,7 +115,7 @@ namespace NStateManager
               , startState: State
               , triggerState: tempState
               , toState: State
-              , condition: condition
+              , condition: _ => true
               , name: name
               , priority: priority);
             AddOtherStateAutoTransition(tempState, trigger, tempStateAutoTransition);
@@ -152,7 +152,7 @@ namespace NStateManager
             var otherStateTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
               , State
               , tempState
-              , condition
+              , _ => true
               , State
               , name
               , priority);
@@ -194,7 +194,7 @@ namespace NStateManager
               , startState: State
               , triggerState: tempState
               , toState: State
-              , condition: condition
+              , condition: _ => true
               , name: name
               , priority: priority);
             AddOtherStateAutoTransition(tempState, trigger, otherStateAutoTransition);

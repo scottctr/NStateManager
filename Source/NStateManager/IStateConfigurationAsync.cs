@@ -24,7 +24,7 @@ namespace NStateManager
         /// <param name="name">Name of the transition.</param>
         /// <param name="priority">Priority of this transition compared with the other transitions for this state.</param>
         /// <returns></returns>
-        IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardDynamicTransition(TTrigger trigger, Func<T, TState> function, string name = null, uint priority = 1);
+        IStateConfigurationAsync<T, TState, TTrigger> AddAutoDynamicTransition(TTrigger trigger, Func<T, TState> function, string name = null, uint priority = 1);
 
         /// <summary>
         /// Defines a state transition where the end state is defined by a function.
@@ -35,7 +35,7 @@ namespace NStateManager
         /// <param name="name">Name of the transition.</param>
         /// <param name="priority">Priority of this transition compared with the other transitions for this state.</param>
         /// <returns></returns>
-        IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardDynamicTransition<TRequest>(TTrigger trigger, Func<T, TRequest, TState> function, string name = null, uint priority = 1)
+        IStateConfigurationAsync<T, TState, TTrigger> AddAutoDynamicTransition<TRequest>(TTrigger trigger, Func<T, TRequest, TState> function, string name = null, uint priority = 1)
             where TRequest : class;
 
         /// <summary>

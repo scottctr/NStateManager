@@ -1,7 +1,7 @@
 organization=scottctr-github
-projectKey=NStateManager
+projectKey=NStateManager_ProjectKey2
 serverUrl=https://sonarcloud.io
-serverVersion=7.1.1.432
-dashboardUrl=https://sonarcloud.io/dashboard/index/NStateManager
-ceTaskId=AWKnhzOpo-4kJLXn2Moe
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWKnhzOpo-4kJLXn2Moe
+serverVersion=7.1.1.10702
+dashboardUrl=https://sonarcloud.io/dashboard/index/NStateManager_ProjectKey2
+ceTaskId=AWLv7eyAX0BbYiea-_iV
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWLv7eyAX0BbYiea-_iV

@@ -69,7 +69,7 @@ namespace NStateManager
         /// <param name="name">Optional name for this transition.</param>
         /// <param name="priority">Optional priority of this transition.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddAutoForwardTransition(TTrigger trigger, TState toState, Func<T, bool> condition = null, string name = null, uint priority = 1);
+        IStateConfiguration<T, TState, TTrigger> AddAutoForwardTransition(TTrigger trigger, TState toState, Func<T, bool> condition, string name = null, uint priority = 1);
 
         /// <summary>
         /// Defines an automatic, but conditional, transition from this state to a new state.
@@ -81,7 +81,7 @@ namespace NStateManager
         /// <param name="name">Optional name for this transition.</param>
         /// <param name="priority">Optional priority of this transition.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> AddAutoForwardTransition<TRequest>(TTrigger trigger, TState toState, Func<T, TRequest, bool> condition = null, string name = null, uint priority = 1)
+        IStateConfiguration<T, TState, TTrigger> AddAutoForwardTransition<TRequest>(TTrigger trigger, TState toState, Func<T, TRequest, bool> condition, string name = null, uint priority = 1)
             where TRequest : class;
 
         /// <summary>

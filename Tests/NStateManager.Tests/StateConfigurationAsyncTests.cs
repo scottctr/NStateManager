@@ -19,29 +19,6 @@ namespace NStateManager.Tests
     public class StateConfigurationAsyncTests
     {
         [Fact]
-        public void AddAutoForwardDynamicTransition_add_transition()
-        {
-            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
-            var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
-
-            sut.AddAutoForwardDynamicTransition(SaleEvent.Pay, sale => SaleState.Complete);
-
-            Assert.Single(sut.AutoTransitions);
-        }
-
-        [Fact]
-        public void AddAutoForwardDynamicTransitionWRequest_add_transition()
-        {
-            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
-            var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
-
-            sut.AddAutoForwardDynamicTransition<string>(SaleEvent.Pay, (sale, stringParam) => SaleState.Complete);
-
-            Assert.Single(sut.AutoTransitions);
-        }
-
-
-        [Fact]
         public void AddAutoForwardTransition_throws_InvalidOperationException_if_AutoTransition_already_set()
         {
             var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);

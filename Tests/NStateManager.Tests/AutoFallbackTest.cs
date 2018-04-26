@@ -151,5 +151,42 @@ namespace NStateManager.Tests
 
             Console.WriteLine($"[{stopWatch.Elapsed}] TEST COMPLETE");
         }
+
+        enum afState { Off, On, End }
+        enum afEvent { TurnOn, TurnOff, TurnOnAF }
+
+        class Thingy
+        {
+            public afState State { get; set; } = afState.Off;
+        }
+        [Fact]
+        public void AutoForwardTest()
+        {
+            var stateMachine = new StateMachine<Thingy, afState, afEvent>(thingy => thingy.State
+              , (thingy, updateState) => thingy.State = updateState);
+
+            stateMachine
+               .RegisterOnTransitionedAction((thingy, result) => { Console.WriteLine($"Changed from {result.PreviousState} to {result.CurrentState} via {result.LastTransitionName} transition"); })
+                .AddTriggerAction(afEvent.TurnOn, _ => Console.WriteLine("Firing 'On' trigger"))
+               .AddTriggerAction(afEvent.TurnOnAF, _ => Console.WriteLine("Firing 'TurnOnAF' trigger"));
+
+
+            stateMachine.ConfigureState(afState.Off)
+               .AddTransition(afEvent.TurnOn, afState.On, name: "On")
+               .AddTransition(afEvent.TurnOnAF, afState.On, name: "OnAF");
+
+            stateMachine.ConfigureState(afState.On)
+               .AddTransition(afEvent.TurnOff, afState.Off)
+               .AddAutoForwardTransition(afEvent.TurnOnAF, afState.End, _ => true, name: "AutoEnd");
+
+
+            var testThingy = new Thingy();
+            stateMachine.FireTrigger(testThingy, afEvent.TurnOn);
+            Console.WriteLine("End simple On transition" + Environment.NewLine + Environment.NewLine);
+
+            testThingy = new Thingy();
+            stateMachine.FireTrigger(testThingy, afEvent.TurnOnAF);
+            Console.WriteLine("End OnAF transition" + Environment.NewLine + Environment.NewLine);
+        }
     }
 }

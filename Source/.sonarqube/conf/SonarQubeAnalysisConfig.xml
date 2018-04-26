@@ -6,8 +6,8 @@
   <SonarScannerWorkingDirectory>C:\Users\Scott\Source\Repos\NStateManager\Source</SonarScannerWorkingDirectory>
   <HasBeginStepCommandLineCredentials>true</HasBeginStepCommandLineCredentials>
   <SonarQubeHostUrl>https://sonarcloud.io</SonarQubeHostUrl>
-  <SonarQubeVersion>7.1.1.432</SonarQubeVersion>
-  <SonarProjectKey>NStateManager</SonarProjectKey>
+  <SonarQubeVersion>7.1.1.10702</SonarQubeVersion>
+  <SonarProjectKey>NStateManager_ProjectKey2</SonarProjectKey>
   <AdditionalConfig>
     <ConfigSetting Id="BuildUri" />
     <ConfigSetting Id="TfsUri" />
@@ -56,7 +56,7 @@
     <Property Name="sonar.scm.disabled">false</Property>
     <Property Name="sonar.typescript.exclusions">**/node_modules/**,**/bower_components/**</Property>
     <Property Name="sonar.vbnet.file.suffixes">.vb</Property>
-    <Property Name="sonar.abap.file.suffixes">.abap,.ab4,.flow</Property>
+    <Property Name="sonar.abap.file.suffixes">.abap,.ab4,.flow,.asprog</Property>
     <Property Name="sonar.cfamily.ignoreHeaderComments">true</Property>
     <Property Name="sonar.technicalDebt.developmentCost">30</Property>
     <Property Name="sonar.python.file.suffixes">py</Property>
@@ -71,6 +71,7 @@
     <Property Name="sonar.auth.github.enabled">true</Property>
     <Property Name="sonar.javascript.jQueryObjectAliases">$, jQuery</Property>
     <Property Name="sonaranalyzer-vbnet.nuget.packageVersion">7.0.1.4822</Property>
+    <Property Name="sonar.go.file.suffixes">.go</Property>
     <Property Name="sonar.dbcleaner.weeksBeforeKeepingOnlyAnalysesWithVersion">104</Property>
     <Property Name="sonar.swift.file.suffixes">.swift</Property>
     <Property Name="sonar.github.endpoint">https://api.github.com</Property>
@@ -98,6 +99,7 @@
     <Property Name="sonar.cfamily.useCache">true</Property>
     <Property Name="sonar.branch.longLivedBranches.regex">(branch|release)-.*</Property>
     <Property Name="sonar.objc.file.suffixes">.m</Property>
+    <Property Name="sonar.go.coverage.reportPaths">coverage.out</Property>
     <Property Name="sonar.cvs.useCvsrc">false</Property>
     <Property Name="sonaranalyzer-cs.staticResourceName">SonarAnalyzer-7.0.1.4822.zip</Property>
     <Property Name="sonar.cvs.compressionLevel">3</Property>
@@ -133,7 +135,7 @@ Select your &lt;a href="https://about.sonarcloud.io"&gt;plan&lt;/a&gt; and start
   &lt;/div&gt;
 &lt;/div&gt;</Property>
     <Property Name="sonar.core.id">AWHW8ct9-T_TB3XqouNu</Property>
-    <Property Name="sonar.core.startTime">3/28/2018 6:06:31 AM</Property>
+    <Property Name="sonar.core.startTime">4/11/2018 5:47:08 AM</Property>
   </ServerSettings>
   <LocalSettings>
     <Property Name="sonar.organization">scottctr-github</Property>
@@ -156,15 +158,15 @@ Select your &lt;a href="https://about.sonarcloud.io"&gt;plan&lt;/a&gt; and start
       <Language>vbnet</Language>
       <RuleSetFilePath>C:\Users\Scott\Source\Repos\NStateManager\Source\.sonarqube\conf\SonarQubeRoslyn-vbnet.ruleset</RuleSetFilePath>
       <AnalyzerAssemblyPaths>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\SonarAnalyzer.VisualBasic.nuspec</Path>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\[Content_Types].xml</Path>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\analyzers\Google.Protobuf.dll</Path>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\analyzers\SonarAnalyzer.dll</Path>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\analyzers\SonarAnalyzer.VisualBasic.dll</Path>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\package\services\metadata\core-properties\ed1dfc7efae24b85904767a6c3db02e3.psmdcp</Path>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\tools\install.ps1</Path>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\tools\uninstall.ps1</Path>
-        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\2\_rels\.rels</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\SonarAnalyzer.VisualBasic.nuspec</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\[Content_Types].xml</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\analyzers\Google.Protobuf.dll</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\analyzers\SonarAnalyzer.dll</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\analyzers\SonarAnalyzer.VisualBasic.dll</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\package\services\metadata\core-properties\ed1dfc7efae24b85904767a6c3db02e3.psmdcp</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\tools\install.ps1</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\tools\uninstall.ps1</Path>
+        <Path>C:\Users\Scott\AppData\Local\Temp\.sonarqube\resources\1\_rels\.rels</Path>
       </AnalyzerAssemblyPaths>
       <AdditionalFilePaths>
         <Path>C:\Users\Scott\Source\Repos\NStateManager\Source\.sonarqube\conf\vbnet\SonarLint.xml</Path>

@@ -265,39 +265,6 @@ namespace NStateManager
             return this;
         }
 
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardDynamicTransition(TTrigger trigger
-          , Func<T, TState> function
-          , string name = null
-          , uint priority = 1)
-        {
-            var initialTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
-              , State
-              , function
-              , State
-              , name
-              , priority);
-            AddAutoTransition(trigger, initialTransition);
-
-            return this;
-        }
-
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardDynamicTransition<TRequest>(TTrigger trigger
-          , Func<T, TRequest, TState> function
-          , string name = null
-          , uint priority = 1) 
-            where TRequest : class
-        {
-            var initialTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
-              , State
-              , function
-              , State
-              , name
-              , priority);
-            AddAutoTransition(trigger, initialTransition);
-
-            return this;
-        }
-
         public IStateConfigurationAsync<T, TState, TTrigger> AddAutoFallbackTransition(TTrigger trigger
           , TState tempState
           , Func<T, CancellationToken, Task<bool>> condition
@@ -317,7 +284,7 @@ namespace NStateManager
             var otherStateTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
               , State
               , tempState
-              , condition
+              , (context, _) => Task.FromResult(true)
               , State
               , name
               , priority);
@@ -346,7 +313,7 @@ namespace NStateManager
             var otherStateTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
               , State
               , tempState
-              , condition
+              , (context, _) => Task.FromResult(true)
               , State
               , name
               , priority);
