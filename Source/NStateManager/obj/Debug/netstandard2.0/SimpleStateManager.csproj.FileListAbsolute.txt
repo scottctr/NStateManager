@@ -1,8 +1,0 @@
-C:\Users\Scott\Documents\Visual Studio 2017\Projects\SimpleStateManager\Source\SimpleStateManager\bin\Debug\netstandard2.0\SimpleStateManager.deps.json
-C:\Users\Scott\Documents\Visual Studio 2017\Projects\SimpleStateManager\Source\SimpleStateManager\bin\Debug\netstandard2.0\SimpleStateManager.dll
-C:\Users\Scott\Documents\Visual Studio 2017\Projects\SimpleStateManager\Source\SimpleStateManager\bin\Debug\netstandard2.0\SimpleStateManager.pdb
-C:\Users\Scott\Documents\Visual Studio 2017\Projects\SimpleStateManager\Source\SimpleStateManager\obj\Debug\netstandard2.0\SimpleStateManager.csproj.CoreCompileInputs.cache
-C:\Users\Scott\Documents\Visual Studio 2017\Projects\SimpleStateManager\Source\SimpleStateManager\obj\Debug\netstandard2.0\SimpleStateManager.AssemblyInfoInputs.cache
-C:\Users\Scott\Documents\Visual Studio 2017\Projects\SimpleStateManager\Source\SimpleStateManager\obj\Debug\netstandard2.0\SimpleStateManager.AssemblyInfo.cs
-C:\Users\Scott\Documents\Visual Studio 2017\Projects\SimpleStateManager\Source\SimpleStateManager\obj\Debug\netstandard2.0\SimpleStateManager.dll
-C:\Users\Scott\Documents\Visual Studio 2017\Projects\SimpleStateManager\Source\SimpleStateManager\obj\Debug\netstandard2.0\SimpleStateManager.pdb

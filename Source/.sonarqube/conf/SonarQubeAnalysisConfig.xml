@@ -135,7 +135,7 @@ Select your &lt;a href="https://about.sonarcloud.io"&gt;plan&lt;/a&gt; and start
   &lt;/div&gt;
 &lt;/div&gt;</Property>
     <Property Name="sonar.core.id">AWHW8ct9-T_TB3XqouNu</Property>
-    <Property Name="sonar.core.startTime">4/11/2018 5:47:08 AM</Property>
+    <Property Name="sonar.core.startTime">4/24/2018 5:32:38 AM</Property>
   </ServerSettings>
   <LocalSettings>
     <Property Name="sonar.organization">scottctr-github</Property>
