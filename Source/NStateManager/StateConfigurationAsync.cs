@@ -539,7 +539,7 @@ namespace NStateManager
         {
             if (_triggerActions.TryGetValue(parameters.Trigger, out var triggerAction))
             {
-                await triggerAction.ExecuteAsync(parameters.Context, request: null, cancellationToken: parameters.CancellationToken)
+                await triggerAction.ExecuteAsync(parameters.Context, request: parameters.Request, cancellationToken: parameters.CancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
             }
 
