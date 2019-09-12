@@ -565,36 +565,27 @@ namespace NStateManager.Tests
         [Fact]
         public async Task FireTriggerAsyncWRequest_withReferenceTypeInstance_triggerExecutes()
         {
-            var testRequest = new Request(123.45);
+            var testRequest = new TestRequest(123.45);
 
             var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
                 , stateMutator: (sale3, newState) => sale3.State = newState);
 
             sut.ConfigureState(SaleState.Open)
-                .AddTriggerAction<Request>(SaleEvent.Pay, async (saleInstance, request, token) =>
+                .AddTriggerAction<TestRequest>(SaleEvent.Pay, async (saleInstance, request, token) =>
                 {
                     saleInstance.Balance = request.Value;
-                    await Task.Delay(100);
+                    await Task.Delay(10);
                 })
                 .AddTransition(SaleEvent.Pay, SaleState.Complete);
 
             var sale = new Sale(saleID: 45) { State = SaleState.Open };
-            var stateTransitionResult = await sut.FireTriggerAsync<Request>(sale, SaleEvent.Pay, testRequest);
+            var stateTransitionResult = await sut.FireTriggerAsync<TestRequest>(sale, SaleEvent.Pay, testRequest);
 
             Assert.NotNull(stateTransitionResult);
             Assert.Equal(SaleState.Complete, stateTransitionResult.CurrentState);
             Assert.Equal(SaleState.Complete, sale.State);
             Assert.Equal(sale.Balance, testRequest.Value);
-        }
-    }
-
-    public sealed class Request
-    {
-        public double Value { get; }
-        public Request(double value)
-        {
-            Value = value;
         }
     }
 }

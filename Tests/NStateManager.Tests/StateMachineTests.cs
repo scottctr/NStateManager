@@ -498,5 +498,93 @@ namespace NStateManager.Tests
 
             Assert.True(transitionEventFired);
         }
+
+        [Fact]
+        public void FireTriggerWRequest_withReferenceTypeInstance_triggerExecutes()
+        {
+            var testRequest = new TestRequest(123.45);
+
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
+                stateAccessor: sale2 => sale2.State
+                , stateMutator: (sale3, newState) => sale3.State = newState);
+
+            sut.ConfigureState(SaleState.Open)
+                .AddTriggerAction<TestRequest>(SaleEvent.Pay, (saleInstance, request) =>
+                {
+                    saleInstance.Balance = request.Value;
+                })
+                .AddTransition(SaleEvent.Pay, SaleState.Complete);
+
+            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var stateTransitionResult = sut.FireTrigger<TestRequest>(sale, SaleEvent.Pay, testRequest);
+
+            Assert.NotNull(stateTransitionResult);
+            Assert.Equal(SaleState.Complete, stateTransitionResult.CurrentState);
+            Assert.Equal(SaleState.Complete, sale.State);
+            Assert.Equal(sale.Balance, testRequest.Value);
+        }
+
+        [Fact]
+        public void FireTriggerWRequest_addTransitionSignatureWRequest_transitionExecutesWithRequestInstance()
+        {
+            var testRequest = new TestRequest(123.45);
+
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
+                stateAccessor: sale2 => sale2.State
+                , stateMutator: (sale3, newState) => sale3.State = newState);
+
+            var result = default(double);
+
+            sut.ConfigureState(SaleState.Open)
+                .AddTransition<TestRequest>(SaleEvent.Pay, SaleState.Complete, (saleInstance, request) =>
+                {
+                    result = request.Value;
+                    return true;
+                });
+
+            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var stateTransitionResult = sut.FireTrigger<TestRequest>(sale, SaleEvent.Pay, testRequest);
+
+            Assert.NotNull(stateTransitionResult);
+            Assert.Equal(SaleState.Complete, stateTransitionResult.CurrentState);
+            Assert.Equal(SaleState.Complete, sale.State);
+            Assert.Equal(result, testRequest.Value);
+        }
+
+        [Fact]
+        public void FireTriggerAsyncWRequest_addConsecutiveTransitionSignaturesWRequest_transitionExecutesWithRequestInstance()
+        {
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
+                stateAccessor: sale2 => sale2.State
+                , stateMutator: (sale3, newState) => sale3.State = newState);
+
+            var result1 = default(double);
+            var result2 = default(double);
+            var testRequest1 = new TestRequest(123.45);
+            var testRequest2 = new TestRequest(12);
+
+            sut.ConfigureState(SaleState.Open)
+                .AddTransition<TestRequest>(SaleEvent.Pay, SaleState.ChangeDue, (saleInstance, request) =>
+                {
+                    result1 = request.Value;
+                    return true;
+                });
+
+            sut.ConfigureState(SaleState.ChangeDue)
+                .AddTransition<TestRequest>(SaleEvent.ChangeGiven, SaleState.Complete, (saleInstance, request) =>
+                {
+                    result2 = request.Value;
+                    return true;
+                });
+            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            sut.FireTrigger<TestRequest>(sale, SaleEvent.Pay, testRequest1);
+            var stateTransitionResult = sut.FireTrigger<TestRequest>(sale, SaleEvent.ChangeGiven, testRequest2);
+
+            Assert.NotNull(stateTransitionResult);
+            Assert.Equal(SaleState.Complete, stateTransitionResult.CurrentState);
+            Assert.Equal(SaleState.Complete, sale.State);
+            Assert.Equal(result1, testRequest1.Value);
+            Assert.Equal(result2, testRequest2.Value);
+        }
     }
 }
