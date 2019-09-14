@@ -398,12 +398,11 @@ namespace NStateManager
             { throw new ArgumentNullException(nameof(conditionAsync)); }
 
             var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
-                , State
                 , toState
                 , conditionAsync
-                , State
                 , name
                 , priority);
+
             AddTransition(trigger, transition);
 
             return this;
