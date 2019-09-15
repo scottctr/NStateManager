@@ -2,7 +2,7 @@
 # Background and Goals  
 **NStateManager** is a .Net library for managing:
 - [definition of states](https://github.com/scottctr/NStateManager/wiki/Quick-Start#states) for a type
-- **rules** for transitioning between states
+- [rules for transitioning](https://github.com/scottctr/NStateManager/wiki/Changing-States) between states
 - additional **actions** to take based on trigger events and current state
 
 This project was created while developing cloud-based solutions. We needed a state management solution made for our stateless services. 
