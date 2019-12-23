@@ -1,6 +1,11 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/byg4n228cinno4xt?svg=true)](https://ci.appveyor.com/project/ScottCarter/nstatemanager) [![NuGet Status](https://img.shields.io/nuget/v/NStateManager.svg)](https://www.nuget.org/packages/NStateManager) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=NStateManager&metric=security_rating)](https://sonarcloud.io/dashboard?id=NStateManager) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=NStateManager&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=NStateManager) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=NStateManager&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=NStateManager)
 # Background and Goals  
-This project was created while developing cloud-based solutions. We needed a state management solution made for our stateless services.  
+**NStateManager** is a .Net library for managing:
+- [definition of states](https://github.com/scottctr/NStateManager/wiki/Quick-Start#states) for a type
+- [rules for transitioning](https://github.com/scottctr/NStateManager/wiki/Changing-States) between states
+- additional [actions to take](https://github.com/scottctr/NStateManager/wiki/Event-Actions) based on trigger events and current state
+
+This project was created while developing cloud-based solutions. We needed a state management solution made for our stateless services. 
 - **Stateless** so it's thread safe and a single state machine can be used to manage state for all managed instances  
 - **Intuitive configuration** of [state change conditions](https://github.com/scottctr/NStateManager/wiki/Changing-States), [behaviors based on current state](https://github.com/scottctr/NStateManager/wiki/Event-Actions), and [actions when changing states](https://github.com/scottctr/NStateManager/wiki/State-Change-Actions)  
 - **[async/await support](https://github.com/scottctr/NStateManager/wiki/Async-Await-Support)**, including cancellation and ConfigureAwait       
