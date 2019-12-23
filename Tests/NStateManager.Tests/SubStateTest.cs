@@ -8,22 +8,18 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-using System;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace NStateManager.Tests
 {
     public class Program
     {
-        public enum TelephoneState { OnHook, OffHook, Connected }
-        public enum TelephoneEvent { PickupHandset, HangUp, CallConnected }
+        private readonly ITestOutputHelper _testOutputHelper;
 
-        private class Telephone
+        public Program(ITestOutputHelper testOutputHelper)
         {
-            public TelephoneState State { get; set; }
-            public DateTime StartTime { get; set; }
-            public DateTime EndTime { get; set; }
-            public int MissedCalls { get; set; }
+            _testOutputHelper = testOutputHelper;
         }
 
         private class TestEntity
@@ -41,16 +37,16 @@ namespace NStateManager.Tests
             
             stateMachine.ConfigureState(State.SuperState)
                 .AddTransition(Trigger.One, State.SubState)
-                .AddEntryAction(_ => Console.WriteLine("SuperState OnEntry"))
-                .AddExitAction(_ => Console.WriteLine("SuperState OnExit"));
+                .AddEntryAction(_ => _testOutputHelper.WriteLine("SuperState OnEntry"))
+                .AddExitAction(_ => _testOutputHelper.WriteLine("SuperState OnExit"));
 
             stateMachine.ConfigureState(State.SubState)
                 .MakeSubStateOf(stateMachine.ConfigureState(State.SuperState))
                 .AddTransition(Trigger.Two, State.SuperState)
-                .AddEntryAction(_ => Console.WriteLine("SubState OnEntry"))
-                .AddExitAction(_ => Console.WriteLine("SubState OnExit"));
+                .AddEntryAction(_ => _testOutputHelper.WriteLine("SubState OnEntry"))
+                .AddExitAction(_ => _testOutputHelper.WriteLine("SubState OnExit"));
 
-            stateMachine.RegisterOnTransitionedAction(((_, result) => Console.WriteLine($"{result.StartingState} -[{result.Trigger}]-> {result.CurrentState}")));
+            stateMachine.OnTransition += (o, args) => _testOutputHelper.WriteLine($"{args.TransitionResult.StartingState} -[{args.TransitionResult.Trigger}]-> {args.TransitionResult.CurrentState}");
 
             var testEntity = new TestEntity();
             stateMachine.FireTrigger(testEntity, Trigger.One);

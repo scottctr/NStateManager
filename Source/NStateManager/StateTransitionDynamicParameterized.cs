@@ -38,8 +38,6 @@ namespace NStateManager
             { StateMutator(parameters.Context, toState); }
 
             var transitionResult = GetFreshResult(parameters, currentResult, startState, transitionDefined: true, wasCancelled: false, conditionMet: transitioned);
-            if (transitioned)
-            { NotifyOfTransition(parameters.Context, transitionResult); }
 
             return transitionResult;
         }

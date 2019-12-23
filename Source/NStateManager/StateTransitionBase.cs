@@ -15,8 +15,6 @@ namespace NStateManager
 {
     public abstract class StateTransitionBase<T, TState, TTrigger>
     {
-        public static event Action<T, StateTransitionResult<TState, TTrigger>> OnTransitionedEvent;
-
         protected string Name;
         protected internal uint Priority;
         protected Func<T, TState> StateAccessor { get; }
@@ -36,13 +34,13 @@ namespace NStateManager
         public virtual StateTransitionResult<TState, TTrigger> Execute(ExecutionParameters<T, TTrigger> parameters
           , StateTransitionResult<TState, TTrigger> currentResult = null)
         {
-            throw new NotImplementedException("Inheritted classes must override this method. Ensure you're calling the correct overloaded version.");
+            throw new NotImplementedException("Inherited classes must override this method. Ensure you're calling the correct overloaded version.");
         }
 
         public virtual Task<StateTransitionResult<TState, TTrigger>> ExecuteAsync(ExecutionParameters<T, TTrigger> parameters
           , StateTransitionResult<TState, TTrigger> currentResult = null)
         {
-            throw new NotImplementedException("Inheritted classes must override this method. Ensure you're calling the correct overloaded version.");
+            throw new NotImplementedException("Inherited classes must override this method. Ensure you're calling the correct overloaded version.");
         }
 
         protected StateTransitionResult<TState, TTrigger> GetFreshResult(ExecutionParameters<T, TTrigger> parameters
@@ -62,11 +60,6 @@ namespace NStateManager
               , wasCancelled: wasCancelled
               , conditionMet: conditionMet 
               , transitionDefined: transitionDefined);
-        }
-
-        protected void NotifyOfTransition(T context, StateTransitionResult<TState, TTrigger> transitionResult)
-        {
-            OnTransitionedEvent?.Invoke(context, transitionResult);
         }
     }
 }

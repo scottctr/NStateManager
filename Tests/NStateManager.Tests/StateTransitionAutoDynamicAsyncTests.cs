@@ -70,9 +70,7 @@ namespace NStateManager.Tests
         [Fact]
         public async void ExecuteAsync_transitions_when_matched()
         {
-            var notificationReceived = false;
             var stateMachine = getStateMachine();
-            stateMachine.RegisterOnTransitionedAction((sale, _) => notificationReceived = true);
             var sut = new StateTransitionAutoDynamicAsync<Sale, SaleState, SaleEvent>(stateMachine
               , SaleState.Open
               , _ => SaleState.Complete
@@ -93,15 +91,12 @@ namespace NStateManager.Tests
             Assert.Equal(SaleState.ChangeDue, SaleState.ChangeDue);
             Assert.Equal(SaleState.Open, result.StartingState);
             Assert.Equal(SaleState.Complete, testSale.State);
-            Assert.True(notificationReceived);
         }
 
         [Fact]
         public async void ExecuteAsync_transitions_when_matched_superState()
         {
-            var notificationReceived = false;
             var stateMachine = getStateMachine();
-            stateMachine.RegisterOnTransitionedAction((sale, _) => notificationReceived = true);
             var openStateConfig = stateMachine.ConfigureState(SaleState.Open);
             stateMachine.ConfigureState(SaleState.ChangeDue).MakeSubStateOf(openStateConfig);
 
@@ -125,7 +120,6 @@ namespace NStateManager.Tests
             Assert.Equal(SaleState.ChangeDue, SaleState.ChangeDue);
             Assert.Equal(SaleState.Open, result.StartingState);
             Assert.Equal(SaleState.Complete, testSale.State);
-            Assert.True(notificationReceived);
         }
 
         private StateMachineAsync<Sale, SaleState, SaleEvent> getStateMachine()

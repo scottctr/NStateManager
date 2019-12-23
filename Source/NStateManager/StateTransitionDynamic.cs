@@ -36,8 +36,6 @@ namespace NStateManager
 
             var transitioned = !StateAccessor(parameters.Context).IsEqual(startState);
             var transitionResult = GetFreshResult(parameters, currentResult, startState, wasCancelled: false, transitionDefined: true, conditionMet: transitioned);
-            if (transitioned)
-            { NotifyOfTransition(parameters.Context, transitionResult); }
 
             return transitionResult;
         }

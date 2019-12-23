@@ -12,6 +12,7 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace NStateManager.Tests
 {
@@ -25,6 +26,13 @@ namespace NStateManager.Tests
 
     public class AutoFallbackTest
     {
+        private readonly ITestOutputHelper _testOutputHelper;
+
+        public AutoFallbackTest(ITestOutputHelper testOutputHelper)
+        {
+            _testOutputHelper = testOutputHelper;
+        }
+
         [Fact]
         public void RunWalkJumpTest()
         {
@@ -37,23 +45,23 @@ namespace NStateManager.Tests
             stateMachine.ConfigureState(GameManState.Walking)
                .AddTransition(GameManEvent.Run, GameManState.Running)
                .AddAutoFallbackTransition(GameManEvent.SeePuddle, GameManState.Jumping, _ => true)
-               .AddEntryAction(man => Console.WriteLine($"[{stopWatch.Elapsed}] Start Walking"))
-               .AddExitAction(man => Console.WriteLine($"[{stopWatch.Elapsed}] Exiting walking"))
-               .AddReentryAction(man => Console.WriteLine($"[{stopWatch.Elapsed}] Continuing to walk"));
+               .AddEntryAction(man => _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] Start Walking"))
+               .AddExitAction(man => _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] Exiting walking"))
+               .AddReentryAction(man => _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] Continuing to walk"));
 
             stateMachine.ConfigureState(GameManState.Running)
                .AddAutoFallbackTransition(GameManEvent.SeePuddle, GameManState.Jumping, _ => true, priority: 2)
-               .AddEntryAction(man => Console.WriteLine($"[{stopWatch.Elapsed}] Start Running"))
-               .AddExitAction(man => Console.WriteLine($"[{stopWatch.Elapsed}] Exiting running"))
-               .AddReentryAction(man => Console.WriteLine($"[{stopWatch.Elapsed}] Continuing to run"));
+               .AddEntryAction(man => _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] Start Running"))
+               .AddExitAction(man => _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] Exiting running"))
+               .AddReentryAction(man => _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] Continuing to run"));
 
             stateMachine.ConfigureState(GameManState.Jumping)
                .AddEntryAction(man =>
                 {
-                    Console.WriteLine($"[{stopWatch.Elapsed}] starting jump...");
-                    Task.Delay(3000).Wait();
+                    _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] starting jump...");
+                    Task.Delay(millisecondsDelay: 3000).Wait();
                 })
-               .AddExitAction(man => { Console.WriteLine($"[{stopWatch.Elapsed}] jump done."); });
+               .AddExitAction(man => { _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] jump done."); });
 
             stopWatch.Start();
             var gameMan = new GameMan { State = GameManState.Walking };
@@ -76,31 +84,31 @@ namespace NStateManager.Tests
             stateMachine.ConfigureState(GameManState.Walking)
                .AddAutoFallbackTransition(GameManEvent.SeePuddle, GameManState.Jumping, _ => true)
                //.AddTransition(GameManEvent.SeePuddle, GameManState.Jumping)
-               .AddEntryAction(man => Console.WriteLine($"[{stopWatch.Elapsed}] Start Walking"))
-               .AddExitAction(man => Console.WriteLine($"[{stopWatch.Elapsed}] Exiting walking"))
-               .AddReentryAction(man => Console.WriteLine($"[{stopWatch.Elapsed}] Continuing to walk"));
+               .AddEntryAction(man => _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] Start Walking"))
+               .AddExitAction(man => _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] Exiting walking"))
+               .AddReentryAction(man => _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] Continuing to walk"));
 
             stateMachine.ConfigureState(GameManState.Jumping)
                .AddEntryAction(man =>
                 {
-                    Console.WriteLine($"[{stopWatch.Elapsed}] starting jump...");
-                    Task.Delay(3000).Wait();
+                    _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] starting jump...");
+                    Task.Delay(millisecondsDelay: 3000).Wait();
                 })
                .AddExitAction(man =>
                 {
-                    Console.WriteLine($"[{stopWatch.Elapsed}] jump done.");
+                    _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] jump done.");
                 });
 
             stopWatch.Start();
 
             var gameMan = new GameMan();
             var result = stateMachine.FireTrigger(gameMan, GameManEvent.Walk);
-            Console.WriteLine($"[{stopWatch.Elapsed}] After walk: last transition = {result.LastTransitionName}");
+            _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] After walk: last transition = {result.LastTransitionName}");
 
             result = stateMachine.FireTrigger(gameMan, GameManEvent.SeePuddle);
-            Console.WriteLine($"[{stopWatch.Elapsed}] After SeePuddle: last transition = {result.LastTransitionName}");
+            _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] After SeePuddle: last transition = {result.LastTransitionName}");
 
-            Console.WriteLine($"[{stopWatch.Elapsed}] TEST COMPLETE");
+            _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] TEST COMPLETE");
         }
 
         [Fact]
@@ -116,49 +124,50 @@ namespace NStateManager.Tests
                .AddTransition(GameManEvent.SeePuddle, GameManState.Jumping)
                .AddEntryAction(man =>
                 {
-                    Console.WriteLine($"[{stopWatch.Elapsed}] starting run...");
-                    Task.Delay(3000).Wait();
+                    _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] starting run...");
+                    Task.Delay(millisecondsDelay: 3000).Wait();
                 })
                .AddExitAction(man =>
                 {
-                    Console.WriteLine($"[{stopWatch.Elapsed}] run done.");
+                    _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] run done.");
                 })
-               .AddReentryAction(man => Console.WriteLine($"[{stopWatch.Elapsed}] Continuing to run"));
+               .AddReentryAction(man => _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] Continuing to run"));
 
             stateMachine.ConfigureState(GameManState.Jumping)
                .AddAutoForwardTransition(GameManEvent.SeePuddle, GameManState.Walking, _ => true)
                .AddEntryAction(man =>
                 {
-                    Console.WriteLine($"[{stopWatch.Elapsed}] starting jump...");
-                    Task.Delay(1000).Wait();
+                    _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] starting jump...");
+                    Task.Delay(millisecondsDelay: 1000).Wait();
                 })
-               .AddExitAction(man => Console.WriteLine($"[{stopWatch.Elapsed}] Exiting jump"))
-               .AddReentryAction(man => Console.WriteLine($"[{stopWatch.Elapsed}] Continuing to jump"));
+               .AddExitAction(man => _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] Exiting jump"))
+               .AddReentryAction(man => _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] Continuing to jump"));
 
             stateMachine.ConfigureState(GameManState.Walking)
-               .AddEntryAction(man => Console.WriteLine($"[{stopWatch.Elapsed}] Start Walking"))
-               .AddExitAction(man => Console.WriteLine($"[{stopWatch.Elapsed}] Exiting walking"))
-               .AddReentryAction(man => Console.WriteLine($"[{stopWatch.Elapsed}] Continuing to walk"));
+               .AddEntryAction(man => _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] Start Walking"))
+               .AddExitAction(man => _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] Exiting walking"))
+               .AddReentryAction(man => _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] Continuing to walk"));
 
             stopWatch.Start();
 
             var gameMan = new GameMan { State = GameManState.Running };
             var result = stateMachine.FireTrigger(gameMan, GameManEvent.Run);
-            Console.WriteLine($"[{stopWatch.Elapsed}] After run: last transition = {result.LastTransitionName}");
+            _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] After run: last transition = {result.LastTransitionName}");
 
             result = stateMachine.FireTrigger(gameMan, GameManEvent.SeePuddle);
-            Console.WriteLine($"[{stopWatch.Elapsed}] After Seeing Puddle: last transition = {result.LastTransitionName}");
+            _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] After Seeing Puddle: last transition = {result.LastTransitionName}");
 
-            Console.WriteLine($"[{stopWatch.Elapsed}] TEST COMPLETE");
+            _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] TEST COMPLETE");
         }
 
         enum afState { Off, On, End }
         enum afEvent { TurnOn, TurnOff, TurnOnAF }
 
-        class Thingy
+        private class Thingy
         {
             public afState State { get; set; } = afState.Off;
         }
+
         [Fact]
         public void AutoForwardTest()
         {
@@ -166,9 +175,9 @@ namespace NStateManager.Tests
               , (thingy, updateState) => thingy.State = updateState);
 
             stateMachine
-               .RegisterOnTransitionedAction((thingy, result) => { Console.WriteLine($"Changed from {result.PreviousState} to {result.CurrentState} via {result.LastTransitionName} transition"); })
-                .AddTriggerAction(afEvent.TurnOn, _ => Console.WriteLine("Firing 'On' trigger"))
-               .AddTriggerAction(afEvent.TurnOnAF, _ => Console.WriteLine("Firing 'TurnOnAF' trigger"));
+               .AddTriggerAction(afEvent.TurnOn, _ => _testOutputHelper.WriteLine("Firing 'On' trigger"))
+               .AddTriggerAction(afEvent.TurnOnAF, _ => _testOutputHelper.WriteLine("Firing 'TurnOnAF' trigger"));
+            stateMachine.OnTransition += (o, args) => _testOutputHelper.WriteLine($"Changed from {args.TransitionResult.PreviousState} to {args.TransitionResult.CurrentState} via {args.TransitionResult.LastTransitionName} transition");
 
 
             stateMachine.ConfigureState(afState.Off)
@@ -182,11 +191,11 @@ namespace NStateManager.Tests
 
             var testThingy = new Thingy();
             stateMachine.FireTrigger(testThingy, afEvent.TurnOn);
-            Console.WriteLine("End simple On transition" + Environment.NewLine + Environment.NewLine);
+            _testOutputHelper.WriteLine("End simple On transition" + Environment.NewLine + Environment.NewLine);
 
             testThingy = new Thingy();
             stateMachine.FireTrigger(testThingy, afEvent.TurnOnAF);
-            Console.WriteLine("End OnAF transition" + Environment.NewLine + Environment.NewLine);
+            _testOutputHelper.WriteLine("End OnAF transition" + Environment.NewLine + Environment.NewLine);
         }
     }
 }

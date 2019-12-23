@@ -596,12 +596,4 @@ namespace NStateManager.Tests
             Assert.False(openState.IsInState(SaleState.ChangeDue));
         }
     }
-
-    public class TestStateConfiguration<T, TState, TTrigger> : StateConfiguration<T, TState, TTrigger>
-        where TState : IComparable
-    {
-        public TestStateConfiguration(TState state, IStateMachine<T, TState, TTrigger> stateMachine)
-            : base(state, stateMachine)
-        { }
-    }
 }

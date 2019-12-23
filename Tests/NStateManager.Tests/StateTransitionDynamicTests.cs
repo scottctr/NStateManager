@@ -68,45 +68,5 @@ namespace NStateManager.Tests
             Assert.Equal(SaleState.Open, result.CurrentState);
             Assert.Equal(SaleState.Open, result.PreviousState);
         }
-
-        [Fact]
-        public void Execute_sends_notification_if_new_state_assigned()
-        {
-            var sut = new StateTransitionDynamic<Sale, SaleState, SaleEvent>(
-                stateAccessor: sale => sale.State
-                , stateMutator: (sale, newState) => sale.State = newState
-                , stateFunc: (sale) => SaleState.Complete
-                , name: "test"
-                , priority: 1);
-            var notificationReceived = false;
-            StateTransitionDynamic<Sale, SaleState, SaleEvent>.OnTransitionedEvent += (sale, _) => notificationReceived = true;
-
-            var testSale = new Sale(saleID: 87) { State = SaleState.Open };
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
-
-            sut.Execute(parameters);
-
-            Assert.True(notificationReceived);
-        }
-
-        [Fact]
-        public void Execute_doesnt_send_notification_if_no_state_change()
-        {
-            var sut = new StateTransitionDynamic<Sale, SaleState, SaleEvent>(
-                stateAccessor: sale => sale.State
-                , stateMutator: (sale, newState) => sale.State = newState
-                , stateFunc: (sale) => SaleState.Open
-                , name: "test"
-                , priority: 1);
-            var notificationReceived = false;
-            StateTransitionDynamic<Sale, SaleState, SaleEvent>.OnTransitionedEvent += (sale, _) => notificationReceived = true;
-
-            var testSale = new Sale(saleID: 87) { State = SaleState.Open };
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
-
-            sut.Execute(parameters);
-
-            Assert.False(notificationReceived);
-        }
     }
 }

@@ -20,8 +20,22 @@ namespace NStateManager
         StateTransitionResult<TState, TTrigger> FireTrigger(T context, TTrigger trigger);
         StateTransitionResult<TState, TTrigger> FireTrigger<TRequest>(T context, TTrigger trigger, TRequest request) where TRequest : class;
         bool IsInState(T context, TState state);
-        IStateMachine<T, TState, TTrigger> RegisterOnTransitionedAction(Action<T, StateTransitionResult<TState, TTrigger>> action);
         Func<T, TState> StateAccessor { get; }
         Action<T, TState> StateMutator { get; }
+
+        /// <summary>
+        /// Event raised when the context transitions to a new state when FireTrigger is called.
+        /// </summary>
+        event EventHandler<TransitionEventArgs<T, TState, TTrigger>> OnTransition;
+
+        /// <summary>
+        /// Event raised when the context doesn't transition to a new state when FireTrigger is called.
+        /// </summary>
+        event EventHandler<TransitionEventArgs<T, TState, TTrigger>> OnNoTransition;
+
+        /// <summary>
+        /// Event raised when the context's current state isn't configured for the trigger passed to FireTrigger.
+        /// </summary>
+        event EventHandler<TransitionEventArgs<T, TState, TTrigger>> OnTriggerNotConfigured;
     }
 }

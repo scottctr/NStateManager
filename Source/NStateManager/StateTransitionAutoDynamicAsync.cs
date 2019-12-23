@@ -53,8 +53,6 @@ namespace NStateManager
                   , wasCancelled: parameters.CancellationToken.IsCancellationRequested
                   , transitionDefined: true
                   , conditionMet: transitioned);
-                if (transitioned)
-                { NotifyOfTransition(parameters.Context, result); }
 
                 return Task.FromResult(result);
             }

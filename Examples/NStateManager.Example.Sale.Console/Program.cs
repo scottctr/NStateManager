@@ -10,9 +10,9 @@
 #endregion
 namespace NStateManager.Example.Sale.Console
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var sale = new Sale(saleID: 1);
             SaleStateMachine.AddItem(sale, new SaleItem("Magazine", price: 3.00));

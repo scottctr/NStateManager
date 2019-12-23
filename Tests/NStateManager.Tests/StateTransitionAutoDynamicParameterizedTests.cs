@@ -85,17 +85,15 @@ namespace NStateManager.Tests
         [Fact]
         public void Execute_transitions_when_matched()
         {
-            var notificationReceived = false;
             var stateMachine = getStateMachine();
-            stateMachine.RegisterOnTransitionedAction((sale, _) => notificationReceived = true);
             var sut = new StateTransitionAutoDynamicParameterized<Sale, SaleState, SaleEvent, string>(stateMachine
               , SaleState.Open
               , (sale, stringParam) => SaleState.Complete
               , SaleState.ChangeDue
               , "autocomplete"
-              , 1);
+              , priority: 1);
 
-            var testSale = new Sale(2) { State = SaleState.Open };
+            var testSale = new Sale(saleID: 2) { State = SaleState.Open };
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale, request: "testParam");
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.Open, SaleState.ChangeDue, "previousTransition");
 
@@ -108,15 +106,12 @@ namespace NStateManager.Tests
             Assert.Equal(SaleState.ChangeDue, SaleState.ChangeDue);
             Assert.Equal(SaleState.Open, result.StartingState);
             Assert.Equal(SaleState.Complete, testSale.State);
-            Assert.True(notificationReceived);
         }
 
         [Fact]
         public void Execute_transitions_when_matched_superState()
         {
-            var notificationReceived = false;
             var stateMachine = getStateMachine();
-            stateMachine.RegisterOnTransitionedAction((sale, _) => notificationReceived = true);
             var openStateConfig = stateMachine.ConfigureState(SaleState.Open);
             stateMachine.ConfigureState(SaleState.ChangeDue).MakeSubStateOf(openStateConfig);
 
@@ -125,9 +120,9 @@ namespace NStateManager.Tests
               , (sale, stringParam) => SaleState.Complete
               , SaleState.Open
               , "autoComplete"
-              , 1);
+              , priority: 1);
                 
-            var testSale = new Sale(2) { State = SaleState.ChangeDue };
+            var testSale = new Sale(saleID: 2) { State = SaleState.ChangeDue };
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale, request: "testParam");
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.Open, SaleState.ChangeDue, "previousTransition");
 
@@ -140,7 +135,6 @@ namespace NStateManager.Tests
             Assert.Equal(SaleState.ChangeDue, SaleState.ChangeDue);
             Assert.Equal(SaleState.Open, result.StartingState);
             Assert.Equal(SaleState.Complete, testSale.State);
-            Assert.True(notificationReceived);
         }
 
         private StateMachine<Sale, SaleState, SaleEvent> getStateMachine()

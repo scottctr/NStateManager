@@ -18,7 +18,7 @@ namespace NStateManager.Tests
         [Fact]
         public void GetStateTransition_returns_StateTransition()
         {
-            var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => { });
             var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition(stateMachine
                 , toState: SaleState.Complete
                 , condition: _ => true

@@ -25,8 +25,7 @@ namespace NStateManager.Example.Sale.Console
                 ,stateMutator: (sale, state) => sale.State = state);
 
             //Log each time a sale changes state regardless of to/from state
-            _stateMachine.RegisterOnTransitionedAction((sale, transitionDetails) 
-                => Output.WriteLine($"Sale {sale.SaleID} transitioned from {transitionDetails.PreviousState} to {transitionDetails.CurrentState}."));
+            _stateMachine.OnTransition += (sender, args) => Output.WriteLine($"Sale {args.Parameters.Context.SaleID} transitioned from {args.TransitionResult.PreviousState} to {args.TransitionResult.CurrentState}.");
 
             //Configure the Open state
             _stateMachine.ConfigureState(SaleState.Open)

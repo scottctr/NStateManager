@@ -301,7 +301,7 @@ namespace NStateManager.Tests
             sut.ConfigureState(SaleState.Open)
                .AddTransition(SaleEvent.AddItem, SaleState.Complete, _ => false);
 
-            sut.FireTrigger(new Sale(55) { State = SaleState.Open }, SaleEvent.AddItem);
+            sut.FireTrigger(new Sale(saleID: 55) { State = SaleState.Open }, SaleEvent.AddItem);
 
             Assert.True(noTransitionEventFired);
         }
@@ -463,7 +463,7 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void IsInState_determins_if_context_in_specified_state()
+        public void IsInState_determines_if_context_in_specified_state()
         {
             var sale = new Sale(saleID: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
@@ -484,7 +484,7 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void RegisterOnTransitionedEvent_registers_action_when_state_changes()
+        public void OnTransitionEvent_registers_action_when_state_changes()
         {
             var sale = new Sale(saleID: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
@@ -492,7 +492,7 @@ namespace NStateManager.Tests
               , stateMutator: (sale3, newState) => sale3.State = newState);
             sut.ConfigureState(SaleState.Open).AddTransition(SaleEvent.Pay, SaleState.Complete);
             var transitionEventFired = false;
-            sut.RegisterOnTransitionedAction((sale1, result) => { transitionEventFired = true; });
+            sut.OnTransition += (sender, _) => transitionEventFired = true;
 
             sut.FireTrigger(sale, SaleEvent.Pay);
 
@@ -502,7 +502,7 @@ namespace NStateManager.Tests
         [Fact]
         public void FireTriggerWRequest_addTransitionSignatureWRequest_transitionExecutesWithRequestInstance()
         {
-            var testRequest = new Request(123.45);
+            var testRequest = new Request(value: 123.45);
 
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
@@ -518,7 +518,7 @@ namespace NStateManager.Tests
                 });
 
             var sale = new Sale(saleID: 45) { State = SaleState.Open };
-            var stateTransitionResult = sut.FireTrigger<Request>(sale, SaleEvent.Pay, testRequest);
+            var stateTransitionResult = sut.FireTrigger(sale, SaleEvent.Pay, testRequest);
 
             Assert.NotNull(stateTransitionResult);
             Assert.Equal(SaleState.Complete, stateTransitionResult.CurrentState);
@@ -552,8 +552,8 @@ namespace NStateManager.Tests
                     return true;
                 });
             var sale = new Sale(saleID: 45) { State = SaleState.Open };
-            sut.FireTrigger<Request>(sale, SaleEvent.Pay, testRequest1);
-            var stateTransitionResult = sut.FireTrigger<Request>(sale, SaleEvent.ChangeGiven, testRequest2);
+            sut.FireTrigger(sale, SaleEvent.Pay, testRequest1);
+            var stateTransitionResult = sut.FireTrigger(sale, SaleEvent.ChangeGiven, testRequest2);
 
             Assert.NotNull(stateTransitionResult);
             Assert.Equal(SaleState.Complete, stateTransitionResult.CurrentState);

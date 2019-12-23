@@ -36,7 +36,6 @@ namespace NStateManager
 
             StateMutator(parameters.Context, ToState);
             var transitionResult = GetFreshResult(parameters, currentResult, startState, wasCancelled: false, conditionMet: true, transitionDefined: true);
-            NotifyOfTransition(parameters.Context, transitionResult); 
 
             return transitionResult;
         }

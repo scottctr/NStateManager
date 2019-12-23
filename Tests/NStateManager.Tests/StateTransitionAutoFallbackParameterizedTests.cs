@@ -91,33 +91,6 @@ namespace NStateManager.Tests
             Assert.Equal(SaleState.Open, testSale.State);
         }
 
-        [Fact]
-        public void Execute_sends_notification_if_transition_successful()
-        {
-            var testSale = new Sale(saleID: 55) { State = SaleState.Open };
-
-            var sut = new StateTransitionAutoFallbackParameterized<Sale, SaleState, SaleEvent, string>(
-                GetStateMachine()
-                , SaleState.Open
-                , SaleState.Open
-                , SaleState.Complete
-                , condition: (_, parameter) => parameter == "yes"
-                , name: "test"
-                , priority: 1);
-
-            var notificationReceived = false;
-            StateTransitionAutoFallbackParameterized<Sale, SaleState, SaleEvent, string>.OnTransitionedEvent += (sale, _) => notificationReceived = true;
-
-            sut.Execute(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale, request: "yes")
-               , new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
-                  , SaleState.Open
-                  , SaleState.Open
-                  , SaleState.Complete
-                  , "transactionName"));
-
-            Assert.True(notificationReceived);
-        }
-
         private StateTransitionResult<SaleState, SaleEvent> GetDummyResult()
         {
             return new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay

@@ -55,8 +55,6 @@ namespace NStateManager
                   , wasCancelled: false
                   , transitionDefined: true
                   , conditionMet: transitioned);
-                if (transitioned)
-                { NotifyOfTransition(parameters.Context, result); }
 
                 return result;
             }

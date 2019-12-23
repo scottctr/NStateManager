@@ -18,7 +18,7 @@ namespace NStateManager
     /// <summary>
     /// Defines state transitions for a given type.
     /// </summary>
-    /// <typeparam name="T">The type of object to managage state for.</typeparam>
+    /// <typeparam name="T">The type of object to manage state for.</typeparam>
     /// <typeparam name="TState">An allowable state for T.</typeparam>
     /// <typeparam name="TTrigger">A recognized trigger that affects objects of type T.</typeparam>
     public sealed class StateMachineAsync<T, TState, TTrigger> : IStateMachineAsync<T, TState, TTrigger>
@@ -29,6 +29,11 @@ namespace NStateManager
 
         public Func<T, TState> StateAccessor { get; }
         public Action<T, TState> StateMutator { get; }
+
+        /// <summary>
+        /// Event raised when the context doesn't transition to a new state when FireTrigger is called.
+        /// </summary>
+        public event EventHandler<TransitionEventArgs<T, TState, TTrigger>> OnTransition;
 
         /// <summary>
         /// Event raised when the context doesn't transition to a new state when FireTrigger is called.
@@ -222,7 +227,12 @@ namespace NStateManager
 
             //Send notifications
             var transitionEventArgs = new TransitionEventArgs<T, TState, TTrigger>(parameters, currentResult);
-            if (!currentResult.WasTransitioned)
+
+            if (currentResult.WasTransitioned)
+            {
+                OnTransition?.Invoke(this, transitionEventArgs);
+            }
+            else
             {
                 if (!currentResult.TransitionDefined)
                 { OnTriggerNotConfigured?.Invoke(this, transitionEventArgs); }
@@ -242,18 +252,6 @@ namespace NStateManager
 
             return _stateConfigurations.TryGetValue(objectState, out var objectStateConfiguration) 
                    && objectStateConfiguration.IsInState(state);
-        }
-
-        /// <summary>
-        /// Register's an action to take any time a context changes state.
-        /// </summary>
-        /// <param name="action"></param>
-        /// <returns></returns>
-        public IStateMachineAsync<T, TState, TTrigger> RegisterOnTransitionedAction(Action<T, StateTransitionResult<TState, TTrigger>> onTransitionedEvent)
-        {
-            StateTransitionBase<T, TState, TTrigger>.OnTransitionedEvent += onTransitionedEvent;
-
-            return this;
         }
     }
 }

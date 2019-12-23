@@ -16,7 +16,7 @@ namespace NStateManager
     /// <summary>
     /// Defines state transitions for a given type.
     /// </summary>
-    /// <typeparam name="T">The type of object to managage state for.</typeparam>
+    /// <typeparam name="T">The type of object to manage state for.</typeparam>
     /// <typeparam name="TState">An allowable state for T.</typeparam>
     /// <typeparam name="TTrigger">A recognized trigger that affects objects of type T.</typeparam>
     public sealed class StateMachine<T, TState, TTrigger> : IStateMachine<T, TState, TTrigger>
@@ -31,12 +31,17 @@ namespace NStateManager
         public Action<T, TState> StateMutator { get; }
 
         /// <summary>
+        /// Event raised when the context transitions to a new state when FireTrigger is called.
+        /// </summary>
+        public event EventHandler<TransitionEventArgs<T, TState, TTrigger>> OnTransition;
+
+        /// <summary>
         /// Event raised when the context doesn't transition to a new state when FireTrigger is called.
         /// </summary>
         public event EventHandler<TransitionEventArgs<T, TState, TTrigger>> OnNoTransition;
 
         /// <summary>
-        /// Event raised when the context's current state isn't configured for trigger passed to FireTrigger.
+        /// Event raised when the context's current state isn't configured for the trigger passed to FireTrigger.
         /// </summary>
         public event EventHandler<TransitionEventArgs<T, TState, TTrigger>> OnTriggerNotConfigured;
 
@@ -167,18 +172,6 @@ namespace NStateManager
                    && objectStateConfiguration.IsInState(state);
         }
 
-        /// <summary>
-        /// Register's an action to take any time a context changes state.
-        /// </summary>
-        /// <param name="action"></param>
-        /// <returns></returns>
-        public IStateMachine<T, TState, TTrigger> RegisterOnTransitionedAction(Action<T, StateTransitionResult<TState, TTrigger>> action)
-        {
-            StateTransitionBase<T, TState, TTrigger>.OnTransitionedEvent += action;
-
-            return this;
-        }
-
         private StateTransitionResult<TState, TTrigger> executeExitAndEntryActions(ExecutionParameters<T, TTrigger> parameters
           , StateTransitionResult<TState, TTrigger> currentResult)
         {
@@ -220,7 +213,12 @@ namespace NStateManager
 
             //Send notifications
             var transitionEventArgs = new TransitionEventArgs<T, TState, TTrigger>(parameters, currentResult);
-            if (!currentResult.WasTransitioned)
+
+            if (currentResult.WasTransitioned)
+            {
+                OnTransition?.Invoke(this, transitionEventArgs);
+            }
+            else
             {
                 if (!currentResult.TransitionDefined)
                 { OnTriggerNotConfigured?.Invoke(this, transitionEventArgs); }

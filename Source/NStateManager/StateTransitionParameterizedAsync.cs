@@ -44,15 +44,12 @@ namespace NStateManager
 
             if (!await ConditionAsync(parameters.Context, typeSafeParam, parameters.CancellationToken)
                .ConfigureAwait(continueOnCapturedContext: false))
-            {
-                return GetFreshResult(parameters, currentResult, startState, transitionDefined: true, conditionMet: false, wasCancelled: parameters.CancellationToken.IsCancellationRequested);
-            }
+            { return GetFreshResult(parameters, currentResult, startState, transitionDefined: true, conditionMet: false, wasCancelled: parameters.CancellationToken.IsCancellationRequested); }
 
             StateMutator(parameters.Context, ToState);
             var transitionResult = currentResult == null
                 ? new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, startState, ToState, Name)
                 : new StateTransitionResult<TState, TTrigger>(parameters.Trigger, startState, currentResult.CurrentState, ToState, Name);
-            NotifyOfTransition(parameters.Context, transitionResult);
 
             return transitionResult;
         }

@@ -31,11 +31,11 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void Construtor_sets_properties()
+        public void Constructor_sets_properties()
         {
             SaleState StateAccessor(Sale sale) => sale.State;
             void StateMutator(Sale sale, SaleState newState) => sale.State = newState;
-            var toState = SaleState.ChangeDue;
+            const SaleState toState = SaleState.ChangeDue;
 
             var sut = new StateConfigurationBaseTester<Sale, SaleState, SaleEvent>(StateAccessor
               , StateMutator
@@ -47,11 +47,11 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void Construtor_throws_ArgumentNullException_if_Accessor_null()
+        public void Constructor_throws_ArgumentNullException_if_Accessor_null()
         {
             Func<Sale, SaleState> stateAccessor = null;
             void StateMutator(Sale sale, SaleState newState) => sale.State = newState;
-            var toState = SaleState.ChangeDue;
+            const SaleState toState = SaleState.ChangeDue;
 
             Assert.Throws<ArgumentNullException>(() => new StateConfigurationBaseTester<Sale, SaleState, SaleEvent>(stateAccessor
               , StateMutator
@@ -59,14 +59,14 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void Construtor_throws_ArgumentNullException_if_Mutator_null()
+        public void Constructor_throws_ArgumentNullException_if_Mutator_null()
         {
             SaleState StateAccessor(Sale sale) => sale.State;
-            var toState = SaleState.ChangeDue;
+            const SaleState toState = SaleState.ChangeDue;
 
             Assert.Throws<ArgumentNullException>(() => new StateConfigurationBaseTester<Sale, SaleState, SaleEvent>(StateAccessor
-              , null
-              , toState));
+              , stateMutator: null
+              , state: toState));
         }
 
         [Fact]
