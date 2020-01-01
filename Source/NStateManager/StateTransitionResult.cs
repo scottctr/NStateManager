@@ -8,10 +8,12 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
+using NStateManager.Sync;
+
 namespace NStateManager
 {
     /// <summary>
-    /// The result of any state transition that occured from executing a request or transition on the <see cref="StateMachine{T,TState,TTrigger}"/>./>
+    /// The result of any state transition that occured from executing a request or transition on the <see cref="Sync.StateMachine{T,TState,TTrigger}"/>./>
     /// </summary>
     /// <typeparam name="TState">Represents the type of state used by the transition.</typeparam>
     /// <typeparam name="TTrigger">Represents the type of trigger used by the transition.</typeparam>

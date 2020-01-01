@@ -10,6 +10,7 @@
 #endregion
 using System;
 using System.Linq;
+using NStateManager.Sync;
 using Xunit;
 
 namespace NStateManager.Tests
@@ -87,24 +88,24 @@ namespace NStateManager.Tests
             Assert.True(sut.ContainsTransition(SaleEvent.AddItem, transition));
         }
 
-        [Fact]
-        public void AddTransition_throws_InvalidOperationException_if_transition_for_same_trigger_and_priority()
-        {
-            var transition = new StateTransition<Sale, SaleState, SaleEvent>(stateAccessor: sale => sale.State
-              , stateMutator: (sale, newState) => sale.State = newState
-              , toState: SaleState.Complete
-              , name: "testTransition"
-              , priority: 1
-              , condition: _ => true);
-            var sut = new StateConfigurationBaseTester<Sale, SaleState, SaleEvent>(stateAccessor: sale => sale.State
-              , stateMutator: (sale, newState) => sale.State = newState
-              , state: SaleState.Open);
+        //[Fact]
+        //public void AddTransition_throws_InvalidOperationException_if_transition_for_same_trigger_and_priority()
+        //{
+        //    var transition = new StateTransition<Sale, SaleState, SaleEvent>(stateAccessor: sale => sale.State
+        //      , stateMutator: (sale, newState) => sale.State = newState
+        //      , toState: SaleState.Complete
+        //      , name: "testTransition"
+        //      , priority: 1
+        //      , condition: _ => true);
+        //    var sut = new StateConfigurationBaseTester<Sale, SaleState, SaleEvent>(stateAccessor: sale => sale.State
+        //      , stateMutator: (sale, newState) => sale.State = newState
+        //      , state: SaleState.Open);
 
-            //Succeeds first time
-            sut.AddTransition(SaleEvent.AddItem, transition);
-            Assert.True(sut.ContainsTransition(SaleEvent.AddItem, transition));
+        //    //Succeeds first time
+        //    sut.AddTransition(SaleEvent.AddItem, transition);
+        //    Assert.True(sut.ContainsTransition(SaleEvent.AddItem, transition));
 
-            Assert.Throws<InvalidOperationException>(() => sut.AddTransition(SaleEvent.AddItem, transition));
-        }
+        //    Assert.Throws<InvalidOperationException>(() => sut.AddTransition(SaleEvent.AddItem, transition));
+        //}
     }
 }

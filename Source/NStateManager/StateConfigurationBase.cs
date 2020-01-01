@@ -70,8 +70,9 @@ namespace NStateManager
             { Transitions.Add(trigger, new List<StateTransitionBase<T, TState, TTrigger>> {transition}); }
             else
             {
-                if (existingTransitions.Any(t => t.Priority == transition.Priority))
-                { throw new InvalidOperationException($"{trigger} trigger was previously added for {State} state as priority {transition.Priority}."); }
+                //??? State machine doesn't enforce this
+                //if (existingTransitions.Any(t => t.Priority == transition.Priority))
+                //{ throw new InvalidOperationException($"{trigger} trigger was previously added for {State} state as priority {transition.Priority}."); }
 
                 existingTransitions.Add(transition);
             }

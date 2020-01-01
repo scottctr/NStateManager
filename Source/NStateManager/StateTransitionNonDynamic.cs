@@ -27,7 +27,8 @@ namespace NStateManager
         }
 
         protected StateTransitionResult<TState, TTrigger> ExecutePrim(ExecutionParameters<T, TTrigger> parameters
-          , StateTransitionResult<TState, TTrigger> currentResult, bool conditionMet)
+          , StateTransitionResult<TState, TTrigger> currentResult
+          , bool conditionMet)
         {
             var startState = currentResult != null ? currentResult.StartingState : StateAccessor(parameters.Context);
 

@@ -8,25 +8,13 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-using System;
+using NStateManager.Sync;
 using Xunit;
 
 namespace NStateManager.Tests
 {
     public class StateTransitionTests
     {
-        [Fact]
-        public void Constructor_throws_ArgumentNullException_if_condition_null()
-        {
-            Assert.Throws<ArgumentNullException>(() => new StateTransition<Sale, SaleState, SaleEvent>(
-                stateAccessor: sale => sale.State
-                , stateMutator: (saleToUpdate, newState) => saleToUpdate.State = newState
-                , toState: SaleState.Open
-                , condition: null
-                , name: "test"
-                , priority: 1));
-        }
-
         [Fact]
         public void Execute_changes_state_if_condition_met()
         {

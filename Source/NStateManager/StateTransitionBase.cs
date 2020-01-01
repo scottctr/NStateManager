@@ -15,7 +15,7 @@ namespace NStateManager
 {
     public abstract class StateTransitionBase<T, TState, TTrigger>
     {
-        protected string Name;
+        protected internal string Name;
         protected internal uint Priority;
         protected Func<T, TState> StateAccessor { get; }
         protected Action<T, TState> StateMutator { get; }
@@ -50,7 +50,7 @@ namespace NStateManager
             , bool conditionMet
             , bool wasCancelled)
         {
-            bool wasSuccessful = (transitionDefined && conditionMet && !wasCancelled);
+            var wasSuccessful = (transitionDefined && conditionMet && !wasCancelled);
 
             return new StateTransitionResult<TState, TTrigger>(parameters.Trigger
               , startState
