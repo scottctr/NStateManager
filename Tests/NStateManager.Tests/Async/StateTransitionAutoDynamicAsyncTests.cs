@@ -23,8 +23,8 @@ namespace NStateManager.Tests.Async
               , _ => SaleState.Complete
               , SaleState.ChangeDue
               , "autocomplete"
-              , 1);
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(2) { State = SaleState.Open } );
+              , priority: 1);
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleID: 2) { State = SaleState.Open } );
 
             var result = await sut.ExecuteAsync(parameters);
 
@@ -33,15 +33,15 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public async void ExecuteAsync_fails_if_startState_doesnt_match()
+        public async void ExecuteAsync_fails_if_startState_does_not_match()
         {
             var sut = new StateTransitionAutoDynamicAsync<Sale, SaleState, SaleEvent>(getStateMachine()
               , SaleState.Open
               , _ => SaleState.Complete
               , SaleState.ChangeDue
               , "autocomplete"
-              , 1);
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(2) { State = SaleState.Open });
+              , priority: 1);
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleID: 2) { State = SaleState.Open });
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.ChangeDue, SaleState.ChangeDue, "autoChangeDue");
 
             var result = await sut.ExecuteAsync(parameters, previousResult);
@@ -51,15 +51,15 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public async void ExecuteAsync_fails_if_triggerState_doesnt_match()
+        public async void ExecuteAsync_fails_if_triggerState_does_not_match()
         {
             var sut = new StateTransitionAutoDynamicAsync<Sale, SaleState, SaleEvent>(getStateMachine()
               , SaleState.Open
               , _ => SaleState.Complete
               , SaleState.ChangeDue
               , "autocomplete"
-              , 1);
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(2) { State = SaleState.Open });
+              , priority: 1);
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleID: 2) { State = SaleState.Open });
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.Open, SaleState.Open, "autoChangeDue");
 
             var result = await sut.ExecuteAsync(parameters, previousResult);
@@ -77,9 +77,9 @@ namespace NStateManager.Tests.Async
               , _ => SaleState.Complete
               , SaleState.ChangeDue
               , "autocomplete"
-              , 1);
+              , priority: 1);
 
-            var testSale = new Sale(2) { State = SaleState.Open };
+            var testSale = new Sale(saleID: 2) { State = SaleState.Open };
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.Open, SaleState.ChangeDue, "previousTransition");
 
@@ -106,9 +106,9 @@ namespace NStateManager.Tests.Async
               , _ => SaleState.Complete
               , SaleState.Open
               , "autoComplete"
-              , 1);
+              , priority: 1);
                 
-            var testSale = new Sale(2) { State = SaleState.ChangeDue };
+            var testSale = new Sale(saleID: 2) { State = SaleState.ChangeDue };
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.Open, SaleState.ChangeDue, "previousTransition");
 
@@ -123,9 +123,9 @@ namespace NStateManager.Tests.Async
             Assert.Equal(SaleState.Complete, testSale.State);
         }
 
-        private NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent> getStateMachine()
+        private static StateMachineAsync<Sale, SaleState, SaleEvent> getStateMachine()
         {
-            return new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newSate) => sale.State = newSate);
+            return new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newSate) => sale.State = newSate);
         }
     }
 }

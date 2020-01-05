@@ -217,9 +217,6 @@ namespace NStateManager.Sync
           , string name = null
           , uint priority = 1)
         {
-            if (condition == null)
-            { throw new ArgumentNullException(nameof(condition)); }
-
             var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
               , triggerState: State
               , toState: toState
@@ -527,7 +524,7 @@ namespace NStateManager.Sync
         public void ExecuteEntryAction(T context, StateTransitionResult<TState, TTrigger> currentResult)
         {
             //If there's an entry state for the super state, execute it first
-            if (_superState != null && !IsInState(currentResult.CurrentState))
+            if (_superState != null && !IsInState(currentResult.PreviousState))
             { _superState.ExecuteEntryAction(context, currentResult); }
 
             //Is there an action based on the new state?

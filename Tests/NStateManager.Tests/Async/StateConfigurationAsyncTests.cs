@@ -22,7 +22,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddAutoForwardTransition_throws_InvalidOperationException_if_AutoTransition_already_set()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             sut.AddAutoForwardTransition(SaleEvent.Pay, SaleState.Complete, (sale, _) => Task.FromResult(result: true));
@@ -31,18 +31,9 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public void AddAutoForwardTransition_throws_ArgumentNullException_if_Condition_null()
-        {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
-            var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
-
-            Assert.Throws<ArgumentNullException>(() => sut.AddAutoForwardTransition(SaleEvent.Pay, SaleState.Complete, condition: null));
-        }
-
-        [Fact]
         public void AddAutoForwardTransitionWRequest_throws_InvalidOperationException_if_AutoTransition_already_set()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             sut.AddAutoForwardTransition<string>(SaleEvent.Pay, SaleState.Complete, (sale, stringParam, _) => Task.FromResult(result: true));
@@ -54,7 +45,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddAutoForwardTransitionWRequest_throws_ArgumentNullException_if_Condition_null()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             Assert.Throws<ArgumentNullException>(() => sut.AddAutoForwardTransition<string>(SaleEvent.Pay, SaleState.Complete, condition: null));
@@ -63,7 +54,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddDynamicTransition_throws_ArgumentNullException_if_Function_null()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             Assert.Throws<ArgumentNullException>(() => sut.AddDynamicTransition(SaleEvent.AddItem, stateFunction: null));
@@ -72,7 +63,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddDynamicTransition_adds_transition()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             sut.AddDynamicTransition(SaleEvent.AddItem, stateFunction: sale => SaleState.Complete);
@@ -83,7 +74,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddDynamicTransitionWRequest_adds_transition()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             sut.AddDynamicTransition<string>(SaleEvent.AddItem, stateFunction: (sale, request) => SaleState.Complete);
@@ -94,7 +85,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddDynamicTransitionWRequest_throws_ArgumentNullException_if_Function_null()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             Assert.Throws<ArgumentNullException>(() => sut.AddDynamicTransition<string>(SaleEvent.AddItem, stateFunction: null));
@@ -103,7 +94,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddEntryAction_throws_ArgumentNullException_if_Action_null()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             Assert.Throws<ArgumentNullException>(() => sut.AddEntryAction(action: null));
@@ -112,7 +103,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddEntryAction_throws_InvalidOperationException_if_already_set()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             sut.AddEntryAction((sale, _) => Task.CompletedTask);
@@ -123,7 +114,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddEntryActionWPrevious_throws_ArgumentNullException_if_Action_null()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             Assert.Throws<ArgumentNullException>(() => sut.AddEntryAction(action: null, previousState: SaleState.Open));
@@ -132,7 +123,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddEntryActionWPrevious_throws_InvalidOperationException_if_already_set()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             sut.AddEntryAction((sale, _) => Task.CompletedTask, previousState: SaleState.Open);
@@ -143,7 +134,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddExitAction_throws_ArgumentNullException_if_Action_null()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             Assert.Throws<ArgumentNullException>(() => sut.AddExitAction(action: null));
@@ -152,7 +143,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddExitAction_throws_InvalidOperationException_if_already_set()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             sut.AddExitAction((sale, _) => Task.CompletedTask);
@@ -163,7 +154,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddExitActionWNextState_throws_ArgumentNullException_if_Action_null()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             Assert.Throws<ArgumentNullException>(() => sut.AddExitAction(action: null, nextState: SaleState.ChangeDue));
@@ -172,7 +163,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddExitActionWNextState_throws_InvalidOperationException_if_already_set()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             sut.AddExitAction((sale, _) => Task.CompletedTask, SaleState.Complete);
@@ -183,7 +174,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddAutoFallbackTransition_throws_InvalidOperationException_if_AutoTransition_already_set()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             sut.AddAutoFallbackTransition(SaleEvent.Pay, SaleState.ChangeDue, (sale, _) => Task.FromResult(result: true));
@@ -194,7 +185,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddAutoFallbackTransition_throws_ArgumentNullException_if_Condition_null()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             Assert.Throws<ArgumentNullException>(() => sut.AddAutoFallbackTransition(SaleEvent.Pay, SaleState.ChangeDue, condition: null));
@@ -203,7 +194,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddAutoFallbackTransitionWRequest_throws_InvalidOperationException_if_AutoTransition_already_set()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             sut.AddAutoFallbackTransition<string>(SaleEvent.Pay, SaleState.ChangeDue, (sale, stringParam, _) => Task.FromResult(result: true));
@@ -215,7 +206,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddAutoFallbackTransitionWRequest_throws_ArgumentNullException_if_Condition_null()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             Assert.Throws<ArgumentNullException>(() => sut.AddAutoFallbackTransition<string>(SaleEvent.Pay, SaleState.ChangeDue, condition: null));
@@ -224,20 +215,18 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddAutoFallbackTransitionWRequest_adds_transition()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             sut.AddAutoFallbackTransition<string>(SaleEvent.Pay, SaleState.ChangeDue, condition: (sale, s, _) => Task.FromResult(true));
 
-            Assert.Single(
-                (stateMachine.ConfigureState(SaleState.ChangeDue) as StateConfigurationAsync<Sale, SaleState, SaleEvent>)
-               .AutoTransitions);
+            Assert.Single((stateMachine.ConfigureState(SaleState.ChangeDue) as StateConfigurationAsync<Sale, SaleState, SaleEvent>).AutoTransitions);
         }
 
         [Fact]
         public void AddReentryAction_throws_ArgumentNullException_if_Action_null()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             Assert.Throws<ArgumentNullException>(() => sut.AddReentryAction(action: null));
@@ -246,7 +235,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddReentryAction_throws_InvalidOperationException_if_already_set()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             sut.AddReentryAction((sale, _) => Task.CompletedTask);
@@ -257,7 +246,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddSuperState_throws_ArgumentOutOfRangeException_if_configuredState_already_substate()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             var openStateConfig = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
 
@@ -271,7 +260,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddSuperState_throws_ArgumentOutOfRangeException_if_configuredState_already_superState()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var changeDueConfig = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             var openStateConfig = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
 
@@ -283,7 +272,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddSuperState_throws_ArgumentOutOfRangeException_if_substate_is_already_superstate()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             var openStateConfig = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
 
@@ -297,7 +286,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddTransitionWRequest_add_transition()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             sut.AddTransition<string>(SaleEvent.AddItem, SaleState.Complete, (sale, stringParam, cancelToken) => Task.FromResult(true));
@@ -308,7 +297,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddTransitionWRequest_throws_ArgumentNullException_if_ConditionAsync_null()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             Assert.Throws<ArgumentNullException>(() => sut.AddTransition<string>(SaleEvent.AddItem, SaleState.Complete, conditionAsync: null));
@@ -317,7 +306,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddTriggerAction_throws_InvalidOperationException_if_already_set()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             sut.AddTriggerAction(SaleEvent.Pay, (sale, _) => Task.CompletedTask);
@@ -328,7 +317,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddTriggerAction_throws_ArgumentNullException_if_Action_null()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             Assert.Throws<ArgumentNullException>(() => sut.AddTriggerAction(SaleEvent.AddItem, action: null));
@@ -337,7 +326,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddTriggerActionWRequest_throws_InvalidOperationException_if_already_set()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             sut.AddTriggerAction<string>(SaleEvent.Pay, (sale, stringParam, _) => Task.CompletedTask);
@@ -348,7 +337,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddTriggerActionWRequest_throws_ArgumentNullException_if_Action_null()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
             Assert.Throws<ArgumentNullException>(() => sut.AddTriggerAction<string>(SaleEvent.AddItem, action: null));
@@ -363,7 +352,7 @@ namespace NStateManager.Tests.Async
                 , SaleState.ChangeDue
                 , SaleState.ChangeDue
                 , "lastTransitionName");
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             sut.AddAutoForwardTransition(SaleEvent.ChangeGiven, SaleState.Complete, (sale1, _) => Task.FromResult(result: true));
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.ChangeGiven, sale);
@@ -386,7 +375,7 @@ namespace NStateManager.Tests.Async
                 , SaleState.Open
                 , SaleState.ChangeDue
                 , "lastTransitionName");
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             IStateConfigurationAsyncInternal<Sale, SaleState, SaleEvent> openState = stateMachine.ConfigureState(SaleState.Open) as IStateConfigurationAsyncInternal<Sale, SaleState, SaleEvent>;
             IStateConfigurationAsyncInternal<Sale, SaleState, SaleEvent> changeDueState = stateMachine.ConfigureState(SaleState.ChangeDue) as IStateConfigurationAsyncInternal<Sale, SaleState, SaleEvent>;
             changeDueState.AddSuperState(openState);
@@ -412,17 +401,14 @@ namespace NStateManager.Tests.Async
                 , SaleState.ChangeDue
                 , SaleState.ChangeDue
                 , "lastTransitionName");
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             sut.AddAutoForwardTransition(SaleEvent.ChangeGiven, SaleState.Complete, (sale1, cancelToken) =>
             {
-                Console.WriteLine($"[{stopwatch.ElapsedMilliseconds}] starting AutoForward condition");
                 do
                 {
                     Task.Delay(millisecondsDelay: 99).Wait();
                 } while (!cancelToken.IsCancellationRequested);
-
-                Console.WriteLine($"[{stopwatch.ElapsedMilliseconds}] completed AutoForward condition - {cancelToken.IsCancellationRequested}");
 
                 return Task.FromResult(result: !cancelToken.IsCancellationRequested);
             });
@@ -435,31 +421,20 @@ namespace NStateManager.Tests.Async
 
                 Task.Factory.StartNew(async () =>
                 {
-                    Console.WriteLine($"[{stopwatch.ElapsedMilliseconds}] execution thread: starting");
                     mutex.WaitOne();
-                    Console.WriteLine($"[{stopwatch.ElapsedMilliseconds}] execution thread: got mutex");
                     autoTransitionResult = await sut.ExecuteAutoTransitionAsync(parameters, transitionResult);
-                    Console.WriteLine($"[{stopwatch.ElapsedMilliseconds}] execution thread: executed transition - Successful: {transitionResult.WasTransitioned}");
-                    Console.WriteLine($"[{stopwatch.ElapsedMilliseconds}] execution thread: executed transition - Cancelled: {transitionResult.WasCancelled}");
                     mutex.ReleaseMutex();
-                    Console.WriteLine($"[{stopwatch.ElapsedMilliseconds}] execution thread: released mutex");
                 }, TaskCreationOptions.LongRunning);
 
                 try
                 {
                     stopwatch.Start();
-                    Console.WriteLine($"[{stopwatch.ElapsedMilliseconds}] main thread: started");
                     Task.Delay(millisecondsDelay: 2345).Wait();
-                    Console.WriteLine($"[{stopwatch.ElapsedMilliseconds}] main thread: about to issue cancel");
                     cancelSource.Cancel();
-                    Console.WriteLine($"[{stopwatch.ElapsedMilliseconds}] main thread: cancel issued");
-                    Console.WriteLine($"[{stopwatch.ElapsedMilliseconds}] main thread: about to wait on mutex");
                     mutex.WaitOne();
-                    Console.WriteLine($"[{stopwatch.ElapsedMilliseconds}] main thread: got mutex");
                 }
                 catch(Exception ex)
                 {
-                    Console.WriteLine($"[{stopwatch.ElapsedMilliseconds}] main thread: {ex}");
                     cancelSource.Cancel();
                 }
 
@@ -480,7 +455,7 @@ namespace NStateManager.Tests.Async
                 , SaleState.Open
                 , SaleState.ChangeDue
                 , "lastTransitionName");
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             var entryActionFromOpenFired = false;
             sut.AddEntryAction((sale1, _) => { entryActionFromOpenFired = true; return Task.CompletedTask; }, SaleState.Open);
@@ -495,18 +470,17 @@ namespace NStateManager.Tests.Async
         public async Task ExecuteEntryActionAsync_executes_for_super_state()
         {
             var entryActionCalled = false;
-            //var mockStateMachine = new Mock<IStateMachineAsync<Sale, SaleState, SaleEvent>>();
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openConfig = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
             openConfig.AddEntryAction((sale1, _) => { entryActionCalled = true; return Task.CompletedTask; });
             var changeDueConfig = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             changeDueConfig.MakeSubStateOf(openConfig);
-            var sale = new Sale(saleID: 96) { State = SaleState.Complete };
+            var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale);
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
               , SaleState.Open
-              , SaleState.Open
               , SaleState.Complete
+              , SaleState.ChangeDue
               , "lastTransitionName");
 
             await changeDueConfig.ExecuteEntryActionAsync(parameters, transitionResult);
@@ -515,7 +489,7 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public async Task ExecuteEntryActionAsyncWPrevState_doesnt_execute_if_cancelled()
+        public async Task ExecuteEntryActionAsyncWPrevState_does_not_execute_if_cancelled()
         {
             var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
@@ -523,7 +497,7 @@ namespace NStateManager.Tests.Async
               , SaleState.Open
               , SaleState.ChangeDue
               , "lastTransitionName");
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             var entryActionFromOpenFired = false;
             sut.AddEntryAction((sale1, _) => { entryActionFromOpenFired = true; return Task.CompletedTask; }, SaleState.Open);
@@ -540,7 +514,7 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public async Task ExecuteEntryActionAsync_doesnt_execute_if_cancelled()
+        public async Task ExecuteEntryActionAsync_does_not_execute_if_cancelled()
         {
             var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
@@ -548,7 +522,7 @@ namespace NStateManager.Tests.Async
               , SaleState.Open
               , SaleState.ChangeDue
               , "lastTransitionName");
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             var entryActionFromOpenFired = false;
             sut.AddEntryAction((sale1, _) => { entryActionFromOpenFired = true; return Task.CompletedTask; } );
@@ -573,7 +547,7 @@ namespace NStateManager.Tests.Async
                 , SaleState.Open
                 , SaleState.ChangeDue
                 , "lastTransitionName");
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             var entryActionFromOpenFired = false;
             sut.AddEntryAction((sale1, _) => { entryActionFromOpenFired = true; return Task.CompletedTask; });
@@ -593,7 +567,7 @@ namespace NStateManager.Tests.Async
                 , SaleState.Open
                 , SaleState.Open
                 , "lastTransitionName");
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
             var changeDueState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             changeDueState.AddSuperState(openState);
@@ -615,7 +589,7 @@ namespace NStateManager.Tests.Async
                 , SaleState.Open
                 , SaleState.Open
                 , "lastTransitionName");
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
             var changeDueState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             changeDueState.AddSuperState(openState);
@@ -637,7 +611,7 @@ namespace NStateManager.Tests.Async
                 , SaleState.Open
                 , SaleState.ChangeDue
                 , "lastTransitionName");
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
             var openExitActionFired = false;
             openState.AddExitAction((sale1, _) => { openExitActionFired = true; return Task.CompletedTask; }, SaleState.ChangeDue);
@@ -649,7 +623,7 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public async Task ExecuteExitActionAsync_NextState_doesnt_execute_if_cancelled()
+        public async Task ExecuteExitActionAsync_NextState_does_not_execute_if_cancelled()
         {
             var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
@@ -657,7 +631,7 @@ namespace NStateManager.Tests.Async
               , SaleState.Open
               , SaleState.ChangeDue
               , "lastTransitionName");
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
             var openExitActionFired = false;
             openState.AddExitAction((sale1, _) => { openExitActionFired = true; return Task.CompletedTask; }, SaleState.ChangeDue);
@@ -682,7 +656,7 @@ namespace NStateManager.Tests.Async
                 , SaleState.Open
                 , SaleState.ChangeDue
                 , "lastTransitionName");
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
 
             var openExitActionFired = false;
@@ -695,7 +669,7 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public async Task ExecuteExitActionAsync_doesnt_execute_if_cancelled()
+        public async Task ExecuteExitActionAsync_does_not_execute_if_cancelled()
         {
             var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
@@ -703,7 +677,7 @@ namespace NStateManager.Tests.Async
               , SaleState.Open
               , SaleState.ChangeDue
               , "lastTransitionName");
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
 
             var openExitActionFired = false;
@@ -724,7 +698,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsync_executes_superState_if_currentState_not_successful()
         {
             var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
             var changeDueState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             var openStatePayTriggerFired = false;
@@ -748,7 +722,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void IsInState_returns_True_if_in_given_state()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
 
             Assert.True(openState.IsInState(SaleState.Open));
@@ -758,7 +732,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void IsInState_returns_True_if_in_given_state_is_subState()
         {
-            var stateMachine = new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
+            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
             var changeDueState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             changeDueState.AddSuperState(openState);

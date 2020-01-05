@@ -26,9 +26,6 @@ namespace NStateManager.Sync
           , uint priority)
             : base(stateMachine.StateAccessor, stateMachine.StateMutator, toState, name, priority, condition)
         {
-            if (condition is null)
-            { throw new ArgumentNullException(nameof(condition)); }
-
             _stateMachine = stateMachine;
             _triggerState = triggerState;
         }

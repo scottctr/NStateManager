@@ -36,14 +36,14 @@ namespace NStateManager.Tests.Async
             var sale = new Sale(saleID: 66) { State = startState };
 
             var sut = new StateTransitionAutoForwardAsync<Sale, SaleState, SaleEvent>(
-                GetStateMachine()
+                getStateMachine()
                 , triggerState: startState
                 , toState: endState
                 , conditionAsync: (sale1, token) => Task.FromResult(true)
                 , name: "test"
                 , priority: 1);
 
-            var result = await sut.ExecuteAsync(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), GetDummyResult());
+            var result = await sut.ExecuteAsync(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), getDummyResult());
 
             Assert.True(result.WasTransitioned);
             Assert.Equal(endState, sale.State);
@@ -59,7 +59,7 @@ namespace NStateManager.Tests.Async
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
             var sale = new Sale(saleID: 66) { State = SaleState.ChangeDue };
-            var stateMachine = GetStateMachine();
+            var stateMachine = getStateMachine();
 
             var openStateConfig = stateMachine.ConfigureState(SaleState.Open);
             stateMachine.ConfigureState(SaleState.ChangeDue)
@@ -72,7 +72,7 @@ namespace NStateManager.Tests.Async
               , conditionAsync: (_, cancelToke) => Task.FromResult(true)
               , name: "test"
               , priority: 1);
-            var previousResult = GetDummyResult();
+            var previousResult = getDummyResult();
             previousResult.CurrentState = SaleState.ChangeDue;
 
             var result = await sut.ExecuteAsync(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), previousResult);
@@ -86,21 +86,21 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public async void Execute_doesnt_change_state_if_condition_not_met()
+        public async void Execute_does_not_change_state_if_condition_not_met()
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
             var sale = new Sale(saleID: 66) { State = startState };
 
             var sut = new StateTransitionAutoForwardAsync<Sale, SaleState, SaleEvent>(
-                GetStateMachine()
+                getStateMachine()
                 , triggerState: startState
                 , toState: endState
                 , conditionAsync: (_, cancelToken) => Task.FromResult(false)
                 , name: "test"
                 , priority: 1);
 
-            var result = await sut.ExecuteAsync(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), GetDummyResult());
+            var result = await sut.ExecuteAsync(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), getDummyResult());
 
             Assert.Equal(startState, sale.State);
             Assert.False(result.ConditionMet);
@@ -113,14 +113,14 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public async void Execute_doesnt_change_state_if_currentResult_is_null()
+        public async void Execute_does_not_change_state_if_currentResult_is_null()
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
             var sale = new Sale(saleID: 66) { State = startState };
 
             var sut = new StateTransitionAutoForwardAsync<Sale, SaleState, SaleEvent>(
-                GetStateMachine()
+                getStateMachine()
               , triggerState: startState
               , toState: endState
               , conditionAsync: (_, cancelToken) => Task.FromResult(false)
@@ -140,21 +140,21 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public async void Execute_doesnt_change_state_if_triggerState_doesnt_match()
+        public async void Execute_does_not_change_state_if_triggerState_does_not_match()
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
             var sale = new Sale(saleID: 66) { State = startState };
 
             var sut = new StateTransitionAutoForwardAsync<Sale, SaleState, SaleEvent>(
-                GetStateMachine()
+                getStateMachine()
               , triggerState: SaleState.Complete
               , toState: endState
               , conditionAsync: (_, cancelToken) => Task.FromResult(false)
               , name: "test"
               , priority: 1);
 
-            var result = await sut.ExecuteAsync(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), GetDummyResult());
+            var result = await sut.ExecuteAsync(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), getDummyResult());
 
             Assert.Equal(startState, sale.State);
             Assert.False(result.ConditionMet);
@@ -166,7 +166,7 @@ namespace NStateManager.Tests.Async
             Assert.Equal(startState, result.CurrentState);
         }
 
-        private StateTransitionResult<SaleState, SaleEvent> GetDummyResult()
+        private static StateTransitionResult<SaleState, SaleEvent> getDummyResult()
         {
             return new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
               , SaleState.Open
@@ -175,9 +175,9 @@ namespace NStateManager.Tests.Async
               , "transactionName");
         }
 
-        private NStateManager.Async.IStateMachineAsync<Sale, SaleState, SaleEvent> GetStateMachine()
+        private static IStateMachineAsync<Sale, SaleState, SaleEvent> getStateMachine()
         {
-            return new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(saleToUpdate => saleToUpdate.State
+            return new StateMachineAsync<Sale, SaleState, SaleEvent>(saleToUpdate => saleToUpdate.State
               , (saleToUpdate, newState) => saleToUpdate.State = newState);
         }
     }

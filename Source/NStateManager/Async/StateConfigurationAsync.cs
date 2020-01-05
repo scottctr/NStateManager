@@ -99,9 +99,6 @@ namespace NStateManager.Async
           , string name = null
           , uint priority = 1)
         {
-            if (condition == null)
-            { throw new ArgumentNullException(nameof(condition)); }
-
             var transition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
               , triggerState: State
               , toState: toState
@@ -470,7 +467,7 @@ namespace NStateManager.Async
         public async Task ExecuteEntryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult)
         {
             //If there's an entry state for the super state, execute it first
-            if (_superState != null && !IsInState(currentResult.CurrentState))
+            if (_superState != null && !IsInState(currentResult.PreviousState))
             { await _superState.ExecuteEntryActionAsync(parameters, currentResult); }
 
             //Is there an action based on the new state?

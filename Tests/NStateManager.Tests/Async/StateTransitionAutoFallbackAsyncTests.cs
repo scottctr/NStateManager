@@ -31,12 +31,12 @@ namespace NStateManager.Tests.Async
         //}
 
         [Fact]
-        public async Task ExecuteAsync_doesnt_execute_if_CancelRequested()
+        public async Task ExecuteAsync_does_not_execute_if_CancelRequested()
         {
             const SaleState startState = SaleState.Open;
             var sale = new Sale(saleID: 66) { State = startState };
             var sut = new StateTransitionAutoFallbackAsync<Sale, SaleState, SaleEvent>(
-                GetStateMachine()
+                getStateMachine()
                 , SaleState.Open
                 , SaleState.Open
                 , toState: SaleState.Complete
@@ -50,7 +50,7 @@ namespace NStateManager.Tests.Async
                 cancelSource.Cancel();
 
                 var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, request: null, cancellationToken: cancelToken);
-                var result = await sut.ExecuteAsync(parameters, GetDummyResult(wasCancelled: true));
+                var result = await sut.ExecuteAsync(parameters, getDummyResult(wasCancelled: true));
 
                 Assert.True(result.WasCancelled);
                 Assert.False(result.WasTransitioned);
@@ -66,7 +66,7 @@ namespace NStateManager.Tests.Async
             var sale = new Sale(saleID: 66) { State = startState };
 
             var sut = new StateTransitionAutoFallbackAsync<Sale, SaleState, SaleEvent>(
-                GetStateMachine()
+                getStateMachine()
                 , startState
                 , SaleState.Open
                 , toState: endState
@@ -74,21 +74,21 @@ namespace NStateManager.Tests.Async
                 , name: "test"
                 , priority: 1);
 
-            var result = await sut.ExecuteAsync(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), GetDummyResult());
+            var result = await sut.ExecuteAsync(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), getDummyResult());
 
             Assert.True(result.WasTransitioned);
             Assert.Equal(endState, sale.State);
         }
 
         [Fact]
-        public async Task ExecuteAsync_doesnt_change_state_if_condition_not_met()
+        public async Task ExecuteAsync_does_not_change_state_if_condition_not_met()
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
             var sale = new Sale(saleID: 66) { State = startState };
 
             var sut = new StateTransitionAutoFallbackAsync<Sale, SaleState, SaleEvent>(
-                GetStateMachine()
+                getStateMachine()
                 , startState
                 , SaleState.Open
                 , toState: endState
@@ -96,7 +96,7 @@ namespace NStateManager.Tests.Async
                 , name: "test"
                 , priority: 1);
 
-            await sut.ExecuteAsync(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), GetDummyResult());
+            await sut.ExecuteAsync(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), getDummyResult());
 
             Assert.Equal(startState, sale.State);
         }
@@ -107,7 +107,7 @@ namespace NStateManager.Tests.Async
             const SaleState startState = SaleState.Open;
             var sale = new Sale(saleID: 66) { State = startState };
             var sut = new StateTransitionAutoFallbackAsync<Sale, SaleState, SaleEvent>(
-                GetStateMachine()
+                getStateMachine()
                 , startState
                 , SaleState.Open
                 , toState: SaleState.Complete
@@ -129,7 +129,7 @@ namespace NStateManager.Tests.Async
             }
         }
 
-        private StateTransitionResult<SaleState, SaleEvent> GetDummyResult(bool wasCancelled = false)
+        private static StateTransitionResult<SaleState, SaleEvent> getDummyResult(bool wasCancelled = false)
         {
             return new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
               , SaleState.Open
@@ -139,9 +139,9 @@ namespace NStateManager.Tests.Async
               , wasCancelled: wasCancelled);
         }
 
-        private NStateManager.Async.IStateMachineAsync<Sale, SaleState, SaleEvent> GetStateMachine()
+        private static IStateMachineAsync<Sale, SaleState, SaleEvent> getStateMachine()
         {
-            return new NStateManager.Async.StateMachineAsync<Sale, SaleState, SaleEvent>(saleToUpdate => saleToUpdate.State
+            return new StateMachineAsync<Sale, SaleState, SaleEvent>(saleToUpdate => saleToUpdate.State
               , (saleToUpdate, newState) => saleToUpdate.State = newState);
         }
     }

@@ -8,7 +8,6 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-using System;
 using NStateManager.Sync;
 using Xunit;
 
@@ -17,18 +16,6 @@ namespace NStateManager.Tests.Sync
     public class StateTransitionAutoForwardTests
     {
         [Fact]
-        public void Constructor_throws_ArgumentNullException_if_condition_null()
-        {
-            Assert.Throws<ArgumentNullException>(() => new StateTransitionAutoForward<Sale, SaleState, SaleEvent>(
-                GetStateMachine()
-                , triggerState: SaleState.Open
-                , toState: SaleState.Open
-                , condition: null
-                , name: "test"
-                , priority: 1));
-        }
-
-        [Fact]
         public void Execute_changes_state_if_condition_met()
         {
             const SaleState startState = SaleState.Open;
@@ -36,14 +23,14 @@ namespace NStateManager.Tests.Sync
             var sale = new Sale(saleID: 66) { State = startState };
 
             var sut = new StateTransitionAutoForward<Sale, SaleState, SaleEvent>(
-                GetStateMachine()
+                getStateMachine()
                 , triggerState: startState
                 , toState: endState
                 , condition: (_) => true
                 , name: "test"
                 , priority: 1);
 
-            var result = sut.Execute(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), GetDummyResult());
+            var result = sut.Execute(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), getDummyResult());
 
             Assert.True(result.WasTransitioned);
             Assert.Equal(endState, sale.State);
@@ -59,7 +46,7 @@ namespace NStateManager.Tests.Sync
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
             var sale = new Sale(saleID: 66) { State = SaleState.ChangeDue };
-            var stateMachine = GetStateMachine();
+            var stateMachine = getStateMachine();
 
             var openStateConfig = stateMachine.ConfigureState(SaleState.Open);
             stateMachine.ConfigureState(SaleState.ChangeDue)
@@ -72,7 +59,7 @@ namespace NStateManager.Tests.Sync
               , condition: (_) => true
               , name: "test"
               , priority: 1);
-            var previousResult = GetDummyResult();
+            var previousResult = getDummyResult();
             previousResult.CurrentState = SaleState.ChangeDue;
 
             var result = sut.Execute(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), previousResult);
@@ -86,21 +73,21 @@ namespace NStateManager.Tests.Sync
         }
 
         [Fact]
-        public void Execute_doesnt_change_state_if_condition_not_met()
+        public void Execute_does_not_change_state_if_condition_not_met()
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
             var sale = new Sale(saleID: 66) { State = startState };
 
             var sut = new StateTransitionAutoForward<Sale, SaleState, SaleEvent>(
-                GetStateMachine()
+                getStateMachine()
                 , triggerState: startState
                 , toState: endState
                 , condition: (_) => false
                 , name: "test"
                 , priority: 1);
 
-            var result = sut.Execute(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), GetDummyResult());
+            var result = sut.Execute(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), getDummyResult());
 
             Assert.Equal(startState, sale.State);
             Assert.False(result.ConditionMet);
@@ -113,14 +100,14 @@ namespace NStateManager.Tests.Sync
         }
 
         [Fact]
-        public void Execute_doesnt_change_state_if_currentResult_is_null()
+        public void Execute_does_not_change_state_if_currentResult_is_null()
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
             var sale = new Sale(saleID: 66) { State = startState };
 
             var sut = new StateTransitionAutoForward<Sale, SaleState, SaleEvent>(
-                GetStateMachine()
+                getStateMachine()
               , triggerState: startState
               , toState: endState
               , condition: (_) => false
@@ -140,21 +127,21 @@ namespace NStateManager.Tests.Sync
         }
 
         [Fact]
-        public void Execute_doesnt_change_state_if_triggerState_doesnt_match()
+        public void Execute_does_not_change_state_if_triggerState_does_not_match()
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
             var sale = new Sale(saleID: 66) { State = startState };
 
             var sut = new StateTransitionAutoForward<Sale, SaleState, SaleEvent>(
-                GetStateMachine()
+                getStateMachine()
               , triggerState: SaleState.Complete
               , toState: endState
               , condition: (_) => false
               , name: "test"
               , priority: 1);
 
-            var result = sut.Execute(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), GetDummyResult());
+            var result = sut.Execute(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale), getDummyResult());
 
             Assert.Equal(startState, sale.State);
             Assert.False(result.ConditionMet);
@@ -166,7 +153,7 @@ namespace NStateManager.Tests.Sync
             Assert.Equal(startState, result.CurrentState);
         }
 
-        private StateTransitionResult<SaleState, SaleEvent> GetDummyResult()
+        private static StateTransitionResult<SaleState, SaleEvent> getDummyResult()
         {
             return new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
               , SaleState.Open
@@ -175,9 +162,9 @@ namespace NStateManager.Tests.Sync
               , "transactionName");
         }
 
-        private IStateMachine<Sale, SaleState, SaleEvent> GetStateMachine()
+        private static IStateMachine<Sale, SaleState, SaleEvent> getStateMachine()
         {
-            return new NStateManager.Sync.StateMachine<Sale, SaleState, SaleEvent>(saleToUpdate => saleToUpdate.State
+            return new StateMachine<Sale, SaleState, SaleEvent>(saleToUpdate => saleToUpdate.State
               , (saleToUpdate, newState) => saleToUpdate.State = newState);
         }
     }
