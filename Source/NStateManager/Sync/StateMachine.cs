@@ -189,10 +189,15 @@ namespace NStateManager.Sync
                 {
                     //OnEntry? ...don't execute if moving to superstate
                     if (!previousState.IsInState(currentResult.CurrentState))
-                    { newState.ExecuteEntryAction(parameters.Context, currentResult); }
+                    {
+                        newState.ExecuteEntryAction(parameters.Context, currentResult);
+
+                        //Now that we're fully in the new state, we can fire the transition event before considering additional auto transitions.
+                        OnTransition?.Invoke(this, new TransitionEventArgs<T, TState, TTrigger>(parameters, currentResult));
+                    }
 
                     //Auto transitions?
-                    var preAutoForwardState = currentResult.CurrentState;
+                    var preAutoTransitionState = currentResult.CurrentState;
                     var autoTransitionResult = newState.ExecuteAutoTransition(parameters, currentResult);
                     if (autoTransitionResult.WasTransitioned)
                     {
@@ -200,26 +205,27 @@ namespace NStateManager.Sync
                         currentResult.PreviousState = currentResult.CurrentState;
                         currentResult.CurrentState = autoTransitionResult.CurrentState;
                         currentResult.LastTransitionName = autoTransitionResult.LastTransitionName;
+                        //currentResult.WasTransitioned is already true
                     }
 
                     //See if we have more actions from the auto transition
-                    if (!currentResult.CurrentState.IsEqual(preAutoForwardState))
-                    { currentResult = executeExitAndEntryActions(parameters, currentResult); }
+                    if (!currentResult.CurrentState.IsEqual(preAutoTransitionState))
+                    { currentResult = executeExitAndEntryActions(parameters, autoTransitionResult); }
+                }
+                else
+                {
+                    //if we didn't fire the transitioned event as part of the new state configuration, we need to do it here
+                    OnTransition?.Invoke(this, new TransitionEventArgs<T, TState, TTrigger>(parameters, currentResult));
                 }
             }
             //Reentry?
             else if (_stateConfigurations.TryGetValue(currentResult.CurrentState, out var reenteredState))
             { reenteredState.ExecuteReentryAction(parameters.Context, currentResult); }
 
-            //Send notifications
-            var transitionEventArgs = new TransitionEventArgs<T, TState, TTrigger>(parameters, currentResult);
-
-            if (currentResult.WasTransitioned)
+            //Send non-transition events
+            if (!currentResult.WasTransitioned)
             {
-                OnTransition?.Invoke(this, transitionEventArgs);
-            }
-            else
-            {
+                var transitionEventArgs = new TransitionEventArgs<T, TState, TTrigger>(parameters, currentResult);
                 if (!currentResult.TransitionDefined)
                 { OnTriggerNotConfigured?.Invoke(this, transitionEventArgs); }
 

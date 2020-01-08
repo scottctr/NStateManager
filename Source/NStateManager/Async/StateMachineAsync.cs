@@ -185,7 +185,7 @@ namespace NStateManager.Async
 
                 //OnExit? ...don't execute if moving to substate
                 if (!IsInState(parameters.Context, currentResult.PreviousState))
-                {
+                { 
                     await previousState.ExecuteExitActionAsync(parameters, currentResult)
                         .ConfigureAwait(continueOnCapturedContext: false);
                 }
@@ -197,10 +197,13 @@ namespace NStateManager.Async
                     {
                         await newState.ExecuteEntryActionAsync(parameters, currentResult)
                            .ConfigureAwait(continueOnCapturedContext: false);
+
+                        //Now that we're fully in the new state, we can fire the transition event before considering additional auto transitions.
+                        OnTransition?.Invoke(this, new TransitionEventArgs<T, TState, TTrigger>(parameters, currentResult));
                     }
 
-                    //AutoForward?
-                    var preAutoForwardState = currentResult.CurrentState;
+                    //Auto transition?
+                    var preAutoTransitionState = currentResult.CurrentState;
                     var autoTransitionResult = await newState.ExecuteAutoTransitionAsync(parameters, currentResult)
                        .ConfigureAwait(continueOnCapturedContext: false);
                     if (autoTransitionResult.WasTransitioned)
@@ -209,14 +212,20 @@ namespace NStateManager.Async
                         currentResult.PreviousState = currentResult.CurrentState;
                         currentResult.CurrentState = autoTransitionResult.CurrentState;
                         currentResult.LastTransitionName = autoTransitionResult.LastTransitionName;
+                        //currentResult.WasTransitioned is already true
                     }
 
                     //See if we have more actions from the auto transition
-                    if (!preAutoForwardState.IsEqual(currentResult.CurrentState))
+                    if (!preAutoTransitionState.IsEqual(currentResult.CurrentState))
                     {
-                        await executeExitAndEntryActionsAsync(parameters, currentResult)
+                        await executeExitAndEntryActionsAsync(parameters, autoTransitionResult)
                            .ConfigureAwait(continueOnCapturedContext: false);
                     }
+                }
+                else
+                {
+                    //if we didn't fire the transitioned event as part of the new state configuration, we need to do it here
+                    OnTransition?.Invoke(this, new TransitionEventArgs<T, TState, TTrigger>(parameters, currentResult));
                 }
             }
             //Reentry?
@@ -226,15 +235,10 @@ namespace NStateManager.Async
                    .ConfigureAwait(continueOnCapturedContext: false);
             }
 
-            //Send notifications
-            var transitionEventArgs = new TransitionEventArgs<T, TState, TTrigger>(parameters, currentResult);
-
-            if (currentResult.WasTransitioned)
+            //Send non-transition events
+            if (!currentResult.WasTransitioned)
             {
-                OnTransition?.Invoke(this, transitionEventArgs);
-            }
-            else
-            {
+                var transitionEventArgs = new TransitionEventArgs<T, TState, TTrigger>(parameters, currentResult);
                 if (!currentResult.TransitionDefined)
                 { OnTriggerNotConfigured?.Invoke(this, transitionEventArgs); }
 
