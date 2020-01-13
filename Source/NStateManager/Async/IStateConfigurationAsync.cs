@@ -191,7 +191,7 @@ namespace NStateManager.Async
         /// </summary>
         /// <param name="state">The state to compare against.</param>
         /// <returns></returns>
-        bool IsInState(TState state);
+        bool IsSubstateOf(TState state);
 
         /// <summary>
         /// Makes the current state a sub state of the given super state.

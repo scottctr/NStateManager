@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 
 namespace NStateManager.Async
 {
-    public partial interface IStateConfigurationAsyncInternal<T, TState, TTrigger> : IStateConfigurationAsync<T, TState, TTrigger>
+    public interface IStateConfigurationAsyncInternal<T, TState, TTrigger> : IStateConfigurationAsync<T, TState, TTrigger>
     {
         void AddAutoTransition(TTrigger trigger, StateTransitionBase<T, TState, TTrigger> transition);
-        void AddSuperState(IStateConfigurationAsyncInternal<T, TState, TTrigger> superStateConfiguration);
+        void AddSuperstate(IStateConfigurationAsyncInternal<T, TState, TTrigger> superStateConfiguration);
         void AddTransition(TTrigger trigger, StateTransitionBase<T, TState, TTrigger> transition);
         Task<StateTransitionResult<TState, TTrigger>> ExecuteAutoTransitionAsync(ExecutionParameters<T, TTrigger> parameters
           , StateTransitionResult<TState, TTrigger> currentResult);

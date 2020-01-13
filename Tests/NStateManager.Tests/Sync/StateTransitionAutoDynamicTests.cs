@@ -99,7 +99,7 @@ namespace NStateManager.Tests.Sync
         {
             var stateMachine = getStateMachine();
             var openStateConfig = stateMachine.ConfigureState(SaleState.Open);
-            stateMachine.ConfigureState(SaleState.ChangeDue).MakeSubStateOf(openStateConfig);
+            stateMachine.ConfigureState(SaleState.ChangeDue).MakeSubstateOf(openStateConfig);
 
             var sut = new StateTransitionAutoDynamic<Sale, SaleState, SaleEvent>(stateMachine
               , SaleState.Open

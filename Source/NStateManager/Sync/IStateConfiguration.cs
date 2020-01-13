@@ -187,8 +187,8 @@ namespace NStateManager.Sync
         /// <summary>
         /// Makes the current state a substate of the specified state configuration.
         /// </summary>
-        /// <param name="superStateConfiguration">The configured super state.</param>
+        /// <param name="superstateConfiguration">The configured super state.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> MakeSubStateOf(IStateConfiguration<T, TState, TTrigger> superStateConfiguration);
+        IStateConfiguration<T, TState, TTrigger> MakeSubstateOf(IStateConfiguration<T, TState, TTrigger> superstateConfiguration);
     }
 }

@@ -275,38 +275,38 @@ namespace NStateManager.Tests.Sync
             var openStateConfig = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
 
             //First time works fine
-            sut.AddSuperState(openStateConfig);
+            sut.AddSuperstate(openStateConfig);
 
             //Second time blows up
-            Assert.Throws<ArgumentOutOfRangeException>(() => sut.AddSuperState(openStateConfig));
+            Assert.Throws<ArgumentOutOfRangeException>(() => sut.AddSuperstate(openStateConfig));
         }
 
         [Fact]
         public void AddSuperState_throws_ArgumentOutOfRangeException_if_substate_is_already_superstate()
         {
             var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
-            var changeDueStteConfig = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
+            var changeDueStateConfig = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             var openStateConfig = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
 
             //First time works fine
-            openStateConfig.AddSuperState(changeDueStteConfig);
+            openStateConfig.AddSuperstate(changeDueStateConfig);
 
             //Second time blows up
-            Assert.Throws<ArgumentOutOfRangeException>(() => openStateConfig.AddSuperState(changeDueStteConfig));
+            Assert.Throws<ArgumentOutOfRangeException>(() => openStateConfig.AddSuperstate(changeDueStateConfig));
         }
 
         [Fact]
         public void AddSuperState_throws_InvalidOperationException_if_substate_is_already_superstate()
         {
             var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
-            var changeDueStteConfig = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
+            var changeDueStateConfig = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             var openStateConfig = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
 
             //First time works fine
-            openStateConfig.AddSuperState(changeDueStteConfig);
+            openStateConfig.AddSuperstate(changeDueStateConfig);
 
             //Second time blows up
-            Assert.Throws<InvalidOperationException>(() => changeDueStteConfig.AddSuperState(openStateConfig));
+            Assert.Throws<InvalidOperationException>(() => changeDueStateConfig.AddSuperstate(openStateConfig));
         }
 
         [Fact]
@@ -407,7 +407,7 @@ namespace NStateManager.Tests.Sync
             var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             IStateConfigurationInternal<Sale, SaleState, SaleEvent> openState = stateMachine.ConfigureState(SaleState.Open) as IStateConfigurationInternal<Sale, SaleState, SaleEvent>;
             IStateConfigurationInternal<Sale, SaleState, SaleEvent> changeDueState = stateMachine.ConfigureState(SaleState.ChangeDue) as IStateConfigurationInternal<Sale, SaleState, SaleEvent>;
-            changeDueState?.AddSuperState(openState);
+            changeDueState?.AddSuperstate(openState);
             openState?.AddAutoForwardTransition(SaleEvent.Pay, SaleState.Complete, sale1 => true /* condition indicates no change due */);
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale);
 
@@ -466,7 +466,7 @@ namespace NStateManager.Tests.Sync
             var openConfig = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
             openConfig.AddEntryAction(sale1 => { entryActionCalled = true; });
             var changeDueConfig = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
-            changeDueConfig.MakeSubStateOf(openConfig);
+            changeDueConfig.MakeSubstateOf(openConfig);
             var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
               , SaleState.Open
@@ -491,7 +491,7 @@ namespace NStateManager.Tests.Sync
             var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openState = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
             var changeDueState = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
-            changeDueState.AddSuperState(openState);
+            changeDueState.AddSuperstate(openState);
             var openEntryActionFromOpenFired = false;
             openState.AddReentryAction(sale1 => { openEntryActionFromOpenFired = true; });
 
@@ -512,7 +512,7 @@ namespace NStateManager.Tests.Sync
             var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openState = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
             var changeDueState = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
-            changeDueState.AddSuperState(openState);
+            changeDueState.AddSuperstate(openState);
             var changeDueEntryActionFromOpenFired = false;
             changeDueState.AddReentryAction(sale1 => { changeDueEntryActionFromOpenFired = true; });
 
@@ -571,7 +571,7 @@ namespace NStateManager.Tests.Sync
                 .AddTriggerAction(SaleEvent.Pay, sale1 => { openStatePayTriggerFired = true; })
                 .AddTransition(SaleEvent.Pay, SaleState.Complete, name: "openStatePay");
             var changeDueState = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
-            changeDueState.AddSuperState(openState);
+            changeDueState.AddSuperstate(openState);
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale);
 
             var result = changeDueState.FireTrigger(parameters);
@@ -586,27 +586,15 @@ namespace NStateManager.Tests.Sync
         }
 
         [Fact]
-        public void IsInState_returns_True_if_in_given_state()
-        {
-            var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
-            var openState = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
-
-            Assert.True(openState.IsInState(SaleState.Open));
-            Assert.False(openState.IsInState(SaleState.Complete));
-        }
-
-        [Fact]
-        public void IsInState_returns_True_if_in_given_state_is_subState()
+        public void IsSubstateOf_returns_True_if_in_given_state_is_subState()
         {
             var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openState = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
             var changeDueState = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
-            changeDueState.AddSuperState(openState);
+            changeDueState.AddSuperstate(openState);
 
-            Assert.True(changeDueState.IsInState(SaleState.Open));
-            Assert.True(changeDueState.IsInState(SaleState.ChangeDue));
-            Assert.True(openState.IsInState(SaleState.Open));
-            Assert.False(openState.IsInState(SaleState.ChangeDue));
+            Assert.True(changeDueState.IsSubstateOf(SaleState.Open));
+            Assert.False(openState.IsSubstateOf(SaleState.ChangeDue));
         }
     }
 }

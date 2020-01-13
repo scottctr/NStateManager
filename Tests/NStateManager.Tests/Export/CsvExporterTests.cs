@@ -1,0 +1,45 @@
+﻿using System;
+using NStateManager.Export;
+using NStateManager.Sync;
+using TelephoneCallExample;
+using Xunit;
+
+namespace NStateManager.Tests.Export
+{
+    public class CsvExporterTests
+    {
+        [Fact]
+        public void Export_exports_phone_graph()
+        {
+            var stateMachine = new PhoneCall("Scott");
+            var summary = stateMachine.GetSummary();
+            var csv = CsvExporter<State, Trigger>.Export(summary);
+        }
+
+        [Fact]
+        public void Export_exports_sale_graph()
+        {
+            var stateMachine = GetSaleStateMachine();
+            var summary = stateMachine.GetSummary();
+            var csv = CsvExporter<SaleState, SaleEvent>.Export(summary);
+        }
+
+        private StateMachine<Sale, SaleState, SaleEvent> GetSaleStateMachine()
+        {
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
+                stateAccessor: sale2 => sale2.State
+              , stateMutator: (sale3, newState) => sale3.State = newState);
+            var entryActionFired = false;
+
+            sut.ConfigureState(SaleState.Open)
+               .AddTransition(SaleEvent.Pay, SaleState.Complete, (sale => Math.Abs(sale.Balance) < 0.01))
+               .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, (sale => sale.Balance < 0))
+                ;
+
+            sut.ConfigureState(SaleState.Complete)
+               .AddEntryAction(sale1 => entryActionFired = true);
+
+            return sut;
+        }
+    }
+}

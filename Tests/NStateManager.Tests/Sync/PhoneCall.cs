@@ -10,11 +10,12 @@
 #endregion
 using NStateManager.Sync;
 using System;
+using NStateManager.Export;
 using Xunit;
 
 namespace TelephoneCallExample
 {
-    enum Trigger
+    public enum Trigger
     {
         CallDialed,
         CallConnected,
@@ -92,7 +93,7 @@ namespace TelephoneCallExample
                 {
                     Console.WriteLine("Exiting OnHold");
                 })
-               .MakeSubStateOf(stateMachine.ConfigureState(State.Connected))
+               .MakeSubstateOf(stateMachine.ConfigureState(State.Connected))
                .AddTransition(Trigger.TakenOffHold, State.Connected)
                .AddTransition(Trigger.PhoneHurledAgainstWall, State.PhoneDestroyed);
         }
@@ -165,6 +166,11 @@ namespace TelephoneCallExample
         public void Resume()
         {
             stateMachine.FireTrigger(this, Trigger.TakenOffHold);
+        }
+
+        public ConfigurationSummary<State, Trigger> GetSummary()
+        {
+            return stateMachine.GetSummary();
         }
     }
 

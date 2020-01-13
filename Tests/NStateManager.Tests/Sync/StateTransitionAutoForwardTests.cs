@@ -50,7 +50,7 @@ namespace NStateManager.Tests.Sync
 
             var openStateConfig = stateMachine.ConfigureState(SaleState.Open);
             stateMachine.ConfigureState(SaleState.ChangeDue)
-               .MakeSubStateOf(openStateConfig);
+               .MakeSubstateOf(openStateConfig);
 
             var sut = new StateTransitionAutoForward<Sale, SaleState, SaleEvent>(
                 stateMachine

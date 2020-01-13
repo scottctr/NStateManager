@@ -33,9 +33,7 @@ namespace NStateManager.Sync
         public override StateTransitionResult<TState, TTrigger> Execute(ExecutionParameters<T, TTrigger> parameters
           , StateTransitionResult<TState, TTrigger> currentResult = null)
         {
-            if (currentResult != null
-                && (_triggerState.IsEqual(currentResult.CurrentState) 
-                    || _stateMachine.IsInState(parameters.Context, _triggerState)))
+            if (_stateMachine.IsInState(parameters.Context, _triggerState))
             { return base.Execute(parameters, currentResult); }
 
             return GetFreshResult(parameters

@@ -33,7 +33,7 @@ namespace NStateManager.Async
         private Func<T, CancellationToken, Task> _defaultEntryAction;
         private Func<T, CancellationToken, Task> _defaultExitAction;
         private Func<T, CancellationToken, Task> _reentryAction;
-        private IStateConfigurationAsyncInternal<T, TState, TTrigger> _superState;
+        private IStateConfigurationAsyncInternal<T, TState, TTrigger> _superstate;
 
         /// <summary>
         /// Constructor.
@@ -95,7 +95,7 @@ namespace NStateManager.Async
         /// <returns></returns>
         public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardTransition(TTrigger trigger
           , TState toState
-          , Func<T, CancellationToken, Task<bool>> condition
+          , Func<T, CancellationToken, Task<bool>> condition = null
           , string name = null
           , uint priority = 1)
         {
@@ -122,7 +122,7 @@ namespace NStateManager.Async
         /// <returns></returns>
         public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardTransition<TRequest>(TTrigger trigger
           , TState toState
-          , Func<T, TRequest, CancellationToken, Task<bool>> condition
+          , Func<T, TRequest, CancellationToken, Task<bool>> condition = null
           , string name = null
           , uint priority = 1)
             where TRequest : class
@@ -335,15 +335,15 @@ namespace NStateManager.Async
             return this;
         }
 
-        public void AddSuperState(IStateConfigurationAsyncInternal<T, TState, TTrigger> superStateConfiguration)
+        public void AddSuperstate(IStateConfigurationAsyncInternal<T, TState, TTrigger> superStateConfiguration)
         {
-            if (IsInState(superStateConfiguration.State))
+            if (IsSubstateOf(superStateConfiguration.State))
             { throw new ArgumentOutOfRangeException($"{State} is already a sub-state of {superStateConfiguration.State}."); }
 
-            if (superStateConfiguration.IsInState(State))
+            if (superStateConfiguration.IsSubstateOf(State))
             { throw new ArgumentOutOfRangeException($"{superStateConfiguration.State} is already a sub-state of {State}."); }
 
-            _superState = superStateConfiguration;
+            _superstate = superStateConfiguration;
         }
 
         /// <summary>
@@ -452,8 +452,8 @@ namespace NStateManager.Async
             }
 
             //Check for a super state and just return the incoming currentResult if no successful auto transitions
-            return _superState != null
-                ? await _superState.ExecuteAutoTransitionAsync(parameters, currentResult).ConfigureAwait(continueOnCapturedContext: false)
+            return _superstate != null
+                ? await _superstate.ExecuteAutoTransitionAsync(parameters, currentResult).ConfigureAwait(continueOnCapturedContext: false)
                 : new StateTransitionResult<TState, TTrigger>(parameters.Trigger
                     , currentResult.StartingState
                     , currentResult.PreviousState
@@ -466,9 +466,9 @@ namespace NStateManager.Async
 
         public async Task ExecuteEntryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult)
         {
-            //If there's an entry state for the super state, execute it first
-            if (_superState != null && !IsInState(currentResult.PreviousState))
-            { await _superState.ExecuteEntryActionAsync(parameters, currentResult); }
+            //If there's an entry action for a new super state, execute it first
+            if (_superstate != null && !IsSubstateOf(currentResult.PreviousState))
+            { await _superstate.ExecuteEntryActionAsync(parameters, currentResult); }
 
             //Is there an action based on the new state?
             if (_previousStateEntryActions.TryGetValue(currentResult.PreviousState, out var action))
@@ -492,9 +492,9 @@ namespace NStateManager.Async
 
         public async Task ExecuteReentryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult)
         {
-            if (_superState != null)
+            if (_superstate != null)
             {
-                await _superState.ExecuteReentryActionAsync(parameters, currentResult)
+                await _superstate.ExecuteReentryActionAsync(parameters, currentResult)
                     .ConfigureAwait(continueOnCapturedContext: false);
             }
 
@@ -542,9 +542,9 @@ namespace NStateManager.Async
 
             var result = await fireTriggerPrimAsync(parameters).ConfigureAwait(continueOnCapturedContext: false);
 
-            if (!(result?.WasTransitioned ?? false) && _superState != null)
+            if (!(result?.WasTransitioned ?? false) && _superstate != null)
             {
-                result = await _superState.FireTriggerAsync(parameters).ConfigureAwait(continueOnCapturedContext: false);
+                result = await _superstate.FireTriggerAsync(parameters).ConfigureAwait(continueOnCapturedContext: false);
             }
             else
             {
@@ -577,17 +577,20 @@ namespace NStateManager.Async
             return result;
         }
 
-        public bool IsInState(TState state)
+        public bool IsSubstateOf(TState state)
         {
-            if (state.IsEqual(State))
+            if (_superstate is null)
+            { return false; }
+
+            if (state.Equals(_superstate.State))
             { return true; }
 
-            return _superState?.IsInState(state) ?? false;
+            return _superstate.IsSubstateOf(state);
         }
 
         public IStateConfigurationAsync<T, TState, TTrigger> MakeSubStateOf(IStateConfigurationAsync<T, TState, TTrigger> superStateConfiguration)
         {
-            AddSuperState(superStateConfiguration as IStateConfigurationAsyncInternal<T, TState, TTrigger>);
+            AddSuperstate(superStateConfiguration as IStateConfigurationAsyncInternal<T, TState, TTrigger>);
 
             return this;
         }

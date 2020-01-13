@@ -31,7 +31,7 @@ namespace NStateManager.Sync
         private Action<T> _defaultEntryAction;
         private Action<T> _defaultExitAction;
         private Action<T> _reentryAction;
-        private IStateConfigurationInternal<T, TState, TTrigger> _superState;
+        private IStateConfigurationInternal<T, TState, TTrigger> _superstateConfig;
 
         /// <summary>
         /// Constructor.
@@ -213,7 +213,7 @@ namespace NStateManager.Sync
         /// <returns></returns>
         public IStateConfiguration<T, TState, TTrigger> AddAutoForwardTransition(TTrigger trigger
           , TState toState
-          , Func<T, bool> condition
+          , Func<T, bool> condition = null
           , string name = null
           , uint priority = 1)
         {
@@ -240,7 +240,7 @@ namespace NStateManager.Sync
         /// <returns></returns>
         public IStateConfiguration<T, TState, TTrigger> AddAutoForwardTransition<TRequest>(TTrigger trigger
             , TState toState
-            , Func<T, TRequest, bool> condition
+            , Func<T, TRequest, bool> condition = null
             , string name = null
             , uint priority = 1)
             where TRequest : class
@@ -448,18 +448,18 @@ namespace NStateManager.Sync
         }
 
         /// <summary>
-        /// Adds this state as a subState to the given superState.
+        /// Adds this state as a substate to the given superState.
         /// </summary>
         /// <param name="superStateConfiguration">The superState.</param>
-        public void AddSuperState(IStateConfigurationInternal<T, TState, TTrigger> superStateConfiguration)
+        public void AddSuperstate(IStateConfigurationInternal<T, TState, TTrigger> superStateConfiguration)
         {
-            if (IsInState(superStateConfiguration.State))
-            { throw new ArgumentOutOfRangeException($"{State} is already a sub-state of {superStateConfiguration.State}."); }
+            if (IsSubstateOf(superStateConfiguration.State))
+            { throw new ArgumentOutOfRangeException($"{State} is already a substate of {superStateConfiguration.State}."); }
 
-            if (superStateConfiguration.IsInState(State))
-            { throw new InvalidOperationException($"{superStateConfiguration.State} is already a sub-state of {State}."); }
+            if (superStateConfiguration.IsSubstateOf(State))
+            { throw new InvalidOperationException($"{superStateConfiguration.State} is already a substate of {State}."); }
 
-            _superState = superStateConfiguration;
+            _superstateConfig = superStateConfiguration;
         }
 
         /// <summary>
@@ -510,8 +510,8 @@ namespace NStateManager.Sync
             }
 
             //Check for a super state and just return the incoming currentResult if no successful auto transitions
-            return _superState != null
-                ? _superState.ExecuteAutoTransition(parameters, currentResult)
+            return _superstateConfig != null
+                ? _superstateConfig.ExecuteAutoTransition(parameters, currentResult)
                 : new StateTransitionResult<TState, TTrigger>(parameters.Trigger
                   , currentResult.CurrentState
                   , currentResult.CurrentState
@@ -523,16 +523,17 @@ namespace NStateManager.Sync
 
         public void ExecuteEntryAction(T context, StateTransitionResult<TState, TTrigger> currentResult)
         {
-            //If there's an entry state for the super state, execute it first
-            if (_superState != null && !IsInState(currentResult.PreviousState))
-            { _superState.ExecuteEntryAction(context, currentResult); }
+            //If we haven't previously executed entry for superstate, execute it first
+            if (_superstateConfig != null && !IsSubstateOf(currentResult.PreviousState))
+            { _superstateConfig.ExecuteEntryAction(context, currentResult); }
 
             //Is there an action based on the new state?
             if (_previousStateEntryActions.TryGetValue(currentResult.PreviousState, out var action))
             { action.Invoke(context); }
 
-            //Is there an action for any entry?
-            _defaultEntryAction?.Invoke(context);
+            //Is there an action for any entry? Don't execute if moving from substate
+            if (!GetTargetStateConfiguration(currentResult.PreviousState).IsSubstateOf(State))
+            { _defaultEntryAction?.Invoke(context); }
         }
 
         public void ExecuteExitAction(T context, StateTransitionResult<TState, TTrigger> currentResult)
@@ -544,13 +545,13 @@ namespace NStateManager.Sync
             //Is there an action for any exit?
             _defaultExitAction?.Invoke(context);
 
-            if (_superState != null && !IsInState(currentResult.CurrentState))
-            { _superState.ExecuteExitAction(context, currentResult); }
+            if (_superstateConfig != null && !IsSubstateOf(currentResult.CurrentState))
+            { _superstateConfig.ExecuteExitAction(context, currentResult); }
         }
 
         public void ExecuteReentryAction(T context, StateTransitionResult<TState, TTrigger> currentResult)
         {
-            _superState?.ExecuteReentryAction(context, currentResult);
+            _superstateConfig?.ExecuteReentryAction(context, currentResult);
             _reentryAction?.Invoke(context);
         }
 
@@ -574,8 +575,8 @@ namespace NStateManager.Sync
 
             var result = FireTriggerPrim(parameters);
 
-            if (!(result?.WasTransitioned ?? false) && _superState != null)
-            { result = _superState.FireTrigger(parameters); }
+            if (!(result?.WasTransitioned ?? false) && _superstateConfig != null)
+            { result = _superstateConfig.FireTrigger(parameters); }
             else
             {
                 var startState = StateAccessor(parameters.Context);
@@ -591,17 +592,20 @@ namespace NStateManager.Sync
             return result;
         }
 
-        public bool IsInState(TState state)
+        public bool IsSubstateOf(TState state)
         {
-            if (state.IsEqual(State))
+            if (_superstateConfig is null)
+            { return false; }
+
+            if (state.Equals(_superstateConfig.State))
             { return true; }
 
-            return _superState?.IsInState(state) ?? false;
+            return _superstateConfig.IsSubstateOf(state);
         }
 
-        public IStateConfiguration<T, TState, TTrigger> MakeSubStateOf(IStateConfiguration<T, TState, TTrigger> superStateConfiguration)
+        public IStateConfiguration<T, TState, TTrigger> MakeSubstateOf(IStateConfiguration<T, TState, TTrigger> superstateConfiguration)
         {
-            AddSuperState(superStateConfiguration as IStateConfigurationInternal<T, TState, TTrigger>);
+            AddSuperstate(superstateConfiguration as IStateConfigurationInternal<T, TState, TTrigger>);
 
             return this;
         }

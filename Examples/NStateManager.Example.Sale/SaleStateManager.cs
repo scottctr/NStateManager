@@ -64,20 +64,20 @@ namespace NStateManager.Example.Sale
                 //If a cancel is requested, we can only change to Cancelled if no unremovable sale items have been delivered.
                 .AddTransition(SaleEvent.Cancel, SaleState.Cancelled, condition: sale => sale.IsCancellable());
 
-            //The WaitingForDelivery substate indicates that the sale has items that haven't been fuly delivered.
+            //The WaitingForDelivery substate indicates that the sale has items that haven't been fully delivered.
             //This could be used for gas, car wash, oil change, food, etc.
             //Also note that a WaitingForDelivery sale could also have change due, but WaitingForDelivery take priority since 
             //we may not know the total sale amount until all items delivered. For instance, the gas pumped may not be exactly
             //the same as the amount they prepaid for.
             _saleStateManager.ConfigureState(SaleState.WaitingForDelivery)
                 //The following line establishes WaitingForDelivery as a substate of Authorized
-                .MakeSubStateOf(_saleStateManager.ConfigureState(SaleState.Authorized))
+                .MakeSubstateOf(_saleStateManager.ConfigureState(SaleState.Authorized))
                 .AddDynamicTransition(SaleEvent.ItemDelivered, ProcessItemDelivered);
 
             //The ChangeDue substate indicates the customer has some money coming back before we can Complete the sale.
             _saleStateManager.ConfigureState(SaleState.ChangeDue)
                 //The following line establishes ChangeDue as a substate of Authorized
-                .MakeSubStateOf(_saleStateManager.ConfigureState(SaleState.Authorized));
+                .MakeSubstateOf(_saleStateManager.ConfigureState(SaleState.Authorized));
                 //Unlike the WaitingForDelivery substate, uses the Authorized transitions it inherits and no further transition definitions required.
 
             _saleStateManager.ConfigureState(SaleState.PartiallyAuthorized)

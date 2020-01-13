@@ -114,6 +114,8 @@
     <Compile Include="AutoFallbackTest.cs" />
     <Compile Include="ExecutionParametersTests.cs" />
     <Compile Include="Export\ConfigurationSummaryTests.cs" />
+    <Compile Include="Export\CsvExporterTests.cs" />
+    <Compile Include="Export\DotGraphExporterTests.cs" />
     <Compile Include="Export\StateDetailsTests.cs" />
     <Compile Include="Export\StateMachineTests.cs" />
     <Compile Include="Export\StateMachineAsyncTests.cs" />

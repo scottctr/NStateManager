@@ -181,30 +181,31 @@ namespace NStateManager.Async
             var currentState = StateAccessor(parameters.Context);
             if (currentResult.WasTransitioned && !currentState.Equals(currentResult.StartingState))
             {
-                _stateConfigurations.TryGetValue(currentResult.PreviousState, out var previousState);
+                _stateConfigurations.TryGetValue(currentResult.PreviousState, out var previousStateConfig);
+                _stateConfigurations.TryGetValue(currentResult.CurrentState, out var newStateConfig);
 
                 //OnExit? ...don't execute if moving to substate
-                if (!IsInState(parameters.Context, currentResult.PreviousState))
-                { 
-                    await previousState.ExecuteExitActionAsync(parameters, currentResult)
+                if (previousStateConfig != null && !(newStateConfig != null && newStateConfig.IsSubstateOf(currentResult.PreviousState)))
+                {
+                    await previousStateConfig.ExecuteExitActionAsync(parameters, currentResult)
                         .ConfigureAwait(continueOnCapturedContext: false);
                 }
 
-                if (_stateConfigurations.TryGetValue(currentResult.CurrentState, out var newState))
+                //Fire the transition event before anything else.
+                OnTransition?.Invoke(this, new TransitionEventArgs<T, TState, TTrigger>(parameters, currentResult));
+
+                if (newStateConfig != null)
                 {
                     //OnEntry? ...don't execute if moving to superstate
-                    if (!previousState.IsInState(currentResult.CurrentState))
+                    if (previousStateConfig != null && !previousStateConfig.IsSubstateOf(currentResult.CurrentState))
                     {
-                        await newState.ExecuteEntryActionAsync(parameters, currentResult)
+                        await newStateConfig.ExecuteEntryActionAsync(parameters, currentResult)
                            .ConfigureAwait(continueOnCapturedContext: false);
-
-                        //Now that we're fully in the new state, we can fire the transition event before considering additional auto transitions.
-                        OnTransition?.Invoke(this, new TransitionEventArgs<T, TState, TTrigger>(parameters, currentResult));
                     }
 
                     //Auto transition?
                     var preAutoTransitionState = currentResult.CurrentState;
-                    var autoTransitionResult = await newState.ExecuteAutoTransitionAsync(parameters, currentResult)
+                    var autoTransitionResult = await newStateConfig.ExecuteAutoTransitionAsync(parameters, currentResult)
                        .ConfigureAwait(continueOnCapturedContext: false);
                     if (autoTransitionResult.WasTransitioned)
                     {
@@ -221,11 +222,6 @@ namespace NStateManager.Async
                         await executeExitAndEntryActionsAsync(parameters, autoTransitionResult)
                            .ConfigureAwait(continueOnCapturedContext: false);
                     }
-                }
-                else
-                {
-                    //if we didn't fire the transitioned event as part of the new state configuration, we need to do it here
-                    OnTransition?.Invoke(this, new TransitionEventArgs<T, TState, TTrigger>(parameters, currentResult));
                 }
             }
             //Reentry?
@@ -248,15 +244,15 @@ namespace NStateManager.Async
             return currentResult;
         }
 
-        public bool IsInState(T context, TState state)
+        public bool IsInState(T context, TState stateToCheck)
         {
-            var objectState = StateAccessor(context);
+            var currentState = StateAccessor(context);
 
-            if (state.IsEqual(objectState))
+            if (stateToCheck.IsEqual(currentState))
             { return true; }
 
-            return _stateConfigurations.TryGetValue(objectState, out var objectStateConfiguration) 
-                   && objectStateConfiguration.IsInState(state);
+            return _stateConfigurations.TryGetValue(currentState, out var objectStateConfiguration) 
+                   && objectStateConfiguration.IsSubstateOf(stateToCheck);
         }
     }
 }
