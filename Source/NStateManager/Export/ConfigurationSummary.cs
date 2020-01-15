@@ -19,8 +19,16 @@ namespace NStateManager.Export
         private readonly Dictionary<TState, StateDetails<TState, TTrigger>> _stateDetails = new Dictionary<TState, StateDetails<TState, TTrigger>>();
         public IReadOnlyList<StateDetails<TState, TTrigger>> StateDetails => _stateDetails.Values.ToList();
 
-        public IReadOnlyList<StateDetails<TState, TTrigger>> FinalStates => _stateDetails.Values.Where(s => s.IsFinalState).ToList();
-        public IReadOnlyList<StateDetails<TState, TTrigger>> StartingStates => _stateDetails.Values.Where(s => s.IsStartingState).ToList();
+        public IReadOnlyList<StateDetails<TState, TTrigger>> FinalStates => Transitions
+           .Where(t => t.ToState.IsFinalState)
+           .Select(t => t.ToState)
+           .ToList(); 
+            
+        public IReadOnlyList<StateDetails<TState, TTrigger>> StartingStates => Transitions
+           .Where(t => t.FromState.IsStartingState)
+           .Select(t => t.FromState)
+           .ToList();
+
         public IReadOnlyList<TransitionDetails<TState, TTrigger>> Transitions => _stateDetails.SelectMany(s => s.Value.TransitionsFrom).Distinct().ToList();
 
         public StateDetails<TState, TTrigger> AddState(TState state)

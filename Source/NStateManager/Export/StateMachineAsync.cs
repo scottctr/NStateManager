@@ -42,6 +42,22 @@ namespace NStateManager.Async
                           , transition is StateTransitionDynamicBase<T, TState, TTrigger>);
                     }
                 }
+
+                foreach (var transitions in (config.Value as StateConfigurationBase<T, TState, TTrigger>).AutoTransitions)
+                {
+                    foreach (var transition in transitions.Value)
+                    {
+                        fromStateDetails.CreateTransitionFrom(transition.Name
+                          , transitions.Key
+                          , transition is StateTransitionNonDynamic<T, TState, TTrigger> nonDynamic
+                                ? result.StateDetails.First(s => s.State.IsEqual(nonDynamic.ToState))
+                                : stateDetailsByState.First().Value
+                          , (transition is StateTransitionAsync<T, TState, TTrigger> condTransition)
+                         && condTransition.HasCondition
+                          , transition.Priority
+                          , transition is StateTransitionDynamicBase<T, TState, TTrigger>);
+                    }
+                }
             }
 
             return result;
