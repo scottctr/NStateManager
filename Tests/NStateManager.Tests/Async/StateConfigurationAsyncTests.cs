@@ -8,11 +8,11 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
+using NStateManager.Async;
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using NStateManager.Async;
 using Xunit;
 
 namespace NStateManager.Tests.Async
@@ -218,9 +218,9 @@ namespace NStateManager.Tests.Async
             var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
 
-            sut.AddAutoFallbackTransition<string>(SaleEvent.Pay, SaleState.ChangeDue, condition: (sale, s, _) => Task.FromResult(true));
+            sut.AddAutoFallbackTransition<string>(SaleEvent.Pay, SaleState.ChangeDue, (sale, s, _) => Task.FromResult(result: true));
 
-            Assert.Single((stateMachine.ConfigureState(SaleState.ChangeDue) as StateConfigurationAsync<Sale, SaleState, SaleEvent>).AutoTransitions);
+            Assert.Single(((StateConfigurationAsync<Sale, SaleState, SaleEvent>) stateMachine.ConfigureState(SaleState.ChangeDue)).AutoTransitions);
         }
 
         [Fact]
@@ -346,7 +346,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async Task ExecuteAutoTransitionAsync_executes_AutoTransition_without_previous_state()
         {
-            var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
+            var sale = new Sale(saleId: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
                 , SaleState.Open
                 , SaleState.ChangeDue
@@ -369,7 +369,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async Task ExecuteAutoTransitionAsync_executes_AutoTransition_for_superState()
         {
-            var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
+            var sale = new Sale(saleId: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
                 , SaleState.Open
                 , SaleState.Open
@@ -378,7 +378,9 @@ namespace NStateManager.Tests.Async
             var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             IStateConfigurationAsyncInternal<Sale, SaleState, SaleEvent> openState = stateMachine.ConfigureState(SaleState.Open) as IStateConfigurationAsyncInternal<Sale, SaleState, SaleEvent>;
             IStateConfigurationAsyncInternal<Sale, SaleState, SaleEvent> changeDueState = stateMachine.ConfigureState(SaleState.ChangeDue) as IStateConfigurationAsyncInternal<Sale, SaleState, SaleEvent>;
+            Debug.Assert(changeDueState != null, nameof(changeDueState) + " != null");
             changeDueState.AddSuperstate(openState);
+            Debug.Assert(openState != null, nameof(openState) + " != null");
             openState.AddAutoForwardTransition(SaleEvent.ChangeGiven, SaleState.Complete, (sale1, _) => Task.FromResult(result: true));
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.ChangeGiven, sale);
 
@@ -395,7 +397,7 @@ namespace NStateManager.Tests.Async
         public void ExecuteAutoTransitionAsync_can_be_cancelled()
         {
             var stopwatch = new Stopwatch();
-            var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
+            var sale = new Sale(saleId: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
                 , SaleState.ChangeDue
                 , SaleState.ChangeDue
@@ -413,43 +415,41 @@ namespace NStateManager.Tests.Async
                 return Task.FromResult(result: !cancelToken.IsCancellationRequested);
             });
 
-            using (var mutex = new Mutex(initiallyOwned: false))
-            using (var cancelSource = new CancellationTokenSource())
+            using var mutex = new Mutex(initiallyOwned: false);
+            using var cancelSource = new CancellationTokenSource();
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.ChangeGiven, sale, cancelSource.Token);
+            StateTransitionResult<SaleState, SaleEvent> autoTransitionResult = null;
+
+            Task.Factory.StartNew(async () =>
             {
-                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.ChangeGiven, sale, cancelSource.Token);
-                StateTransitionResult<SaleState, SaleEvent> autoTransitionResult = null;
+                mutex.WaitOne();
+                autoTransitionResult = await sut.ExecuteAutoTransitionAsync(parameters, transitionResult);
+                mutex.ReleaseMutex();
+            }, TaskCreationOptions.LongRunning);
 
-                Task.Factory.StartNew(async () =>
-                {
-                    mutex.WaitOne();
-                    autoTransitionResult = await sut.ExecuteAutoTransitionAsync(parameters, transitionResult);
-                    mutex.ReleaseMutex();
-                }, TaskCreationOptions.LongRunning);
-
-                try
-                {
-                    stopwatch.Start();
-                    Task.Delay(millisecondsDelay: 2345).Wait();
-                    cancelSource.Cancel();
-                    mutex.WaitOne();
-                }
-                catch(Exception ex)
-                {
-                    cancelSource.Cancel();
-                }
-
-                Assert.True(autoTransitionResult.WasCancelled);
-                Assert.False(autoTransitionResult.ConditionMet);
-                Assert.True(autoTransitionResult.TransitionDefined);
-                Assert.Equal(SaleState.ChangeDue, sale.State);
-                Assert.Equal(SaleState.ChangeDue, autoTransitionResult.CurrentState);
+            try
+            {
+                stopwatch.Start();
+                Task.Delay(millisecondsDelay: 2345).Wait();
+                cancelSource.Cancel();
+                mutex.WaitOne();
             }
+            catch
+            {
+                cancelSource.Cancel();
+            }
+
+            Assert.True(autoTransitionResult.WasCancelled);
+            Assert.False(autoTransitionResult.ConditionMet);
+            Assert.True(autoTransitionResult.TransitionDefined);
+            Assert.Equal(SaleState.ChangeDue, sale.State);
+            Assert.Equal(SaleState.ChangeDue, autoTransitionResult.CurrentState);
         }
 
         [Fact]
         public async Task ExecuteEntryActionAsync_executes_EntryAction_based_on_previous_state()
         {
-            var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
+            var sale = new Sale(saleId: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
                 , SaleState.Open
                 , SaleState.Open
@@ -475,7 +475,7 @@ namespace NStateManager.Tests.Async
             openConfig.AddEntryAction((sale1, _) => { entryActionCalled = true; return Task.CompletedTask; });
             var changeDueConfig = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             changeDueConfig.MakeSubStateOf(openConfig);
-            var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
+            var sale = new Sale(saleId: 96) { State = SaleState.ChangeDue };
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale);
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
               , SaleState.Open
@@ -491,7 +491,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async Task ExecuteEntryActionAsyncWPrevState_does_not_execute_if_cancelled()
         {
-            var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
+            var sale = new Sale(saleId: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
               , SaleState.Open
               , SaleState.Open
@@ -502,21 +502,19 @@ namespace NStateManager.Tests.Async
             var entryActionFromOpenFired = false;
             sut.AddEntryAction((sale1, _) => { entryActionFromOpenFired = true; return Task.CompletedTask; }, SaleState.Open);
 
-            using (var cancelSource = new CancellationTokenSource())
-            {
-                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancelSource.Token);
-                cancelSource.Cancel();
+            using var cancelSource = new CancellationTokenSource();
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancelSource.Token);
+            cancelSource.Cancel();
 
-                await sut.ExecuteEntryActionAsync(parameters, transitionResult);
+            await sut.ExecuteEntryActionAsync(parameters, transitionResult);
 
-                Assert.False(entryActionFromOpenFired);
-            }
+            Assert.False(entryActionFromOpenFired);
         }
 
         [Fact]
         public async Task ExecuteEntryActionAsync_does_not_execute_if_cancelled()
         {
-            var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
+            var sale = new Sale(saleId: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
               , SaleState.Open
               , SaleState.Open
@@ -527,21 +525,19 @@ namespace NStateManager.Tests.Async
             var entryActionFromOpenFired = false;
             sut.AddEntryAction((sale1, _) => { entryActionFromOpenFired = true; return Task.CompletedTask; } );
 
-            using (var cancelSource = new CancellationTokenSource())
-            {
-                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancelSource.Token);
-                cancelSource.Cancel();
+            using var cancelSource = new CancellationTokenSource();
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancelSource.Token);
+            cancelSource.Cancel();
 
-                await sut.ExecuteEntryActionAsync(parameters, transitionResult);
+            await sut.ExecuteEntryActionAsync(parameters, transitionResult);
 
-                Assert.False(entryActionFromOpenFired);
-            }
+            Assert.False(entryActionFromOpenFired);
         }
 
         [Fact]
         public async Task ExecuteEntryActionAsync_executes_EntryAction_without_previous_state()
         {
-            var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
+            var sale = new Sale(saleId: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
                 , SaleState.Open
                 , SaleState.Open
@@ -561,7 +557,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async Task ExecuteReentryActionAsync_executes_superState_Action()
         {
-            var sale = new Sale(saleID: 96) { State = SaleState.Open };
+            var sale = new Sale(saleId: 96) { State = SaleState.Open };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.AddItem
                 , SaleState.Open
                 , SaleState.Open
@@ -583,7 +579,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async Task ExecuteReentryActionAsync_executes_ReentryAction()
         {
-            var sale = new Sale(saleID: 96) { State = SaleState.Open };
+            var sale = new Sale(saleId: 96) { State = SaleState.Open };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.AddItem
                 , SaleState.Open
                 , SaleState.Open
@@ -605,7 +601,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async Task ExecuteExitActionAsync_executes_based_on_next_state()
         {
-            var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
+            var sale = new Sale(saleId: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
                 , SaleState.Open
                 , SaleState.Open
@@ -625,7 +621,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async Task ExecuteExitActionAsync_NextState_does_not_execute_if_cancelled()
         {
-            var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
+            var sale = new Sale(saleId: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
               , SaleState.Open
               , SaleState.Open
@@ -650,7 +646,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async Task ExecuteExitActionAsync_executes_without_next_state()
         {
-            var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
+            var sale = new Sale(saleId: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
                 , SaleState.Open
                 , SaleState.Open
@@ -671,7 +667,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async Task ExecuteExitActionAsync_does_not_execute_if_cancelled()
         {
-            var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
+            var sale = new Sale(saleId: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
               , SaleState.Open
               , SaleState.Open
@@ -697,7 +693,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async Task FireTriggerAsync_executes_superState_if_currentState_not_successful()
         {
-            var sale = new Sale(saleID: 96) { State = SaleState.ChangeDue };
+            var sale = new Sale(saleId: 96) { State = SaleState.ChangeDue };
             var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
             var changeDueState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);

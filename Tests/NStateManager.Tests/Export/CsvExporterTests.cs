@@ -1,6 +1,6 @@
-﻿using System;
-using NStateManager.Export;
+﻿using NStateManager.Export;
 using NStateManager.Sync;
+using System;
 using TelephoneCallExample;
 using Xunit;
 
@@ -33,8 +33,7 @@ namespace NStateManager.Tests.Export
 
             sut.ConfigureState(SaleState.Open)
                .AddTransition(SaleEvent.Pay, SaleState.Complete, (sale => Math.Abs(sale.Balance) < 0.01))
-               .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, (sale => sale.Balance < 0))
-                ;
+               .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, (sale => sale.Balance < 0));
 
             sut.ConfigureState(SaleState.Complete)
                .AddEntryAction(sale1 => entryActionFired = true);

@@ -8,9 +8,9 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
+using NStateManager.Async;
 using System.Threading;
 using System.Threading.Tasks;
-using NStateManager.Async;
 using Xunit;
 
 namespace NStateManager.Tests.Async
@@ -34,7 +34,7 @@ namespace NStateManager.Tests.Async
         public async Task ExecuteAsync_does_not_execute_if_CancelRequested()
         {
             const SaleState startState = SaleState.Open;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
             var sut = new StateTransitionAutoFallbackAsync<Sale, SaleState, SaleEvent>(
                 getStateMachine()
                 , SaleState.Open
@@ -44,18 +44,16 @@ namespace NStateManager.Tests.Async
                 , name: "test"
                 , priority: 1);
 
-            using (var cancelSource = new CancellationTokenSource())
-            {
-                var cancelToken = cancelSource.Token;
-                cancelSource.Cancel();
+            using var cancelSource = new CancellationTokenSource();
+            var cancelToken = cancelSource.Token;
+            cancelSource.Cancel();
 
-                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, request: null, cancellationToken: cancelToken);
-                var result = await sut.ExecuteAsync(parameters, getDummyResult(wasCancelled: true));
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, request: null, cancellationToken: cancelToken);
+            var result = await sut.ExecuteAsync(parameters, getDummyResult(wasCancelled: true));
 
-                Assert.True(result.WasCancelled);
-                Assert.False(result.WasTransitioned);
-                Assert.Equal(startState, sale.State);
-            }
+            Assert.True(result.WasCancelled);
+            Assert.False(result.WasTransitioned);
+            Assert.Equal(startState, sale.State);
         }
 
         [Fact]
@@ -63,7 +61,7 @@ namespace NStateManager.Tests.Async
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
 
             var sut = new StateTransitionAutoFallbackAsync<Sale, SaleState, SaleEvent>(
                 getStateMachine()
@@ -85,7 +83,7 @@ namespace NStateManager.Tests.Async
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
 
             var sut = new StateTransitionAutoFallbackAsync<Sale, SaleState, SaleEvent>(
                 getStateMachine()
@@ -105,7 +103,7 @@ namespace NStateManager.Tests.Async
         public void ExecuteAsync_ConditionAsync_can_be_cancelled()
         {
             const SaleState startState = SaleState.Open;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
             var sut = new StateTransitionAutoFallbackAsync<Sale, SaleState, SaleEvent>(
                 getStateMachine()
                 , startState
@@ -119,14 +117,12 @@ namespace NStateManager.Tests.Async
                 , name: "test"
                 , priority: 1);
 
-            using (var cancelSource = new CancellationTokenSource())
-            {
-                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationToken: cancelSource.Token);
-                Task.Run(async () => await sut.ExecuteAsync(parameters), cancelSource.Token);
-                cancelSource.Cancel();
+            using var cancelSource = new CancellationTokenSource();
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationToken: cancelSource.Token);
+            Task.Run(async () => await sut.ExecuteAsync(parameters), cancelSource.Token);
+            cancelSource.Cancel();
 
-                Assert.Equal(startState, sale.State);
-            }
+            Assert.Equal(startState, sale.State);
         }
 
         private static StateTransitionResult<SaleState, SaleEvent> getDummyResult(bool wasCancelled = false)

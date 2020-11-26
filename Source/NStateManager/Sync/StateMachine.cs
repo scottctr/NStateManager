@@ -111,7 +111,7 @@ namespace NStateManager.Sync
         /// Executes trigger with a <see cref="TRequest"/> parameter.
         /// </summary>
         /// <param name="context">The items whose state is being managed.</param>
-        /// <param name="trigger">The event that has occured that may affect the state.</param>
+        /// <param name="trigger">The event that has occurred that may affect the state.</param>
         /// <param name="request">The details of the event that's occurring.</param>
         /// <returns></returns>
         public StateTransitionResult<TState, TTrigger> FireTrigger<TRequest>(T context, TTrigger trigger, TRequest request)
@@ -139,7 +139,7 @@ namespace NStateManager.Sync
         /// Executes trigger.
         /// </summary>
         /// <param name="context">The items whose state is being managed.</param>
-        /// <param name="trigger">The event that has occured that may affect the state.</param>
+        /// <param name="trigger">The event that has occurred that may affect the state.</param>
         /// <returns></returns>
         public StateTransitionResult<TState, TTrigger> FireTrigger(T context, TTrigger trigger)
         {

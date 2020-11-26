@@ -549,7 +549,7 @@ namespace NStateManager.Async
             else
             {
                 var startState = StateAccessor(parameters.Context);
-                result = result ?? new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                result ??= new StateTransitionResult<TState, TTrigger>(parameters.Trigger
                     , startState
                     , startState
                     , startState

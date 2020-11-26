@@ -8,6 +8,7 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
+
 using System;
 using Xunit;
 
@@ -32,11 +33,11 @@ namespace NStateManager.Tests.Sync
             var sut = new StateTransitionDynamic<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState
-                , stateFunc: (sale) => SaleState.Complete
+                , stateFunc: sale => SaleState.Complete
                 , name: "test"
                 , priority: 1);
 
-            var testSale = new Sale(saleID: 87) { State = SaleState.Open };
+            var testSale = new Sale(saleId: 87) { State = SaleState.Open };
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
 
             var result = sut.Execute(parameters);
@@ -52,11 +53,11 @@ namespace NStateManager.Tests.Sync
             var sut = new StateTransitionDynamic<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState
-                , stateFunc: (sale) => SaleState.Open
+                , stateFunc: sale => SaleState.Open
                 , name: "test"
                 , priority: 1);
 
-            var testSale = new Sale(saleID: 87) { State = SaleState.Open };
+            var testSale = new Sale(saleId: 87) { State = SaleState.Open };
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
 
             var result = sut.Execute(parameters);

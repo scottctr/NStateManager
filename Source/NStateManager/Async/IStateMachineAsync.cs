@@ -48,21 +48,21 @@ namespace NStateManager.Async
         /// Executes trigger asynchronously with a <see cref="TRequest"/> parameter.
         /// </summary>
         /// <param name="context">The items whose state is being managed.</param>
-        /// <param name="trigger">The event that has occured that may affect the state.</param>
+        /// <param name="trigger">The event that has occurred that may affect the state.</param>
         /// <param name="request">The details of the event that's occurring.</param>
         /// <param name="cancellationToken"><see cref="CancellationToken"/>Provides the ability to cancel an asynchronous operation.</param>
         /// <returns></returns>
-        Task<StateTransitionResult<TState, TTrigger>> FireTriggerAsync<TRequest>(T context, TTrigger trigger, TRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        Task<StateTransitionResult<TState, TTrigger>> FireTriggerAsync<TRequest>(T context, TTrigger trigger, TRequest request, CancellationToken cancellationToken = default)
             where TRequest : class;
 
         /// <summary>
         /// Executes trigger.
         /// </summary>
         /// <param name="context">The items whose state is being managed.</param>
-        /// <param name="trigger">The event that has occured that may affect the state.</param>
+        /// <param name="trigger">The event that has occurred that may affect the state.</param>
         /// <param name="cancellationToken"><see cref="CancellationToken"/>Provides the ability to cancel an asynchronous operation.</param>
         /// <returns></returns>
-        Task<StateTransitionResult<TState, TTrigger>> FireTriggerAsync(T context, TTrigger trigger, CancellationToken cancellationToken = default(CancellationToken));
+        Task<StateTransitionResult<TState, TTrigger>> FireTriggerAsync(T context, TTrigger trigger, CancellationToken cancellationToken = default);
 
         bool IsInState(T context, TState state);
 

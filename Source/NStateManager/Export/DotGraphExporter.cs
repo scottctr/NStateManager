@@ -21,7 +21,7 @@ namespace NStateManager.Export
             {
                 dotGraph.Append($"\t{transition.FromState.State} -> {transition.ToState.State}");
 
-                dotGraph.Append($" [label=\"");
+                dotGraph.Append(" [label=\"");
 
                 if (!string.IsNullOrWhiteSpace(transition.Name))
                 { dotGraph.Append(transition.Trigger); }

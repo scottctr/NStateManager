@@ -8,10 +8,10 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
+using NStateManager.Async;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using NStateManager.Async;
 using Xunit;
 
 namespace NStateManager.Tests.Async
@@ -34,7 +34,7 @@ namespace NStateManager.Tests.Async
         public async Task ExecuteAsync_throws_ArgumentException_if_Request_not_provided()
         {
             const SaleState startState = SaleState.Open;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
             var sut = new StateTransitionParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 stateAccessor: saleToUpdate => saleToUpdate.State
                 , stateMutator: (saleToUpdate, newState) => saleToUpdate.State = newState
@@ -43,7 +43,7 @@ namespace NStateManager.Tests.Async
                 , name: "test"
                 , priority: 1);
 
-            using (var cancelSource = new CancellationTokenSource())
+            using var cancelSource = new CancellationTokenSource();
             {
                 var cancelToken = cancelSource.Token;
                 var executionParams = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, request: null, cancellationToken: cancelToken);
@@ -56,7 +56,7 @@ namespace NStateManager.Tests.Async
         public async Task ExecuteAsync_throws_ArgumentException_if_Request_is_wrong_type()
         {
             const SaleState startState = SaleState.Open;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
             var sut = new StateTransitionParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 stateAccessor: saleToUpdate => saleToUpdate.State
                 , stateMutator: (saleToUpdate, newState) => saleToUpdate.State = newState
@@ -65,7 +65,7 @@ namespace NStateManager.Tests.Async
                 , name: "test"
                 , priority: 1);
 
-            using (var cancelSource = new CancellationTokenSource())
+            using var cancelSource = new CancellationTokenSource();
             {
                 var cancelToken = cancelSource.Token;
                 var executionParams = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, request: 1, cancellationToken: cancelToken);
@@ -78,7 +78,7 @@ namespace NStateManager.Tests.Async
         public async Task ExecuteAsync_doesnt_execute_if_cancel_requested()
         {
             const SaleState startState = SaleState.Open;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
             var sut = new StateTransitionParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 stateAccessor: saleToUpdate => saleToUpdate.State
                 , stateMutator: (saleToUpdate, newState) => saleToUpdate.State = newState
@@ -87,7 +87,7 @@ namespace NStateManager.Tests.Async
                 , name: "test"
                 , priority: 1);
 
-            using (var cancelSource = new CancellationTokenSource())
+            using var cancelSource = new CancellationTokenSource();
             {
                 var cancelToken = cancelSource.Token;
                 cancelSource.Cancel();
@@ -106,7 +106,7 @@ namespace NStateManager.Tests.Async
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
 
             var sut = new StateTransitionParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 stateAccessor: saleToUpdate => saleToUpdate.State
@@ -127,7 +127,7 @@ namespace NStateManager.Tests.Async
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
 
             var sut = new StateTransitionParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 stateAccessor: saleToUpdate => saleToUpdate.State
@@ -137,7 +137,7 @@ namespace NStateManager.Tests.Async
                 , name: "test"
                 , priority: 1);
 
-            var result = await sut.ExecuteAsync(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, request: "notUsed"));
+            await sut.ExecuteAsync(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, request: "notUsed"));
 
             Assert.Equal(startState, sale.State);
         }
@@ -146,7 +146,7 @@ namespace NStateManager.Tests.Async
         public void ExecuteAsync_ConditionAsync_can_be_cancelled()
         {
             const SaleState startState = SaleState.Open;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
             var sut = new StateTransitionParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 stateAccessor: saleToUpdate => saleToUpdate.State
                 , stateMutator: (saleToUpdate, newState) => saleToUpdate.State = newState
@@ -159,14 +159,12 @@ namespace NStateManager.Tests.Async
                 , name: "test"
                 , priority: 1);
 
-            using (var cancelSource = new CancellationTokenSource())
-            {
-                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationToken: cancelSource.Token);
-                Task.Run(async () => await sut.ExecuteAsync(parameters, currentResult: null));
-                cancelSource.Cancel();
+            using var cancelSource = new CancellationTokenSource();
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationToken: cancelSource.Token);
+            Task.Run(async () => await sut.ExecuteAsync(parameters, currentResult: null));
+            cancelSource.Cancel();
 
-                Assert.Equal(startState, sale.State);
-            }
+            Assert.Equal(startState, sale.State);
         }
     }
 }

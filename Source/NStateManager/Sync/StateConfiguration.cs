@@ -580,13 +580,12 @@ namespace NStateManager.Sync
             else
             {
                 var startState = StateAccessor(parameters.Context);
-                result = result ?? 
-                    new StateTransitionResult<TState, TTrigger>(parameters.Trigger
-                        , startState
-                        , startState
-                        , startState
-                        , string.Empty
-                        , transitionDefined: false);
+                result ??= new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                    , startState
+                    , startState
+                    , startState
+                    , string.Empty
+                    , transitionDefined: false);
             }
 
             return result;

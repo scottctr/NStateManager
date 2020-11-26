@@ -9,7 +9,7 @@ namespace NStateManager.Export
         public static string Export(ConfigurationSummary<TState, TTrigger> summary)
         {
             var csv = new StringBuilder();
-            csv.AppendLine($"FromState, TriggerEvent, ToState, Condition");
+            csv.AppendLine("FromState, TriggerEvent, ToState, Condition");
 
             foreach (var transition in summary.Transitions.OrderByDescending(t => t.FromState.IsStartingState).ThenByDescending(t => t.ToState.IsFinalState))
             { csv.AppendLine($"{transition.FromState.State}, {transition.Trigger}, {transition.ToState.State}{(transition.HasCondition ? ", *" : string.Empty)}"); }

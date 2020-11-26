@@ -14,7 +14,7 @@ namespace NStateManager.Example.Sale.Console
     {
         private static void Main(string[] args)
         {
-            var sale = new Sale(saleID: 1);
+            var sale = new Sale(saleId: 1);
             SaleStateMachine.AddItem(sale, new SaleItem("Magazine", price: 3.00));
             SaleStateMachine.AddItem(sale, new SaleItem("Fuel", price: 10.00));
             SaleStateMachine.AddPayment(sale, new Payment(amount: 10.00));

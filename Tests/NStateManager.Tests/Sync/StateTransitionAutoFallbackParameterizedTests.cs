@@ -8,6 +8,7 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
+
 using System;
 using NStateManager.Sync;
 using Xunit;
@@ -41,7 +42,7 @@ namespace NStateManager.Tests.Sync
                 , name: "test"
                 , priority: 1);
 
-            Assert.Throws<ArgumentException>(() => sut.Execute(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleID: 9), request: 0)
+            Assert.Throws<ArgumentException>(() => sut.Execute(new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleId: 9), request: 0)
               , new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
                   , SaleState.Complete
                   , SaleState.Complete
@@ -52,7 +53,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void Execute_transitions_if_condition_met()
         {
-            var testSale = new Sale(saleID: 55) { State = SaleState.ChangeDue} ;
+            var testSale = new Sale(saleId: 55) { State = SaleState.ChangeDue} ;
 
             var sut = new StateTransitionAutoFallbackParameterized<Sale, SaleState, SaleEvent, string>(
                 GetStateMachine()
@@ -76,7 +77,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void Execute_doesnt_transition_if_condition_not_met()
         {
-            var testSale = new Sale(saleID: 55) { State = SaleState.Open };
+            var testSale = new Sale(saleId: 55) { State = SaleState.Open };
 
             var sut = new StateTransitionAutoFallbackParameterized<Sale, SaleState, SaleEvent, string>(
                 GetStateMachine()
@@ -103,7 +104,7 @@ namespace NStateManager.Tests.Sync
 
         private IStateMachine<Sale, SaleState, SaleEvent> GetStateMachine()
         {
-            return new NStateManager.Sync.StateMachine<Sale, SaleState, SaleEvent>(saleToUpdate => saleToUpdate.State
+            return new StateMachine<Sale, SaleState, SaleEvent>(saleToUpdate => saleToUpdate.State
               , (saleToUpdate, newState) => saleToUpdate.State = newState);
         }
     }

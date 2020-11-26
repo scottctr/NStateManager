@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NStateManager", "NStateManager\NStateManager.csproj", "{32ABF9D2-580A-4D63-BC38-8EAD7E8B405A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NStateManager.Example.Sale.Console", "..\Examples\NStateManager.Example.Sale.Console\NStateManager.Example.Sale.Console.csproj", "{04C3F5C3-375F-4607-B9C5-44F4A7BF7833}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NStateManager.Example.Sale.Console", "..\Examples\NStateManager.Example.Sale.Console\NStateManager.Example.Sale.Console.csproj", "{04C3F5C3-375F-4607-B9C5-44F4A7BF7833}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NStateManager.Example.Sale", "..\Examples\NStateManager.Example.Sale\NStateManager.Example.Sale.csproj", "{43520112-F273-4BD7-8BF8-5C5F1D474556}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NStateManager.Example.Sale", "..\Examples\NStateManager.Example.Sale\NStateManager.Example.Sale.csproj", "{43520112-F273-4BD7-8BF8-5C5F1D474556}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NStateManager.Tests", "..\Tests\NStateManager.Tests\NStateManager.Tests.csproj", "{2ADDF230-A48B-462B-A1D4-CD91D9EC5F6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NStateManager.Tests", "..\Tests\NStateManager.Tests\NStateManager.Tests.csproj", "{2ADDF230-A48B-462B-A1D4-CD91D9EC5F6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

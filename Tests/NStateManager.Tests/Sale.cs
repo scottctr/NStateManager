@@ -30,11 +30,11 @@ namespace NStateManager.Tests
         //public List<SaleItem> Items { get; } = new List<SaleItem>();
         //public List<Payment> Payments { get; } = new List<Payment>();
         public SaleState State { get; set; }
-        public int SaleID { get; }
+        public int SaleId { get; }
 
-        public Sale(int saleID)
+        public Sale(int saleId)
         {
-            SaleID = saleID;
+            SaleId = saleId;
         }
 
         /*public void AddItem(SaleItem item)

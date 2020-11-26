@@ -34,7 +34,7 @@ namespace NStateManager.Tests.Async
         public async Task ExecuteAsync_throws_ArgumentException_if_Request_not_provided()
         {
             const SaleState startState = SaleState.Open;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
             var sut = new StateTransitionAutoForwardParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 getStateMachine()
                 , SaleState.Complete
@@ -43,7 +43,7 @@ namespace NStateManager.Tests.Async
                 , name: "test"
                 , priority: 1);
 
-            using (var cancelSource = new CancellationTokenSource())
+            using var cancelSource = new CancellationTokenSource();
             {
                 var cancelToken = cancelSource.Token;
                 var executionParams = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, request: null, cancellationToken: cancelToken);
@@ -56,7 +56,7 @@ namespace NStateManager.Tests.Async
         public async Task ExecuteAsync_throws_ArgumentException_if_Request_is_wrong_type()
         {
             const SaleState startState = SaleState.Open;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
             var sut = new StateTransitionAutoForwardParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 getStateMachine()
                 , SaleState.Complete
@@ -65,7 +65,7 @@ namespace NStateManager.Tests.Async
                 , name: "test"
                 , priority: 1);
 
-            using (var cancelSource = new CancellationTokenSource())
+            using var cancelSource = new CancellationTokenSource();
             {
                 var cancelToken = cancelSource.Token;
                 var executionParams = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, request: 1, cancellationToken: cancelToken);
@@ -78,7 +78,7 @@ namespace NStateManager.Tests.Async
         public async Task ExecuteAsync_does_not_execute_if_cancel_requested()
         {
             const SaleState startState = SaleState.Open;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
             var sut = new StateTransitionAutoForwardParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 getStateMachine()
                 , SaleState.Complete
@@ -87,7 +87,7 @@ namespace NStateManager.Tests.Async
                 , name: "test"
                 , priority: 1);
 
-            using (var cancelSource = new CancellationTokenSource())
+            using var cancelSource = new CancellationTokenSource();
             {
                 var cancelToken = cancelSource.Token;
                 cancelSource.Cancel();
@@ -106,7 +106,7 @@ namespace NStateManager.Tests.Async
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
 
             var sut = new StateTransitionAutoForwardParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 getStateMachine()
@@ -127,7 +127,7 @@ namespace NStateManager.Tests.Async
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
 
             var sut = new StateTransitionAutoForwardParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 getStateMachine()
@@ -154,7 +154,7 @@ namespace NStateManager.Tests.Async
         public void ExecuteAsync_ConditionAsync_can_be_cancelled()
         {
             const SaleState startState = SaleState.Open;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
             var sut = new StateTransitionAutoForwardParameterizedAsync<Sale, SaleState, SaleEvent, string>(
                 getStateMachine()
                 , SaleState.Complete
@@ -171,39 +171,37 @@ namespace NStateManager.Tests.Async
                 , name: "test"
                 , priority: 1);
 
-            using (var mutex = new Mutex(initiallyOwned: false))
-            using (var cancelSource = new CancellationTokenSource())
+            using var mutex = new Mutex(initiallyOwned: false);
+            using var cancelSource = new CancellationTokenSource();
+            StateTransitionResult<SaleState, SaleEvent> result = null;
+
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationToken: cancelSource.Token, request: "test");
+            Task.Factory.StartNew(async () =>
             {
-                StateTransitionResult<SaleState, SaleEvent> result = null;
-
-                var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, sale, cancellationToken: cancelSource.Token, request: "test");
-                Task.Factory.StartNew(async () =>
-                {
-                    mutex.WaitOne();
-                    result = await sut.ExecuteAsync(parameters, getDummyResult());
-                    mutex.ReleaseMutex();
-                }, TaskCreationOptions.LongRunning);
-
-                try
-                {
-                    Task.Delay(2222).Wait();
-
-                    cancelSource.Cancel();
-                }
-                catch
-                {
-                    cancelSource.Cancel();
-                }
-
                 mutex.WaitOne();
+                result = await sut.ExecuteAsync(parameters, getDummyResult());
+                mutex.ReleaseMutex();
+            }, TaskCreationOptions.LongRunning);
 
-                Assert.True(result.WasCancelled);
-                Assert.Equal(startState, sale.State);
-                Assert.Equal(startState, result.CurrentState);
-                Assert.False(result.ConditionMet);
-                Assert.True(result.TransitionDefined);
-                Assert.True(result.TransitionDefined);
+            try
+            {
+                Task.Delay(2222).Wait();
+
+                cancelSource.Cancel();
             }
+            catch
+            {
+                cancelSource.Cancel();
+            }
+
+            mutex.WaitOne();
+
+            Assert.True(result.WasCancelled);
+            Assert.Equal(startState, sale.State);
+            Assert.Equal(startState, result.CurrentState);
+            Assert.False(result.ConditionMet);
+            Assert.True(result.TransitionDefined);
+            Assert.True(result.TransitionDefined);
         }
 
         private static StateTransitionResult<SaleState, SaleEvent> getDummyResult(bool wasCancelled = false)

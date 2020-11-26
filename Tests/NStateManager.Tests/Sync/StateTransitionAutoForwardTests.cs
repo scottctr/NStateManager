@@ -8,6 +8,7 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
+
 using NStateManager.Sync;
 using Xunit;
 
@@ -20,13 +21,13 @@ namespace NStateManager.Tests.Sync
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
 
             var sut = new StateTransitionAutoForward<Sale, SaleState, SaleEvent>(
                 getStateMachine()
                 , triggerState: startState
                 , toState: endState
-                , condition: (_) => true
+                , condition: _ => true
                 , name: "test"
                 , priority: 1);
 
@@ -45,7 +46,7 @@ namespace NStateManager.Tests.Sync
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = SaleState.ChangeDue };
+            var sale = new Sale(saleId: 66) { State = SaleState.ChangeDue };
             var stateMachine = getStateMachine();
 
             var openStateConfig = stateMachine.ConfigureState(SaleState.Open);
@@ -56,7 +57,7 @@ namespace NStateManager.Tests.Sync
                 stateMachine
               , triggerState: startState
               , toState: endState
-              , condition: (_) => true
+              , condition: _ => true
               , name: "test"
               , priority: 1);
             var previousResult = getDummyResult();
@@ -77,13 +78,13 @@ namespace NStateManager.Tests.Sync
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
 
             var sut = new StateTransitionAutoForward<Sale, SaleState, SaleEvent>(
                 getStateMachine()
                 , triggerState: startState
                 , toState: endState
-                , condition: (_) => false
+                , condition: _ => false
                 , name: "test"
                 , priority: 1);
 
@@ -104,13 +105,13 @@ namespace NStateManager.Tests.Sync
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
 
             var sut = new StateTransitionAutoForward<Sale, SaleState, SaleEvent>(
                 getStateMachine()
               , triggerState: startState
               , toState: endState
-              , condition: (_) => false
+              , condition: _ => false
               , name: "test"
               , priority: 1);
 
@@ -131,13 +132,13 @@ namespace NStateManager.Tests.Sync
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
 
             var sut = new StateTransitionAutoForward<Sale, SaleState, SaleEvent>(
                 getStateMachine()
               , triggerState: SaleState.Complete
               , toState: endState
-              , condition: (_) => false
+              , condition: _ => false
               , name: "test"
               , priority: 1);
 

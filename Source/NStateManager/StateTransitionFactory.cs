@@ -74,28 +74,28 @@ namespace NStateManager
         //    return null;
         //}
 
-        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition(Async.IStateMachineAsync<T, TState, TTrigger> stateMachine, TState toState, Func<T, CancellationToken, Task<bool>> conditionAsync, string name, uint priority = 1)
+        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition(IStateMachineAsync<T, TState, TTrigger> stateMachine, TState toState, Func<T, CancellationToken, Task<bool>> conditionAsync, string name, uint priority = 1)
         {
             return new StateTransitionAsync<T, TState, TTrigger>(stateMachine.StateAccessor, stateMachine.StateMutator, toState, conditionAsync, name, priority);
         }
 
-        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition(Async.IStateMachineAsync<T, TState, TTrigger> stateMachine, TState startState, Func<T, TState> stateFunction, TState triggerState, string name, uint priority = 1)
+        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition(IStateMachineAsync<T, TState, TTrigger> stateMachine, TState startState, Func<T, TState> stateFunction, TState triggerState, string name, uint priority = 1)
         {
             return new StateTransitionAutoDynamicAsync<T, TState, TTrigger>(stateMachine, startState, stateFunction, triggerState, name, priority);
         }
 
-        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition<TRequest>(Async.IStateMachineAsync<T, TState, TTrigger> stateMachine, TState startState, Func<T, TRequest, TState> stateFunction, TState triggerState, string name, uint priority = 1)
+        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition<TRequest>(IStateMachineAsync<T, TState, TTrigger> stateMachine, TState startState, Func<T, TRequest, TState> stateFunction, TState triggerState, string name, uint priority = 1)
             where TRequest : class
         {
             return new StateTransitionAutoDynamicParameterizedAsync<T, TState, TTrigger, TRequest>(stateMachine, startState, stateFunction, triggerState, name, priority);
         }
 
-        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition(Async.IStateMachineAsync<T, TState, TTrigger> stateMachine, TState startState, TState toState, Func<T, CancellationToken, Task<bool>> conditionAsync, TState triggerState, string name, uint priority = 1)
+        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition(IStateMachineAsync<T, TState, TTrigger> stateMachine, TState startState, TState toState, Func<T, CancellationToken, Task<bool>> conditionAsync, TState triggerState, string name, uint priority = 1)
         {
             return new StateTransitionAutoFallbackAsync<T, TState, TTrigger>(stateMachine, startState, triggerState, toState, conditionAsync, name, priority);
         }
 
-        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition(Async.IStateMachineAsync<T, TState, TTrigger> stateMachine, TState toState, Func<T, CancellationToken, Task<bool>> conditionAsync, TState triggerState, string name, uint priority = 1)
+        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition(IStateMachineAsync<T, TState, TTrigger> stateMachine, TState toState, Func<T, CancellationToken, Task<bool>> conditionAsync, TState triggerState, string name, uint priority = 1)
         {
             return new StateTransitionAutoForwardAsync<T, TState, TTrigger>(stateMachine, triggerState, toState, conditionAsync, name, priority);
         }
@@ -105,7 +105,7 @@ namespace NStateManager
             return new StateTransitionDynamic<T, TState, TTrigger>(stateMachine.StateAccessor, stateMachine.StateMutator, stateFunc, name, priority);
         }
 
-        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition(Async.IStateMachineAsync<T, TState, TTrigger> stateMachine, Func<T, TState> stateFunc, string name, uint priority = 1)
+        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition(IStateMachineAsync<T, TState, TTrigger> stateMachine, Func<T, TState> stateFunc, string name, uint priority = 1)
         {
             return new StateTransitionDynamic<T, TState, TTrigger>(stateMachine.StateAccessor, stateMachine.StateMutator, stateFunc, name, priority);
         }
@@ -121,19 +121,19 @@ namespace NStateManager
             return new StateTransitionDynamicParameterized<T, TState, TTrigger, TParam>(stateMachine.StateAccessor, stateMachine.StateMutator, stateFunc, name, priority);
         }
 
-        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition<TRequest>(Async.IStateMachineAsync<T, TState, TTrigger> stateMachine, Func<T, TRequest, TState> stateFuncAsync, string name, uint priority = 1)
+        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition<TRequest>(IStateMachineAsync<T, TState, TTrigger> stateMachine, Func<T, TRequest, TState> stateFuncAsync, string name, uint priority = 1)
             where TRequest : class
         {
             return new StateTransitionDynamicParameterized<T, TState, TTrigger, TRequest>(stateMachine.StateAccessor, stateMachine.StateMutator, stateFuncAsync, name, priority);
         }
 
-        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition<TParam>(Async.IStateMachineAsync<T, TState, TTrigger> stateMachine, TState toState, Func<T, TParam, CancellationToken, Task<bool>> conditionAsync, string name, uint priority = 1)
+        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition<TParam>(IStateMachineAsync<T, TState, TTrigger> stateMachine, TState toState, Func<T, TParam, CancellationToken, Task<bool>> conditionAsync, string name, uint priority = 1)
             where TParam: class
         {
             return new StateTransitionParameterizedAsync<T, TState, TTrigger, TParam>(stateMachine.StateAccessor, stateMachine.StateMutator, toState, conditionAsync, name, priority);
         }
 
-        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition<TParam>(Async.IStateMachineAsync<T, TState, TTrigger> stateMachine, TState startState, TState toState, Func<T, TParam, CancellationToken, Task<bool>> conditionAsync, TState triggerState, string name, uint priority = 1)
+        public static StateTransitionBase<T, TState, TTrigger> GetStateTransition<TParam>(IStateMachineAsync<T, TState, TTrigger> stateMachine, TState startState, TState toState, Func<T, TParam, CancellationToken, Task<bool>> conditionAsync, TState triggerState, string name, uint priority = 1)
             where TParam : class
         {
             return new StateTransitionAutoFallbackParameterizedAsync<T, TState, TTrigger, TParam>(stateMachine, startState, toState, triggerState, conditionAsync, name, priority);

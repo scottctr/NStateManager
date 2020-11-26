@@ -8,6 +8,7 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
+
 using NStateManager.Sync;
 using Xunit;
 
@@ -79,7 +80,7 @@ namespace NStateManager.Tests.Sync
               , "autocomplete"
               , priority: 1);
 
-            var testSale = new Sale(saleID: 2) { State = SaleState.Open };
+            var testSale = new Sale(saleId: 2) { State = SaleState.Open };
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.Open, SaleState.ChangeDue, "previousTransition");
 
@@ -108,7 +109,7 @@ namespace NStateManager.Tests.Sync
               , "autoComplete"
               , priority: 1);
                 
-            var testSale = new Sale(saleID: 2) { State = SaleState.ChangeDue };
+            var testSale = new Sale(saleId: 2) { State = SaleState.ChangeDue };
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.Open, SaleState.ChangeDue, "previousTransition");
 
@@ -123,9 +124,9 @@ namespace NStateManager.Tests.Sync
             Assert.Equal(SaleState.Complete, testSale.State);
         }
 
-        private NStateManager.Sync.StateMachine<Sale, SaleState, SaleEvent> getStateMachine()
+        private StateMachine<Sale, SaleState, SaleEvent> getStateMachine()
         {
-            return new NStateManager.Sync.StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newSate) => sale.State = newSate);
+            return new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newSate) => sale.State = newSate);
         }
     }
 }

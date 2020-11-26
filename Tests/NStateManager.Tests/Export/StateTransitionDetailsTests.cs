@@ -19,11 +19,13 @@ namespace NStateManager.Tests.Export
         [Fact]
         public void Properties_work()
         {
-            var tester = new PropertyTester(new TransitionDetails<SaleState, SaleEvent>("test"
-              , new StateDetails<SaleState, SaleEvent>(SaleState.Open)
-              , SaleEvent.AddItem));
+            var classTester = new ClassTester(new TransitionDetails<SaleState, SaleEvent>("test"
+                , new StateDetails<SaleState, SaleEvent>(SaleState.Open)
+                , SaleEvent.AddItem));
+            classTester.TestConstructors();
+            //classTester.TestEquality();
+            classTester.TestProperties();
 
-            tester.TestProperties();
         }
     }
 }

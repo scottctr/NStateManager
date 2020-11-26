@@ -24,7 +24,7 @@ namespace NStateManager.Tests.Async
               , SaleState.ChangeDue
               , "autocomplete"
               , priority: 1);
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleID: 2) { State = SaleState.Open } );
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleId: 2) { State = SaleState.Open } );
 
             var result = await sut.ExecuteAsync(parameters);
 
@@ -41,7 +41,7 @@ namespace NStateManager.Tests.Async
               , SaleState.ChangeDue
               , "autocomplete"
               , priority: 1);
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleID: 2) { State = SaleState.Open });
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleId: 2) { State = SaleState.Open });
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.ChangeDue, SaleState.ChangeDue, "autoChangeDue");
 
             var result = await sut.ExecuteAsync(parameters, previousResult);
@@ -59,7 +59,7 @@ namespace NStateManager.Tests.Async
               , SaleState.ChangeDue
               , "autocomplete"
               , priority: 1);
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleID: 2) { State = SaleState.Open });
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleId: 2) { State = SaleState.Open });
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.Open, SaleState.Open, "autoChangeDue");
 
             var result = await sut.ExecuteAsync(parameters, previousResult);
@@ -79,7 +79,7 @@ namespace NStateManager.Tests.Async
               , "autocomplete"
               , priority: 1);
 
-            var testSale = new Sale(saleID: 2) { State = SaleState.Open };
+            var testSale = new Sale(saleId: 2) { State = SaleState.Open };
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.Open, SaleState.ChangeDue, "previousTransition");
 
@@ -108,7 +108,7 @@ namespace NStateManager.Tests.Async
               , "autoComplete"
               , priority: 1);
                 
-            var testSale = new Sale(saleID: 2) { State = SaleState.ChangeDue };
+            var testSale = new Sale(saleId: 2) { State = SaleState.ChangeDue };
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.Open, SaleState.ChangeDue, "previousTransition");
 

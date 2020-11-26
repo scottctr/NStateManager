@@ -8,9 +8,10 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
+
+using System.Threading.Tasks;
 using NStateManager.Async;
 using NStateManager.Sync;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace NStateManager.Tests
@@ -74,7 +75,7 @@ namespace NStateManager.Tests
         {
             var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition(stateMachine
-              , stateFunc: (sale) => SaleState.Complete  
+              , stateFunc: sale => SaleState.Complete  
               , name: "test"
               , priority: 1);
 
@@ -118,7 +119,7 @@ namespace NStateManager.Tests
         //}
 
         [Fact]
-        public void GetStateTransitionWithStateMachineAndStateFuction_returns_StateTransitionAutoDynamic()
+        public void GetStateTransitionWithStateMachineAndStateFunction_returns_StateTransitionAutoDynamic()
         {
             var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition(stateMachine
@@ -132,7 +133,7 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void GetStateTransitionWithStateMachineAndStateFuctionTRequest_returns_StateTransitionAutoDynamic()
+        public void GetStateTransitionWithStateMachineAndStateFunctionTRequest_returns_StateTransitionAutoDynamic()
         {
             var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition<string>(stateMachine
@@ -151,7 +152,7 @@ namespace NStateManager.Tests
             var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var result = StateTransitionFactory<Sale, SaleState, SaleEvent>.GetStateTransition(stateMachine
               , startState: SaleState.Open
-              , stateFunction: (sale) => SaleState.Complete
+              , stateFunction: sale => SaleState.Complete
               , triggerState: SaleState.ChangeDue
               , name: "test"
               , priority: 1);

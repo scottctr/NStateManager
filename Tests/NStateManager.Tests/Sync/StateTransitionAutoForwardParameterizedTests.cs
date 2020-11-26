@@ -8,6 +8,7 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
+
 using System;
 using NStateManager.Sync;
 using Xunit;
@@ -32,7 +33,7 @@ namespace NStateManager.Tests.Sync
         public void ExecuteAsync_throws_ArgumentException_if_Request_not_provided()
         {
             const SaleState startState = SaleState.Open;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
             var sut = new StateTransitionAutoForwardParameterized<Sale, SaleState, SaleEvent, string>(
                 GetStateMachine()
                 , SaleState.Complete
@@ -50,7 +51,7 @@ namespace NStateManager.Tests.Sync
         public void Execute_throws_ArgumentException_if_Request_is_wrong_type()
         {
             const SaleState startState = SaleState.Open;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
             var sut = new StateTransitionAutoForwardParameterized<Sale, SaleState, SaleEvent, string>(
                 GetStateMachine()
                 , SaleState.Complete
@@ -69,7 +70,7 @@ namespace NStateManager.Tests.Sync
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
 
             var sut = new StateTransitionAutoForwardParameterized<Sale, SaleState, SaleEvent, string>(
                 GetStateMachine()
@@ -90,7 +91,7 @@ namespace NStateManager.Tests.Sync
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
 
             var sut = new StateTransitionAutoForwardParameterized<Sale, SaleState, SaleEvent, string>(
                 GetStateMachine()
@@ -125,7 +126,7 @@ namespace NStateManager.Tests.Sync
 
         private IStateMachine<Sale, SaleState, SaleEvent> GetStateMachine()
         {
-            return new NStateManager.Sync.StateMachine<Sale, SaleState, SaleEvent>(saleToUpdate => saleToUpdate.State
+            return new StateMachine<Sale, SaleState, SaleEvent>(saleToUpdate => saleToUpdate.State
               , (saleToUpdate, newState) => saleToUpdate.State = newState);
         }
     }
