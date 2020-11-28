@@ -15,7 +15,7 @@ using System.Linq;
 // ReSharper disable once CheckNamespace
 namespace NStateManager.Async
 {
-    public sealed partial class StateMachineAsync<T, TState, TTrigger> where TState : IComparable
+    public sealed partial class StateMachine<T, TState, TTrigger> where TState : IComparable
     {
         public ConfigurationSummary<TState, TTrigger> GetSummary()
         {
@@ -40,7 +40,7 @@ namespace NStateManager.Async
                           , transition is StateTransitionNonDynamic<T, TState, TTrigger> nonDynamic
                                 ? result.StateDetails.First(s => s.State.IsEqual(nonDynamic.ToState))
                                 : stateDetailsByState.First().Value
-                          , (transition is StateTransitionAsync<T, TState, TTrigger> condTransition)
+                          , (transition is StateTransition<T, TState, TTrigger> condTransition)
                                 && condTransition.HasCondition
                           , transition.Priority
                           , transition is StateTransitionDynamicBase<T, TState, TTrigger>);
@@ -56,7 +56,7 @@ namespace NStateManager.Async
                           , transition is StateTransitionNonDynamic<T, TState, TTrigger> nonDynamic
                                 ? result.StateDetails.First(s => s.State.IsEqual(nonDynamic.ToState))
                                 : stateDetailsByState.First().Value
-                          , (transition is StateTransitionAsync<T, TState, TTrigger> condTransition)
+                          , (transition is StateTransition<T, TState, TTrigger> condTransition)
                          && condTransition.HasCondition
                           , transition.Priority
                           , transition is StateTransitionDynamicBase<T, TState, TTrigger>);

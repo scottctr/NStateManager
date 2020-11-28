@@ -14,14 +14,14 @@ using System.Threading.Tasks;
 
 namespace NStateManager.Async
 {
-    internal class StateTransitionAutoFallbackAsync<T, TState, TTrigger> : StateTransitionAsync<T, TState, TTrigger>
+    internal class StateTransitionAutoFallback<T, TState, TTrigger> : StateTransition<T, TState, TTrigger>
         where TState : IComparable
     {
-        private readonly IStateMachineAsync<T, TState, TTrigger> _stateMachine;
+        private readonly IStateMachine<T, TState, TTrigger> _stateMachine;
         private readonly TState _startState;
         private readonly TState _triggerState;
 
-        public StateTransitionAutoFallbackAsync(IStateMachineAsync<T, TState, TTrigger> stateMachine, TState startState, TState triggerState, TState toState, Func<T, CancellationToken, Task<bool>> conditionAsync, string name, uint priority)
+        public StateTransitionAutoFallback(IStateMachine<T, TState, TTrigger> stateMachine, TState startState, TState triggerState, TState toState, Func<T, CancellationToken, Task<bool>> conditionAsync, string name, uint priority)
             : base(stateMachine.StateAccessor, stateMachine.StateMutator, toState, conditionAsync, name, priority)
         {
             _stateMachine = stateMachine;

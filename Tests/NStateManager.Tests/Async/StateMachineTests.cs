@@ -17,12 +17,12 @@ using Xunit;
 
 namespace NStateManager.Tests.Async
 {
-    public class StateMachineAsyncTests
+    public class StateMachineTests
     {
         [Fact]
         public void Constructor_throws_ArgumentNullException_if_StateAccessor_null()
         {
-            Assert.Throws<ArgumentNullException>(() => new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            Assert.Throws<ArgumentNullException>(() => new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: null
                 , stateMutator: (sale, newState) => sale.State = newState));
         }
@@ -30,7 +30,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void Constructor_throws_ArgumentNullException_if_StateMutator_null()
         {
-            Assert.Throws<ArgumentNullException>(() => new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            Assert.Throws<ArgumentNullException>(() => new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
                 , stateMutator: null));
         }
@@ -38,7 +38,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddTriggerAction_throws_InvalidOperationException_if_action_already_added_for_trigger()
         {
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState);
 
@@ -53,7 +53,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void AddTriggerActionWRequest_throws_InvalidOperationException_if_action_already_added_for_trigger()
         {
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState);
 
@@ -69,7 +69,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public void ConfigureState_returns_existing_state_if_already_added()
         {
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState);
 
@@ -82,7 +82,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async Task FireTriggerAsync_executes_trigger_event_when_defined()
         {
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState);
 
@@ -97,7 +97,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async Task FireTriggerAsync_can_cancel_trigger_event()
         {
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState);
             sut.AddTriggerAction(SaleEvent.AddItem, (_, cancelToken) =>
@@ -129,7 +129,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsync_sends_parameters_to_configured_state()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
 
@@ -148,7 +148,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsync_does_not_require_configured_state()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
 
@@ -162,7 +162,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsync_executes_exitAction()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
             var exitActionFired = false;
@@ -180,7 +180,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsync_does_not_execute_exitAction_when_moving_to_subState()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
             var exitActionFired = false;
@@ -201,7 +201,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsync_executes_entryAction()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
             var entryActionFired = false;
@@ -221,7 +221,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsync_does_not_execute_entryAction_when_changing_to_superState()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.ChangeDue };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
             var entryActionFired = false;
@@ -241,7 +241,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsync_executes_autoTransition()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
 
@@ -265,7 +265,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsync_executes_entryExitActions_for_autoTransition()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
 
@@ -294,7 +294,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsync_executes_reentryActions_if_no_state_change()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
 
@@ -310,7 +310,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async void FireTriggerAsync_fires_notification_when_no_trigger_defined()
         {
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
             var noTriggerEventFired = false;
@@ -327,7 +327,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async void FireTriggerAsync_fires_notification_when_no_transition()
         {
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
             var noTransitionEventFired = false;
@@ -343,7 +343,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async Task FireTriggerAsyncWRequest_executes_trigger_event_when_defined()
         {
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState);
 
@@ -358,7 +358,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async Task FireTriggerAsyncWRequest_can_cancel_trigger_event()
         {
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
                 , stateMutator: (sale, newState) => sale.State = newState);
             sut.AddTriggerAction(SaleEvent.AddItem, (_, cancelToken) =>
@@ -390,7 +390,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsyncWRequest_sends_parameters_to_configured_state()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
 
@@ -409,7 +409,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsyncWRequest_does_not_require_configured_state()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
 
@@ -423,7 +423,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsyncWRequest_executes_exitAction()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
             var exitActionFired = false;
@@ -441,7 +441,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsyncWRequest_executes_entryAction()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
             var entryActionFired = false;
@@ -461,7 +461,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsyncWRequest_executes_autoTransition()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
 
@@ -484,7 +484,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsyncWRequest_executes_entryExitActions_for_autoTransition()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
 
@@ -513,7 +513,7 @@ namespace NStateManager.Tests.Async
         public async Task FireTriggerAsyncWRequest_executes_reentryActions_if_no_state_change()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
 
@@ -530,7 +530,7 @@ namespace NStateManager.Tests.Async
         public async Task IsInState_determines_if_context_in_specified_state()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
 
@@ -551,7 +551,7 @@ namespace NStateManager.Tests.Async
         public async Task OnTransitionEvent_registers_action_when_state_changes()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
             sut.ConfigureState(SaleState.Open).AddTransition(SaleEvent.Pay, SaleState.Complete, conditionAsync: null);
@@ -568,7 +568,7 @@ namespace NStateManager.Tests.Async
         {
             var testRequest = new Request(value: 123.45);
 
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
                 , stateMutator: (sale3, newState) => sale3.State = newState);
 
@@ -594,7 +594,7 @@ namespace NStateManager.Tests.Async
         {
             var testRequest = new Request(value: 123.45);
 
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
                 , stateMutator: (sale3, newState) => sale3.State = newState);
 
@@ -619,7 +619,7 @@ namespace NStateManager.Tests.Async
         [Fact]
         public async Task FireTriggerAsyncWRequest_addConsecutiveTransitionSignaturesWRequest_transitionExecutesWithRequestInstance()
         {
-            var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
                 , stateMutator: (sale3, newState) => sale3.State = newState);
 

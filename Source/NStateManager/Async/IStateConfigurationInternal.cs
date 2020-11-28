@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 
 namespace NStateManager.Async
 {
-    public interface IStateConfigurationAsyncInternal<T, TState, TTrigger> : IStateConfigurationAsync<T, TState, TTrigger>
+    public interface IStateConfigurationInternal<T, TState, TTrigger> : IStateConfiguration<T, TState, TTrigger>
     {
         void AddAutoTransition(TTrigger trigger, StateTransitionBase<T, TState, TTrigger> transition);
-        void AddSuperstate(IStateConfigurationAsyncInternal<T, TState, TTrigger> superStateConfiguration);
+        void AddSuperstate(IStateConfigurationInternal<T, TState, TTrigger> superStateConfiguration);
         void AddTransition(TTrigger trigger, StateTransitionBase<T, TState, TTrigger> transition);
         Task<StateTransitionResult<TState, TTrigger>> ExecuteAutoTransitionAsync(ExecutionParameters<T, TTrigger> parameters
           , StateTransitionResult<TState, TTrigger> currentResult);
@@ -32,7 +32,7 @@ namespace NStateManager.Async
         /// <param name="state">The state to compare against.</param>
         /// <returns></returns>
         bool IsSubStateOf(TState state);
-        IStateConfigurationAsyncInternal<T, TState, TTrigger> SuperStateConfig { get; }
+        IStateConfigurationInternal<T, TState, TTrigger> SuperStateConfig { get; }
         TState State { get; }
     }
 }

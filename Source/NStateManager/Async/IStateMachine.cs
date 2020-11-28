@@ -8,14 +8,13 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-using NStateManager.Sync;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace NStateManager.Async
 {
-    public partial interface IStateMachineAsync<T, TState, TTrigger>
+    public partial interface IStateMachine<T, TState, TTrigger>
         where TState : IComparable
     {
         /// <summary>
@@ -23,9 +22,9 @@ namespace NStateManager.Async
         /// </summary>
         /// <param name="trigger">The <see cref="TTrigger"/> for the action.</param>
         /// <param name="action">The action to execute.</param>
-        /// <remarks><see cref="StateConfiguration{T,TState,TTrigger}"/> also has trigger actions that should only occur while T is in a specific state.</remarks>
+        /// <remarks><see cref="Sync.StateConfiguration{T,TState,TTrigger}"/> also has trigger actions that should only occur while T is in a specific state.</remarks>
         /// <returns></returns>
-        IStateMachineAsync<T, TState, TTrigger> AddTriggerAction(TTrigger trigger, Func<T, CancellationToken, Task> action);
+        IStateMachine<T, TState, TTrigger> AddTriggerAction(TTrigger trigger, Func<T, CancellationToken, Task> action);
 
         /// <summary>
         /// Defines an action to take any time <see cref="TTrigger"/> occurs.
@@ -33,16 +32,16 @@ namespace NStateManager.Async
         /// <typeparam name="TRequest">Parameter to be passed in from FireTrigger.</typeparam>
         /// <param name="trigger">The <see cref="TTrigger"/> for the action.</param>
         /// <param name="action">The action to execute.</param>
-        /// <remarks><see cref="StateConfiguration{T,TState,TTrigger}"/> also has trigger actions that should only occur while T is in a specific state.</remarks>
+        /// <remarks><see cref="Sync.StateConfiguration{T,TState,TTrigger}"/> also has trigger actions that should only occur while T is in a specific state.</remarks>
         /// <returns></returns>
-        IStateMachineAsync<T, TState, TTrigger> AddTriggerAction<TRequest>(TTrigger trigger, Func<T, TRequest, CancellationToken, Task> action);
+        IStateMachine<T, TState, TTrigger> AddTriggerAction<TRequest>(TTrigger trigger, Func<T, TRequest, CancellationToken, Task> action);
 
         /// <summary>
         /// Configures a specified <see cref="TState"/>.
         /// </summary>
         /// <param name="state">The <see cref="TState"/> to configure.</param>
         /// <returns></returns>
-        IStateConfigurationAsync<T, TState, TTrigger> ConfigureState(TState state);
+        IStateConfiguration<T, TState, TTrigger> ConfigureState(TState state);
 
         /// <summary>
         /// Executes trigger asynchronously with a <see cref="TRequest"/> parameter.

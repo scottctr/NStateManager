@@ -236,13 +236,10 @@ namespace NStateManager.Tests.Sync
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
-
             sut.ConfigureState(SaleState.Open)
                .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, name: "toChangeDue");
-
             sut.ConfigureState(SaleState.ChangeDue)
                .AddAutoForwardTransition(SaleEvent.Pay, SaleState.Complete, sale1 => true, name: "toComplete");
-
             var completeEntryActionFired = false;
             sut.ConfigureState(SaleState.Complete)
                 .AddEntryAction(sale1 => completeEntryActionFired = true);

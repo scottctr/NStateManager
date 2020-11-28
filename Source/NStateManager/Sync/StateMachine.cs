@@ -117,22 +117,7 @@ namespace NStateManager.Sync
         public StateTransitionResult<TState, TTrigger> FireTrigger<TRequest>(T context, TTrigger trigger, TRequest request)
             where TRequest : class
         {
-            var executionParameters = new ExecutionParameters<T, TTrigger>(trigger, context, request: request);
-            var startState = StateAccessor(context);
-
-            if (_triggerActions.TryGetValue(trigger, out var triggerAction))
-            { triggerAction.Execute(executionParameters); }
-
-            var result = !_stateConfigurations.TryGetValue(startState, out var stateConfiguration)
-                ? new StateTransitionResult<TState, TTrigger>(trigger
-                    , startState
-                    , startState
-                    , startState
-                    , lastTransitionName: string.Empty
-                    , transitionDefined: false)
-                : stateConfiguration.FireTrigger(executionParameters);
-
-            return executeExitAndEntryActions(executionParameters, result);
+            return execute(new ExecutionParameters<T, TTrigger>(trigger, context, request: request));
         }
 
         /// <summary>
@@ -143,22 +128,26 @@ namespace NStateManager.Sync
         /// <returns></returns>
         public StateTransitionResult<TState, TTrigger> FireTrigger(T context, TTrigger trigger)
         {
-            var startState = StateAccessor(context);
-            var executionParameters = new ExecutionParameters<T, TTrigger>(trigger, context);
+            return execute(new ExecutionParameters<T, TTrigger>(trigger, context));
+        }
 
-            if (_triggerActions.TryGetValue(trigger, out var triggerAction))
-            { triggerAction.Execute(executionParameters); }
+        private StateTransitionResult<TState, TTrigger> execute(ExecutionParameters<T, TTrigger> parameters)
+        {
+            var startState = StateAccessor(parameters.Context);
+
+            if (_triggerActions.TryGetValue(parameters.Trigger, out var triggerAction))
+            { triggerAction.Execute(parameters); }
 
             var result = !_stateConfigurations.TryGetValue(startState, out var stateConfiguration)
-                ? new StateTransitionResult<TState, TTrigger>(trigger
+                ? new StateTransitionResult<TState, TTrigger>(parameters.Trigger
                     , startState
                     , startState
                     , startState
-                    ,lastTransitionName: String.Empty
+                    , lastTransitionName: string.Empty
                     , transitionDefined: false)
-                : stateConfiguration.FireTrigger(executionParameters);
+                : stateConfiguration.FireTrigger(parameters);
 
-            return executeExitAndEntryActions(executionParameters, result);
+            return executeExitAndEntryActions(parameters, result);
         }
 
         public bool IsInState(T context, TState stateToCheck)

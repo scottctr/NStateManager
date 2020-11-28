@@ -9,63 +9,60 @@
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
 using System;
+using System.Threading.Tasks;
 
 namespace NStateManager.Async
 {
-    internal class StateTransitionAutoDynamicParameterizedAsync<T, TState, TTrigger, TRequest> : StateTransitionDynamicBase<T, TState, TTrigger>
+    internal class StateTransitionAutoDynamic<T, TState, TTrigger> : StateTransitionDynamicBase<T, TState, TTrigger>
         where TState : IComparable
-        where TRequest : class
     {
-        private readonly IStateMachineAsync<T, TState, TTrigger> _stateMachine;
+        private readonly IStateMachine<T, TState, TTrigger> _stateMachine;
         private readonly TState _startState;
         private readonly TState _triggerState;
-        private readonly Func<T, TRequest, TState> _stateFunction;
+        private readonly Func<T, TState> _stateFunction;
 
-        public StateTransitionAutoDynamicParameterizedAsync(IStateMachineAsync<T, TState, TTrigger> stateMachine
-          , TState startState
-          , Func<T, TRequest, TState> targetStateFunction
+        public StateTransitionAutoDynamic(IStateMachine<T, TState, TTrigger> stateMachine
+          , TState startStartState
+          , Func<T, TState> targetStateFunction
           , TState triggerState
           , string name
           , uint priority)
             : base(stateMachine.StateAccessor, stateMachine.StateMutator, name, priority)
         {
             _stateMachine = stateMachine;
-            _startState = startState;
+            _startState = startStartState;
             _triggerState = triggerState;
             _stateFunction = targetStateFunction;
         }
 
-        public override StateTransitionResult<TState, TTrigger> Execute(ExecutionParameters<T, TTrigger> parameters
+        public override Task<StateTransitionResult<TState, TTrigger>> ExecuteAsync(ExecutionParameters<T, TTrigger> parameters
           , StateTransitionResult<TState, TTrigger> currentResult = null)
         {
-            if (!(parameters.Request is TRequest typeSafeParam))
-            { throw new ArgumentException($"Expected a {typeof(TRequest).Name} parameter, but received a {parameters.Request?.GetType().Name ?? "null"}."); }
-
             if (currentResult != null
                 && !parameters.CancellationToken.IsCancellationRequested
                 && _startState.IsEqual(currentResult.PreviousState)
                 && (_triggerState.IsEqual(currentResult.CurrentState)
                     || _stateMachine.IsInState(parameters.Context, _triggerState)))
             {
-                StateMutator(parameters.Context, _stateFunction(parameters.Context, typeSafeParam));
+                StateMutator(parameters.Context, _stateFunction.Invoke(parameters.Context));
 
                 var transitioned = !StateAccessor(parameters.Context).IsEqual(_triggerState);
                 var result = GetFreshResult(parameters
                   , currentResult
                   , currentResult.StartingState
-                  , wasCancelled: false
+                  , wasCancelled: parameters.CancellationToken.IsCancellationRequested
                   , transitionDefined: true
                   , conditionMet: transitioned);
 
-                return result;
+                return Task.FromResult(result);
             }
 
-            return GetFreshResult(parameters
+            return Task.FromResult(GetFreshResult(parameters
               , currentResult
               , StateAccessor(parameters.Context)
               , wasCancelled: parameters.CancellationToken.IsCancellationRequested
               , transitionDefined: true
-              , conditionMet: false);
+              , conditionMet: false));
         }
     }
 }
