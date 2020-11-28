@@ -8,7 +8,6 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-
 using NStateManager.Sync;
 using Xunit;
 using Xunit.Abstractions;
@@ -43,7 +42,7 @@ namespace NStateManager.Tests
                 .AddExitAction(_ => _testOutputHelper.WriteLine("SuperState OnExit"));
 
             stateMachine.ConfigureState(State.SubState)
-                .MakeSubstateOf(stateMachine.ConfigureState(State.SuperState))
+                .MakeSubStateOf(stateMachine.ConfigureState(State.SuperState))
                 .AddTransition(Trigger.Two, State.SuperState)
                 .AddEntryAction(_ => _testOutputHelper.WriteLine("SubState OnEntry"))
                 .AddExitAction(_ => _testOutputHelper.WriteLine("SubState OnExit"));

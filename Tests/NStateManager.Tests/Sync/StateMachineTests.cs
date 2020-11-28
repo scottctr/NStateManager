@@ -8,11 +8,10 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-
-using System;
-using System.Threading.Tasks;
 using NStateManager.Sync;
 using NStateManager.Tests.Async;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace NStateManager.Tests.Sync
@@ -146,7 +145,7 @@ namespace NStateManager.Tests.Sync
         }
 
         [Fact]
-        public void FireTrigger_does_not_execute_exitAction_when_moving_to_substate()
+        public void FireTrigger_does_not_execute_exitAction_when_moving_to_subState()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
@@ -158,7 +157,7 @@ namespace NStateManager.Tests.Sync
                .AddTransition(SaleEvent.Pay, SaleState.Complete)
                .AddExitAction(sale1 => exitActionFired = true);
             sut.ConfigureState(SaleState.Complete)
-               .MakeSubstateOf(sut.ConfigureState(SaleState.Open))
+               .MakeSubStateOf(sut.ConfigureState(SaleState.Open))
                .AddExitAction(sale1 => exitActionFired = true);
 
             sut.FireTrigger(sale, SaleEvent.Pay);
@@ -198,7 +197,7 @@ namespace NStateManager.Tests.Sync
             sut.ConfigureState(SaleState.Open)
                .AddEntryAction(sale1 => entryActionFired = true);
             sut.ConfigureState(SaleState.ChangeDue)
-               .MakeSubstateOf(sut.ConfigureState(SaleState.Open))
+               .MakeSubStateOf(sut.ConfigureState(SaleState.Open))
                .AddTransition(SaleEvent.Pay, SaleState.Open);
 
             sut.FireTrigger(sale, SaleEvent.Pay);

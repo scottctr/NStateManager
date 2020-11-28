@@ -8,6 +8,7 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
+
 namespace NStateManager.Sync
 {
     public interface IStateConfigurationInternal<T, TState, TTrigger> : IStateConfiguration<T, TState, TTrigger>
@@ -20,7 +21,9 @@ namespace NStateManager.Sync
         void ExecuteExitAction(T context, StateTransitionResult<TState, TTrigger> currentResult);
         void ExecuteReentryAction(T context, StateTransitionResult<TState, TTrigger> currentResult);
         StateTransitionResult<TState, TTrigger> FireTrigger(ExecutionParameters<T, TTrigger> parameters);
-        bool IsSubstateOf(TState state);
+        bool IsSubState();
+        bool IsSubStateOf(TState state);
+        IStateConfigurationInternal<T, TState, TTrigger> SuperStateConfig { get; }
         TState State { get; }
     }
 }

@@ -8,9 +8,8 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-
-using System;
 using NStateManager.Sync;
+using System;
 using Xunit;
 
 namespace NStateManager.Tests.Sync
@@ -53,7 +52,7 @@ namespace NStateManager.Tests.Sync
         }
 
         [Fact]
-        public void Execute_doesnt_change_state_if_condition_not_met()
+        public void Execute_does_not_change_state_if_condition_not_met()
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;

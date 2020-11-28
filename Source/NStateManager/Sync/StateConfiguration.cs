@@ -20,7 +20,8 @@ namespace NStateManager.Sync
     /// <typeparam name="T">The type of object being managed by the <see cref="StateMachine{T,TState,TTrigger}"/>.</typeparam>
     /// <typeparam name="TState">An allowable state for <see cref="T"/>.</typeparam>
     /// <typeparam name="TTrigger">A recognized trigger for changes to <see cref="T"/>.</typeparam>
-    public class StateConfiguration<T, TState, TTrigger> : StateConfigurationBase<T, TState, TTrigger>, IStateConfigurationInternal<T, TState, TTrigger>
+    public class StateConfiguration<T, TState, TTrigger> : StateConfigurationBase<T, TState, TTrigger>
+        , IStateConfigurationInternal<T, TState, TTrigger>
         where TState : IComparable
     {
         private readonly Dictionary<TState, Action<T>> _previousStateEntryActions = new Dictionary<TState, Action<T>>();
@@ -31,7 +32,6 @@ namespace NStateManager.Sync
         private Action<T> _defaultEntryAction;
         private Action<T> _defaultExitAction;
         private Action<T> _reentryAction;
-        private IStateConfigurationInternal<T, TState, TTrigger> _superstateConfig;
 
         /// <summary>
         /// Constructor.
@@ -118,7 +118,7 @@ namespace NStateManager.Sync
               , condition: _ => true
               , name: name
               , priority: priority);
-            AddOtherStateAutoTransition(tempState, trigger, tempStateAutoTransition);
+            addOtherStateAutoTransition(tempState, trigger, tempStateAutoTransition);
 
             return this;
         }
@@ -156,7 +156,7 @@ namespace NStateManager.Sync
               , State
               , name
               , priority);
-            AddOtherStateAutoTransition(tempState, trigger, otherStateTransition);
+            addOtherStateAutoTransition(tempState, trigger, otherStateTransition);
 
             return this;
         }
@@ -197,7 +197,7 @@ namespace NStateManager.Sync
               , condition: _ => true
               , name: name
               , priority: priority);
-            AddOtherStateAutoTransition(tempState, trigger, otherStateAutoTransition);
+            addOtherStateAutoTransition(tempState, trigger, otherStateAutoTransition);
 
             return this;
         }
@@ -448,18 +448,18 @@ namespace NStateManager.Sync
         }
 
         /// <summary>
-        /// Adds this state as a substate to the given superState.
+        /// Adds this state as a sub-state to the given superState.
         /// </summary>
         /// <param name="superStateConfiguration">The superState.</param>
         public void AddSuperstate(IStateConfigurationInternal<T, TState, TTrigger> superStateConfiguration)
         {
-            if (IsSubstateOf(superStateConfiguration.State))
-            { throw new ArgumentOutOfRangeException($"{State} is already a substate of {superStateConfiguration.State}."); }
+            if (IsSubStateOf(superStateConfiguration.State))
+            { throw new ArgumentOutOfRangeException($"{State} is already a sub-state of {superStateConfiguration.State}."); }
 
-            if (superStateConfiguration.IsSubstateOf(State))
-            { throw new InvalidOperationException($"{superStateConfiguration.State} is already a substate of {State}."); }
+            if (superStateConfiguration.IsSubStateOf(State))
+            { throw new InvalidOperationException($"{superStateConfiguration.State} is already a sub-state of {State}."); }
 
-            _superstateConfig = superStateConfiguration;
+            SuperStateConfig = superStateConfiguration;
         }
 
         /// <summary>
@@ -499,19 +499,29 @@ namespace NStateManager.Sync
         public StateTransitionResult<TState, TTrigger> ExecuteAutoTransition(ExecutionParameters<T, TTrigger> parameters
             , StateTransitionResult<TState, TTrigger> currentResult)
         {
-            if (AutoTransitions.TryGetValue(parameters.Trigger, out var autoTransitions))
+            if (!AutoTransitions.TryGetValue(parameters.Trigger, out var autoTransitions))
             {
-                foreach (var transition in autoTransitions.OrderBy(t => t.Priority))
-                {
-                    var localResult = transition.Execute(parameters, currentResult);
-                    if (localResult.WasTransitioned)
-                    { return localResult; }
-                }
+                return SuperStateConfig != null
+                    ? SuperStateConfig.ExecuteAutoTransition(parameters, currentResult)
+                    : new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                        , currentResult.CurrentState
+                        , currentResult.CurrentState
+                        , currentResult.CurrentState
+                        , string.Empty
+                        , transitionDefined: false
+                        , conditionMet: false);
+            }
+
+            foreach (var transition in autoTransitions.OrderBy(t => t.Priority))
+            {
+                var localResult = transition.Execute(parameters, currentResult);
+                if (localResult.WasTransitioned)
+                { return localResult; }
             }
 
             //Check for a super state and just return the incoming currentResult if no successful auto transitions
-            return _superstateConfig != null
-                ? _superstateConfig.ExecuteAutoTransition(parameters, currentResult)
+            return SuperStateConfig != null
+                ? SuperStateConfig.ExecuteAutoTransition(parameters, currentResult)
                 : new StateTransitionResult<TState, TTrigger>(parameters.Trigger
                   , currentResult.CurrentState
                   , currentResult.CurrentState
@@ -524,15 +534,15 @@ namespace NStateManager.Sync
         public void ExecuteEntryAction(T context, StateTransitionResult<TState, TTrigger> currentResult)
         {
             //If we haven't previously executed entry for superstate, execute it first
-            if (_superstateConfig != null && !IsSubstateOf(currentResult.PreviousState))
-            { _superstateConfig.ExecuteEntryAction(context, currentResult); }
+            if (SuperStateConfig != null && !IsSubStateOf(currentResult.PreviousState))
+            { SuperStateConfig.ExecuteEntryAction(context, currentResult); }
 
             //Is there an action based on the new state?
             if (_previousStateEntryActions.TryGetValue(currentResult.PreviousState, out var action))
             { action.Invoke(context); }
 
-            //Is there an action for any entry? Don't execute if moving from substate
-            if (!GetTargetStateConfiguration(currentResult.PreviousState).IsSubstateOf(State))
+            //Is there an action for any entry? Don't execute if moving from sub-state
+            if (!getTargetStateConfiguration(currentResult.PreviousState).IsSubStateOf(State))
             { _defaultEntryAction?.Invoke(context); }
         }
 
@@ -545,25 +555,25 @@ namespace NStateManager.Sync
             //Is there an action for any exit?
             _defaultExitAction?.Invoke(context);
 
-            if (_superstateConfig != null && !IsSubstateOf(currentResult.CurrentState))
-            { _superstateConfig.ExecuteExitAction(context, currentResult); }
+            if (SuperStateConfig != null && !IsSubStateOf(currentResult.CurrentState))
+            { SuperStateConfig.ExecuteExitAction(context, currentResult); }
         }
 
         public void ExecuteReentryAction(T context, StateTransitionResult<TState, TTrigger> currentResult)
         {
-            _superstateConfig?.ExecuteReentryAction(context, currentResult);
+            SuperStateConfig?.ExecuteReentryAction(context, currentResult);
             _reentryAction?.Invoke(context);
         }
 
-        private void AddOtherStateAutoTransition(TState otherState
+        private void addOtherStateAutoTransition(TState otherState
           , TTrigger trigger
           , StateTransitionBase<T, TState, TTrigger> transition)
         {
-            var otherStateConfig = GetTargetStateConfiguration(otherState);
+            var otherStateConfig = getTargetStateConfiguration(otherState);
             otherStateConfig.AddAutoTransition(trigger, transition);
         }
 
-        private IStateConfigurationInternal<T, TState, TTrigger> GetTargetStateConfiguration(TState targetState)
+        private IStateConfigurationInternal<T, TState, TTrigger> getTargetStateConfiguration(TState targetState)
         {
             return _stateMachine.ConfigureState(targetState) as IStateConfigurationInternal<T, TState, TTrigger>;
         }
@@ -575,8 +585,8 @@ namespace NStateManager.Sync
 
             var result = FireTriggerPrim(parameters);
 
-            if (!(result?.WasTransitioned ?? false) && _superstateConfig != null)
-            { result = _superstateConfig.FireTrigger(parameters); }
+            if (!(result?.WasTransitioned ?? false) && SuperStateConfig != null)
+            { result = SuperStateConfig.FireTrigger(parameters); }
             else
             {
                 var startState = StateAccessor(parameters.Context);
@@ -590,23 +600,26 @@ namespace NStateManager.Sync
 
             return result;
         }
-
-        public bool IsSubstateOf(TState state)
+        public bool IsSubState()
         {
-            if (_superstateConfig is null)
-            { return false; }
-
-            if (state.Equals(_superstateConfig.State))
-            { return true; }
-
-            return _superstateConfig.IsSubstateOf(state);
+            return SuperStateConfig != null;
         }
 
-        public IStateConfiguration<T, TState, TTrigger> MakeSubstateOf(IStateConfiguration<T, TState, TTrigger> superstateConfiguration)
+        public bool IsSubStateOf(TState state)
+        {
+            if (!IsSubState())
+            { return false; }
+
+            return state.Equals(SuperStateConfig.State) || SuperStateConfig.IsSubStateOf(state);
+        }
+
+        public IStateConfiguration<T, TState, TTrigger> MakeSubStateOf(IStateConfiguration<T, TState, TTrigger> superstateConfiguration)
         {
             AddSuperstate(superstateConfiguration as IStateConfigurationInternal<T, TState, TTrigger>);
 
             return this;
         }
+
+        public IStateConfigurationInternal<T, TState, TTrigger> SuperStateConfig { get; set; }
     }
 }

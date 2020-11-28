@@ -38,7 +38,7 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void Execute_doesnt_change_state_if_condition_not_met()
+        public void Execute_does_not_change_state_if_condition_not_met()
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;

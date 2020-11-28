@@ -187,13 +187,6 @@ namespace NStateManager.Async
         IStateConfigurationAsync<T, TState, TTrigger> AddTriggerAction<TRequest>(TTrigger trigger, Func<T, TRequest, CancellationToken, Task> action);
 
         /// <summary>
-        /// Returns true if the given state is the same as the current state or the current state is a subset of the given state; otherwise false.
-        /// </summary>
-        /// <param name="state">The state to compare against.</param>
-        /// <returns></returns>
-        bool IsSubstateOf(TState state);
-
-        /// <summary>
         /// Makes the current state a sub state of the given super state.
         /// </summary>
         /// <param name="superStateConfiguration">The super state.</param>

@@ -14,6 +14,10 @@ namespace NStateManager.Export
             foreach (var transition in summary.Transitions.OrderByDescending(t => t.FromState.IsStartingState).ThenByDescending(t => t.ToState.IsFinalState))
             { csv.AppendLine($"{transition.FromState.State}, {transition.Trigger}, {transition.ToState.State}{(transition.HasCondition ? ", *" : string.Empty)}"); }
 
+            var unusedStates = summary.StateDetails.Where(s => s.IsStartingState && s.IsFinalState);
+            foreach (var state in unusedStates)
+            { csv.AppendLine(state.State.ToString()); }
+
             return csv.ToString();
         }
     }

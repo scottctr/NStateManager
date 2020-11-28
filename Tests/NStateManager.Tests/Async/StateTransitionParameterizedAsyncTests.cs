@@ -75,7 +75,7 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public async Task ExecuteAsync_doesnt_execute_if_cancel_requested()
+        public async Task ExecuteAsync_does_not_execute_if_cancel_requested()
         {
             const SaleState startState = SaleState.Open;
             var sale = new Sale(saleId: 66) { State = startState };
@@ -123,7 +123,7 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public async Task ExecuteAsync_doesnt_change_state_if_condition_not_met()
+        public async Task ExecuteAsync_does_not_change_state_if_condition_not_met()
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;

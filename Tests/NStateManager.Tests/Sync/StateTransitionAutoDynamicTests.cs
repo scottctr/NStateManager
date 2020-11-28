@@ -8,7 +8,6 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-
 using NStateManager.Sync;
 using Xunit;
 
@@ -34,7 +33,7 @@ namespace NStateManager.Tests.Sync
         }
 
         [Fact]
-        public void Execute_fails_if_startState_doesnt_match()
+        public void Execute_fails_if_startState_does_not_match()
         {
             var sut = new StateTransitionAutoDynamic<Sale, SaleState, SaleEvent>(getStateMachine()
               , SaleState.Open
@@ -52,7 +51,7 @@ namespace NStateManager.Tests.Sync
         }
 
         [Fact]
-        public void Execute_fails_if_triggerState_doesnt_match()
+        public void Execute_fails_if_triggerState_does_not_match()
         {
             var sut = new StateTransitionAutoDynamic<Sale, SaleState, SaleEvent>(getStateMachine()
               , SaleState.Open
@@ -100,7 +99,7 @@ namespace NStateManager.Tests.Sync
         {
             var stateMachine = getStateMachine();
             var openStateConfig = stateMachine.ConfigureState(SaleState.Open);
-            stateMachine.ConfigureState(SaleState.ChangeDue).MakeSubstateOf(openStateConfig);
+            stateMachine.ConfigureState(SaleState.ChangeDue).MakeSubStateOf(openStateConfig);
 
             var sut = new StateTransitionAutoDynamic<Sale, SaleState, SaleEvent>(stateMachine
               , SaleState.Open

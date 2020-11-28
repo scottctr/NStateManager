@@ -8,11 +8,10 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-
+using NStateManager.Sync;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using NStateManager.Sync;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -162,41 +161,41 @@ namespace NStateManager.Tests
             _testOutputHelper.WriteLine($"[{stopWatch.Elapsed}] TEST COMPLETE");
         }
 
-        enum afState { Off, On, End }
-        enum afEvent { TurnOn, TurnOff, TurnOnAF }
+        enum AutoFallbackState { Off, On, End }
+        enum AutoFallbackEvent { TurnOn, TurnOff, TurnOnAF }
 
         private class Thingy
         {
-            public afState State { get; set; } = afState.Off;
+            public AutoFallbackState State { get; set; } = AutoFallbackState.Off;
         }
 
         [Fact]
         public void AutoForwardTest()
         {
-            var stateMachine = new StateMachine<Thingy, afState, afEvent>(thingy => thingy.State
+            var stateMachine = new StateMachine<Thingy, AutoFallbackState, AutoFallbackEvent>(thingy => thingy.State
               , (thingy, updateState) => thingy.State = updateState);
 
             stateMachine
-               .AddTriggerAction(afEvent.TurnOn, _ => _testOutputHelper.WriteLine("Firing 'On' trigger"))
-               .AddTriggerAction(afEvent.TurnOnAF, _ => _testOutputHelper.WriteLine("Firing 'TurnOnAF' trigger"));
+               .AddTriggerAction(AutoFallbackEvent.TurnOn, _ => _testOutputHelper.WriteLine("Firing 'On' trigger"))
+               .AddTriggerAction(AutoFallbackEvent.TurnOnAF, _ => _testOutputHelper.WriteLine("Firing 'TurnOnAF' trigger"));
             stateMachine.OnTransition += (o, args) => _testOutputHelper.WriteLine($"Changed from {args.TransitionResult.PreviousState} to {args.TransitionResult.CurrentState} via {args.TransitionResult.LastTransitionName} transition");
 
 
-            stateMachine.ConfigureState(afState.Off)
-               .AddTransition(afEvent.TurnOn, afState.On, name: "On")
-               .AddTransition(afEvent.TurnOnAF, afState.On, name: "OnAF");
+            stateMachine.ConfigureState(AutoFallbackState.Off)
+               .AddTransition(AutoFallbackEvent.TurnOn, AutoFallbackState.On, name: "On")
+               .AddTransition(AutoFallbackEvent.TurnOnAF, AutoFallbackState.On, name: "OnAF");
 
-            stateMachine.ConfigureState(afState.On)
-               .AddTransition(afEvent.TurnOff, afState.Off)
-               .AddAutoForwardTransition(afEvent.TurnOnAF, afState.End, _ => true, name: "AutoEnd");
+            stateMachine.ConfigureState(AutoFallbackState.On)
+               .AddTransition(AutoFallbackEvent.TurnOff, AutoFallbackState.Off)
+               .AddAutoForwardTransition(AutoFallbackEvent.TurnOnAF, AutoFallbackState.End, _ => true, name: "AutoEnd");
 
 
             var testThingy = new Thingy();
-            stateMachine.FireTrigger(testThingy, afEvent.TurnOn);
+            stateMachine.FireTrigger(testThingy, AutoFallbackEvent.TurnOn);
             _testOutputHelper.WriteLine("End simple On transition" + Environment.NewLine + Environment.NewLine);
 
             testThingy = new Thingy();
-            stateMachine.FireTrigger(testThingy, afEvent.TurnOnAF);
+            stateMachine.FireTrigger(testThingy, AutoFallbackEvent.TurnOnAF);
             _testOutputHelper.WriteLine("End OnAF transition" + Environment.NewLine + Environment.NewLine);
         }
     }

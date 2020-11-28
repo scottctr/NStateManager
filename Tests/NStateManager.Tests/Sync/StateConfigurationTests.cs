@@ -8,10 +8,9 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-
+using NStateManager.Sync;
 using System;
 using System.Threading.Tasks;
-using NStateManager.Sync;
 using Xunit;
 
 namespace NStateManager.Tests.Sync
@@ -179,7 +178,7 @@ namespace NStateManager.Tests.Sync
 
             Assert.Single(sut.Transitions);
 
-            StateConfiguration<Sale, SaleState, SaleEvent> tempStateConfig = stateMachine.ConfigureState(SaleState.Complete) as StateConfiguration<Sale, SaleState, SaleEvent>;
+            var tempStateConfig = stateMachine.ConfigureState(SaleState.Complete) as StateConfiguration<Sale, SaleState, SaleEvent>;
             Assert.Single(tempStateConfig.AutoTransitions);
         }
 
@@ -224,7 +223,7 @@ namespace NStateManager.Tests.Sync
 
             Assert.Single(sut.Transitions);
 
-            StateConfiguration<Sale, SaleState, SaleEvent> tempStateConfig = stateMachine.ConfigureState(SaleState.Complete) as StateConfiguration<Sale, SaleState, SaleEvent>;
+            var tempStateConfig = stateMachine.ConfigureState(SaleState.Complete) as StateConfiguration<Sale, SaleState, SaleEvent>;
             Assert.Single(tempStateConfig.AutoTransitions);
         }
 
@@ -269,7 +268,7 @@ namespace NStateManager.Tests.Sync
         }
 
         [Fact]
-        public void AddSuperState_throws_ArgumentOutOfRangeException_if_configuredState_already_substate()
+        public void AddSuperState_throws_ArgumentOutOfRangeException_if_configuredState_already_subState()
         {
             var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
@@ -283,7 +282,7 @@ namespace NStateManager.Tests.Sync
         }
 
         [Fact]
-        public void AddSuperState_throws_ArgumentOutOfRangeException_if_substate_is_already_superstate()
+        public void AddSuperState_throws_ArgumentOutOfRangeException_if_subState_is_already_superstate()
         {
             var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var changeDueStateConfig = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
@@ -297,7 +296,7 @@ namespace NStateManager.Tests.Sync
         }
 
         [Fact]
-        public void AddSuperState_throws_InvalidOperationException_if_substate_is_already_superstate()
+        public void AddSuperState_throws_InvalidOperationException_if_subState_is_already_superstate()
         {
             var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var changeDueStateConfig = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
@@ -397,7 +396,7 @@ namespace NStateManager.Tests.Sync
         public void ExecuteAutoTransition_executes_AutoTransition_for_superState()
         {
             //Scenario: Sale has been paid for and goes to ChangeDue. If no change due, it should automatically transition to Complete.
-            //ChangeDue is a substate of Open and Open has the autoForward defined for Pay.
+            //ChangeDue is a sub-state of Open and Open has the autoForward defined for Pay.
             var sale = new Sale(saleId: 96) { State = SaleState.ChangeDue };
 
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.AddItem
@@ -467,7 +466,7 @@ namespace NStateManager.Tests.Sync
             var openConfig = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
             openConfig.AddEntryAction(sale1 => { entryActionCalled = true; });
             var changeDueConfig = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
-            changeDueConfig.MakeSubstateOf(openConfig);
+            changeDueConfig.MakeSubStateOf(openConfig);
             var sale = new Sale(saleId: 96) { State = SaleState.ChangeDue };
             var transitionResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay
               , SaleState.Open
@@ -587,15 +586,15 @@ namespace NStateManager.Tests.Sync
         }
 
         [Fact]
-        public void IsSubstateOf_returns_True_if_in_given_state_is_subState()
+        public void IsSubStateOf_returns_True_if_in_given_state_is_subState()
         {
             var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openState = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
             var changeDueState = new StateConfiguration<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             changeDueState.AddSuperstate(openState);
 
-            Assert.True(changeDueState.IsSubstateOf(SaleState.Open));
-            Assert.False(openState.IsSubstateOf(SaleState.ChangeDue));
+            Assert.True(changeDueState.IsSubStateOf(SaleState.Open));
+            Assert.False(openState.IsSubStateOf(SaleState.ChangeDue));
         }
     }
 }

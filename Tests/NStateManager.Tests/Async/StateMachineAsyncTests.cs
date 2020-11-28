@@ -8,7 +8,6 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-
 using NStateManager.Async;
 using System;
 using System.Linq;
@@ -178,7 +177,7 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public async Task FireTriggerAsync_does_not_execute_exitAction_when_moving_to_substate()
+        public async Task FireTriggerAsync_does_not_execute_exitAction_when_moving_to_subState()
         {
             var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachineAsync<Sale, SaleState, SaleEvent>(

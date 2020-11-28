@@ -85,7 +85,7 @@ namespace NStateManager.Export
                 , priority
                 , isDynamic);
 
-            AddTransition(transition);
+            addTransition(transition);
 
             return transition;
         }
@@ -105,12 +105,12 @@ namespace NStateManager.Export
                 , priority
                 , isDynamic);
 
-            AddTransition(transition);
+            addTransition(transition);
 
             return transition;
         }
 
-        private void AddTransition(TransitionDetails<TState, TTrigger> transition)
+        private void addTransition(TransitionDetails<TState, TTrigger> transition)
         {
             if (transition.FromState.State.IsEqual(State))
             {
@@ -121,7 +121,7 @@ namespace NStateManager.Export
                 IsFinalState = false;
 
                 if (!transition.IsDynamic)
-                { transition.ToState.AddTransition(transition); }
+                { transition.ToState.addTransition(transition); }
             }
             else
             {
@@ -130,7 +130,7 @@ namespace NStateManager.Export
 
                 _transitionsTo.Add(transition);
 
-                transition.FromState.AddTransition(transition);
+                transition.FromState.addTransition(transition);
             }
         }
     }

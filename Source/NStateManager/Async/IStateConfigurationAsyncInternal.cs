@@ -23,6 +23,16 @@ namespace NStateManager.Async
         Task ExecuteExitActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult);
         Task ExecuteReentryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult);
         Task<StateTransitionResult<TState, TTrigger>> FireTriggerAsync(ExecutionParameters<T, TTrigger> parameters);
+
+        bool IsSubState();
+
+        /// <summary>
+        /// Returns true if the given state is the same as the current state or the current state is a subset of the given state; otherwise false.
+        /// </summary>
+        /// <param name="state">The state to compare against.</param>
+        /// <returns></returns>
+        bool IsSubStateOf(TState state);
+        IStateConfigurationAsyncInternal<T, TState, TTrigger> SuperStateConfig { get; }
         TState State { get; }
     }
 }

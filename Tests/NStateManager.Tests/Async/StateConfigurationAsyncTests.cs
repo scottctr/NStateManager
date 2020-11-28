@@ -244,7 +244,7 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public void AddSuperState_throws_ArgumentOutOfRangeException_if_configuredState_already_substate()
+        public void AddSuperState_throws_ArgumentOutOfRangeException_if_configuredState_already_subState()
         {
             var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
@@ -270,7 +270,7 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public void AddSuperState_throws_ArgumentOutOfRangeException_if_substate_is_already_superstate()
+        public void AddSuperState_throws_ArgumentOutOfRangeException_if_subState_is_already_superstate()
         {
             var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newState) => sale.State = newState);
             var sut = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
@@ -716,25 +716,25 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public void IsSubstateOf_returns_False_if_in_given_state()
+        public void IsSubStateOf_returns_False_if_in_given_state()
         {
             var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
 
-            Assert.False(openState.IsSubstateOf(SaleState.Open));
-            Assert.False(openState.IsSubstateOf(SaleState.Complete));
+            Assert.False(openState.IsSubStateOf(SaleState.Open));
+            Assert.False(openState.IsSubStateOf(SaleState.Complete));
         }
 
         [Fact]
-        public void IsSubstateOf_returns_True_if_in_given_state_is_subState()
+        public void IsSubStateOf_returns_True_if_in_given_state_is_subState()
         {
             var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(sale1 => sale1.State, (sale1, newState) => sale1.State = newState);
             var openState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.Open, stateMachine);
             var changeDueState = new StateConfigurationAsync<Sale, SaleState, SaleEvent>(SaleState.ChangeDue, stateMachine);
             changeDueState.AddSuperstate(openState);
 
-            Assert.True(changeDueState.IsSubstateOf(SaleState.Open));
-            Assert.False(openState.IsSubstateOf(SaleState.ChangeDue));
+            Assert.True(changeDueState.IsSubStateOf(SaleState.Open));
+            Assert.False(openState.IsSubStateOf(SaleState.ChangeDue));
         }
     }
 }

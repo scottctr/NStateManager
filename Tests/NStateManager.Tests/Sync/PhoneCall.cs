@@ -8,10 +8,9 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-
-using System;
 using NStateManager.Export;
 using NStateManager.Sync;
+using System;
 using Xunit;
 
 namespace TelephoneCallExample
@@ -94,7 +93,7 @@ namespace TelephoneCallExample
                 {
                     Console.WriteLine("Exiting OnHold");
                 })
-               .MakeSubstateOf(_stateMachine.ConfigureState(State.Connected))
+               .MakeSubStateOf(_stateMachine.ConfigureState(State.Connected))
                .AddTransition(Trigger.TakenOffHold, State.Connected)
                .AddTransition(Trigger.PhoneHurledAgainstWall, State.PhoneDestroyed);
         }

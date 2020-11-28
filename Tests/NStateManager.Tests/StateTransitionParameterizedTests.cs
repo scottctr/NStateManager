@@ -8,9 +8,8 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-
-using System;
 using NStateManager.Sync;
+using System;
 using Xunit;
 
 namespace NStateManager.Tests
@@ -62,7 +61,7 @@ namespace NStateManager.Tests
         }
 
         [Fact]
-        public void Execute_doesnt_transition_if_condition_not_met()
+        public void Execute_does_not_transition_if_condition_not_met()
         {
             var testSale = new Sale(saleId: 55) { State = SaleState.Open };
             var sut = new StateTransitionParameterized<Sale, SaleState, SaleEvent, string>(

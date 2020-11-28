@@ -184,8 +184,8 @@ namespace NStateManager.Async
                 _stateConfigurations.TryGetValue(currentResult.PreviousState, out var previousStateConfig);
                 _stateConfigurations.TryGetValue(currentResult.CurrentState, out var newStateConfig);
 
-                //OnExit? ...don't execute if moving to substate
-                if (previousStateConfig != null && !(newStateConfig != null && newStateConfig.IsSubstateOf(currentResult.PreviousState)))
+                //OnExit? ...don't execute if moving to sub-state
+                if (previousStateConfig != null && !(newStateConfig != null && newStateConfig.IsSubStateOf(currentResult.PreviousState)))
                 {
                     await previousStateConfig.ExecuteExitActionAsync(parameters, currentResult)
                         .ConfigureAwait(continueOnCapturedContext: false);
@@ -197,7 +197,7 @@ namespace NStateManager.Async
                 if (newStateConfig != null)
                 {
                     //OnEntry? ...don't execute if moving to superstate
-                    if (previousStateConfig != null && !previousStateConfig.IsSubstateOf(currentResult.CurrentState))
+                    if (previousStateConfig != null && !previousStateConfig.IsSubStateOf(currentResult.CurrentState))
                     {
                         await newStateConfig.ExecuteEntryActionAsync(parameters, currentResult)
                            .ConfigureAwait(continueOnCapturedContext: false);
@@ -252,7 +252,7 @@ namespace NStateManager.Async
             { return true; }
 
             return _stateConfigurations.TryGetValue(currentState, out var objectStateConfiguration) 
-                   && objectStateConfiguration.IsSubstateOf(stateToCheck);
+                   && objectStateConfiguration.IsSubStateOf(stateToCheck);
         }
     }
 }

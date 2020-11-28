@@ -169,7 +169,7 @@ namespace NStateManager.Sync
             { return true; }
 
             return _stateConfigurations.TryGetValue(currentState, out var currentStateConfig) 
-                   && currentStateConfig.IsSubstateOf(stateToCheck);
+                   && currentStateConfig.IsSubStateOf(stateToCheck);
         }
 
         private StateTransitionResult<TState, TTrigger> executeExitAndEntryActions(ExecutionParameters<T, TTrigger> parameters
@@ -182,8 +182,8 @@ namespace NStateManager.Sync
                 _stateConfigurations.TryGetValue(currentResult.PreviousState, out var previousStateConfig);
                 _stateConfigurations.TryGetValue(currentResult.CurrentState, out var newStateConfig);
 
-                //OnExit? ...don't execute if moving to substate
-                if (!(newStateConfig != null && newStateConfig.IsSubstateOf(currentResult.PreviousState)))
+                //OnExit? ...don't execute if moving to sub-state
+                if (!(newStateConfig != null && newStateConfig.IsSubStateOf(currentResult.PreviousState)))
                 { previousStateConfig?.ExecuteExitAction(parameters.Context, currentResult); }
 
                 //Fire the transition event before anything else.
@@ -192,7 +192,7 @@ namespace NStateManager.Sync
                 if (newStateConfig != null)
                 {
                     //OnEntry? ...don't execute if moving to superstate
-                    if (previousStateConfig != null && !previousStateConfig.IsSubstateOf(currentResult.CurrentState))
+                    if (previousStateConfig != null && !previousStateConfig.IsSubStateOf(currentResult.CurrentState))
                     { newStateConfig.ExecuteEntryAction(parameters.Context, currentResult); }
 
                     //Auto transitions?
