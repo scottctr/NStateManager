@@ -22,11 +22,13 @@ namespace NStateManager.Export
         public IReadOnlyList<StateDetails<TState, TTrigger>> FinalStates => Transitions
            .Where(t => t.ToState.IsFinalState)
            .Select(t => t.ToState)
+           .Distinct()
            .ToList(); 
             
         public IReadOnlyList<StateDetails<TState, TTrigger>> StartingStates => Transitions
            .Where(t => t.FromState.IsStartingState)
            .Select(t => t.FromState)
+           .Distinct()
            .ToList();
 
         public IReadOnlyList<TransitionDetails<TState, TTrigger>> Transitions => _stateDetails.SelectMany(s => s.Value.TransitionsFrom).Distinct().ToList();

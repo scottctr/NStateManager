@@ -8,10 +8,10 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-using System;
-using System.Threading.Tasks;
 using NStateManager.Sync;
 using NStateManager.Tests.Async;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace NStateManager.Tests.Sync
@@ -88,7 +88,7 @@ namespace NStateManager.Tests.Sync
             var triggerActionExecuted = false;
             sut.AddTriggerAction(SaleEvent.AddItem, sale => triggerActionExecuted = true);
 
-            sut.FireTrigger(new Sale(saleID: 45), SaleEvent.AddItem);
+            sut.FireTrigger(new Sale(saleId: 45), SaleEvent.AddItem);
 
             Assert.True(triggerActionExecuted);
         }
@@ -96,7 +96,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void FireTrigger_sends_parameters_to_configured_state()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -115,7 +115,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void FireTrigger_does_not_require_configured_state()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -129,7 +129,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void FireTrigger_executes_exitAction()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -145,9 +145,9 @@ namespace NStateManager.Tests.Sync
         }
 
         [Fact]
-        public void FireTrigger_does_not_execute_exitAction_when_moving_to_substate()
+        public void FireTrigger_does_not_execute_exitAction_when_moving_to_subState()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -157,7 +157,7 @@ namespace NStateManager.Tests.Sync
                .AddTransition(SaleEvent.Pay, SaleState.Complete)
                .AddExitAction(sale1 => exitActionFired = true);
             sut.ConfigureState(SaleState.Complete)
-               .MakeSubstateOf(sut.ConfigureState(SaleState.Open))
+               .MakeSubStateOf(sut.ConfigureState(SaleState.Open))
                .AddExitAction(sale1 => exitActionFired = true);
 
             sut.FireTrigger(sale, SaleEvent.Pay);
@@ -168,7 +168,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void FireTrigger_executes_entryAction()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -188,7 +188,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void FireTrigger_does_not_execute_entryAction_when_changing_to_superState()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.ChangeDue };
+            var sale = new Sale(saleId: 45) { State = SaleState.ChangeDue };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -197,7 +197,7 @@ namespace NStateManager.Tests.Sync
             sut.ConfigureState(SaleState.Open)
                .AddEntryAction(sale1 => entryActionFired = true);
             sut.ConfigureState(SaleState.ChangeDue)
-               .MakeSubstateOf(sut.ConfigureState(SaleState.Open))
+               .MakeSubStateOf(sut.ConfigureState(SaleState.Open))
                .AddTransition(SaleEvent.Pay, SaleState.Open);
 
             sut.FireTrigger(sale, SaleEvent.Pay);
@@ -208,7 +208,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void FireTrigger_executes_autoTransition()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -232,17 +232,14 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void FireTrigger_executes_entryExitActions_for_autoTransition()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
-
             sut.ConfigureState(SaleState.Open)
                .AddTransition(SaleEvent.Pay, SaleState.ChangeDue, name: "toChangeDue");
-
             sut.ConfigureState(SaleState.ChangeDue)
                .AddAutoForwardTransition(SaleEvent.Pay, SaleState.Complete, sale1 => true, name: "toComplete");
-
             var completeEntryActionFired = false;
             sut.ConfigureState(SaleState.Complete)
                 .AddEntryAction(sale1 => completeEntryActionFired = true);
@@ -261,7 +258,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void FireTrigger_executes_reentryActions_if_no_state_change()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -303,7 +300,7 @@ namespace NStateManager.Tests.Sync
             sut.ConfigureState(SaleState.Open)
                .AddTransition(SaleEvent.AddItem, SaleState.Complete, _ => false);
 
-            sut.FireTrigger(new Sale(saleID: 55) { State = SaleState.Open }, SaleEvent.AddItem);
+            sut.FireTrigger(new Sale(saleId: 55) { State = SaleState.Open }, SaleEvent.AddItem);
 
             Assert.True(noTransitionEventFired);
         }
@@ -318,7 +315,7 @@ namespace NStateManager.Tests.Sync
             var triggerActionExecuted = false;
             sut.AddTriggerAction(SaleEvent.AddItem, sale => triggerActionExecuted = true);
 
-            sut.FireTrigger(new Sale(saleID: 45), SaleEvent.AddItem, "stringParam");
+            sut.FireTrigger(new Sale(saleId: 45), SaleEvent.AddItem, "stringParam");
 
             Assert.True(triggerActionExecuted);
         }
@@ -326,7 +323,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void FireTriggerWRequest_sends_parameters_to_configured_state()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -345,7 +342,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void FireTriggerWRequest_does_not_require_configured_state()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -359,7 +356,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void FireTriggerWRequest_executes_exitAction()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -377,7 +374,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void FireTriggerWRequest_executes_entryAction()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -397,7 +394,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void FireTriggerWRequest_executes_autoTransition()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -421,7 +418,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void FireTriggerWRequest_executes_entryExitActions_for_autoTransition()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -450,7 +447,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void FireTriggerWRequest_executes_reentryActions_if_no_state_change()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -467,7 +464,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void IsInState_determines_if_context_in_specified_state()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -488,7 +485,7 @@ namespace NStateManager.Tests.Sync
         [Fact]
         public void OnTransitionEvent_registers_action_when_state_changes()
         {
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var sut = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale2 => sale2.State
               , stateMutator: (sale3, newState) => sale3.State = newState);
@@ -519,7 +516,7 @@ namespace NStateManager.Tests.Sync
                     return true;
                 });
 
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             var stateTransitionResult = sut.FireTrigger(sale, SaleEvent.Pay, testRequest);
 
             Assert.NotNull(stateTransitionResult);
@@ -553,7 +550,7 @@ namespace NStateManager.Tests.Sync
                     result2 = request.Value;
                     return true;
                 });
-            var sale = new Sale(saleID: 45) { State = SaleState.Open };
+            var sale = new Sale(saleId: 45) { State = SaleState.Open };
             sut.FireTrigger(sale, SaleEvent.Pay, testRequest1);
             var stateTransitionResult = sut.FireTrigger(sale, SaleEvent.ChangeGiven, testRequest2);
 

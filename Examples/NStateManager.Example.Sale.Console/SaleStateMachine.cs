@@ -16,20 +16,20 @@ namespace NStateManager.Example.Sale.Console
 {
     public static class SaleStateMachine
     {
-        private static readonly StateMachine<Sale, SaleState, SaleEvent> _stateMachine;
+        private static readonly StateMachine<Sale, SaleState, SaleEvent> StateMachine;
 
         static SaleStateMachine()
         {
             //State machine to manage sales for a point of sale system
-            _stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(
+            StateMachine = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: (sale) => sale.State
                 ,stateMutator: (sale, state) => sale.State = state);
 
             //Log each time a sale changes state regardless of to/from state
-            _stateMachine.OnTransition += (sender, args) => Output.WriteLine($"Sale {args.Parameters.Context.SaleID} transitioned from {args.TransitionResult.PreviousState} to {args.TransitionResult.CurrentState}.");
+            StateMachine.OnTransition += (sender, args) => Output.WriteLine($"Sale {args.Parameters.Context.SaleId} transitioned from {args.TransitionResult.PreviousState} to {args.TransitionResult.CurrentState}.");
 
             //Configure the Open state
-            _stateMachine.ConfigureState(SaleState.Open)
+            StateMachine.ConfigureState(SaleState.Open)
                //Process the new item on the AddItem event 
                .AddTriggerAction<SaleItem>(SaleEvent.AddItem, (sale, saleItem) =>
                     {
@@ -48,7 +48,7 @@ namespace NStateManager.Example.Sale.Console
                 .AddTransition(SaleEvent.Pay, SaleState.Complete, condition: sale => Math.Abs(sale.Balance) < .005, name: "Open2Complete", priority: 2);
 
             //Configure the ChangeDue state
-            _stateMachine.ConfigureState(SaleState.ChangeDue)
+            StateMachine.ConfigureState(SaleState.ChangeDue)
                 //Process the returned change on the ChangeGiven event
                 .AddTriggerAction<Payment>(SaleEvent.ChangeGiven, (sale, payment) =>
                 {
@@ -69,17 +69,17 @@ namespace NStateManager.Example.Sale.Console
 
         public static void AddItem(Sale sale, SaleItem saleItem)
         {
-            _stateMachine.FireTrigger(sale, SaleEvent.AddItem, saleItem);
+            StateMachine.FireTrigger(sale, SaleEvent.AddItem, saleItem);
         }
 
         public static void AddPayment(Sale sale, Payment payment)
         {
-            _stateMachine.FireTrigger(sale, SaleEvent.Pay, payment);
+            StateMachine.FireTrigger(sale, SaleEvent.Pay, payment);
         }
 
         public static void ReturnChange(Sale sale, Payment payment)
         {
-            _stateMachine.FireTrigger(sale, SaleEvent.ChangeGiven, payment);
+            StateMachine.FireTrigger(sale, SaleEvent.ChangeGiven, payment);
         }
     }
 }

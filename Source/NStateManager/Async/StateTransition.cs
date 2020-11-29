@@ -14,19 +14,19 @@ using System.Threading.Tasks;
 
 namespace NStateManager.Async
 {
-    internal class StateTransitionAsync<T, TState, TTrigger> : StateTransitionNonDynamic<T, TState, TTrigger>
+    internal class StateTransition<T, TState, TTrigger> : StateTransitionNonDynamic<T, TState, TTrigger>
     {
         public Func<T, CancellationToken, Task<bool>> ConditionAsync { get; }
         public bool HasCondition { get; }
 
-        public StateTransitionAsync(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState toState, Func<T, CancellationToken, Task<bool>> conditionAsync, string name, uint priority)
+        public StateTransition(Func<T, TState> stateAccessor, Action<T, TState> stateMutator, TState toState, Func<T, CancellationToken, Task<bool>> conditionAsync, string name, uint priority)
             : base(stateAccessor, stateMutator, toState, name, priority)
         {
-            if (conditionAsync != null)
-            {
-                ConditionAsync = conditionAsync;
-                HasCondition = true;
-            }
+            if (conditionAsync == null)
+            { return; }
+
+            ConditionAsync = conditionAsync;
+            HasCondition = true;
         }
 
         public override async Task<StateTransitionResult<TState, TTrigger>> ExecuteAsync(ExecutionParameters<T, TTrigger> parameters

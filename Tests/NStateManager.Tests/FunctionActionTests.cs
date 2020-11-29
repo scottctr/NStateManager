@@ -8,8 +8,8 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
+
 using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -28,10 +28,10 @@ namespace NStateManager.Tests
         public async Task ExecuteAsync_executes_Action()
         {
             const double updatedBalance = 1.23;
-            var sale = new Sale(saleID: 5) { Balance = 0 };
+            var sale = new Sale(saleId: 5) { Balance = 0 };
             var sut = new FunctionAction<Sale>((sale1, _) => Task.FromResult(sale1.Balance = updatedBalance));
 
-            await sut.ExecuteAsync(sale, request: null, cancellationToken: default(CancellationToken));
+            await sut.ExecuteAsync(sale, request: null, cancellationToken: default);
 
             Assert.Equal(updatedBalance, sale.Balance);
         }
@@ -39,44 +39,42 @@ namespace NStateManager.Tests
         [Fact]
         public void ExecuteAsync_can_be_cancelled()
         {
-            using (var cancellationSource = new CancellationTokenSource())
+            using var cancellationSource = new CancellationTokenSource();
+            var sale = new Sale(saleId: 3);
+            var wasCancelled = false;
+
+            var mutex = new Mutex(initiallyOwned: false);
+            var sut = new FunctionAction<Sale>((_, cancelToken) =>
             {
-                var sale = new Sale(saleID: 3);
-                var wasCancelled = false;
-
-                var mutex = new Mutex(initiallyOwned: false);
-                var sut = new FunctionAction<Sale>((_, cancelToken) =>
-                {
-                    mutex.WaitOne();
-                    do
-                    {
-                        Task.Delay(millisecondsDelay: 123).Wait();
-                    } while (!cancelToken.IsCancellationRequested);
-
-                    mutex.ReleaseMutex();
-                    wasCancelled = true;
-                    return Task.FromCanceled(cancelToken);
-                });
-
-                Task.Factory.StartNew(async () =>
-                {
-                    await sut.ExecuteAsync(sale, cancellationSource.Token, request: null);
-                }, TaskCreationOptions.LongRunning);
-
-                try
-                {
-                    Task.Delay(555).Wait();
-                    cancellationSource.Cancel();
-                }
-                catch
-                {
-                    cancellationSource.Cancel();
-                }
-
                 mutex.WaitOne();
+                do
+                {
+                    Task.Delay(millisecondsDelay: 123).Wait();
+                } while (!cancelToken.IsCancellationRequested);
 
-                Assert.True(wasCancelled);
+                mutex.ReleaseMutex();
+                wasCancelled = true;
+                return Task.FromCanceled(cancelToken);
+            });
+
+            Task.Factory.StartNew(async () =>
+            {
+                await sut.ExecuteAsync(sale, cancellationSource.Token, request: null);
+            }, TaskCreationOptions.LongRunning);
+
+            try
+            {
+                Task.Delay(555).Wait();
+                cancellationSource.Cancel();
             }
+            catch
+            {
+                cancellationSource.Cancel();
+            }
+
+            mutex.WaitOne();
+
+            Assert.True(wasCancelled);
         }
     }
 }

@@ -14,14 +14,13 @@ using System.Threading.Tasks;
 
 namespace NStateManager.Async
 {
-    internal class StateTransitionAutoForwardParameterizedAsync<T, TState, TTrigger, TParam> : StateTransitionParameterizedAsync<T, TState, TTrigger, TParam>
-        where TParam : class
+    internal class StateTransitionAutoForward<T, TState, TTrigger> : StateTransition<T, TState, TTrigger>
         where TState : IComparable
     {
-        private readonly IStateMachineAsync<T, TState, TTrigger> _stateMachine;
+        private readonly IStateMachine<T, TState, TTrigger> _stateMachine;
         private readonly TState _triggerState;
 
-        public StateTransitionAutoForwardParameterizedAsync(IStateMachineAsync<T, TState, TTrigger> stateMachine, TState toState, TState triggerState, Func<T, TParam, CancellationToken, Task<bool>> conditionAsync, string name, uint priority)
+        public StateTransitionAutoForward(IStateMachine<T, TState, TTrigger> stateMachine, TState triggerState, TState toState, Func<T, CancellationToken, Task<bool>> conditionAsync, string name, uint priority)
             : base(stateMachine.StateAccessor, stateMachine.StateMutator, toState, conditionAsync, name, priority)
         {
             _stateMachine = stateMachine;
@@ -31,17 +30,17 @@ namespace NStateManager.Async
         public override async Task<StateTransitionResult<TState, TTrigger>> ExecuteAsync(ExecutionParameters<T, TTrigger> parameters
           , StateTransitionResult<TState, TTrigger> currentResult = null)
         {
-            if (currentResult != null //Auto transitions must have a previously successful transition
+            if (currentResult != null
                 && !parameters.CancellationToken.IsCancellationRequested
-                && (_triggerState.IsEqual(currentResult.CurrentState)
-                 || _stateMachine.IsInState(parameters.Context, _triggerState)))
+                && (_triggerState.IsEqual(currentResult.CurrentState) 
+                    || _stateMachine.IsInState(parameters.Context, _triggerState)))
             { return await base.ExecuteAsync(parameters, currentResult); }
 
             return GetFreshResult(parameters
               , currentResult
               , StateAccessor(parameters.Context)
               , wasCancelled: parameters.CancellationToken.IsCancellationRequested
-              , transitionDefined: true
+              , transitionDefined: true  
               , conditionMet: false);
         }
     }

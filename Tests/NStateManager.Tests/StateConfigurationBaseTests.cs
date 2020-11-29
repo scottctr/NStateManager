@@ -8,9 +8,9 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
+using NStateManager.Sync;
 using System;
 using System.Linq;
-using NStateManager.Sync;
 using Xunit;
 
 namespace NStateManager.Tests
@@ -54,6 +54,7 @@ namespace NStateManager.Tests
             void StateMutator(Sale sale, SaleState newState) => sale.State = newState;
             const SaleState toState = SaleState.ChangeDue;
 
+            // ReSharper disable once ExpressionIsAlwaysNull
             Assert.Throws<ArgumentNullException>(() => new StateConfigurationBaseTester<Sale, SaleState, SaleEvent>(stateAccessor
               , StateMutator
               , toState));

@@ -62,9 +62,9 @@ namespace NStateManager.Tests.Export
             Assert.Contains(summary.StartingStates, s => s.State == SaleState.Open);
         }
 
-        private StateMachineAsync<Sale, SaleState, SaleEvent> getTestStateMachine()
+        private StateMachine<Sale, SaleState, SaleEvent> getTestStateMachine()
         {
-            var stateMachine = new StateMachineAsync<Sale, SaleState, SaleEvent>(
+            var stateMachine = new StateMachine<Sale, SaleState, SaleEvent>(
                 stateAccessor: sale => sale.State
               , stateMutator: (sale, newState) => sale.State = newState);
 

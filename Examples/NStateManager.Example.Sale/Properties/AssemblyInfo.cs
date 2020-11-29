@@ -9,7 +9,6 @@
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following

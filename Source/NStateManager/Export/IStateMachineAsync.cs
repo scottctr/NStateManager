@@ -11,9 +11,10 @@
 using NStateManager.Export;
 using System;
 
+// ReSharper disable once CheckNamespace
 namespace NStateManager.Async
 {
-    public partial interface IStateMachineAsync<T, TState, TTrigger>
+    public partial interface IStateMachine<T, TState, TTrigger>
         where TState : IComparable
     {
         ConfigurationSummary<TState, TTrigger> GetSummary();

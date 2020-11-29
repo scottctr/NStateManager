@@ -8,7 +8,6 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-using NStateManager.Sync;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -22,10 +21,10 @@ namespace NStateManager.Async
     /// <typeparam name="T">The type of object to manage state for.</typeparam>
     /// <typeparam name="TState">An allowable state for T.</typeparam>
     /// <typeparam name="TTrigger">A recognized trigger that affects objects of type T.</typeparam>
-    public sealed partial class StateMachineAsync<T, TState, TTrigger> : IStateMachineAsync<T, TState, TTrigger>
+    public sealed partial class StateMachine<T, TState, TTrigger> : IStateMachine<T, TState, TTrigger>
         where TState : IComparable
     {
-        private readonly Dictionary<TState, IStateConfigurationAsyncInternal<T, TState, TTrigger>> _stateConfigurations = new Dictionary<TState, IStateConfigurationAsyncInternal<T, TState, TTrigger>>();
+        private readonly Dictionary<TState, IStateConfigurationInternal<T, TState, TTrigger>> _stateConfigurations = new Dictionary<TState, IStateConfigurationInternal<T, TState, TTrigger>>();
         private readonly Dictionary<TTrigger, FunctionActionBase<T>> _triggerActions = new Dictionary<TTrigger, FunctionActionBase<T>>();
 
         public Func<T, TState> StateAccessor { get; }
@@ -51,7 +50,7 @@ namespace NStateManager.Async
         /// </summary>
         /// <param name="stateAccessor">Function to retrieve the state of a <see cref="T"/>.</param>
         /// <param name="stateMutator">Action to set the state of a <see cref="T"/>.</param>
-        public StateMachineAsync(Func<T, TState> stateAccessor, Action<T, TState> stateMutator)
+        public StateMachine(Func<T, TState> stateAccessor, Action<T, TState> stateMutator)
         {
             StateAccessor = stateAccessor ?? throw new ArgumentNullException(nameof(stateAccessor));
             StateMutator = stateMutator ?? throw new ArgumentNullException(nameof(stateMutator));
@@ -62,9 +61,9 @@ namespace NStateManager.Async
         /// </summary>
         /// <param name="trigger">The <see cref="TTrigger"/> for the action.</param>
         /// <param name="action">The action to execute.</param>
-        /// <remarks><see cref="StateConfiguration{T,TState,TTrigger}"/> also has trigger actions that should only occur while T is in a specific state.</remarks>
+        /// <remarks><see cref="Sync.StateConfiguration{T,TState,TTrigger}"/> also has trigger actions that should only occur while T is in a specific state.</remarks>
         /// <returns></returns>
-        public IStateMachineAsync<T, TState, TTrigger> AddTriggerAction(TTrigger trigger, Func<T, CancellationToken, Task> action)
+        public IStateMachine<T, TState, TTrigger> AddTriggerAction(TTrigger trigger, Func<T, CancellationToken, Task> action)
         {
             if (_triggerActions.ContainsKey(trigger))
             { throw new InvalidOperationException($"Only one action is allowed for {trigger} trigger."); }
@@ -80,9 +79,9 @@ namespace NStateManager.Async
         /// <typeparam name="TRequest">Parameter to be passed in from FireTrigger.</typeparam>
         /// <param name="trigger">The <see cref="TTrigger"/> for the action.</param>
         /// <param name="action">The action to execute.</param>
-        /// <remarks><see cref="StateConfiguration{T,TState,TTrigger}"/> also has trigger actions that should only occur while T is in a specific state.</remarks>
+        /// <remarks><see cref="Sync.StateConfiguration{T,TState,TTrigger}"/> also has trigger actions that should only occur while T is in a specific state.</remarks>
         /// <returns></returns>
-        public IStateMachineAsync<T, TState, TTrigger> AddTriggerAction<TRequest>(TTrigger trigger, Func<T, TRequest, CancellationToken, Task> action)
+        public IStateMachine<T, TState, TTrigger> AddTriggerAction<TRequest>(TTrigger trigger, Func<T, TRequest, CancellationToken, Task> action)
         {
             if (_triggerActions.ContainsKey(trigger))
             { throw new InvalidOperationException($"Only one action is allowed for {trigger} trigger."); }
@@ -97,12 +96,12 @@ namespace NStateManager.Async
         /// </summary>
         /// <param name="state">The <see cref="TState"/> to configure.</param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> ConfigureState(TState state)
+        public IStateConfiguration<T, TState, TTrigger> ConfigureState(TState state)
         {
             if (_stateConfigurations.TryGetValue(state, out var stateConfiguration))
             { return stateConfiguration; }
 
-            var newState = new StateConfigurationAsync<T,TState, TTrigger>(state, this);
+            var newState = new StateConfiguration<T,TState, TTrigger>(state, this);
             _stateConfigurations.Add(state, newState);
 
             return newState;
@@ -112,68 +111,31 @@ namespace NStateManager.Async
         /// Executes trigger.
         /// </summary>
         /// <param name="context">The items whose state is being managed.</param>
-        /// <param name="trigger">The event that has occured that may affect the state.</param>
+        /// <param name="trigger">The event that has occurred that may affect the state.</param>
         /// <param name="cancellationToken"><see cref="CancellationToken"/>Provides the ability to cancel an asynchronous operation.</param>
         /// <returns></returns>
-        public async Task<StateTransitionResult<TState, TTrigger>> FireTriggerAsync(T context, TTrigger trigger, CancellationToken cancellationToken = default(CancellationToken))
+        public Task<StateTransitionResult<TState, TTrigger>> FireTriggerAsync(T context, TTrigger trigger, CancellationToken cancellationToken = default)
         {
-            var startState = StateAccessor(context);
-
-            if (_triggerActions.TryGetValue(trigger, out var triggerAction))
-            {
-                await triggerAction.ExecuteAsync(context, request: null, cancellationToken: cancellationToken)
-                   .ConfigureAwait(continueOnCapturedContext: false);
-            }
-
-            var executionParameters = new ExecutionParameters<T, TTrigger>(trigger, context, cancellationToken);
-
-            var result = _stateConfigurations.TryGetValue(startState, out var stateConfiguration)
-                ? await stateConfiguration.FireTriggerAsync(executionParameters).ConfigureAwait(continueOnCapturedContext: false)
-                : new StateTransitionResult<TState, TTrigger>(trigger
-                    , startState
-                    , startState
-                    , startState
-                    , lastTransitionName: string.Empty
-                    , transitionDefined: false);
-
-            return await executeExitAndEntryActionsAsync(executionParameters, result).ConfigureAwait(continueOnCapturedContext: false);
+            return executeAsync(new ExecutionParameters<T, TTrigger>(trigger, context, cancellationToken)
+                , cancellationToken);
         }
 
         /// <summary>
         /// Executes trigger asynchronously with a <see cref="TRequest"/> parameter.
         /// </summary>
         /// <param name="context">The items whose state is being managed.</param>
-        /// <param name="trigger">The event that has occured that may affect the state.</param>
+        /// <param name="trigger">The event that has occurred that may affect the state.</param>
         /// <param name="request">The details of the event that's occurring.</param>
         /// <param name="cancellationToken"><see cref="CancellationToken"/>Provides the ability to cancel an asynchronous operation.</param>
         /// <returns></returns>
-        public async Task<StateTransitionResult<TState, TTrigger>> FireTriggerAsync<TRequest>(T context
+        public Task<StateTransitionResult<TState, TTrigger>> FireTriggerAsync<TRequest>(T context
           , TTrigger trigger
           , TRequest request
-          , CancellationToken cancellationToken = default(CancellationToken))
+          , CancellationToken cancellationToken = default)
             where TRequest : class
         {
-            var startState = StateAccessor(context);
-
-            if (_triggerActions.TryGetValue(trigger, out var triggerAction))
-            { await triggerAction.ExecuteAsync(context, cancellationToken, request).ConfigureAwait(continueOnCapturedContext: false); }
-
-            var executionParameters = new ExecutionParameters<T, TTrigger>(trigger, context, cancellationToken, request);
-
-            StateTransitionResult<TState, TTrigger> result;
-            if (!_stateConfigurations.TryGetValue(startState, out var stateConfiguration))
-            { result = new StateTransitionResult<TState, TTrigger>(trigger
-                , startState
-                , startState
-                , startState
-                , lastTransitionName: string.Empty
-                , transitionDefined: false); }
-            else
-            {
-                result = await stateConfiguration.FireTriggerAsync(executionParameters).ConfigureAwait(continueOnCapturedContext: false);
-            }
-
-            return await executeExitAndEntryActionsAsync(executionParameters, result).ConfigureAwait(continueOnCapturedContext: false);
+            return executeAsync(new ExecutionParameters<T, TTrigger>(trigger, context, cancellationToken, request)
+                , cancellationToken);
         }
 
         private async Task<StateTransitionResult<TState, TTrigger>> executeExitAndEntryActionsAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult)
@@ -184,8 +146,8 @@ namespace NStateManager.Async
                 _stateConfigurations.TryGetValue(currentResult.PreviousState, out var previousStateConfig);
                 _stateConfigurations.TryGetValue(currentResult.CurrentState, out var newStateConfig);
 
-                //OnExit? ...don't execute if moving to substate
-                if (previousStateConfig != null && !(newStateConfig != null && newStateConfig.IsSubstateOf(currentResult.PreviousState)))
+                //OnExit? ...don't execute if moving to sub-state
+                if (previousStateConfig != null && !(newStateConfig != null && newStateConfig.IsSubStateOf(currentResult.PreviousState)))
                 {
                     await previousStateConfig.ExecuteExitActionAsync(parameters, currentResult)
                         .ConfigureAwait(continueOnCapturedContext: false);
@@ -197,7 +159,7 @@ namespace NStateManager.Async
                 if (newStateConfig != null)
                 {
                     //OnEntry? ...don't execute if moving to superstate
-                    if (previousStateConfig != null && !previousStateConfig.IsSubstateOf(currentResult.CurrentState))
+                    if (previousStateConfig != null && !previousStateConfig.IsSubStateOf(currentResult.CurrentState))
                     {
                         await newStateConfig.ExecuteEntryActionAsync(parameters, currentResult)
                            .ConfigureAwait(continueOnCapturedContext: false);
@@ -252,7 +214,29 @@ namespace NStateManager.Async
             { return true; }
 
             return _stateConfigurations.TryGetValue(currentState, out var objectStateConfiguration) 
-                   && objectStateConfiguration.IsSubstateOf(stateToCheck);
+                   && objectStateConfiguration.IsSubStateOf(stateToCheck);
+        }
+
+        private async Task<StateTransitionResult<TState, TTrigger>> executeAsync(ExecutionParameters<T, TTrigger> parameters, CancellationToken cancellationToken = default)
+        {
+            var startState = StateAccessor(parameters.Context);
+
+            if (_triggerActions.TryGetValue(parameters.Trigger, out var triggerAction))
+            {
+                await triggerAction.ExecuteAsync(parameters.Context, request: null, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+            }
+
+            var result = _stateConfigurations.TryGetValue(startState, out var stateConfiguration)
+                ? await stateConfiguration.FireTriggerAsync(parameters).ConfigureAwait(continueOnCapturedContext: false)
+                : new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                    , startState
+                    , startState
+                    , startState
+                    , lastTransitionName: string.Empty
+                    , transitionDefined: false);
+
+            return await executeExitAndEntryActionsAsync(parameters, result).ConfigureAwait(continueOnCapturedContext: false);
         }
     }
 }

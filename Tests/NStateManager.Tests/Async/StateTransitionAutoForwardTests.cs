@@ -8,18 +8,18 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-using System.Threading.Tasks;
 using NStateManager.Async;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace NStateManager.Tests.Async
 {
-    public class StateTransitionAutoForwardAsyncTests
+    public class StateTransitionAutoForwardTests
     {
         //[Fact]
         //public void Constructor_throws_ArgumentNullException_if_condition_null()
         //{
-        //    Assert.Throws<ArgumentNullException>(() => new StateTransitionAutoForwardAsync<Sale, SaleState, SaleEvent>(
+        //    Assert.Throws<ArgumentNullException>(() => new StateTransitionAutoForward<Sale, SaleState, SaleEvent>(
         //        GetStateMachine()
         //        , triggerState: SaleState.Open
         //        , toState: SaleState.Open
@@ -33,9 +33,9 @@ namespace NStateManager.Tests.Async
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
 
-            var sut = new StateTransitionAutoForwardAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateTransitionAutoForward<Sale, SaleState, SaleEvent>(
                 getStateMachine()
                 , triggerState: startState
                 , toState: endState
@@ -58,14 +58,14 @@ namespace NStateManager.Tests.Async
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = SaleState.ChangeDue };
+            var sale = new Sale(saleId: 66) { State = SaleState.ChangeDue };
             var stateMachine = getStateMachine();
 
             var openStateConfig = stateMachine.ConfigureState(SaleState.Open);
             stateMachine.ConfigureState(SaleState.ChangeDue)
                .MakeSubStateOf(openStateConfig);
 
-            var sut = new StateTransitionAutoForwardAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateTransitionAutoForward<Sale, SaleState, SaleEvent>(
                 stateMachine
               , triggerState: startState
               , toState: endState
@@ -90,9 +90,9 @@ namespace NStateManager.Tests.Async
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
 
-            var sut = new StateTransitionAutoForwardAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateTransitionAutoForward<Sale, SaleState, SaleEvent>(
                 getStateMachine()
                 , triggerState: startState
                 , toState: endState
@@ -117,9 +117,9 @@ namespace NStateManager.Tests.Async
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
 
-            var sut = new StateTransitionAutoForwardAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateTransitionAutoForward<Sale, SaleState, SaleEvent>(
                 getStateMachine()
               , triggerState: startState
               , toState: endState
@@ -144,9 +144,9 @@ namespace NStateManager.Tests.Async
         {
             const SaleState startState = SaleState.Open;
             const SaleState endState = SaleState.Complete;
-            var sale = new Sale(saleID: 66) { State = startState };
+            var sale = new Sale(saleId: 66) { State = startState };
 
-            var sut = new StateTransitionAutoForwardAsync<Sale, SaleState, SaleEvent>(
+            var sut = new StateTransitionAutoForward<Sale, SaleState, SaleEvent>(
                 getStateMachine()
               , triggerState: SaleState.Complete
               , toState: endState
@@ -175,9 +175,9 @@ namespace NStateManager.Tests.Async
               , "transactionName");
         }
 
-        private static IStateMachineAsync<Sale, SaleState, SaleEvent> getStateMachine()
+        private static IStateMachine<Sale, SaleState, SaleEvent> getStateMachine()
         {
-            return new StateMachineAsync<Sale, SaleState, SaleEvent>(saleToUpdate => saleToUpdate.State
+            return new StateMachine<Sale, SaleState, SaleEvent>(saleToUpdate => saleToUpdate.State
               , (saleToUpdate, newState) => saleToUpdate.State = newState);
         }
     }

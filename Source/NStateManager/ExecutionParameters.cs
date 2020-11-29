@@ -21,7 +21,7 @@ namespace NStateManager
 
         public ExecutionParameters(TTrigger trigger
           , T context
-          , CancellationToken cancellationToken = default(CancellationToken)
+          , CancellationToken cancellationToken = default
           , object request = null)
         {
             Trigger = trigger;

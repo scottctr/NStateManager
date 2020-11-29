@@ -8,6 +8,7 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
+
 using System;
 using Xunit;
 
@@ -44,7 +45,7 @@ namespace NStateManager.Tests
         {
             void UpdateBalance(Sale sale, double newBalance) => sale.Balance = newBalance;
             var sut = new TriggerActionParameterized<Sale, SaleEvent, double>(UpdateBalance);
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.AddItem, new Sale(saleID: 24), request: "wrongType");
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.AddItem, new Sale(saleId: 24), request: "wrongType");
 
             Assert.Throws<ArgumentException>(() => sut.Execute(parameters));
         }
@@ -55,7 +56,7 @@ namespace NStateManager.Tests
             void UpdateBalance(Sale sale, double newBalance) => sale.Balance = newBalance;
             var sut = new TriggerActionParameterized<Sale, SaleEvent, double>(UpdateBalance);
 
-            var testSale = new Sale(saleID: 24);
+            var testSale = new Sale(saleId: 24);
             var updatedBalance = 23.45;
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.AddItem, testSale, request: updatedBalance);
 

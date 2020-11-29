@@ -22,25 +22,24 @@ namespace NStateManager.Async
     /// <typeparam name="T">The type of object being managed by the <see cref="Sync.StateMachine{T,TState,TTrigger}"/>.</typeparam>
     /// <typeparam name="TState">An allowable state for <see cref="T"/>.</typeparam>
     /// <typeparam name="TTrigger">A recognized trigger for changes to <see cref="T"/>.</typeparam>
-    public class StateConfigurationAsync<T, TState, TTrigger>
-        : StateConfigurationBase<T, TState, TTrigger>, IStateConfigurationAsyncInternal<T, TState, TTrigger>
+    public class StateConfiguration<T, TState, TTrigger>: StateConfigurationBase<T, TState, TTrigger>
+        , IStateConfigurationInternal<T, TState, TTrigger>
         where TState : IComparable
     {
         private readonly Dictionary<TState, Func<T, CancellationToken, Task>> _previousStateEntryActions = new Dictionary<TState, Func<T, CancellationToken, Task>>();
         private readonly Dictionary<TState, Func<T, CancellationToken, Task>> _nextStateExitActions = new Dictionary<TState, Func<T, CancellationToken, Task>>();
-        private readonly IStateMachineAsync<T, TState, TTrigger> _stateMachine;
+        private readonly IStateMachine<T, TState, TTrigger> _stateMachine;
         private readonly Dictionary<TTrigger, FunctionActionBase<T>> _triggerActions = new Dictionary<TTrigger, FunctionActionBase<T>>();
         private Func<T, CancellationToken, Task> _defaultEntryAction;
         private Func<T, CancellationToken, Task> _defaultExitAction;
         private Func<T, CancellationToken, Task> _reentryAction;
-        private IStateConfigurationAsyncInternal<T, TState, TTrigger> _superstate;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="state">The state being configured.</param>
         /// <param name="stateMachine">The state machine this configuration is associated with.</param>
-        internal StateConfigurationAsync(TState state, IStateMachineAsync<T, TState, TTrigger> stateMachine)
+        internal StateConfiguration(TState state, IStateMachine<T, TState, TTrigger> stateMachine)
             : base(state, stateMachine.StateAccessor, stateMachine.StateMutator)
         {
             _stateMachine = stateMachine;
@@ -54,7 +53,7 @@ namespace NStateManager.Async
         /// <param name="name">The name of the transition.</param>
         /// <param name="priority">The priority of the transition.</param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoDynamicTransition(TTrigger trigger, Func<T, TState> function, string name = null, uint priority = 1)
+        public IStateConfiguration<T, TState, TTrigger> AddAutoDynamicTransition(TTrigger trigger, Func<T, TState> function, string name = null, uint priority = 1)
         {
             var initialTransition = StateTransitionFactory<T, TState, TTrigger>.GetStateTransition(_stateMachine
               , State
@@ -67,7 +66,7 @@ namespace NStateManager.Async
             return this;
         }
 
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoDynamicTransition<TRequest>(TTrigger trigger
+        public IStateConfiguration<T, TState, TTrigger> AddAutoDynamicTransition<TRequest>(TTrigger trigger
           , Func<T, TRequest, TState> function
           , string name = null
           , uint priority = 1)
@@ -93,7 +92,7 @@ namespace NStateManager.Async
         /// <param name="name"></param>
         /// <param name="priority"></param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardTransition(TTrigger trigger
+        public IStateConfiguration<T, TState, TTrigger> AddAutoForwardTransition(TTrigger trigger
           , TState toState
           , Func<T, CancellationToken, Task<bool>> condition = null
           , string name = null
@@ -120,7 +119,7 @@ namespace NStateManager.Async
         /// <param name="name"></param>
         /// <param name="priority"></param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoForwardTransition<TRequest>(TTrigger trigger
+        public IStateConfiguration<T, TState, TTrigger> AddAutoForwardTransition<TRequest>(TTrigger trigger
           , TState toState
           , Func<T, TRequest, CancellationToken, Task<bool>> condition = null
           , string name = null
@@ -150,7 +149,7 @@ namespace NStateManager.Async
         /// <param name="name"></param>
         /// <param name="priority"></param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddDynamicTransition(TTrigger trigger
+        public IStateConfiguration<T, TState, TTrigger> AddDynamicTransition(TTrigger trigger
             , Func<T, TState> stateFunction
             , string name = null
             , uint priority = 1)
@@ -176,7 +175,7 @@ namespace NStateManager.Async
         /// <param name="name"></param>
         /// <param name="priority"></param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddDynamicTransition<TRequest>(TTrigger trigger
+        public IStateConfiguration<T, TState, TTrigger> AddDynamicTransition<TRequest>(TTrigger trigger
             , Func<T, TRequest, TState> stateFunction
             , string name = null
             , uint priority = 1)
@@ -199,7 +198,7 @@ namespace NStateManager.Async
         /// </summary>
         /// <param name="action">The action to execute.</param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddEntryAction(Func<T, CancellationToken, Task> action)
+        public IStateConfiguration<T, TState, TTrigger> AddEntryAction(Func<T, CancellationToken, Task> action)
         {
             if (_defaultEntryAction != null)
             { throw new InvalidOperationException("The default OnEntryAction has already be set."); }
@@ -215,7 +214,7 @@ namespace NStateManager.Async
         /// <param name="action">The action to execute.</param>
         /// <param name="previousState">The previous state required to execute the action.</param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddEntryAction(Func<T, CancellationToken, Task> action, TState previousState)
+        public IStateConfiguration<T, TState, TTrigger> AddEntryAction(Func<T, CancellationToken, Task> action, TState previousState)
         {
             if (action == null)
             { throw new ArgumentNullException(nameof(action)); }
@@ -233,7 +232,7 @@ namespace NStateManager.Async
         /// </summary>
         /// <param name="action">The action to execute.</param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddExitAction(Func<T, CancellationToken, Task> action)
+        public IStateConfiguration<T, TState, TTrigger> AddExitAction(Func<T, CancellationToken, Task> action)
         {
             if (_defaultExitAction != null)
             { throw new InvalidOperationException("Default exit action already set."); }
@@ -249,7 +248,7 @@ namespace NStateManager.Async
         /// <param name="action">The action to execute.</param>
         /// <param name="nextState">The conditional next <see cref="TState"/> for this action. The action only executes when transitioning to nextState.</param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddExitAction(Func<T, CancellationToken, Task> action, TState nextState)
+        public IStateConfiguration<T, TState, TTrigger> AddExitAction(Func<T, CancellationToken, Task> action, TState nextState)
         {
             if (action == null)
             { throw new ArgumentNullException(nameof(nextState)); }
@@ -262,7 +261,7 @@ namespace NStateManager.Async
             return this;
         }
 
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoFallbackTransition(TTrigger trigger
+        public IStateConfiguration<T, TState, TTrigger> AddAutoFallbackTransition(TTrigger trigger
           , TState tempState
           , Func<T, CancellationToken, Task<bool>> condition
           , string name = null
@@ -290,7 +289,7 @@ namespace NStateManager.Async
             return this;
         }
 
-        public IStateConfigurationAsync<T, TState, TTrigger> AddAutoFallbackTransition<TRequest>(TTrigger trigger
+        public IStateConfiguration<T, TState, TTrigger> AddAutoFallbackTransition<TRequest>(TTrigger trigger
           , TState tempState
           , Func<T, TRequest, CancellationToken, Task<bool>> condition
           , string name = null
@@ -325,7 +324,7 @@ namespace NStateManager.Async
         /// </summary>
         /// <param name="action">The action to execute.</param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddReentryAction(Func<T, CancellationToken, Task> action)
+        public IStateConfiguration<T, TState, TTrigger> AddReentryAction(Func<T, CancellationToken, Task> action)
         {
             if (_reentryAction != null)
             { throw new InvalidOperationException("The ReentryAction has already be set."); }
@@ -335,15 +334,15 @@ namespace NStateManager.Async
             return this;
         }
 
-        public void AddSuperstate(IStateConfigurationAsyncInternal<T, TState, TTrigger> superStateConfiguration)
+        public void AddSuperstate(IStateConfigurationInternal<T, TState, TTrigger> superStateConfiguration)
         {
-            if (IsSubstateOf(superStateConfiguration.State))
+            if (IsSubStateOf(superStateConfiguration.State))
             { throw new ArgumentOutOfRangeException($"{State} is already a sub-state of {superStateConfiguration.State}."); }
 
-            if (superStateConfiguration.IsSubstateOf(State))
+            if (superStateConfiguration.IsSubStateOf(State))
             { throw new ArgumentOutOfRangeException($"{superStateConfiguration.State} is already a sub-state of {State}."); }
 
-            _superstate = superStateConfiguration;
+            SuperStateConfig = superStateConfiguration;
         }
 
         /// <summary>
@@ -355,7 +354,7 @@ namespace NStateManager.Async
         /// <param name="name"></param>
         /// <param name="priority"></param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddTransition(TTrigger trigger
+        public IStateConfiguration<T, TState, TTrigger> AddTransition(TTrigger trigger
             , TState toState
             , Func<T, CancellationToken, Task<bool>> conditionAsync = null
             , string name = null
@@ -381,7 +380,7 @@ namespace NStateManager.Async
         /// <param name="name"></param>
         /// <param name="priority"></param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddTransition<TRequest>(TTrigger trigger
+        public IStateConfiguration<T, TState, TTrigger> AddTransition<TRequest>(TTrigger trigger
             , TState toState
             , Func<T, TRequest, CancellationToken, Task<bool>> conditionAsync
             , string name = null
@@ -408,7 +407,7 @@ namespace NStateManager.Async
         /// <param name="trigger">The <see cref="TTrigger"/> for the action.</param>
         /// <param name="action">The action to execute.</param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddTriggerAction(TTrigger trigger, Func<T, CancellationToken, Task> action)
+        public IStateConfiguration<T, TState, TTrigger> AddTriggerAction(TTrigger trigger, Func<T, CancellationToken, Task> action)
         {
             if (_triggerActions.ContainsKey(trigger))
             { throw new InvalidOperationException($"Only one action is allowed for {trigger} trigger."); }
@@ -425,7 +424,7 @@ namespace NStateManager.Async
         /// <param name="trigger">The <see cref="TTrigger"/> for the action.</param>
         /// <param name="action">The action to execute.</param>
         /// <returns></returns>
-        public IStateConfigurationAsync<T, TState, TTrigger> AddTriggerAction<TRequest>(TTrigger trigger
+        public IStateConfiguration<T, TState, TTrigger> AddTriggerAction<TRequest>(TTrigger trigger
           , Func<T, TRequest, CancellationToken, Task> action)
         {
             if (_triggerActions.ContainsKey(trigger))
@@ -452,8 +451,8 @@ namespace NStateManager.Async
             }
 
             //Check for a super state and just return the incoming currentResult if no successful auto transitions
-            return _superstate != null
-                ? await _superstate.ExecuteAutoTransitionAsync(parameters, currentResult).ConfigureAwait(continueOnCapturedContext: false)
+            return SuperStateConfig != null
+                ? await SuperStateConfig.ExecuteAutoTransitionAsync(parameters, currentResult).ConfigureAwait(continueOnCapturedContext: false)
                 : new StateTransitionResult<TState, TTrigger>(parameters.Trigger
                     , currentResult.StartingState
                     , currentResult.PreviousState
@@ -467,8 +466,8 @@ namespace NStateManager.Async
         public async Task ExecuteEntryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult)
         {
             //If there's an entry action for a new super state, execute it first
-            if (_superstate != null && !IsSubstateOf(currentResult.PreviousState))
-            { await _superstate.ExecuteEntryActionAsync(parameters, currentResult); }
+            if (SuperStateConfig != null && !IsSubStateOf(currentResult.PreviousState))
+            { await SuperStateConfig.ExecuteEntryActionAsync(parameters, currentResult); }
 
             //Is there an action based on the new state?
             if (_previousStateEntryActions.TryGetValue(currentResult.PreviousState, out var action))
@@ -492,9 +491,9 @@ namespace NStateManager.Async
 
         public async Task ExecuteReentryActionAsync(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> currentResult)
         {
-            if (_superstate != null)
+            if (SuperStateConfig != null)
             {
-                await _superstate.ExecuteReentryActionAsync(parameters, currentResult)
+                await SuperStateConfig.ExecuteReentryActionAsync(parameters, currentResult)
                     .ConfigureAwait(continueOnCapturedContext: false);
             }
 
@@ -542,14 +541,14 @@ namespace NStateManager.Async
 
             var result = await fireTriggerPrimAsync(parameters).ConfigureAwait(continueOnCapturedContext: false);
 
-            if (!(result?.WasTransitioned ?? false) && _superstate != null)
+            if (!(result?.WasTransitioned ?? false) && SuperStateConfig != null)
             {
-                result = await _superstate.FireTriggerAsync(parameters).ConfigureAwait(continueOnCapturedContext: false);
+                result = await SuperStateConfig.FireTriggerAsync(parameters).ConfigureAwait(continueOnCapturedContext: false);
             }
             else
             {
                 var startState = StateAccessor(parameters.Context);
-                result = result ?? new StateTransitionResult<TState, TTrigger>(parameters.Trigger
+                result ??= new StateTransitionResult<TState, TTrigger>(parameters.Trigger
                     , startState
                     , startState
                     , startState
@@ -560,37 +559,40 @@ namespace NStateManager.Async
             return result;
         }
 
+        public IStateConfigurationInternal<T, TState, TTrigger> SuperStateConfig { get; set; }
+
         private async Task<StateTransitionResult<TState, TTrigger>> fireTriggerPrimAsync(ExecutionParameters<T, TTrigger> parameters)
         {
-            StateTransitionResult<TState, TTrigger> result = null;
+            if (!Transitions.TryGetValue(parameters.Trigger, out var transitions))
+            { return null; }
 
-            if (Transitions.TryGetValue(parameters.Trigger, out var transitions))
+            StateTransitionResult<TState, TTrigger> result = null;
+            foreach (var transition in transitions.OrderBy(t => t.Priority))
             {
-                foreach (var transition in transitions.OrderBy(t => t.Priority))
-                {
-                    result = await transition.ExecuteAsync(parameters).ConfigureAwait(continueOnCapturedContext: false);
-                    if (result.WasTransitioned)
-                    { return result; }
-                }
+                result = await transition.ExecuteAsync(parameters).ConfigureAwait(continueOnCapturedContext: false);
+                if (result.WasTransitioned)
+                { return result; }
             }
 
             return result;
         }
 
-        public bool IsSubstateOf(TState state)
+        public bool IsSubState()
         {
-            if (_superstate is null)
-            { return false; }
-
-            if (state.Equals(_superstate.State))
-            { return true; }
-
-            return _superstate.IsSubstateOf(state);
+            return SuperStateConfig != null;
         }
 
-        public IStateConfigurationAsync<T, TState, TTrigger> MakeSubStateOf(IStateConfigurationAsync<T, TState, TTrigger> superStateConfiguration)
+        public bool IsSubStateOf(TState state)
         {
-            AddSuperstate(superStateConfiguration as IStateConfigurationAsyncInternal<T, TState, TTrigger>);
+            if (!IsSubState())
+            { return false; }
+
+            return state.Equals(SuperStateConfig.State) || SuperStateConfig.IsSubStateOf(state);
+        }
+
+        public IStateConfiguration<T, TState, TTrigger> MakeSubStateOf(IStateConfiguration<T, TState, TTrigger> superStateConfiguration)
+        {
+            AddSuperstate(superStateConfiguration as IStateConfigurationInternal<T, TState, TTrigger>);
 
             return this;
         }
@@ -604,9 +606,9 @@ namespace NStateManager.Async
             otherStateConfig.AddAutoTransition(trigger, transition);
         }
 
-        private IStateConfigurationAsyncInternal<T, TState, TTrigger> getTargetStateConfiguration(TState targetState)
+        private IStateConfigurationInternal<T, TState, TTrigger> getTargetStateConfiguration(TState targetState)
         {
-            return _stateMachine.ConfigureState(targetState) as IStateConfigurationAsyncInternal<T, TState, TTrigger>;
+            return _stateMachine.ConfigureState(targetState) as IStateConfigurationInternal<T, TState, TTrigger>;
         }
     }
 }

@@ -33,7 +33,7 @@ namespace NStateManager.Tests.Sync
         }
 
         [Fact]
-        public void Execute_fails_if_startState_doesnt_match()
+        public void Execute_fails_if_startState_does_not_match()
         {
             var sut = new StateTransitionAutoDynamic<Sale, SaleState, SaleEvent>(getStateMachine()
               , SaleState.Open
@@ -51,7 +51,7 @@ namespace NStateManager.Tests.Sync
         }
 
         [Fact]
-        public void Execute_fails_if_triggerState_doesnt_match()
+        public void Execute_fails_if_triggerState_does_not_match()
         {
             var sut = new StateTransitionAutoDynamic<Sale, SaleState, SaleEvent>(getStateMachine()
               , SaleState.Open
@@ -79,7 +79,7 @@ namespace NStateManager.Tests.Sync
               , "autocomplete"
               , priority: 1);
 
-            var testSale = new Sale(saleID: 2) { State = SaleState.Open };
+            var testSale = new Sale(saleId: 2) { State = SaleState.Open };
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.Open, SaleState.ChangeDue, "previousTransition");
 
@@ -99,7 +99,7 @@ namespace NStateManager.Tests.Sync
         {
             var stateMachine = getStateMachine();
             var openStateConfig = stateMachine.ConfigureState(SaleState.Open);
-            stateMachine.ConfigureState(SaleState.ChangeDue).MakeSubstateOf(openStateConfig);
+            stateMachine.ConfigureState(SaleState.ChangeDue).MakeSubStateOf(openStateConfig);
 
             var sut = new StateTransitionAutoDynamic<Sale, SaleState, SaleEvent>(stateMachine
               , SaleState.Open
@@ -108,7 +108,7 @@ namespace NStateManager.Tests.Sync
               , "autoComplete"
               , priority: 1);
                 
-            var testSale = new Sale(saleID: 2) { State = SaleState.ChangeDue };
+            var testSale = new Sale(saleId: 2) { State = SaleState.ChangeDue };
             var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.Open, SaleState.ChangeDue, "previousTransition");
 
@@ -123,9 +123,9 @@ namespace NStateManager.Tests.Sync
             Assert.Equal(SaleState.Complete, testSale.State);
         }
 
-        private NStateManager.Sync.StateMachine<Sale, SaleState, SaleEvent> getStateMachine()
+        private StateMachine<Sale, SaleState, SaleEvent> getStateMachine()
         {
-            return new NStateManager.Sync.StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newSate) => sale.State = newSate);
+            return new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newSate) => sale.State = newSate);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace NStateManager
         public ExecutionParameters<T, TTrigger> Parameters { get; }
 
         /// <summary>
-        /// Details of transitions that occured during FireTrigger.
+        /// Details of transitions that occurred during FireTrigger.
         /// </summary>
         public StateTransitionResult<TState, TTrigger> TransitionResult { get; }
 
@@ -28,7 +28,7 @@ namespace NStateManager
         /// Constructor.
         /// </summary>
         /// <param name="parameters">Parameters used for the call to FireTrigger.</param>
-        /// <param name="transitionResult">Details of transitions that occured during FireTrigger.</param>
+        /// <param name="transitionResult">Details of transitions that occurred during FireTrigger.</param>
         public TransitionEventArgs(ExecutionParameters<T, TTrigger> parameters, StateTransitionResult<TState, TTrigger> transitionResult)
         {
             Parameters = parameters ?? throw new ArgumentNullException(nameof(parameters));

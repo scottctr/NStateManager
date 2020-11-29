@@ -185,10 +185,10 @@ namespace NStateManager.Sync
         IStateConfiguration<T, TState, TTrigger> AddTriggerAction<TRequest>(TTrigger trigger, Action<T, TRequest> action);
 
         /// <summary>
-        /// Makes the current state a substate of the specified state configuration.
+        /// Makes the current state a sub-state of the specified state configuration.
         /// </summary>
         /// <param name="superstateConfiguration">The configured super state.</param>
         /// <returns></returns>
-        IStateConfiguration<T, TState, TTrigger> MakeSubstateOf(IStateConfiguration<T, TState, TTrigger> superstateConfiguration);
+        IStateConfiguration<T, TState, TTrigger> MakeSubStateOf(IStateConfiguration<T, TState, TTrigger> superstateConfiguration);
     }
 }

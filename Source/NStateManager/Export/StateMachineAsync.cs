@@ -12,22 +12,26 @@ using NStateManager.Export;
 using System;
 using System.Linq;
 
+// ReSharper disable once CheckNamespace
 namespace NStateManager.Async
 {
-    public sealed partial class StateMachineAsync<T, TState, TTrigger> where TState : IComparable
+    public sealed partial class StateMachine<T, TState, TTrigger> where TState : IComparable
     {
         public ConfigurationSummary<TState, TTrigger> GetSummary()
         {
             var result = new ConfigurationSummary<TState, TTrigger>();
 
-            AddNonConfiguredStates(result);
+            addNonConfiguredStates(result);
             // Build a list of stateDetails
             var stateDetailsByState = _stateConfigurations.ToDictionary(config => config.Key, config => result.AddState(config.Key));
 
-            foreach (var config in _stateConfigurations)
+            foreach (var stateConfig in _stateConfigurations)
             {
-                var fromStateDetails = stateDetailsByState[config.Key];
-                foreach (var transitions in (config.Value as StateConfigurationBase<T, TState, TTrigger>).Transitions)
+                var fromStateDetails = stateDetailsByState[stateConfig.Key];
+                if (!(stateConfig.Value is StateConfigurationBase<T, TState, TTrigger> stateConfigBase))
+                { continue; }
+
+                foreach (var transitions in stateConfigBase.Transitions)
                 {
                     foreach (var transition in transitions.Value)
                     {
@@ -36,14 +40,14 @@ namespace NStateManager.Async
                           , transition is StateTransitionNonDynamic<T, TState, TTrigger> nonDynamic
                                 ? result.StateDetails.First(s => s.State.IsEqual(nonDynamic.ToState))
                                 : stateDetailsByState.First().Value
-                          , (transition is StateTransitionAsync<T, TState, TTrigger> condTransition)
+                          , (transition is StateTransition<T, TState, TTrigger> condTransition)
                                 && condTransition.HasCondition
                           , transition.Priority
                           , transition is StateTransitionDynamicBase<T, TState, TTrigger>);
                     }
                 }
 
-                foreach (var transitions in (config.Value as StateConfigurationBase<T, TState, TTrigger>).AutoTransitions)
+                foreach (var transitions in stateConfigBase.AutoTransitions)
                 {
                     foreach (var transition in transitions.Value)
                     {
@@ -52,7 +56,7 @@ namespace NStateManager.Async
                           , transition is StateTransitionNonDynamic<T, TState, TTrigger> nonDynamic
                                 ? result.StateDetails.First(s => s.State.IsEqual(nonDynamic.ToState))
                                 : stateDetailsByState.First().Value
-                          , (transition is StateTransitionAsync<T, TState, TTrigger> condTransition)
+                          , (transition is StateTransition<T, TState, TTrigger> condTransition)
                          && condTransition.HasCondition
                           , transition.Priority
                           , transition is StateTransitionDynamicBase<T, TState, TTrigger>);
@@ -63,20 +67,19 @@ namespace NStateManager.Async
             return result;
         }
 
-        private void AddNonConfiguredStates(ConfigurationSummary<TState, TTrigger> summary)
+        private static void addNonConfiguredStates(ConfigurationSummary<TState, TTrigger> summary)
         {
             var dictionaryType = summary.GetType();
             var stateType = dictionaryType.GetGenericArguments().First();
 
-            if (stateType.IsEnum)
-            {
-                var enumTypes = Enum.GetValues(stateType);
+            if (!stateType.IsEnum)
+            { return; }
 
-                foreach (var enumType in enumTypes)
-                {
-                    var realEnumType = (TState) enumType;
-                    summary.AddState(realEnumType);
-                }
+            var enumTypes = Enum.GetValues(stateType);
+            foreach (var enumType in enumTypes)
+            {
+                var realEnumType = (TState) enumType;
+                summary.AddState(realEnumType);
             }
 
             //TODO Non-configured non-enums

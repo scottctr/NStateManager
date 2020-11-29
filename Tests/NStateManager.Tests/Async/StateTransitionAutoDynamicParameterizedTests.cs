@@ -13,77 +13,77 @@ using Xunit;
 
 namespace NStateManager.Tests.Async
 {
-    public class StateTransitionAutoDynamicAsyncTests
+    public class StateTransitionAutoDynamicParameterizedTests
     {
         [Fact]
-        public async void ExecuteAsync_fails_if_currentResult_is_null()
+        public void Execute_fails_if_currentResult_is_null()
         {
-            var sut = new StateTransitionAutoDynamicAsync<Sale, SaleState, SaleEvent>(getStateMachine()
+            var sut = new StateTransitionAutoDynamicParameterized<Sale, SaleState, SaleEvent, string>(getStateMachine()
               , SaleState.Open
-              , _ => SaleState.Complete
+              , (sale, stringParam) => SaleState.Complete
               , SaleState.ChangeDue
               , "autocomplete"
               , priority: 1);
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleID: 2) { State = SaleState.Open } );
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleId: 2) { State = SaleState.Open }, request: "testParam");
 
-            var result = await sut.ExecuteAsync(parameters);
+            var result = sut.Execute(parameters);
 
             Assert.False(result.WasTransitioned);
             Assert.True(result.TransitionDefined);
         }
 
         [Fact]
-        public async void ExecuteAsync_fails_if_startState_does_not_match()
+        public void Execute_fails_if_startState_does_not_match()
         {
-            var sut = new StateTransitionAutoDynamicAsync<Sale, SaleState, SaleEvent>(getStateMachine()
+            var sut = new StateTransitionAutoDynamicParameterized<Sale, SaleState, SaleEvent, string>(getStateMachine()
               , SaleState.Open
-              , _ => SaleState.Complete
+              , (sale, stringParam) => SaleState.Complete
               , SaleState.ChangeDue
               , "autocomplete"
               , priority: 1);
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleID: 2) { State = SaleState.Open });
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleId: 2) { State = SaleState.Open }, request: "testParam");
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.ChangeDue, SaleState.ChangeDue, "autoChangeDue");
 
-            var result = await sut.ExecuteAsync(parameters, previousResult);
+            var result = sut.Execute(parameters, previousResult);
 
             Assert.False(result.WasTransitioned);
             Assert.True(result.TransitionDefined);
         }
 
         [Fact]
-        public async void ExecuteAsync_fails_if_triggerState_does_not_match()
+        public void Execute_fails_if_triggerState_does_not_match()
         {
-            var sut = new StateTransitionAutoDynamicAsync<Sale, SaleState, SaleEvent>(getStateMachine()
+            var sut = new StateTransitionAutoDynamicParameterized<Sale, SaleState, SaleEvent, string>(getStateMachine()
               , SaleState.Open
-              , _ => SaleState.Complete
+              , (sale, stringParam) => SaleState.Complete
               , SaleState.ChangeDue
               , "autocomplete"
               , priority: 1);
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleID: 2) { State = SaleState.Open });
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, new Sale(saleId: 2) { State = SaleState.Open }, request: "testParam");
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.Open, SaleState.Open, "autoChangeDue");
 
-            var result = await sut.ExecuteAsync(parameters, previousResult);
+            var result = sut.Execute(parameters, previousResult);
 
             Assert.False(result.WasTransitioned);
             Assert.True(result.TransitionDefined);
         }
 
         [Fact]
-        public async void ExecuteAsync_transitions_when_matched()
+        public void Execute_transitions_when_matched()
         {
             var stateMachine = getStateMachine();
-            var sut = new StateTransitionAutoDynamicAsync<Sale, SaleState, SaleEvent>(stateMachine
+            var sut = new StateTransitionAutoDynamicParameterized<Sale, SaleState, SaleEvent, string>(stateMachine
               , SaleState.Open
-              , _ => SaleState.Complete
+              , (sale, stringParam) => SaleState.Complete
               , SaleState.ChangeDue
               , "autocomplete"
               , priority: 1);
 
-            var testSale = new Sale(saleID: 2) { State = SaleState.Open };
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
+            var testSale = new Sale(saleId: 2) { State = SaleState.Open };
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale, request: "testParam");
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.Open, SaleState.ChangeDue, "previousTransition");
 
-            var result = await sut.ExecuteAsync(parameters, previousResult);
+            var result = sut.Execute(parameters, previousResult);
 
             Assert.True(result.WasTransitioned);
             Assert.Equal("autocomplete", result.LastTransitionName);
@@ -95,24 +95,24 @@ namespace NStateManager.Tests.Async
         }
 
         [Fact]
-        public async void ExecuteAsync_transitions_when_matched_superState()
+        public void Execute_transitions_when_matched_superState()
         {
             var stateMachine = getStateMachine();
             var openStateConfig = stateMachine.ConfigureState(SaleState.Open);
             stateMachine.ConfigureState(SaleState.ChangeDue).MakeSubStateOf(openStateConfig);
 
-            var sut = new StateTransitionAutoDynamicAsync<Sale, SaleState, SaleEvent>(stateMachine
+            var sut = new StateTransitionAutoDynamicParameterized<Sale, SaleState, SaleEvent, string>(stateMachine
               , SaleState.Open
-              , _ => SaleState.Complete
+              , (sale, stringParam) => SaleState.Complete
               , SaleState.Open
               , "autoComplete"
               , priority: 1);
                 
-            var testSale = new Sale(saleID: 2) { State = SaleState.ChangeDue };
-            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale);
+            var testSale = new Sale(saleId: 2) { State = SaleState.ChangeDue };
+            var parameters = new ExecutionParameters<Sale, SaleEvent>(SaleEvent.Pay, testSale, request: "testParam");
             var previousResult = new StateTransitionResult<SaleState, SaleEvent>(SaleEvent.Pay, SaleState.Open, SaleState.Open, SaleState.ChangeDue, "previousTransition");
 
-            var result = await sut.ExecuteAsync(parameters, previousResult);
+            var result = sut.Execute(parameters, previousResult);
 
             Assert.True(result.WasTransitioned);
             Assert.Equal("autoComplete", result.LastTransitionName);
@@ -123,9 +123,9 @@ namespace NStateManager.Tests.Async
             Assert.Equal(SaleState.Complete, testSale.State);
         }
 
-        private static StateMachineAsync<Sale, SaleState, SaleEvent> getStateMachine()
+        private StateMachine<Sale, SaleState, SaleEvent> getStateMachine()
         {
-            return new StateMachineAsync<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newSate) => sale.State = newSate);
+            return new StateMachine<Sale, SaleState, SaleEvent>(sale => sale.State, (sale, newSate) => sale.State = newSate);
         }
     }
 }

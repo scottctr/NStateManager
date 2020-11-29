@@ -9,19 +9,25 @@
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
 
-using Xunit;
-
 namespace NStateManager.Tests
 {
-    public class ExecutionParametersTests
+    public class TestProduct
     {
-        [Fact]
-        public void Constructor_sets_properties()
+        public TestProduct(int id, string name, string singularUnitName, string pluralUnitName, double unitPrice, string imageClassName)
         {
-            var sut = new ExecutionParameters<int, string>("trigger", context: 4, request: "Scott");
-
-            Assert.Equal(expected: 4, actual: sut.Context);
-            Assert.Equal("Scott", sut.Request);
+            Id = id;
+            Name = name;
+            SingularUnitName = singularUnitName;
+            PluralUnitName = pluralUnitName;
+            UnitPrice = unitPrice;
+            ImageClassName = imageClassName;
         }
+
+        public int Id { get; }
+        public string Name { get; }
+        public string SingularUnitName { get; }
+        public string PluralUnitName { get; }
+        public double UnitPrice { get; }
+        public string ImageClassName { get; }
     }
 }

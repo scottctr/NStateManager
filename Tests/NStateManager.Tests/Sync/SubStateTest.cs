@@ -42,7 +42,7 @@ namespace NStateManager.Tests
                 .AddExitAction(_ => _testOutputHelper.WriteLine("SuperState OnExit"));
 
             stateMachine.ConfigureState(State.SubState)
-                .MakeSubstateOf(stateMachine.ConfigureState(State.SuperState))
+                .MakeSubStateOf(stateMachine.ConfigureState(State.SuperState))
                 .AddTransition(Trigger.Two, State.SuperState)
                 .AddEntryAction(_ => _testOutputHelper.WriteLine("SubState OnEntry"))
                 .AddExitAction(_ => _testOutputHelper.WriteLine("SubState OnExit"));

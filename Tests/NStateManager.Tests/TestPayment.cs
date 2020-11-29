@@ -8,24 +8,16 @@
 //distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
-using NSimpleTester;
-using NStateManager.Export;
-using Xunit;
 
-namespace NStateManager.Tests.Export
+namespace NStateManager.Tests
 {
-    public class StateTransitionDetailsTests
+    public class TestPayment
     {
-        [Fact]
-        public void Properties_work()
+        public TestPayment(double amount)
         {
-            var classTester = new ClassTester(new TransitionDetails<SaleState, SaleEvent>("test"
-                , new StateDetails<SaleState, SaleEvent>(SaleState.Open)
-                , SaleEvent.AddItem));
-            classTester.TestConstructors();
-            //classTester.TestEquality();
-            classTester.TestProperties();
-
+            Amount = amount;
         }
+
+        public double Amount { get; }
     }
 }

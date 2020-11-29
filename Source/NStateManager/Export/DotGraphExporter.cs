@@ -10,6 +10,7 @@ namespace NStateManager.Export
         {
             var dotGraph = new StringBuilder();
             dotGraph.AppendLine("digraph NStateManagerGraph {");
+            // ReSharper disable once StringLiteralTypo
             dotGraph.AppendLine("\trankdir=LR");
 
             //List all the nodes. Note sure this is needed, but do want to show nodes that aren't included in transitions.
@@ -21,7 +22,7 @@ namespace NStateManager.Export
             {
                 dotGraph.Append($"\t{transition.FromState.State} -> {transition.ToState.State}");
 
-                dotGraph.Append($" [label=\"");
+                dotGraph.Append(" [label=\"");
 
                 if (!string.IsNullOrWhiteSpace(transition.Name))
                 { dotGraph.Append(transition.Trigger); }
@@ -48,7 +49,7 @@ namespace NStateManager.Export
             {
                 dotGraph.Append("\t{ rank=same;");
                 foreach (var state in summary.FinalStates)
-                { dotGraph.Append(" " + state.State); }
+                { dotGraph.Append(" " + state.State + ';'); }
                 dotGraph.AppendLine(" }");
             }
 
