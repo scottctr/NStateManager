@@ -6,7 +6,7 @@
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>3.10.1</Version>
+    <Version>4.0.0</Version>
     <Authors>Scott L Carter</Authors>
     <Company>Scott L Carter</Company>
     <Copyright>Copyright (c) 2019 Scott L. Carter</Copyright>
@@ -14,8 +14,8 @@
     <PackageProjectUrl>https://github.com/scottctr/NStateManager</PackageProjectUrl>
     <RepositoryUrl>https://github.com/scottctr/NStateManager</RepositoryUrl>
     <PackageId>NStateManager</PackageId>
-    <AssemblyVersion>3.10.1</AssemblyVersion>
-    <FileVersion>3.10.1</FileVersion>
+    <AssemblyVersion>4.0.0</AssemblyVersion>
+    <FileVersion>4.0.0</FileVersion>
     <PackageReleaseNotes></PackageReleaseNotes>
     <Description>Easy to use and very flexible state manager for .Net.</Description>
     <LangVersion>latest</LangVersion>
