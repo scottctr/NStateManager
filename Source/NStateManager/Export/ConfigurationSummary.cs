@@ -23,7 +23,9 @@ namespace NStateManager.Export
            .Where(t => t.ToState.IsFinalState)
            .Select(t => t.ToState)
            .Distinct()
-           .ToList(); 
+           .ToList();
+
+        public bool HasSubStates => StateDetails.Any(s => s.IsSuperState);
             
         public IReadOnlyList<StateDetails<TState, TTrigger>> StartingStates => Transitions
            .Where(t => t.FromState.IsStartingState)

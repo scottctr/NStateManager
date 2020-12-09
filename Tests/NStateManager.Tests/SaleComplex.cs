@@ -9,30 +9,9 @@
 //See the License for the specific language governing permissions and limitations under the License.
 #endregion
 namespace NStateManager.Tests
-{ 
-    public enum SaleState
+{
+    public class SaleComplex
     {
-        Open,
-        ChangeDue,
-        Complete
-    }
-
-    public enum SaleEvent
-    {
-        AddItem,
-        Pay,
-        ChangeGiven
-    }
-
-    public class Sale
-    {
-        public double Balance { get; set; }
-        public SaleState State { get; set; }
-        public int SaleId { get; }
-
-        public Sale(int saleId)
-        {
-            SaleId = saleId;
-        }
+        public SaleComplexState State { get; internal set; }
     }
 }

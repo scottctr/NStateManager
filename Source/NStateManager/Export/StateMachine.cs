@@ -28,6 +28,10 @@ namespace NStateManager.Sync
             foreach (var stateConfig in _stateConfigurations)
             {
                 var fromStateDetails = stateDetailsByState[stateConfig.Key];
+
+                if (stateConfig.Value.IsSubState())
+                { fromStateDetails.AddSuperState(stateDetailsByState[stateConfig.Value.SuperStateConfig.State]); }
+
                 if (!(stateConfig.Value is StateConfigurationBase<T, TState, TTrigger> stateConfigBase))
                 { continue; }
 
@@ -64,7 +68,24 @@ namespace NStateManager.Sync
                 }
             }
 
+            setStateLevels(result);
+
             return result;
+        }
+
+        private static void setStateLevels(ConfigurationSummary<TState, TTrigger> configurationSummary)
+        {
+            foreach (var state in configurationSummary.StateDetails)
+            {
+                if (!state.IsSuperState)
+                { continue; }
+
+                if (state.StateLevel == 0)
+                { state.StateLevel = 1; }
+
+                foreach (var subState in state.SubStates)
+                { subState.StateLevel = state.StateLevel + 1; }
+            }
         }
 
         private static void addNonConfiguredStates(ConfigurationSummary<TState, TTrigger> summary)

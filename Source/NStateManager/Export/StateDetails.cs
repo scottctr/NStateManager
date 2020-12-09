@@ -31,8 +31,11 @@ namespace NStateManager.Export
         public IReadOnlyList<TransitionDetails<TState, TTrigger>> TransitionsTo => _transitionsTo.ToList();
 
         public bool IsStartingState => !_transitionsTo.Any();
+        public bool IsSubState => SuperState != null;
         public bool IsSuperState => _subStates.Any();
         public bool IsFinalState { get; private set; }
+
+        public int StateLevel;
 
         public StateDetails(TState state)
         {
@@ -46,6 +49,8 @@ namespace NStateManager.Export
             if (_subStates.Contains(subStateDetails))
             { return this; }
 
+            //!!!
+            Console.WriteLine($"adding {subStateDetails.State} as subState of {State}");
             _subStates.Add(subStateDetails);
             subStateDetails.AddSuperState(this);
 
